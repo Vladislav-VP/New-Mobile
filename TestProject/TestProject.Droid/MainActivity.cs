@@ -1,26 +1,44 @@
-﻿using Android.App;
-using Android.OS;
-using Android.Support.V7.App;
+﻿using System;
+using Android.App;
+using Android.Content;
 using Android.Runtime;
+using Android.Views;
 using Android.Widget;
+using Android.OS;
+
 
 namespace TestProject.Droid
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
-    public class MainActivity : AppCompatActivity
+    //[Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
+    [Activity(Label = "options Menu", MainLauncher = true)]
+    public class MainActivity : Activity
     {
-        protected override void OnCreate(Bundle savedInstanceState)
+        protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(savedInstanceState);
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            // Set our view from the "main" layout resource
-            SetContentView(Resource.Layout.activity_main);
+            base.OnCreate(bundle);
+            SetContentView(Resource.Layout.Main);
+            //Button showPopupMenu = FindViewById<Button>(Resource.Id.popupButton);
+            //showPopupMenu.Click += (s, arg) =>
+            //{
+            //    PopupMenu menu = new PopupMenu(this, showPopupMenu);
+            //    menu.Inflate(Resource.Menu.popMenu);
+            //    menu.Show();
+            //};
         }
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
-        {
-            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
+        //public override bool OnCreateOptionsMenu(IMenu menu)
+        //{
+        //    MenuInflater.Inflate(Resource.Layout.myMenu, menu);
+        //    return base.OnPrepareOptionsMenu(menu);
+        //}
+
+        //public override bool OnOptionsItemSelected(IMenuItem item)
+        //{
+        //    if (item.ItemId == Resource.Id.file_settings)
+        //    {
+        //        return true;
+        //    }
+        //    return base.OnOptionsItemSelected(item);
+        //}
     }
 }
