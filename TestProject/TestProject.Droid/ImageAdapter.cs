@@ -17,7 +17,14 @@ namespace TestProject.Droid
     {
         private Context _context;
 
-        private int[] _images =
+        private const int _width = 100;
+        private const int _height = 100;
+        private const int _left = 8;
+        private const int _right = 8;
+        private const int _top = 8;
+        private const int _bottom = 8;
+
+        private int[] _cars =
         {
             Resource.Drawable.car1,
             Resource.Drawable.car2,
@@ -40,7 +47,7 @@ namespace TestProject.Droid
         {
             get
             {
-                return _images.Length;
+                return _cars.Length;
             }
         }
 
@@ -56,11 +63,21 @@ namespace TestProject.Droid
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            ImageView image = new ImageView(_context);
-            image.SetImageResource(_images[position]);
-            image.SetScaleType(ImageView.ScaleType.FitXy);
-            image.LayoutParameters = new Gallery.LayoutParams(200, 100);
-            return image;
+            ImageView imageView;
+            if (convertView == null)
+            {
+                imageView = new ImageView(_context);
+                imageView.LayoutParameters = new GridView.LayoutParams(_width, _height);
+                imageView.SetScaleType(ImageView.ScaleType.CenterCrop);
+                imageView.SetPadding(_left, _top, _right, _bottom);
+            }
+            else
+            {
+                imageView = (ImageView)convertView;
+            }
+
+            imageView.SetImageResource(_cars[position]);
+            return imageView;
         }
     }
 }

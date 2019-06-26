@@ -3509,6 +3509,9 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a000a
 			public const int ghost_view = 2131361802;
 			
+			// aapt resource value: 0x7f0a00af
+			public const int gridView1 = 2131361967;
+			
 			// aapt resource value: 0x7f0a0081
 			public const int group_divider = 2131361921;
 			
@@ -3556,9 +3559,6 @@ namespace TestProject.Droid
 			
 			// aapt resource value: 0x7f0a0024
 			public const int listMode = 2131361828;
-			
-			// aapt resource value: 0x7f0a00af
-			public const int listView1 = 2131361967;
 			
 			// aapt resource value: 0x7f0a0070
 			public const int list_item = 2131361904;

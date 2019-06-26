@@ -16,14 +16,12 @@ namespace TestProject.Droid
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
-            ListView listView = FindViewById<ListView>(Resource.Id.listView1);
-            string[] data = new string[]
-            {
-                "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-                "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
-                "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"
-            };
-            listView.Adapter = new ArrayAdapter(this, Resource.Layout.listViewTemplate, data);
+            GridView gridView = FindViewById<GridView>(Resource.Id.gridView1);
+            gridView.Adapter = new ImageAdapter(this);
+            gridView.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs e)
+              {
+                  Toast.MakeText(this, (e.Position + 1).ToString(), ToastLength.Short).Show();
+              };
         }
     }
 }
