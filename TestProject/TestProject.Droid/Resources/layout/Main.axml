@@ -4,11 +4,9 @@
     android:background="#d3d3d3"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <Button
-        android:id="@+id/alertButton"
+    <Gallery
+        android:id="@+id/gallery1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Click to Delete"
-        android:textColor="@android:color/background_dark"
-        android:background="@android:color/holo_green_dark" />
+        android:padding="10dp" />
 </LinearLayout>

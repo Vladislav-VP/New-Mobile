@@ -16,23 +16,13 @@ namespace TestProject.Droid
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
-            Button button = FindViewById<Button>(Resource.Id.alertButton);
-            button.Click += delegate
-            {
-                AlertDialog.Builder alertDiag = new AlertDialog.Builder(this);
-                alertDiag.SetTitle("Confirm delete");
-                alertDiag.SetMessage("Once deleted the move cannot be undone");
-                alertDiag.SetPositiveButton("Delete", (senderAlert, args) =>
-                {
-                    Toast.MakeText(this, "Deleted", ToastLength.Short).Show();
-                });
-                alertDiag.SetNegativeButton("Cancel", (senderAlert, args) =>
-                {
-                    alertDiag.Dispose();
-                });
-                Dialog dialog = alertDiag.Create();
-                dialog.Show();
-            };
+            Gallery gallery = FindViewById<Gallery>(Resource.Id.gallery1);
+            gallery.Adapter = new ImageAdapter(this);
+            gallery.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs e)
+              {
+                  Toast.MakeText(this, (e.Position + 1).ToString(),
+                      ToastLength.Short).Show();
+              };
         }
     }
 }
