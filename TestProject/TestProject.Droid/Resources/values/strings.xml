@@ -1,6 +1,15 @@
 <?xml version = "1.0" encoding = "utf-8"?>
 <resources>
-  <string name = "HelloXamarin">Hello World, I am Xamarin!</string>
-  <string name = "app_name">helloWorld</string>
-  <string name = "ButtonClick">Click Me!</string>
+  <string name = "app_name"></string>
+  <string name = "daysOfWeek">Choose a planet</string>
+  <string-array name="days_array">
+    <item>Sunday</item>
+    <item>Monday</item>
+    <item>Tuesday</item>
+    <item>Wednesday</item>
+    <item>Thursday</item>
+    <item>Friday</item>
+    <item>Saturday</item>
+    <item>Sunday</item>
+  </string-array>
 </resources>

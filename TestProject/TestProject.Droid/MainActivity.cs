@@ -12,28 +12,24 @@ namespace TestProject.Droid
     [Activity(Label = "options Menu", MainLauncher = true)]
     public class MainActivity : Activity
     {
-        private TextView _showCurrentTime;
-
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
-            TimePicker pickTime = FindViewById<TimePicker>(Resource.Id.timePicker1);
-            _showCurrentTime = FindViewById<TextView>(Resource.Id.txtShowTime);
-            SetCurrentTime();
-            Button button = FindViewById<Button>(Resource.Id.btnSetTime);
-            button.Click += delegate
-            {
-                _showCurrentTime.Text = string.Format("{0}:{1}",
-                    pickTime.CurrentHour, pickTime.CurrentMinute);
-            };
+            Spinner spinnerDays = FindViewById<Spinner>(Resource.Id.spinner1);
+            spinnerDays.ItemSelected +=
+                new EventHandler<AdapterView.ItemSelectedEventArgs>(SelectDay);
+            var adapter = ArrayAdapter.CreateFromResource(this, 
+                Resource.Array.days_array, Android.Resource.Layout.SimpleSpinnerItem);
+            adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            spinnerDays.Adapter = adapter;
         }
 
-        private void SetCurrentTime()
+        private void SelectDay(object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            string time = string.Format("{0}", 
-                DateTime.Now.ToString("HH:mm").PadLeft(2, '0'));
-            _showCurrentTime.Text = time;
+            Spinner spinner = (Spinner)sender;
+            string toast = string.Format("The selected day is {0}", spinner.GetItemAtPosition(e.Position));
+            Toast.MakeText(this, toast, ToastLength.Long).Show();
         }
     }
 }
