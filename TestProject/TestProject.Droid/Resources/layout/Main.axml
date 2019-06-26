@@ -1,41 +1,75 @@
 <?xml version = "1.0" encoding = "utf-8"?> 
-<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android" 
-   android:layout_width = "match_parent" 
-   android:layout_height = "match_parent" 
-   android:paddingLeft = "16dp" 
-   android:background = "#d3d3d3" 
-   android:paddingRight = "16dp"> 
-   <EditText 
-      android:id = "@+id/name" 
-      android:layout_width = "match_parent" 
-      android:layout_height = "wrap_content" 
-      android:hint = "First Name" 
-      android:textColorHint = "@android:color/background_dark" 
-      android:textColor = "@android:color/background_dark" /> 
-   <EditText 
-      android:id = "@+id/lastName" 
-      android:layout_width = "0dp" 
-      android:layout_height = "wrap_content" 
-      android:hint = "Last Name" 
-      android:layout_below = "@id/name" 
-      android:textColorHint = "@android:color/background_dark" 
-      android:textColor = "@android:color/background_dark" 
-      android:layout_alignParentLeft = "true" 
-      android:layout_toLeftOf = "@+id/age" /> 
-   <EditText 
-      android:id = "@id/age" 
-      android:layout_width = "80dp" 
-      android:layout_height = "wrap_content" 
-      android:layout_below = "@id/name" 
-      android:hint = "Age" 
-      android:textColorHint = "@android:color/background_dark"
-      android:textColor = "@android:color/background_dark" 
-      android:layout_alignParentRight = "true" /> 
-   <Button 
-      android:layout_width = "85dp" 
-      android:layout_height = "wrap_content" 
-      android:layout_below = "@id/age" 
-      android:layout_alignParentRight = "true" 
-      android:text = "Submit" 
-      android:background = "@android:color/holo_green_dark" /> 
-</RelativeLayout> 
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:background="#d3d3d3"
+    android:layout_height="fill_parent"
+    android:stretchColumns="1">
+
+    <TableRow>
+        <TextView
+            android:text="First Name:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black" />
+        <EditText
+            android:width="100px"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:textColor="@android:color/black" />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="Last Name:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black" />
+        <EditText
+            android:width="50px"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:textColor="@android:color/black" />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="Residence:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black" />
+        <EditText
+            android:width="100px"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:textColor="@android:color/black" />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="Occupation:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black" />
+        <EditText
+            android:width="100px"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:textColor="@android:color/black" />
+    </TableRow>
+
+    <TableRow>
+        <Button
+            android:text="Cancel"
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_green_dark" />
+        <Button
+            android:text="Submit"
+            android:width="100px"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_green_dark" />
+    </TableRow>
+</TableLayout>
