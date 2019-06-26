@@ -16,20 +16,23 @@ namespace TestProject.Droid
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
-            Spinner spinnerDays = FindViewById<Spinner>(Resource.Id.spinner1);
-            spinnerDays.ItemSelected +=
-                new EventHandler<AdapterView.ItemSelectedEventArgs>(SelectDay);
-            var adapter = ArrayAdapter.CreateFromResource(this, 
-                Resource.Array.days_array, Android.Resource.Layout.SimpleSpinnerItem);
-            adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-            spinnerDays.Adapter = adapter;
-        }
-
-        private void SelectDay(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            Spinner spinner = (Spinner)sender;
-            string toast = string.Format("The selected day is {0}", spinner.GetItemAtPosition(e.Position));
-            Toast.MakeText(this, toast, ToastLength.Long).Show();
+            Button button = FindViewById<Button>(Resource.Id.alertButton);
+            button.Click += delegate
+            {
+                AlertDialog.Builder alertDiag = new AlertDialog.Builder(this);
+                alertDiag.SetTitle("Confirm delete");
+                alertDiag.SetMessage("Once deleted the move cannot be undone");
+                alertDiag.SetPositiveButton("Delete", (senderAlert, args) =>
+                {
+                    Toast.MakeText(this, "Deleted", ToastLength.Short).Show();
+                });
+                alertDiag.SetNegativeButton("Cancel", (senderAlert, args) =>
+                {
+                    alertDiag.Dispose();
+                });
+                Dialog dialog = alertDiag.Create();
+                dialog.Show();
+            };
         }
     }
 }

@@ -3329,6 +3329,9 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a002e
 			public const int add = 2131361838;
 			
+			// aapt resource value: 0x7f0a00ae
+			public const int alertButton = 2131361966;
+			
 			// aapt resource value: 0x7f0a007f
 			public const int alertTitle = 2131361919;
 			
@@ -3697,9 +3700,6 @@ namespace TestProject.Droid
 			
 			// aapt resource value: 0x7f0a0073
 			public const int spacer = 2131361907;
-			
-			// aapt resource value: 0x7f0a00ae
-			public const int spinner1 = 2131361966;
 			
 			// aapt resource value: 0x7f0a0008
 			public const int split_action_bar = 2131361800;
