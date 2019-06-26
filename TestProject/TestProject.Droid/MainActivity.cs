@@ -9,36 +9,31 @@ using Android.OS;
 
 namespace TestProject.Droid
 {
-    //[Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
     [Activity(Label = "options Menu", MainLauncher = true)]
     public class MainActivity : Activity
     {
+        private TextView _showCurrentDate;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
-            //Button showPopupMenu = FindViewById<Button>(Resource.Id.popupButton);
-            //showPopupMenu.Click += (s, arg) =>
-            //{
-            //    PopupMenu menu = new PopupMenu(this, showPopupMenu);
-            //    menu.Inflate(Resource.Menu.popMenu);
-            //    menu.Show();
-            //};
+            DatePicker pickDate = FindViewById<DatePicker>(Resource.Id.datePicker1);
+            _showCurrentDate = FindViewById<TextView>(Resource.Id.txtShowDate);
+            SetCurrentDate();
+            Button button = FindViewById<Button>(Resource.Id.btnSetDate);
+            button.Click += delegate
+            {
+                _showCurrentDate.Text = string.Format("{0}/{1}/{2}",
+                    pickDate.Month, pickDate.DayOfMonth, pickDate.Year);
+            };
         }
 
-        //public override bool OnCreateOptionsMenu(IMenu menu)
-        //{
-        //    MenuInflater.Inflate(Resource.Layout.myMenu, menu);
-        //    return base.OnPrepareOptionsMenu(menu);
-        //}
-
-        //public override bool OnOptionsItemSelected(IMenuItem item)
-        //{
-        //    if (item.ItemId == Resource.Id.file_settings)
-        //    {
-        //        return true;
-        //    }
-        //    return base.OnOptionsItemSelected(item);
-        //}
+        private void SetCurrentDate()
+        {
+            string todaysDate = string.Format("{0}", 
+                DateTime.Now.ToString("M/d/yyy").PadLeft(2, '0'));
+            _showCurrentDate.Text = todaysDate;
+        }
     }
 }
