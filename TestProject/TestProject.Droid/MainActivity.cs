@@ -12,28 +12,28 @@ namespace TestProject.Droid
     [Activity(Label = "options Menu", MainLauncher = true)]
     public class MainActivity : Activity
     {
-        private TextView _showCurrentDate;
+        private TextView _showCurrentTime;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
-            DatePicker pickDate = FindViewById<DatePicker>(Resource.Id.datePicker1);
-            _showCurrentDate = FindViewById<TextView>(Resource.Id.txtShowDate);
-            SetCurrentDate();
-            Button button = FindViewById<Button>(Resource.Id.btnSetDate);
+            TimePicker pickTime = FindViewById<TimePicker>(Resource.Id.timePicker1);
+            _showCurrentTime = FindViewById<TextView>(Resource.Id.txtShowTime);
+            SetCurrentTime();
+            Button button = FindViewById<Button>(Resource.Id.btnSetTime);
             button.Click += delegate
             {
-                _showCurrentDate.Text = string.Format("{0}/{1}/{2}",
-                    pickDate.Month, pickDate.DayOfMonth, pickDate.Year);
+                _showCurrentTime.Text = string.Format("{0}:{1}",
+                    pickTime.CurrentHour, pickTime.CurrentMinute);
             };
         }
 
-        private void SetCurrentDate()
+        private void SetCurrentTime()
         {
-            string todaysDate = string.Format("{0}", 
-                DateTime.Now.ToString("M/d/yyy").PadLeft(2, '0'));
-            _showCurrentDate.Text = todaysDate;
+            string time = string.Format("{0}", 
+                DateTime.Now.ToString("HH:mm").PadLeft(2, '0'));
+            _showCurrentTime.Text = time;
         }
     }
 }

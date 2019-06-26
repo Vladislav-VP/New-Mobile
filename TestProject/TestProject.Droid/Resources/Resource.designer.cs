@@ -3353,7 +3353,7 @@ namespace TestProject.Droid
 			public const int browser_actions_menu_view = 2131361949;
 			
 			// aapt resource value: 0x7f0a00b0
-			public const int btnSetDate = 2131361968;
+			public const int btnSetTime = 2131361968;
 			
 			// aapt resource value: 0x7f0a0072
 			public const int buttonPanel = 2131361906;
@@ -3399,9 +3399,6 @@ namespace TestProject.Droid
 			
 			// aapt resource value: 0x7f0a007b
 			public const int customPanel = 2131361915;
-			
-			// aapt resource value: 0x7f0a00ae
-			public const int datePicker1 = 2131361966;
 			
 			// aapt resource value: 0x7f0a008b
 			public const int decor_content_parent = 2131361931;
@@ -3754,6 +3751,9 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a00ba
 			public const int time = 2131361978;
 			
+			// aapt resource value: 0x7f0a00ae
+			public const int timePicker1 = 2131361966;
+			
 			// aapt resource value: 0x7f0a0023
 			public const int title = 2131361827;
 			
@@ -3788,7 +3788,7 @@ namespace TestProject.Droid
 			public const int transition_transform = 2131361811;
 			
 			// aapt resource value: 0x7f0a00af
-			public const int txtShowDate = 2131361967;
+			public const int txtShowTime = 2131361967;
 			
 			// aapt resource value: 0x7f0a0034
 			public const int uniform = 2131361844;
