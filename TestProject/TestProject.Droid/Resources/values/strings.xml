@@ -1,6 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8"?>
 <resources>
   <string name = "app_name"></string>
+  <string name = "help">Help</string>
   <string name = "daysOfWeek">Choose a planet</string>
   <string-array name="days_array">
     <item>Sunday</item>
