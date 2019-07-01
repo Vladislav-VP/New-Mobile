@@ -2,15 +2,10 @@
 <resources>
   <string name = "app_name"></string>
   <string name = "help">Help</string>
-  <string name = "daysOfWeek">Choose a planet</string>
-  <string-array name="days_array">
-    <item>Sunday</item>
-    <item>Monday</item>
-    <item>Tuesday</item>
-    <item>Wednesday</item>
-    <item>Thursday</item>
-    <item>Friday</item>
-    <item>Saturday</item>
-    <item>Sunday</item>
-  </string-array>
+  <string name="taskList">Tasks</string>
+  <string name="taskLabel">Task name</string>
+  <string name="description">Description</string>
+  <string name="doneText">Done</string>
+  <string name="saveTask">Save</string>
+  <string name="deleteTask">Delete</string>
 </resources>

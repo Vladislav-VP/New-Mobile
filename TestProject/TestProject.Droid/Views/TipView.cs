@@ -5,7 +5,7 @@ using TestProject.Core.ViewModels;
 
 namespace TestProject.Droid.Views
 {
-    [Activity(Label = "Tip Calculator", MainLauncher = true)]
+    [Activity(Label = "Tip Calculator", MainLauncher = false)]
     public class TipView : MvxActivity<TipViewModel>
     {
         protected override void OnCreate(Bundle bundle)

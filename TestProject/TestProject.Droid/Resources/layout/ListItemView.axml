@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:background="@android:color/holo_blue_light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/objectivesTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/taskList"
+            android:textColor="@android:color/background_light"
+            android:textSize="35dp"
+            android:textAlignment="center"
+            android:layout_marginHorizontal="80dp"
+        />
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+        />
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+        />
+    </RelativeLayout>
+    
+    
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        
+        android:minHeight="50dp"
+        android:background="@android:color/darker_gray"
+    />
+    
+</LinearLayout>

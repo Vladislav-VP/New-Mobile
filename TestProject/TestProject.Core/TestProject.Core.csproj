@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\CalculationService.cs" />
+    <Compile Remove="Services\ICalculationService.cs" />
+    <Compile Remove="ViewModels\TipViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MvvmCross" Version="6.3.1" />
   </ItemGroup>
 
