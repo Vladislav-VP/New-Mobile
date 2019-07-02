@@ -14,17 +14,16 @@ using MvvmCross.Platforms.Android.Presenters.Attributes;
 using MvvmCross;
 using MvvmCross.Platforms.Android.Views;
 using TestProject.Core.ViewModels;
+using MvvmCross.Droid.Support.V4;
 
 namespace TestProject.Droid.Views
 {
-    [MvxActivityPresentation]
-    [Activity(Label = "Task list", MainLauncher = true)]
-    public class ListItemView : MvxActivity<ListItemViewModel>
+    [MvxFragmentPresentation]
+    public class TodoListItemView : MvxFragment<TodoListItemViewModel>
     {
-        protected override void OnCreate(Bundle bundle)
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            base.OnCreate(bundle);
-            SetContentView(Resource.Layout.ListItemView);
+            return base.OnCreateView(inflater, container, savedInstanceState);
         }
     }
 }

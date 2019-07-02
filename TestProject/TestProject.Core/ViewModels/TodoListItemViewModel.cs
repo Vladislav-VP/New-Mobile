@@ -7,11 +7,11 @@ using TestProject.Core.Models;
 namespace TestProject.Core.ViewModels
 {
 
-    public class ListItemViewModel : MvxViewModel
+    public class TodoListItemViewModel : MvxViewModel
     {
-        private MvxObservableCollection<Item> _items;
+        private MvxObservableCollection<TodoItemModel> _items;
 
-        public MvxObservableCollection<Item> Items
+        public MvxObservableCollection<TodoItemModel> Items
         {
             get => _items;
             set
