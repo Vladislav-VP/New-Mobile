@@ -23,14 +23,6 @@ namespace TestProject.Droid.Views
             get => (MvxAppCompatActivity)Activity;
         }
 
-        public BaseFragment()
-        {
-        }
-
-        public BaseFragment(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
-        {
-        }
-
         protected abstract int FragmentId { get; }
         
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -39,7 +31,7 @@ namespace TestProject.Droid.Views
 
             var view = this.BindingInflate(FragmentId, null);
 
-            return view;
+            return this.BindingInflate(FragmentId, null);
         }       
     }
 
@@ -49,14 +41,6 @@ namespace TestProject.Droid.Views
         {
             get => (TViewModel)base.ViewModel;
             set => base.ViewModel = value;
-        }
-
-        public BaseFragment()
-        {
-        }
-
-        public BaseFragment(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
-        {
         }
     }
 }

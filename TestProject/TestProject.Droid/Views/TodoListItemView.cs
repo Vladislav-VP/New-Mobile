@@ -17,43 +17,31 @@ using TestProject.Core.ViewModels;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Droid.Support.V7.RecyclerView;
+using Android.Support.V7.Widget;
 
 namespace TestProject.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_layout)]
     [Register("testProject.droid.views.TodoListItemFragment")]
 
-    public class TodoListItemFragment : BaseFragment<TodoListItemViewModel>
-    {
-        
-
+    public class TodoListItemView : BaseFragment<TodoListItemViewModel>
+    {        
         protected override int FragmentId => Resource.Layout.TodoListItemView;
-                
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
+            var view = base.OnCreateView(inflater, container, savedInstanceState);
 
-            try
+            var recyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.todoItemsRecyclerView);
+
+            if (recyclerView != null)
             {
-                var view = base.OnCreateView(inflater, container, savedInstanceState);
-
-                var recyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.todoItemsRecyclerView);
-
-                return view;
+                recyclerView.HasFixedSize = true;
+                var layoutManager = new LinearLayoutManager(Activity);
+                recyclerView.SetLayoutManager(layoutManager);
             }
-            catch (Exception ex)
-            {
 
-                throw;
-            }
-         
-        }
-
-        public TodoListItemFragment()
-        {
-        }
-
-        public TodoListItemFragment(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
-        {
+            return view;
         }
     }
 }

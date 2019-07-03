@@ -7,5 +7,6 @@
   <string name="description">Description</string>
   <string name="doneText">Done</string>
   <string name="saveTask">Save</string>
-  <string name="deleteTask">Delete</string>
+  <string name="deleteTask">Delete</string>\
+  <string name="createTask">Create</string>
 </resources>

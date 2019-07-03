@@ -72,7 +72,7 @@
     <Compile Include="Views\EditTodoItemView.cs" />
     <Compile Include="Views\CreateTodoItemView.cs" />
     <Compile Include="Views\MainView.cs" />
-    <Compile Include="Views\TodoListItemFragment.cs" />
+    <Compile Include="Views\TodoListItemView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
