@@ -1,4 +1,5 @@
-﻿using MvvmCross;
+﻿using Acr.UserDialogs;
+using MvvmCross;
 using MvvmCross.ViewModels;
 using TestProject.Core.ViewModels;
 
@@ -9,8 +10,9 @@ public class App : MvxApplication
     {
         public override void Initialize()
         {
+            Mvx.IoCProvider.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
 
-            RegisterAppStart<TodoListItemViewModel>();
+            RegisterCustomAppStart<AppStart>();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace TestProject.Core
 
         protected override Task NavigateToFirstViewModel(object hint = null)
         {
-            return NavigationService.Navigate<TodoListItemViewModel>();
+            return NavigationService.Navigate<MainViewModel>();
         }
     }
 }
