@@ -36,7 +36,7 @@ namespace TestProject.Core.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TestProject.Core.Resources.Strings", typeof(Strings).Assembly);
@@ -51,7 +51,7 @@ namespace TestProject.Core.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -66,6 +66,15 @@ namespace TestProject.Core.Resources {
         public static string newTask {
             get {
                 return ResourceManager.GetString("newTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registrate.
+        /// </summary>
+        public static string registrateUser {
+            get {
+                return ResourceManager.GetString("registrateUser", resourceCulture);
             }
         }
     }

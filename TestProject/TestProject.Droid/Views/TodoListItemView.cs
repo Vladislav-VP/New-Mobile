@@ -32,14 +32,6 @@ namespace TestProject.Droid.Views
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState);
 
-            //var recyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.todoItemsRecyclerView);
-
-            //if (recyclerView != null)
-            //{
-            //    var layoutManager = new LinearLayoutManager(Activity);
-            //    recyclerView.SetLayoutManager(layoutManager);
-            //}
-
             return view;
         }
     }

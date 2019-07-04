@@ -29,12 +29,23 @@ namespace TestProject.Core.ViewModels
         public LoginViewModel(IMvxNavigationService navigationService)
         {
             _navigationService = navigationService;
+
+            RegistrateCommand = new MvxAsyncCommand(RegistrateUser);
+            LoginCommand = new MvxAsyncCommand(Login);
         }
 
-        public IMvxCommand LoginCommand { get; private set; }   // Initialaze
+        public IMvxAsyncCommand LoginCommand { get; private set; }   // Initialaze
         
-        public IMvxCommand RegisterCommand { get; private set; }   // Initialaze
+        public IMvxAsyncCommand RegistrateCommand { get; private set; }   // Initialaze
 
+        private async Task RegistrateUser()
+        {
+            var result = await _navigationService.Navigate<RegistrateViewModel>();
+        }
 
+        private async Task Login()
+        {
+            var result = await _navigationService.Navigate<TodoListItemViewModel>();
+        }
     }
 }

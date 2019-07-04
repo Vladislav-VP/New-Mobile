@@ -30,6 +30,12 @@ namespace TestProject.Core.ViewModels
             _navigationService = navigationService;
         }
 
+        public IMvxAsyncCommand<UserModel> RegistrateUserCommand { get; private set; }
 
+        private async Task UserRegistrated()
+        {
+            var result = await _navigationService.Navigate<TodoListItemViewModel>();
+            // Write logic
+        }
     }
 }

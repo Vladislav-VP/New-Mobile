@@ -121,4 +121,7 @@
     <value>New task</value>
     <comment>Used while creating a new task</comment>
   </data>
+  <data name="registrateUser" xml:space="preserve">
+    <value>Registrate</value>
+  </data>
 </root>

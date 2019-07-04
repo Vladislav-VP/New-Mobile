@@ -4,14 +4,14 @@ using System.Text;
 using System.Threading.Tasks;
 using TestProject.Core.Services.Interfaces;
 using SQLite;
+using SQLiteNetExtensions;
+using SQLitePCL;
+using TestProject.Core.Models;
 
 namespace TestProject.Core.Services
 {
-    public class DBService : IDBService
+    public class DBService 
     {
-        //public async Task<string> CreateDatabase(string path)
-        //{
-        //    SQLiteConnection    
-        //}
+        
     }
 }

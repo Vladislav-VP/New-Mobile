@@ -39,10 +39,12 @@
             android:password="true"
             android:textSize="30dp"/>
         <Button
+            android:id="@+id/btLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/loginText"
-            android:textSize="30dp"/>
+            android:textSize="30dp"
+            local:MvxBind="Click LoginCommand"/>
     </LinearLayout>
 
     <LinearLayout
@@ -62,7 +64,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/registrateText"
-            android:textSize="30dp"/>
+            android:textSize="30dp"
+            local:MvxBind="Click RegistrateCommand"/>
     </LinearLayout>
 
 </LinearLayout>
