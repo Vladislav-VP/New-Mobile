@@ -69,9 +69,12 @@
     <Compile Include="Setup.cs" />
     <Compile Include="SplashScreen.cs" />
     <Compile Include="Views\BaseFragment.cs" />
+    <Compile Include="Views\BaseTodoItemView.cs" />
     <Compile Include="Views\EditTodoItemView.cs" />
     <Compile Include="Views\CreateTodoItemView.cs" />
+    <Compile Include="Views\LoginView.cs" />
     <Compile Include="Views\MainView.cs" />
+    <Compile Include="Views\RegistrateView.cs" />
     <Compile Include="Views\TodoListItemView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +156,16 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\screen.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\TodoItemTemplate.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\LoginTemplate.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

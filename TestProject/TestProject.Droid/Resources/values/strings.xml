@@ -7,6 +7,11 @@
   <string name="description">Description</string>
   <string name="doneText">Done</string>
   <string name="saveTask">Save</string>
-  <string name="deleteTask">Delete</string>\
+  <string name="deleteTask">Delete</string>
   <string name="createTask">Create</string>
+  <string name="loginText">Log in</string>
+  <string name="usernameText">Username</string>
+  <string name="passwordText">Password</string>
+  <string name="accountText">Without an account?</string>
+  <string name="registrateText">Registrate</string>
 </resources>

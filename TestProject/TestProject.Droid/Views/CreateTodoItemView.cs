@@ -12,6 +12,7 @@ using Android.Widget;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Views;
 using TestProject.Core.ViewModels;
+using TestProject.Core.Resources;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using MvvmCross;
 using MvvmCross.Droid.Support.V4;
@@ -24,6 +25,26 @@ namespace TestProject.Droid.Views
     [Register("testProject.droid.views.CreateTodoItemView")]
     public class CreateTodoItemView : BaseFragment<CreateTodoItemViewModel>
     {
-        protected override int FragmentId => Resource.Layout.CreateTodoItemView;
+        protected override int FragmentId => Resource.Layout.TodoItemTemplate;
+
+        private Button _saveButton;
+
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        {
+            var view = base.OnCreateView(inflater, container, savedInstanceState);
+
+            _saveButton = view.FindViewById<Button>(Resource.Id.btCreate);
+            if (_saveButton != null)
+            {
+                _saveButton.Enabled = false;
+            }
+
+            var headerText = view.FindViewById<TextView>(Resource.Id.taskNameTextView);
+            if (headerText != null)
+            {
+                headerText.Text = Strings.newTask;
+            }
+            return view;
+        }
     }
 }

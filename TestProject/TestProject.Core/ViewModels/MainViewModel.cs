@@ -18,7 +18,7 @@ namespace TestProject.Core.ViewModels
             _navigationService = navigationService;
 
             LoadTodoItemListCommand = new MvxAsyncCommand(async () =>
-                await _navigationService.Navigate<TodoListItemViewModel>());
+                await _navigationService.Navigate</*TodoListItemViewModel*/LoginViewModel>());
         }
     }
 }
