@@ -7,6 +7,6 @@ namespace TestProject.Core.Services.Interfaces
 {
     public interface IDBService
     {
-        Task<string> CreateDatabase(string path);
+        string CreateDatabase(string path);
     }
 }

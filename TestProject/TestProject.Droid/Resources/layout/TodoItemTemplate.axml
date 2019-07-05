@@ -43,7 +43,7 @@
             android:layout_height="50dp"
             android:background="#fffd"
             android:layout_margin="5dp"
-            local:MvxBind="Text Item.Name"
+            local:MvxBind="Text ItemModel.Name"
         />
         <TextView
             android:id="@+id/descriptionLabel"          
@@ -59,7 +59,7 @@
             android:layout_height="150dp"
             android:background="#fffd"
             android:layout_margin="5dp"
-            local:MvxBind="Text Item.Description"
+            local:MvxBind="Text ItemModel.Description"
         />
     </LinearLayout>
                
@@ -70,7 +70,7 @@
         <CheckBox
             android:layout_width="30dp"
             android:layout_height="30dp"
-            local:MvxBind="Checked Item.Done"
+            local:MvxBind="Checked ItemModel.IsDone"
         />
         <TextView
             android:id="@+id/doneTextView"          
@@ -82,20 +82,26 @@
         />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btCreate"
-        android:layout_width="188dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_margin="5dp"
-        android:text="@string/createTask"
-    />
+    
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        
+        <Button
+        android:id="@+id/btSave"
+        android:layout_width="188dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="5dp"
+        android:text="@string/saveTask"/>
+        <Button
+        android:id="@+id/btDelete"
+        android:layout_width="188dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_margin="5dp"
+        android:text="@string/deleteTask"/>
     </RelativeLayout>
 </LinearLayout>

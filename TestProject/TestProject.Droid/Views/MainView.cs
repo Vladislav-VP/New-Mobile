@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 using Acr.UserDialogs;
 using Android.App;
@@ -15,6 +16,9 @@ using MvvmCross.Platforms.Android.Presenters.Attributes;
 using MvvmCross.Platforms.Android.Views;
 using TestProject.Core.ViewModels;
 using Android.Content.PM;
+using TestProject.Core;
+using TestProject.Core.Services.Interfaces;
+using TestProject.Core.Services;
 
 namespace TestProject.Droid.Views
 {

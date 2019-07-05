@@ -6,6 +6,6 @@ namespace TestProject.Core
 {
     public static class Constants
     {
-        public static string DatabasePath = "TestProjectDB.sqlite";
+        public static string DatabasePath = "TestProjectDB.db";
     }
 }

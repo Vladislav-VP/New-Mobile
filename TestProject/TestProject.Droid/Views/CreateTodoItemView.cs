@@ -33,12 +33,11 @@ namespace TestProject.Droid.Views
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState);
 
-            _saveButton = view.FindViewById<Button>(Resource.Id.btCreate);
-            if (_saveButton != null)
+            var btDelete = view.FindViewById<Button>(Resource.Id.btDelete);
+            if (btDelete != null)
             {
-                _saveButton.Enabled = false;
+                btDelete.Enabled = false;
             }
-
             var headerText = view.FindViewById<TextView>(Resource.Id.taskNameTextView);
             if (headerText != null)
             {

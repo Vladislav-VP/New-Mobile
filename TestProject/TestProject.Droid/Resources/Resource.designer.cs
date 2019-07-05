@@ -8799,8 +8799,14 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a00ab
 			public const int btCreate = 2131361963;
 			
+			// aapt resource value: 0x7f0a00cf
+			public const int btDelete = 2131361999;
+			
 			// aapt resource value: 0x7f0a00bd
 			public const int btLogin = 2131361981;
+			
+			// aapt resource value: 0x7f0a00ce
+			public const int btSave = 2131361998;
 			
 			// aapt resource value: 0x7f0a0074
 			public const int buttonPanel = 2131361908;
@@ -8988,8 +8994,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a00bc
 			public const int loginLayout = 2131361980;
 			
-			// aapt resource value: 0x7f0a00d1
-			public const int masked = 2131362001;
+			// aapt resource value: 0x7f0a00d3
+			public const int masked = 2131362003;
 			
 			// aapt resource value: 0x7f0a009e
 			public const int message = 2131361950;
@@ -9030,8 +9036,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a00c3
 			public const int notification_main_column_container = 2131361987;
 			
-			// aapt resource value: 0x7f0a00ce
-			public const int objectivesTextView = 2131361998;
+			// aapt resource value: 0x7f0a00d0
+			public const int objectivesTextView = 2131362000;
 			
 			// aapt resource value: 0x7f0a0062
 			public const int outline = 2131361890;
@@ -9249,8 +9255,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a0080
 			public const int title_template = 2131361920;
 			
-			// aapt resource value: 0x7f0a00cf
-			public const int todoItemsRecyclerView = 2131361999;
+			// aapt resource value: 0x7f0a00d1
+			public const int todoItemsRecyclerView = 2131362001;
 			
 			// aapt resource value: 0x7f0a0047
 			public const int top = 2131361863;
@@ -9291,8 +9297,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a001b
 			public const int view_offset_helper = 2131361819;
 			
-			// aapt resource value: 0x7f0a00d0
-			public const int visible = 2131362000;
+			// aapt resource value: 0x7f0a00d2
+			public const int visible = 2131362002;
 			
 			// aapt resource value: 0x7f0a0045
 			public const int withText = 2131361861;
@@ -9746,8 +9752,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0d001a
 			public const int abc_toolbar_collapse_description = 2131558426;
 			
-			// aapt resource value: 0x7f0d0045
-			public const int accountText = 2131558469;
+			// aapt resource value: 0x7f0d0044
+			public const int accountText = 2131558468;
 			
 			// aapt resource value: 0x7f0d0039
 			public const int app_name = 2131558457;
@@ -9763,9 +9769,6 @@ namespace TestProject.Droid
 			
 			// aapt resource value: 0x7f0d002b
 			public const int character_counter_pattern = 2131558443;
-			
-			// aapt resource value: 0x7f0d0041
-			public const int createTask = 2131558465;
 			
 			// aapt resource value: 0x7f0d0040
 			public const int deleteTask = 2131558464;
@@ -9794,14 +9797,14 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0d0038
 			public const int library_name = 2131558456;
 			
-			// aapt resource value: 0x7f0d0042
-			public const int loginText = 2131558466;
+			// aapt resource value: 0x7f0d0041
+			public const int loginText = 2131558465;
 			
 			// aapt resource value: 0x7f0d002f
 			public const int mtrl_chip_close_icon_content_description = 2131558447;
 			
-			// aapt resource value: 0x7f0d0044
-			public const int passwordText = 2131558468;
+			// aapt resource value: 0x7f0d0043
+			public const int passwordText = 2131558467;
 			
 			// aapt resource value: 0x7f0d0030
 			public const int password_toggle_content_description = 2131558448;
@@ -9818,8 +9821,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0d0034
 			public const int path_password_strike_through = 2131558452;
 			
-			// aapt resource value: 0x7f0d0046
-			public const int registrateText = 2131558470;
+			// aapt resource value: 0x7f0d0045
+			public const int registrateText = 2131558469;
 			
 			// aapt resource value: 0x7f0d003f
 			public const int saveTask = 2131558463;
@@ -9836,8 +9839,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0d003b
 			public const int taskList = 2131558459;
 			
-			// aapt resource value: 0x7f0d0043
-			public const int usernameText = 2131558467;
+			// aapt resource value: 0x7f0d0042
+			public const int usernameText = 2131558466;
 			
 			// aapt resource value: 0x7f0d0037
 			public const int view_scroll_translation_autohide_behavior = 2131558455;
