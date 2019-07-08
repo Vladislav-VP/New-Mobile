@@ -12,26 +12,64 @@ namespace TestProject.Core.Services
 {
     public class DBService : IDBService
     {
-        public string CreateDatabase(string path)
+        private string _path;
+
+        public DBService()
         {
-            var connection = new SQLiteAsyncConnection(path);
-            string result;
+            string docsFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
+            _path = System.IO.Path.Combine(docsFolder, Constants.DatabaseFile);
+            //CreateDatabase();
+        }
+        public async Task<string> CreateDatabase()
+        {
+            var connection = new SQLiteAsyncConnection(_path);
             try
             {
-                connection.CreateTablesAsync<UserModel, TodoItemModel>();
-                result = "Database created";
+                await connection.CreateTablesAsync<UserModel, TodoItemModel>();
+                return "Database created";
             }
-            catch(SQLiteException ex)
+            catch (SQLiteException ex)
             {
-                result = ex.Message;
+                return ex.Message;
+            }
+            finally
+            {
+                connection.CloseAsync();                
+            }
+        }
+
+        public Task<UserModel> FindUser(object userPK)
+        {
+            var connection = new SQLiteAsyncConnection(_path);
+            try
+            {
+                return connection.FindAsync<UserModel>(userPK);
             }
             finally
             {
                 connection.CloseAsync();
-                
             }
+        }
 
-        return result;
+        public async Task AddUser(UserModel user)
+        {
+            var connection = new SQLiteAsyncConnection(_path);
+            try
+            {
+                if (await FindUser(user) == null)
+                {
+                    await connection.InsertAsync(user, typeof(UserModel));
+                }
+            }
+            finally
+            {
+                connection.CloseAsync();
+            }
+        }
+
+        public Task<List<TodoItemModel>> GetTodoItemModels(UserModel user)
+        {
+            throw new NotImplementedException();
         }
     }
 }

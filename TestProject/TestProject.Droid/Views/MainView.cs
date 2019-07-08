@@ -19,6 +19,11 @@ using Android.Content.PM;
 using TestProject.Core;
 using TestProject.Core.Services.Interfaces;
 using TestProject.Core.Services;
+using TestProject.Droid.Services;
+using TestProject.Droid.Services.Interfaces;
+using TestProject.Core.Models;
+using System.Threading.Tasks;
+using SQLite;
 
 namespace TestProject.Droid.Views
 {
@@ -26,7 +31,7 @@ namespace TestProject.Droid.Views
     [Activity(Label = "Task list", LaunchMode = LaunchMode.SingleTop)]
     public class MainView : MvxAppCompatActivity<MainViewModel>
     {
-        protected override void OnCreate(Bundle bundle)
+        protected async override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 

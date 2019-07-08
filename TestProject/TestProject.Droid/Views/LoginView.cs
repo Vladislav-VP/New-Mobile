@@ -18,7 +18,7 @@ namespace TestProject.Droid.Views
     [Register("testProject.droid.views.LoginView")]
     public class LoginView : BaseFragment<LoginViewModel>
     {
-        protected override int FragmentId => Resource.Layout.LoginTemplate;
+        protected override int FragmentId => Resource.Layout.LoginView;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {

@@ -11,27 +11,19 @@ using Android.Views;
 using Android.Widget;
 using TestProject.Core.ViewModels;
 using TestProject.Core.Resources;
+using MvvmCross.Platforms.Android.Presenters.Attributes;
 
 namespace TestProject.Droid.Views
 {
+    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_layout)]
+    [Register("testProject.droid.views.RegistrateView")]
     public class RegistrateView : BaseFragment<RegistrateViewModel>
     {
-        protected override int FragmentId => Resource.Layout.LoginTemplate;
+        protected override int FragmentId => Resource.Layout.RegistrateView;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState);
-
-            var registrateLayout = view.FindViewById<LinearLayout>(Resource.Id.registrateLayout);
-            if (registrateLayout != null)
-            {
-                registrateLayout.Visibility = ViewStates.Invisible;
-            }
-            var loginButton = view.FindViewById<Button>(Resource.Id.btLogin);
-            if (loginButton != null)
-            {
-                loginButton.Text = Strings.registrateUser;
-            }
 
             return view;
         }

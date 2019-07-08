@@ -6,12 +6,15 @@ using TestProject.Core.Models;
 using System.Threading.Tasks;
 using MvvmCross.Navigation;
 using MvvmCross.Commands;
+using TestProject.Core.Services;
+using TestProject.Core.Services.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
     public class LoginViewModel : MvxViewModel
     {
         private IMvxNavigationService _navigationService;
+        private IDBService _dBService;
 
         private UserModel _user;
 
@@ -34,9 +37,9 @@ namespace TestProject.Core.ViewModels
             LoginCommand = new MvxAsyncCommand(Login);
         }
 
-        public IMvxAsyncCommand LoginCommand { get; private set; }   // Initialaze
+        public IMvxAsyncCommand LoginCommand { get; private set; }
         
-        public IMvxAsyncCommand RegistrateCommand { get; private set; }   // Initialaze
+        public IMvxAsyncCommand RegistrateCommand { get; private set; } 
 
         private async Task RegistrateUser()
         {

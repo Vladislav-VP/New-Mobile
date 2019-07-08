@@ -10,6 +10,7 @@ namespace TestProject.Core.Models
         [PrimaryKey]
         public string UserName { get; set; }
 
+        [NotNull]
         public string Password { get; set; }
     }
 }

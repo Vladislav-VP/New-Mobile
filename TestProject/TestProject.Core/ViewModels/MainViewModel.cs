@@ -16,7 +16,7 @@ namespace TestProject.Core.ViewModels
     {
         private IMvxNavigationService _navigationService;
         private IDBService _dBService;
-
+        
         public IMvxAsyncCommand LoadTodoItemListCommand { get; private set; }
 
         public MainViewModel(IMvxNavigationService navigationService)
