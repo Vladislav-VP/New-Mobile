@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using System.Text;
 using MvvmCross.ViewModels;
-using TestProject.Core.Models;
+using TestProject.Entity;
 using System.Threading.Tasks;
 using MvvmCross.Navigation;
 using MvvmCross.Commands;
-using TestProject.Core.Services;
-using TestProject.Core.Services.Interfaces;
-
+using TestProject.Repositories;
+using TestProject.Repositories.Interfaces;
 namespace TestProject.Core.ViewModels
 {
     public class LoginViewModel : MvxViewModel
     {
-        private IMvxNavigationService _navigationService;
-        private IDBService _dBService;
+        private readonly IMvxNavigationService _navigationService;
+        private readonly IDBRepository _dBService;
 
-        private UserModel _user;
+        private User _user;
 
-        public UserModel User
+        public User User
         {
             get => _user;
             set

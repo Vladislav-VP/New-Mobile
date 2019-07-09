@@ -2,19 +2,19 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TestProject.Core.Models;
 using System.Threading.Tasks;
 using MvvmCross.ViewModels;
+using TestProject.Entity;
 
 namespace TestProject.Core.ViewModels
 {
     public class BaseTodoItemViewModel : MvxViewModel
     {
-        protected IMvxNavigationService _navigationService;
+        protected readonly IMvxNavigationService _navigationService;
 
-        protected TodoItemModel _item;
+        protected TodoItem _item;
 
-        public TodoItemModel Item
+        public TodoItem Item
         {
             get => _item;
             set

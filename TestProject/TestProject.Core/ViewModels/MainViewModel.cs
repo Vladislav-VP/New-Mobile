@@ -5,17 +5,17 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
-using TestProject.Core.Services.Interfaces;
-using TestProject.Core.Services;
+using TestProject.Repositories.Interfaces;
+using TestProject.Repositories;
 using SQLite;
-using TestProject.Core.Models;
+using TestProject.Entity;
 
 namespace TestProject.Core.ViewModels
 {
     public class MainViewModel : MvxViewModel
     {
-        private IMvxNavigationService _navigationService;
-        private IDBService _dBService;
+        private readonly IMvxNavigationService _navigationService;
+        private readonly IGenericRepository<User> _repository;
         
         public IMvxAsyncCommand LoadTodoItemListCommand { get; private set; }
 

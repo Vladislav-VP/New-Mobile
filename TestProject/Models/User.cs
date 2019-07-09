@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using SQLite;
 
-namespace TestProject.Core.Models
+namespace TestProject.Entity
 {
-    public class UserModel
+    public class User
     {
         [PrimaryKey]
         public string UserName { get; set; }

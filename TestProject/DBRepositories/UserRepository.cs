@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TestProject.Core.Services
+namespace TestProject.Repositories
 {
-    public class UserService
+    public class UserRepository
     {
     }
 }

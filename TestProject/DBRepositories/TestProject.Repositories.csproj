@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Configuration\TestProject.Configuration.csproj" />
+    <ProjectReference Include="..\Models\TestProject.Entity.csproj" />
+  </ItemGroup>
+
+</Project>

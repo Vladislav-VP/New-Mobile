@@ -32,4 +32,13 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\Interfaces\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DBRepositories\TestProject.Repositories.csproj" />
+    <ProjectReference Include="..\Models\TestProject.Entity.csproj" />
+  </ItemGroup>
+
 </Project>

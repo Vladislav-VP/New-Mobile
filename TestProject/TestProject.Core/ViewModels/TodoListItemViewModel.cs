@@ -5,18 +5,18 @@ using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
-using TestProject.Core.Models;
+using TestProject.Entity;
 
 namespace TestProject.Core.ViewModels
 {
 
     public class TodoListItemViewModel : MvxViewModel
     {
-        private IMvxNavigationService _navigationService;
+        private readonly IMvxNavigationService _navigationService;
 
-        private MvxObservableCollection<TodoItemModel> _items;
+        private MvxObservableCollection<TodoItem> _items;
 
-        public MvxObservableCollection<TodoItemModel> Items
+        public MvxObservableCollection<TodoItem> Items
         {
             get => _items;
             set

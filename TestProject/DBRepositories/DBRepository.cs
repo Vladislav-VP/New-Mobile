@@ -2,48 +2,43 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using TestProject.Core.Services.Interfaces;
+using TestProject.Repositories.Interfaces;
 using SQLite;
 using SQLiteNetExtensions;
 using SQLitePCL;
-using TestProject.Core.Models;
+using TestProject.Entity;
+using TestProject.Configuration;
 
-namespace TestProject.Core.Services
+namespace TestProject.Repositories
 {
-    public class DBService : IDBService
+    public class DBRepository : IDBRepository
     {
-        private string _path;
+        private readonly string _path;
 
-        public DBService()
+        public DBRepository()
         {
             string docsFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
-            _path = System.IO.Path.Combine(docsFolder, Constants.DatabaseFile);
-            //CreateDatabase();
+            _path = System.IO.Path.Combine(docsFolder, Constants.DatabaseName);
         }
-        public async Task<string> CreateDatabase()
+        public async Task CreateDatabase()
         {
             var connection = new SQLiteAsyncConnection(_path);
             try
             {
-                await connection.CreateTablesAsync<UserModel, TodoItemModel>();
-                return "Database created";
-            }
-            catch (SQLiteException ex)
-            {
-                return ex.Message;
+                await connection.CreateTablesAsync<User, TodoItem>();
             }
             finally
             {
-                connection.CloseAsync();                
+                await connection.CloseAsync();                
             }
         }
 
-        public Task<UserModel> FindUser(object userPK)
+        public Task<User> FindUser(object userPK)
         {
             var connection = new SQLiteAsyncConnection(_path);
             try
             {
-                return connection.FindAsync<UserModel>(userPK);
+                return connection.FindAsync<User>(userPK);
             }
             finally
             {
@@ -51,23 +46,23 @@ namespace TestProject.Core.Services
             }
         }
 
-        public async Task AddUser(UserModel user)
+        public async Task AddUser(User user)
         {
             var connection = new SQLiteAsyncConnection(_path);
             try
             {
                 if (await FindUser(user) == null)
                 {
-                    await connection.InsertAsync(user, typeof(UserModel));
+                    await connection.InsertAsync(user, typeof(User));
                 }
             }
             finally
             {
-                connection.CloseAsync();
+                await connection.CloseAsync();
             }
         }
 
-        public Task<List<TodoItemModel>> GetTodoItemModels(UserModel user)
+        public Task<List<TodoItem>> GetTodoItemModels(User user)
         {
             throw new NotImplementedException();
         }

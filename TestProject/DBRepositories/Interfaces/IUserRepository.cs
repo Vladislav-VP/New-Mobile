@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TestProject.Core.Services.Interfaces
+namespace TestProject.Repositories.Interfaces
 {
-    public interface IUserService
+    public interface IUserRepository
     {
         
     }

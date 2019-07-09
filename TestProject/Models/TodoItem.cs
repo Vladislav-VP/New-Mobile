@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using SQLiteNetExtensions.Attributes;
 
-namespace TestProject.Core.Models
+namespace TestProject.Entity
 {
-    public class TodoItemModel
+    public class TodoItem
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
@@ -18,7 +18,7 @@ namespace TestProject.Core.Models
 
         public bool IsDone { get; set; }
 
-        [ForeignKey(typeof(UserModel))]
+        [ForeignKey(typeof(User))]
         public string UserName { get; set; }
     }
 }

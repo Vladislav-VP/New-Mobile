@@ -4,21 +4,21 @@ using System.Text;
 using MvvmCross.ViewModels;
 using MvvmCross.Navigation;
 using MvvmCross.Commands;
-using TestProject.Core.Models;
 using System.Threading.Tasks;
-using TestProject.Core.Services.Interfaces;
-using TestProject.Core.Services;
+using TestProject.Entity;
+using TestProject.Repositories.Interfaces;
+using TestProject.Repositories;
 
 namespace TestProject.Core.ViewModels
 {
     public class RegistrateViewModel : MvxViewModel
     {
-        private IMvxNavigationService _navigationService;
-        private IDBService _dBService;
+        private readonly IMvxNavigationService _navigationService;
+        private readonly IDBRepository _repository;
 
-        private UserModel _user;
+        private User _user;
 
-        public UserModel User
+        public User User
         {
             get => _user;
             set
@@ -31,7 +31,7 @@ namespace TestProject.Core.ViewModels
         public RegistrateViewModel(IMvxNavigationService navigationService)
         {
             _navigationService = navigationService;
-            _dBService = new DBService();
+            _repository = new DBRepository();
 
             RegistrateUserCommand = new MvxAsyncCommand(UserRegistrated);
         }
@@ -40,7 +40,7 @@ namespace TestProject.Core.ViewModels
 
         private async Task UserRegistrated()
         {
-            await _dBService.AddUser(User);
+            await _repository.AddUser(User);
             await _navigationService.Navigate<TodoListItemViewModel>();
         }
     }

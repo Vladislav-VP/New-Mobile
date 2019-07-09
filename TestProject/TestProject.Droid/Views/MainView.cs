@@ -17,13 +17,12 @@ using MvvmCross.Platforms.Android.Views;
 using TestProject.Core.ViewModels;
 using Android.Content.PM;
 using TestProject.Core;
-using TestProject.Core.Services.Interfaces;
-using TestProject.Core.Services;
-using TestProject.Droid.Services;
-using TestProject.Droid.Services.Interfaces;
-using TestProject.Core.Models;
 using System.Threading.Tasks;
 using SQLite;
+using TestProject.Repositories.Interfaces;
+using TestProject.Entity;
+using TestProject.Repositories;
+using TestProject.Configuration;
 
 namespace TestProject.Droid.Views
 {
@@ -31,7 +30,7 @@ namespace TestProject.Droid.Views
     [Activity(Label = "Task list", LaunchMode = LaunchMode.SingleTop)]
     public class MainView : MvxAppCompatActivity<MainViewModel>
     {
-        protected async override void OnCreate(Bundle bundle)
+        protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 

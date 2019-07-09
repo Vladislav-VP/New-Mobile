@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TestProject.Core
+namespace TestProject.Configuration
 {
     public static class Constants
     {
-        public static string DatabaseFile = "TestProjectDB.db";
+        public const string DatabaseName = "TestProjectDB.db";
     }
 }
