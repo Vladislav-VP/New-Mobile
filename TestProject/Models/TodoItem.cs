@@ -9,7 +9,7 @@ namespace TestProject.Entity
     public class TodoItem
     {
         [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [NotNull]
         public string Name { get; set; }
@@ -19,6 +19,6 @@ namespace TestProject.Entity
         public bool IsDone { get; set; }
 
         [ForeignKey(typeof(User))]
-        public string UserName { get; set; }
+        public int UserId { get; set; }
     }
 }

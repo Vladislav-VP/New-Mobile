@@ -7,7 +7,10 @@ namespace TestProject.Entity
 {
     public class User
     {
-        [PrimaryKey]
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+
+        [Unique]
         public string UserName { get; set; }
 
         [NotNull]

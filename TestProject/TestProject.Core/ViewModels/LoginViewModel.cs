@@ -13,7 +13,6 @@ namespace TestProject.Core.ViewModels
     public class LoginViewModel : MvxViewModel
     {
         private readonly IMvxNavigationService _navigationService;
-        private readonly IDBRepository _dBService;
 
         private User _user;
 

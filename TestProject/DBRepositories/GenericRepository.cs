@@ -10,41 +10,25 @@ using TestProject.Repositories.Interfaces;
 
 namespace TestProject.Repositories
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class, new()
+    public class GenericRepository<T> : BaseRepository, IGenericRepository<T> where T : class, new()
     {
-        private readonly string _path;
-
         public GenericRepository()
-        {
-            string docsFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
-            _path = System.IO.Path.Combine(docsFolder, Constants.DatabaseName);
-        }
+            : base() { }
 
-        public async Task CreateDatabase()
+        public AsyncTableQuery<T> GetTable<T>() where T: class, new()
         {
             var connection = new SQLiteAsyncConnection(_path);
-            try
-            {
-                await connection.CreateTablesAsync<User, TodoItem>();
-            }
-            finally
-            {
-                await connection.CloseAsync();
-            }
-        }
-
-        public AsyncTableQuery<T> FindByPK<T>(Expression<Func<T, bool>> predicate) where T: class, new()
-        {
-            var connection = new SQLiteAsyncConnection(_path);
+            var result = connection.Table<T>();
             return connection.Table<T>();
         }
 
-        public Task<IEnumerable<T>> GetObjects()
+        public async Task<IEnumerable<T>> GetAllObjects<T>() where T : class, new()
         {
-            throw new NotImplementedException();
+            var connection = new SQLiteAsyncConnection(_path);
+            return await connection.Table<T>().ToListAsync();
         }
 
-        public async Task<string> InsertObject(T obj)
+        public async Task<string> Insert(T obj)
         {
             var connection = new SQLiteAsyncConnection(_path);
             try
@@ -55,6 +39,45 @@ namespace TestProject.Repositories
             catch (SQLiteException)
             {
                 return string.Format("This {0} already exists", obj.GetType().Name);
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
+
+        public async Task Update(T obj)
+        {
+            var connection = new SQLiteAsyncConnection(_path);
+            try
+            {
+                await connection.UpdateAsync(obj, obj.GetType());
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
+
+        public async Task Delete<T>(object pk) where T : class, new()
+        {
+            var connection = new SQLiteAsyncConnection(_path);
+            try
+            {
+                await connection.DeleteAsync<T>(pk);
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
+
+        public async Task<T> Find<T>(object pk) where T : class, new()
+        {
+            var connection = new SQLiteAsyncConnection(_path);
+            try
+            {
+                return await connection.FindAsync<T>(pk);
             }
             finally
             {

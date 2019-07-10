@@ -22,7 +22,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            local:MvxBind="Text UserName"
+            local:MvxBind="Text User.UserName"
             android:textSize="30dp"/>
         <TextView
             android:layout_width="match_parent"
@@ -35,7 +35,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            local:MvxBind="Text Password"
+            local:MvxBind="Text User.Password"
             android:password="true"
             android:textSize="30dp"/>
         <Button

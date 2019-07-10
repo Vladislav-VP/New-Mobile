@@ -11,10 +11,16 @@ namespace TestProject.Repositories.Interfaces
     {
         Task CreateDatabase();
 
-        AsyncTableQuery<T> FindByPK<T>(Expression<Func<T, bool>> predicate) where T : class, new();
+        AsyncTableQuery<T> GetTable<T>() where T : class, new();
 
-        Task<string> InsertObject(T obj);
+        Task<string> Insert(T obj);
 
-        Task<IEnumerable<T>> GetObjects();
+        Task<IEnumerable<T>> GetAllObjects<T>() where T : class, new();
+
+        Task Update(T obj);
+
+        Task Delete<T>(object pk) where T : class, new();
+
+        Task<T> Find<T>(object pk) where T : class, new();
     }
 }
