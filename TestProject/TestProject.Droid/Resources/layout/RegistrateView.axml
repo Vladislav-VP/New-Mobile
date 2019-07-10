@@ -18,7 +18,7 @@
             android:id="@+id/newUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            local:MvxBind="Text TestProject.Entity.User.UserName"
+            local:MvxBind="Text User.UserName"
             android:textSize="30dp"/>
         <TextView
             android:layout_width="match_parent"
@@ -31,7 +31,7 @@
             android:id="@+id/newPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            local:MvxBind="Text TestProject.Entity.User.Password"
+            local:MvxBind="Text User.Password"
             android:password="true"
             android:textSize="30dp"/>
         <Button

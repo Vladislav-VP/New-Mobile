@@ -18,7 +18,6 @@ namespace TestProject.Repositories
         public AsyncTableQuery<T> GetTable<T>() where T: class, new()
         {
             var connection = new SQLiteAsyncConnection(_path);
-            var result = connection.Table<T>();
             return connection.Table<T>();
         }
 
@@ -28,17 +27,18 @@ namespace TestProject.Repositories
             return await connection.Table<T>().ToListAsync();
         }
 
-        public async Task<string> Insert(T obj)
+        // Returns: true if item inserted succesfully, otherwise - false.
+        public async Task<bool> Insert(T obj)
         {
             var connection = new SQLiteAsyncConnection(_path);
             try
             {
                 var result = await connection.InsertAsync(obj, obj.GetType());
-                return string.Format("New {0} succesfully added", obj.GetType().Name);                
+                return true;              
             }
             catch (SQLiteException)
             {
-                return string.Format("This {0} already exists", obj.GetType().Name);
+                return false;
             }
             finally
             {

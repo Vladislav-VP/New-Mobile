@@ -14,8 +14,7 @@ namespace TestProject.Core.ViewModels
     public class RegistrateViewModel : MvxViewModel
     {
         private readonly IMvxNavigationService _navigationService;
-        private readonly IBaseRepository _baseRepository;
-        private readonly IGenericRepository<User> _usergenericRepository;
+        private readonly IGenericRepository<User> _userGenericRepository;
 
         private User _user;
 
@@ -25,25 +24,35 @@ namespace TestProject.Core.ViewModels
             set
             {
                 _user = value;
-                RaisePropertyChanged(() => User);
+                RaisePropertyChanged(() => User);                
             }
         }
 
         public RegistrateViewModel(IMvxNavigationService navigationService)
         {
             _navigationService = navigationService;
-            _baseRepository = new BaseRepository();
-            _usergenericRepository = new GenericRepository<User>();
-
-            _baseRepository.CreateDatabase();
+            _userGenericRepository = new GenericRepository<User>();
 
             RegistrateUserCommand = new MvxAsyncCommand(UserRegistrated);
+        }
+
+        public override async Task Initialize()
+        {
+            await base.Initialize();
+
+            _user = new User();           
         }
 
         public IMvxAsyncCommand RegistrateUserCommand { get; private set; }
 
         private async Task UserRegistrated()
         {
+            bool isSuccess = await _userGenericRepository.Insert(User);
+            if (!isSuccess)
+            {
+                return;
+            }
+
             await _navigationService.Navigate<TodoListItemViewModel>();
         }
     }

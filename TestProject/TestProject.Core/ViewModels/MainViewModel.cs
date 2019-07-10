@@ -9,13 +9,13 @@ using TestProject.Repositories.Interfaces;
 using TestProject.Repositories;
 using SQLite;
 using TestProject.Entity;
+using System.Threading.Tasks;
 
 namespace TestProject.Core.ViewModels
 {
     public class MainViewModel : MvxViewModel
     {
         private readonly IMvxNavigationService _navigationService;
-        private readonly IGenericRepository<User> _repository;
         
         public IMvxAsyncCommand LoadTodoItemListCommand { get; private set; }
 
@@ -26,6 +26,5 @@ namespace TestProject.Core.ViewModels
             LoadTodoItemListCommand = new MvxAsyncCommand(async () =>
                 await _navigationService.Navigate<LoginViewModel>());
         }
-
     }
 }

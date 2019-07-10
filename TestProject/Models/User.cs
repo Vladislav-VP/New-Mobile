@@ -10,7 +10,7 @@ namespace TestProject.Entity
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
-        [Unique]
+        [Unique, NotNull]
         public string UserName { get; set; }
 
         [NotNull]

@@ -13,7 +13,7 @@ namespace TestProject.Repositories.Interfaces
 
         AsyncTableQuery<T> GetTable<T>() where T : class, new();
 
-        Task<string> Insert(T obj);
+        Task<bool> Insert(T obj);
 
         Task<IEnumerable<T>> GetAllObjects<T>() where T : class, new();
 
