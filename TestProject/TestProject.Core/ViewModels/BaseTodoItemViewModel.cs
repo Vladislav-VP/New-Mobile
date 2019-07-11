@@ -28,5 +28,12 @@ namespace TestProject.Core.ViewModels
         {
             _navigationService = navigationService;
         }
+
+        public async override Task Initialize()
+        {
+            await base.Initialize();
+
+            _item = new TodoItem();
+        }
     }
 }

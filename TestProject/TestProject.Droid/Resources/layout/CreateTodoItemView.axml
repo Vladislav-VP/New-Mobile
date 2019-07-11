@@ -11,17 +11,18 @@
         android:layout_height="wrap_content"
         android:background="@android:color/holo_blue_light">
         <TextView
-            android:id="@+id/taskNameTextView"          
+            android:id="@+id/tvTaskName"          
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="100dp"
             android:textColor="@android:color/background_light"
             android:textSize="35dp"/>
         <Button
-            android:id="@+id/btBack"
+            android:id="@+id/btnBack"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_alignParentLeft="true"/>
+            android:layout_alignParentLeft="true"
+            local:MvxBind="Click BackToListCommand" />
     </RelativeLayout>
 
     <LinearLayout
@@ -29,7 +30,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/taskNameLabel"          
+            android:id="@+id/tvTaskName"          
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -37,7 +38,7 @@
             android:text="@string/taskLabel"
         />
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/taskNameEditText"
+            android:id="@+id/etTaskName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="#fffd"
@@ -45,7 +46,7 @@
             local:MvxBind="Text Item.Name"
         />
         <TextView
-            android:id="@+id/descriptionLabel"          
+            android:id="@+id/tvDescription"          
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -53,7 +54,7 @@
             android:text="@string/description"
         />
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/descriptionEditText"
+            android:id="@+id/etDescription"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:background="#fffd"
@@ -66,13 +67,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <CheckBox
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            local:MvxBind="Checked Item.Done"
+        <ToggleButton
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            local:MvxBind="Checked Item.IsDone"
         />
         <TextView
-            android:id="@+id/doneTextView"          
+            android:id="@+id/tvDone"          
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -82,19 +83,14 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btCreate"
+        android:id="@+id/btnCreate"
         android:layout_width="188dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_margin="5dp"
         android:text="@string/saveTask"
+        local:MvxBind="Click CreateTodoItemCommand"
     />
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        
-    </RelativeLayout>
 </LinearLayout>

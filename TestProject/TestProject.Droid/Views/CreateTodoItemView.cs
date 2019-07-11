@@ -25,7 +25,7 @@ namespace TestProject.Droid.Views
     [Register("testProject.droid.views.CreateTodoItemView")]
     public class CreateTodoItemView : BaseFragment<CreateTodoItemViewModel>
     {
-        protected override int FragmentId => Resource.Layout.TodoItemTemplate;
+        protected override int FragmentId => Resource.Layout.CreateTodoItemView;
 
         private Button _saveButton;
 

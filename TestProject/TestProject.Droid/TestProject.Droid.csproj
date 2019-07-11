@@ -77,8 +77,10 @@
     <Compile Include="Views\CreateTodoItemView.cs" />
     <Compile Include="Views\LoginView.cs" />
     <Compile Include="Views\MainView.cs" />
+    <Compile Include="Views\MenuView.cs" />
     <Compile Include="Views\RegistrateView.cs" />
     <Compile Include="Views\TodoListItemView.cs" />
+    <Compile Include="Views\UserInfoView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -184,6 +186,31 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\RegistrateView.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\UserInfoView.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\MenuView.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\menu\navigation_drawer.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\navigation_header.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\toolbar_actionbar.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
