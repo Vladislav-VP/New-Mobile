@@ -19,10 +19,10 @@ using Android.Content.PM;
 using TestProject.Core;
 using System.Threading.Tasks;
 using SQLite;
-using TestProject.Repositories.Interfaces;
-using TestProject.Entity;
-using TestProject.Repositories;
-using TestProject.Configuration;
+using TestProject.Entities;
+using Android.Support.V4.Widget;
+using Android.Support.V4.View;
+using Android.Views.InputMethods;
 
 namespace TestProject.Droid.Views
 {
@@ -30,6 +30,8 @@ namespace TestProject.Droid.Views
     [Activity(Label = "Task list", LaunchMode = LaunchMode.SingleTop)]
     public class MainView : MvxAppCompatActivity<MainViewModel>
     {
+        public DrawerLayout DrawerLayout { get; set; }
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -38,10 +40,38 @@ namespace TestProject.Droid.Views
 
             SetContentView(Resource.Layout.MainView);
 
+            DrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+            //DrawerLayout.Visibility = ViewStates.Invisible;
+
             if (bundle == null)
             {
-                ViewModel.LoadTodoItemListCommand.Execute(null);
+                ViewModel.ShowLoginScreenCommand.Execute(null);
             }
+        }
+
+        public override void OnBackPressed()
+        {
+            if (DrawerLayout != null && DrawerLayout.IsDrawerOpen(GravityCompat.Start))
+            {
+                DrawerLayout.CloseDrawers();
+            }
+            else
+            {
+                base.OnBackPressed();
+            }
+        }
+
+        public void HideSoftKeyboard()
+        {
+            if (CurrentFocus == null)
+            {
+                return;
+            }
+
+            InputMethodManager manager = (InputMethodManager)GetSystemService(InputMethodService);
+            manager.HideSoftInputFromWindow(CurrentFocus.WindowToken, 0);
+
+            CurrentFocus.ClearFocus();
         }
     }
 }

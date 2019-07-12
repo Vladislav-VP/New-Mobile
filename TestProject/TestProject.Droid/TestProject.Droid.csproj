@@ -72,13 +72,12 @@
     <Compile Include="Setup.cs" />
     <Compile Include="SplashScreen.cs" />
     <Compile Include="Views\BaseFragment.cs" />
-    <Compile Include="Views\BaseTodoItemView.cs" />
     <Compile Include="Views\EditTodoItemView.cs" />
     <Compile Include="Views\CreateTodoItemView.cs" />
     <Compile Include="Views\LoginView.cs" />
     <Compile Include="Views\MainView.cs" />
     <Compile Include="Views\MenuView.cs" />
-    <Compile Include="Views\RegistrateView.cs" />
+    <Compile Include="Views\RegistrateUserView.cs" />
     <Compile Include="Views\TodoListItemView.cs" />
     <Compile Include="Views\UserInfoView.cs" />
   </ItemGroup>
@@ -134,17 +133,17 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Configuration\TestProject.Configuration.csproj">
+    <ProjectReference Include="..\Configuration\TestProject.Configurations.csproj">
       <Project>{BB6AC278-AB45-4029-8F52-CFD11DBDF720}</Project>
-      <Name>TestProject.Configuration</Name>
+      <Name>TestProject.Configurations</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DBRepositories\TestProject.Repositories.csproj">
+    <ProjectReference Include="..\DBRepositories\TestProject.Services.csproj">
       <Project>{F7E25FD0-8171-4756-82D2-F9DF3F4D4FC6}</Project>
-      <Name>TestProject.Repositories</Name>
+      <Name>TestProject.Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Models\TestProject.Entity.csproj">
+    <ProjectReference Include="..\Models\TestProject.Entities.csproj">
       <Project>{58557CEF-5781-4139-99DA-093D4A8D83D9}</Project>
-      <Name>TestProject.Entity</Name>
+      <Name>TestProject.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestProject.Core\TestProject.Core.csproj">
       <Project>{14e2f76c-3e0a-45ba-a18c-ea6cca174451}</Project>
@@ -185,7 +184,7 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\RegistrateView.axml">
+    <AndroidResource Include="Resources\layout\RegistrateUserView.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

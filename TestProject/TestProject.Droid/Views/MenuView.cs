@@ -18,9 +18,6 @@ namespace TestProject.Droid.Views
     {
         private NavigationView _navigationView;
         private IMenuItem _previousMenuItem;
-        
-
-        //protected override int FragmentId => Resource.Layout.MenuView;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -30,14 +27,56 @@ namespace TestProject.Droid.Views
 
             _navigationView = view.FindViewById<NavigationView>(Resource.Id.navigation_view);
             _navigationView.SetNavigationItemSelectedListener(this);
-            _navigationView.Menu.FindItem(Resource.Id.nav_todoItems);
+
+            var todoItemsMenuItem = _navigationView.Menu.FindItem(Resource.Id.nav_todoItems);
+            todoItemsMenuItem.SetCheckable(false);
+            todoItemsMenuItem.SetChecked(true);
+
+            _previousMenuItem = todoItemsMenuItem;
+
+            var settingsMenuItem = _navigationView.Menu.FindItem(Resource.Id.nav_settings);
+            settingsMenuItem.SetCheckable(false);
+
+            var logoutMenuItem = _navigationView.Menu.FindItem(Resource.Id.nav_logout);
+            logoutMenuItem.SetCheckable(false);
 
             return view;
         }
 
         public bool OnNavigationItemSelected(IMenuItem item)
         {
-            throw new NotImplementedException();
+            if (_previousMenuItem.IsChecked)
+            {
+                _previousMenuItem.SetChecked(false);
+            }
+
+            item.SetCheckable(true);
+            item.SetChecked(true);
+
+            _previousMenuItem = item;
+
+            Task.Run(() => Navigate(item.ItemId));
+
+            return true;
+        }
+
+        private async Task Navigate(int itemId)
+        {
+            ((MainView)Activity).DrawerLayout.CloseDrawers();
+            await Task.Delay(TimeSpan.FromMilliseconds(20));
+
+            switch (itemId)
+            {
+                case Resource.Id.nav_todoItems:
+                    ViewModel.ShowTodoItemsCommand.Execute(null);
+                    break;
+                case Resource.Id.nav_settings:
+                    ViewModel.ShowSettingsCommand.Execute(null);
+                    break;
+                case Resource.Id.nav_logout:
+                    ViewModel.LogoutCommand.Execute(null);
+                    break;
+            }
         }
     }
 }

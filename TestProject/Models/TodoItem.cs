@@ -1,16 +1,13 @@
 ﻿using SQLite;
+using SQLiteNetExtensions.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using SQLiteNetExtensions.Attributes;
 
-namespace TestProject.Entity
+namespace TestProject.Entities
 {
-    public class TodoItem
+    public class TodoItem : BaseEntity
     {
-        [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
-
         [NotNull]
         public string Name { get; set; }
 
@@ -18,7 +15,7 @@ namespace TestProject.Entity
 
         public bool IsDone { get; set; }
 
-        [ForeignKey(typeof(User))]
+        [ForeignKey(typeof(User)), NotNull]
         public int UserId { get; set; }
     }
 }

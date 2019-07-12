@@ -7,21 +7,22 @@ using MvvmCross.Commands;
 
 namespace TestProject.Core.ViewModels
 {
-    public class MenuViewModel : MvxViewModel
+    public class MenuViewModel : BaseViewModel
     {
-        private readonly IMvxNavigationService _navigationService;
 
         public MenuViewModel(IMvxNavigationService navigationService)
+            : base(navigationService)
         {
-            _navigationService = navigationService;
-
             LogoutCommand = new MvxAsyncCommand(() => _navigationService.Navigate<LoginViewModel>());
-            GotoSettingsCommand = new MvxAsyncCommand(() => _navigationService.Navigate<UserInfoViewModel>());
+            ShowSettingsCommand = new MvxAsyncCommand(() => _navigationService.Navigate<UserInfoViewModel>());
+            ShowTodoItemsCommand = new MvxAsyncCommand(() => _navigationService.Navigate<TodoListItemViewModel>());
         }
 
         public IMvxAsyncCommand LogoutCommand { get; private set; }
 
-        public IMvxAsyncCommand GotoSettingsCommand { get; private set; }
+        public IMvxAsyncCommand ShowSettingsCommand { get; private set; }
+
+        public IMvxAsyncCommand ShowTodoItemsCommand { get; private set; }
 
     }
 }

@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Configuration\TestProject.Configuration.csproj" />
-    <ProjectReference Include="..\Models\TestProject.Entity.csproj" />
+    <ProjectReference Include="..\Configuration\TestProject.Configurations.csproj" />
+    <ProjectReference Include="..\Models\TestProject.Entities.csproj" />
   </ItemGroup>
 
 </Project>

@@ -18,7 +18,7 @@
             android:id="@+id/newUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            local:MvxBind="Text User.UserName"
+            local:MvxBind="Text UserName"
             android:textSize="30dp"/>
         <TextView
             android:layout_width="match_parent"
@@ -31,11 +31,11 @@
             android:id="@+id/newPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            local:MvxBind="Text User.Password"
+            local:MvxBind="Text Password"
             android:password="true"
             android:textSize="30dp"/>
         <Button
-            android:id="@+id/btNewUser"
+            android:id="@+id/btnNewUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/registrateText"

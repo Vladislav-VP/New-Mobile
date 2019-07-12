@@ -18,6 +18,6 @@ namespace TestProject.Droid.Views
     [Register("testProject.droid.views.UserInfoView")]
     public class UserInfoView : BaseFragment<UserInfoViewModel>
     {
-        protected override int FragmentId => throw new NotImplementedException();
+        protected override int FragmentId => Resource.Layout.UserInfoView;
     }
 }

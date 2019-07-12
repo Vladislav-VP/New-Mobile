@@ -22,7 +22,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            local:MvxBind="Text User.UserName"
+            local:MvxBind="Text UserName"
             android:textSize="30dp"/>
         <TextView
             android:layout_width="match_parent"
@@ -35,7 +35,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            local:MvxBind="Text User.Password"
+            local:MvxBind="Text Password"
             android:password="true"
             android:textSize="30dp"/>
         <Button
@@ -61,12 +61,12 @@
             android:textColor="@android:color/background_light"
             android:textSize="30dp"/>
         <Button
-            android:id="@+id/btRegistrate"
+            android:id="@+id/btnRegistrate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/registrateText"
             android:textSize="30dp"
-            local:MvxBind="Click RegistrateCommand"/>
+            local:MvxBind="Click ShowRegistrationScreenCommand"/>
     </LinearLayout>
 
 </LinearLayout>

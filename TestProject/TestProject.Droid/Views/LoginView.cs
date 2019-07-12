@@ -24,6 +24,12 @@ namespace TestProject.Droid.Views
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState);
 
+            //var btnRegistrate = view.FindViewById<Button>(Resource.Id.btnRegistrate);
+            //if (btnRegistrate != null)
+            //{
+            //    btnRegistrate.Enabled = true;
+            //}
+
             return view;
         }
     }

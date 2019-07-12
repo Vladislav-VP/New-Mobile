@@ -5,17 +5,21 @@ using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
-using TestProject.Entity;
+using TestProject.Entities;
 
 namespace TestProject.Core.ViewModels
 {
 
-    public class TodoListItemViewModel : MvxViewModel
+    public class TodoListItemViewModel : BaseViewModel
     {
-        private readonly IMvxNavigationService _navigationService;
+        public TodoListItemViewModel(IMvxNavigationService navigationService)
+            : base(navigationService)
+        {
+            AddTodoItemCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<CreateTodoItemViewModel>());
+            ShowMenuCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MenuViewModel>());
+        }
 
         private MvxObservableCollection<TodoItem> _items;
-
         public MvxObservableCollection<TodoItem> Items
         {
             get => _items;
@@ -28,16 +32,6 @@ namespace TestProject.Core.ViewModels
 
         public IMvxAsyncCommand AddTodoItemCommand { get; private set; }
 
-        public TodoListItemViewModel(IMvxNavigationService navigationService)
-        {
-            _navigationService = navigationService;
-
-            AddTodoItemCommand = new MvxAsyncCommand(AddTodoItem);
-        }
-
-        private async Task AddTodoItem()
-        {
-            var result = await _navigationService.Navigate<CreateTodoItemViewModel>();
-        }
+        public IMvxAsyncCommand ShowMenuCommand { get; private set; }
     }
 }

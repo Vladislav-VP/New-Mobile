@@ -22,5 +22,14 @@ namespace TestProject.Droid.Views
     public class EditTodoItemView : BaseFragment<EditTodoItemViewModel>
     {
         protected override int FragmentId => Resource.Layout.TodoItemTemplate;
+
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        {
+            var view = base.OnCreateView(inflater, container, savedInstanceState);
+
+            //View.
+
+            return view;
+        }
     }
 }

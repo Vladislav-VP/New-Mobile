@@ -17,9 +17,9 @@ namespace TestProject.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_layout)]
     [Register("testProject.droid.views.RegistrateView")]
-    public class RegistrateView : BaseFragment<RegistrateViewModel>
+    public class RegistrateUserView : BaseFragment<RegistrateUserViewModel>
     {
-        protected override int FragmentId => Resource.Layout.RegistrateView;
+        protected override int FragmentId => Resource.Layout.RegistrateUserView;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {

@@ -43,7 +43,7 @@
             android:layout_height="50dp"
             android:background="#fffd"
             android:layout_margin="5dp"
-            local:MvxBind="Text Item.Name"
+            local:MvxBind="Text Name"
         />
         <TextView
             android:id="@+id/tvDescription"          
@@ -59,7 +59,7 @@
             android:layout_height="150dp"
             android:background="#fffd"
             android:layout_margin="5dp"
-            local:MvxBind="Text Item.Description"
+            local:MvxBind="Text Description"
         />
     </LinearLayout>
                
@@ -70,7 +70,7 @@
         <ToggleButton
             android:layout_width="100dp"
             android:layout_height="50dp"
-            local:MvxBind="Checked Item.IsDone"
+            local:MvxBind="Checked IsDone"
         />
         <TextView
             android:id="@+id/tvDone"          

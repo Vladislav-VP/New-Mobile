@@ -6,7 +6,7 @@ using MvvmCross.ViewModels;
 
 namespace TestProject.Core.ViewModels
 {
-    public class EditTodoItemViewModel : BaseTodoItemViewModel
+    public class EditTodoItemViewModel : BaseViewModel
     {
         public EditTodoItemViewModel(IMvxNavigationService navigationService) 
             : base(navigationService)

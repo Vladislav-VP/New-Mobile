@@ -5,29 +5,69 @@ using System.Text;
 using MvvmCross.Navigation;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
-using TestProject.Repositories;
-using TestProject.Repositories.Interfaces;
-using TestProject.Entity;
+using TestProject.Entities;
+using TestProject.Services.Repositories.Interfaces;
+using TestProject.Services.Repositories;
 
 namespace TestProject.Core.ViewModels
 {
-    public class CreateTodoItemViewModel : BaseTodoItemViewModel
+    public class CreateTodoItemViewModel : BaseViewModel
     {
-        private readonly IGenericRepository<TodoItem> _genericTodoItemRepository;
+        private readonly IBaseRepository<TodoItem> _genericTodoItemRepository;
+
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                _name = value;
+                RaisePropertyChanged(() => Name);
+            }
+        }
+
+        private string _description;
+        public string Description
+        {
+            get => _description;
+            set
+            {
+                _description = value;
+                RaisePropertyChanged(() => Description);
+            }
+        }
+
+        private bool _isDone;
+        public bool IsDone
+        {
+            get => _isDone;
+            set
+            {
+                _isDone = value;
+                RaisePropertyChanged(() => IsDone);
+            }
+        }
 
         public CreateTodoItemViewModel(IMvxNavigationService navigationService)
             : base(navigationService)
         {
-            _genericTodoItemRepository = new GenericRepository<TodoItem>();
+            _genericTodoItemRepository = new BaseRepository<TodoItem>();
 
             BackToListCommand = new MvxAsyncCommand(GoBack);
             CreateTodoItemCommand = new MvxAsyncCommand(CreateItem);
         }
 
+        public async override Task Initialize()
+        {
+            await base.Initialize();
+
+            _name = string.Empty;
+            _description = string.Empty;
+        }
+        
         public IMvxAsyncCommand CreateTodoItemCommand { get; private set; }
 
         public IMvxAsyncCommand BackToListCommand { get; private set; }
-
 
         private async Task GoBack()
         {
@@ -36,7 +76,8 @@ namespace TestProject.Core.ViewModels
 
         private async Task CreateItem()
         {
-            await _genericTodoItemRepository.Insert(Item);
+            await _genericTodoItemRepository
+                .Insert(new TodoItem { Name = this.Name, Description = this.Description, IsDone = this.IsDone });
             var result = await _navigationService.Navigate<TodoListItemViewModel>();
         }
     }

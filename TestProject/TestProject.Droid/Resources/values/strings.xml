@@ -2,7 +2,7 @@
 <resources>
   <string name = "app_name">Task List</string>
   <string name = "help">Help</string>
-  <string name="taskList">Tasks</string>
+  <string name="label_task_list">Tasks</string>
   <string name="taskLabel">Task name</string>
   <string name="description">Description</string>
   <string name="doneText">Done</string>
@@ -17,4 +17,6 @@
   <string name="label_save_changes">Save changes</string>
   <string name="label_delete_account">Delete account</string>
   <string name="label_logout">Logout</string>
+  <string name="drawer_open">Open</string>
+  <string name="drawer_close">Close</string>
 </resources>

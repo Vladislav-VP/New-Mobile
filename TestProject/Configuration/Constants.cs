@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TestProject.Configuration
+namespace TestProject.Configurations
 {
     public static class Constants
     {

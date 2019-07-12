@@ -3,30 +3,35 @@ using MvvmCross.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TestProject.Entity;
+using TestProject.Entities;
 
 namespace TestProject.Core.ViewModels
 {
-    public class UserInfoViewModel : MvxViewModel
+    public class UserInfoViewModel : BaseViewModel
     {
-        private readonly IMvxNavigationService _navigationService;
-
-        private User _user;
-        public User User
+        private string _userName;
+        public string UserName
         {
-            get => _user;
+            get => _userName;
             set
             {
-                _user = value;
-                RaisePropertyChanged(() => User);
+                _userName = value;
+                RaisePropertyChanged(() => UserName);
+            }
+        }
+
+        private string _password;
+        public string Password
+        {
+            get => _password;
+            set
+            {
+                _password = value;
+                RaisePropertyChanged(() => Password);
             }
         }
 
         public UserInfoViewModel(IMvxNavigationService navigationService)
-        {
-            _navigationService = navigationService;
-        }
-
-
+            : base(navigationService) { }
     }
 }

@@ -5,26 +5,23 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
-using TestProject.Repositories.Interfaces;
-using TestProject.Repositories;
 using SQLite;
-using TestProject.Entity;
+using TestProject.Entities;
 using System.Threading.Tasks;
 
 namespace TestProject.Core.ViewModels
 {
-    public class MainViewModel : MvxViewModel
+    public class MainViewModel : BaseViewModel
     {
-        private readonly IMvxNavigationService _navigationService;
-        
-        public IMvxAsyncCommand LoadTodoItemListCommand { get; private set; }
-
         public MainViewModel(IMvxNavigationService navigationService)
+            : base(navigationService)
         {
-            _navigationService = navigationService;
-
-            LoadTodoItemListCommand = new MvxAsyncCommand(async () =>
+            ShowLoginScreenCommand = new MvxAsyncCommand(async () =>
                 await _navigationService.Navigate<LoginViewModel>());
         }
+        
+        public IMvxAsyncCommand ShowLoginScreenCommand { get; private set; }
+
+        
     }
 }

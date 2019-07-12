@@ -37,8 +37,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DBRepositories\TestProject.Repositories.csproj" />
-    <ProjectReference Include="..\Models\TestProject.Entity.csproj" />
+    <ProjectReference Include="..\DBRepositories\TestProject.Services.csproj" />
+    <ProjectReference Include="..\Models\TestProject.Entities.csproj" />
   </ItemGroup>
 
 </Project>

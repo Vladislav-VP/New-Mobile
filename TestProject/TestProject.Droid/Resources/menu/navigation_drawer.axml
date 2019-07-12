@@ -9,7 +9,7 @@
       android:title="@string/label_settings"/>
     <item
     android:id="@+id/nav_todoItems"
-    android:title="@string/label_settings"/>
+    android:title="@string/label_task_list"/>
     <item
       android:id="@+id/nav_logout"
       android:title="@string/label_logout"/>

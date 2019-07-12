@@ -4,27 +4,21 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using TestProject.Configuration;
-using TestProject.Entity;
-using TestProject.Repositories.Interfaces;
+using TestProject.Configurations;
+using TestProject.Entities;
+using TestProject.Services.Repositories.Interfaces;
 
-namespace TestProject.Repositories
+namespace TestProject.Services.Repositories
 {
-    public class GenericRepository<T> : BaseRepository, IGenericRepository<T> where T : class, new()
+    public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity, new()
     {
-        public GenericRepository()
-            : base() { }
+        private static readonly string _path;
 
-        public AsyncTableQuery<T> GetTable<T>() where T: class, new()
+        static BaseRepository()
         {
-            var connection = new SQLiteAsyncConnection(_path);
-            return connection.Table<T>();
-        }
-
-        public async Task<IEnumerable<T>> GetAllObjects<T>() where T : class, new()
-        {
-            var connection = new SQLiteAsyncConnection(_path);
-            return await connection.Table<T>().ToListAsync();
+            string docsFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
+            _path = System.IO.Path.Combine(docsFolder, Constants.DatabaseName);
+            CreateDatabase();
         }
 
         // Returns: true if item inserted succesfully, otherwise - false.
@@ -59,7 +53,13 @@ namespace TestProject.Repositories
             }
         }
 
-        public async Task Delete<T>(object pk) where T : class, new()
+        public async Task<IEnumerable<T>> GetAllObjects<T>() where T : class, new()
+        {
+            var connection = new SQLiteAsyncConnection(_path);
+            return await connection.Table<T>().ToListAsync();
+        }
+
+        public async Task Delete<T>(object pk)
         {
             var connection = new SQLiteAsyncConnection(_path);
             try
@@ -77,11 +77,24 @@ namespace TestProject.Repositories
             var connection = new SQLiteAsyncConnection(_path);
             try
             {
-                return await connection.FindAsync<T>(pk);
+                return await connection.FindAsync<T>(pk: pk);
             }
             finally
             {
                 await connection.CloseAsync();
+            }
+        }
+
+        private static void CreateDatabase()
+        {
+            var connection = new SQLiteAsyncConnection(_path);
+            try
+            {
+                connection.CreateTablesAsync<User, TodoItem>();
+            }
+            finally
+            {
+                connection.CloseAsync();
             }
         }
     }

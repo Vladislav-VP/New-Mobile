@@ -9,11 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject.iOS", "TestProj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject.Droid", "TestProject.Droid\TestProject.Droid.csproj", "{D384321C-B2C3-402F-86A2-FED21EEA4792}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject.Repositories", "DBRepositories\TestProject.Repositories.csproj", "{F7E25FD0-8171-4756-82D2-F9DF3F4D4FC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject.Services", "DBRepositories\TestProject.Services.csproj", "{F7E25FD0-8171-4756-82D2-F9DF3F4D4FC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject.Entity", "Models\TestProject.Entity.csproj", "{58557CEF-5781-4139-99DA-093D4A8D83D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject.Entities", "Models\TestProject.Entities.csproj", "{58557CEF-5781-4139-99DA-093D4A8D83D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject.Configuration", "Configuration\TestProject.Configuration.csproj", "{BB6AC278-AB45-4029-8F52-CFD11DBDF720}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject.Configurations", "Configuration\TestProject.Configurations.csproj", "{BB6AC278-AB45-4029-8F52-CFD11DBDF720}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

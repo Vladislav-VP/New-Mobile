@@ -24,7 +24,8 @@ namespace TestProject.Droid
         protected override IEnumerable<Assembly> AndroidViewAssemblies => new List<Assembly>(base.AndroidViewAssemblies)
         {
             typeof(MvxRecyclerView).Assembly,
-            typeof(DrawerLayout).Assembly
+            typeof(DrawerLayout).Assembly,
+            typeof(Toolbar).Assembly
         };
 
         protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)
