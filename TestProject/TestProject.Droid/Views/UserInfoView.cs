@@ -14,7 +14,7 @@ using TestProject.Core.ViewModels;
 
 namespace TestProject.Droid.Views
 {
-    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_layout)]
+    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame)]
     [Register("testProject.droid.views.UserInfoView")]
     public class UserInfoView : BaseFragment<UserInfoViewModel>
     {

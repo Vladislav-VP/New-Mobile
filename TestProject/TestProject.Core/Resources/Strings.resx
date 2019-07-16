@@ -117,11 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="newTask" xml:space="preserve">
+  <data name="NewTask" xml:space="preserve">
     <value>New task</value>
     <comment>Used while creating a new task</comment>
   </data>
-  <data name="registrateUser" xml:space="preserve">
+  <data name="RegistrateUser" xml:space="preserve">
     <value>Registrate</value>
+  </data>
+  <data name="TaskList" xml:space="preserve">
+    <value>My tasks</value>
   </data>
 </root>

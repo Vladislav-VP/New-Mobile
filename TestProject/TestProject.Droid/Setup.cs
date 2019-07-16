@@ -8,6 +8,7 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.Design.Widget;
 using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
@@ -25,7 +26,9 @@ namespace TestProject.Droid
         {
             typeof(MvxRecyclerView).Assembly,
             typeof(DrawerLayout).Assembly,
-            typeof(Toolbar).Assembly
+            typeof(Toolbar).Assembly,
+            typeof(CoordinatorLayout).Assembly,
+            typeof(NavigationView).Assembly
         };
 
         protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)

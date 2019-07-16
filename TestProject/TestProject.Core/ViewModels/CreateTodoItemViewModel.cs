@@ -8,6 +8,7 @@ using MvvmCross.Commands;
 using TestProject.Entities;
 using TestProject.Services.Repositories.Interfaces;
 using TestProject.Services.Repositories;
+using TestProject.Services;
 
 namespace TestProject.Core.ViewModels
 {
@@ -56,14 +57,6 @@ namespace TestProject.Core.ViewModels
             BackToListCommand = new MvxAsyncCommand(GoBack);
             CreateTodoItemCommand = new MvxAsyncCommand(CreateItem);
         }
-
-        public async override Task Initialize()
-        {
-            await base.Initialize();
-
-            _name = string.Empty;
-            _description = string.Empty;
-        }
         
         public IMvxAsyncCommand CreateTodoItemCommand { get; private set; }
 
@@ -76,8 +69,9 @@ namespace TestProject.Core.ViewModels
 
         private async Task CreateItem()
         {
-            await _genericTodoItemRepository
-                .Insert(new TodoItem { Name = this.Name, Description = this.Description, IsDone = this.IsDone });
+            TodoItem item = new TodoItem { Name = this.Name, Description = this.Description, IsDone = this.IsDone };
+            await _genericTodoItemRepository.Insert(item);
+            StaticObjects.TodoItems.Add(item);
             var result = await _navigationService.Navigate<TodoListItemViewModel>();
         }
     }

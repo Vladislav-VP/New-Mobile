@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
-using Android.Support.Graphics.Drawable;
 using Android.Views;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
@@ -12,7 +11,7 @@ using TestProject.Core.ViewModels;
 
 namespace TestProject.Droid.Views
 {
-    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_layout)]
+    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame)]
     [Register("testProject.droid.views.MenuView")]
     public class MenuView : MvxFragment<MenuViewModel>, NavigationView.IOnNavigationItemSelectedListener
     {
@@ -30,7 +29,7 @@ namespace TestProject.Droid.Views
 
             var todoItemsMenuItem = _navigationView.Menu.FindItem(Resource.Id.nav_todoItems);
             todoItemsMenuItem.SetCheckable(false);
-            todoItemsMenuItem.SetChecked(true);
+            todoItemsMenuItem.SetChecked(false);
 
             _previousMenuItem = todoItemsMenuItem;
 
@@ -45,10 +44,8 @@ namespace TestProject.Droid.Views
 
         public bool OnNavigationItemSelected(IMenuItem item)
         {
-            if (_previousMenuItem.IsChecked)
-            {
+            if (_previousMenuItem != null)
                 _previousMenuItem.SetChecked(false);
-            }
 
             item.SetCheckable(true);
             item.SetChecked(true);
@@ -63,18 +60,18 @@ namespace TestProject.Droid.Views
         private async Task Navigate(int itemId)
         {
             ((MainView)Activity).DrawerLayout.CloseDrawers();
-            await Task.Delay(TimeSpan.FromMilliseconds(20));
+            await Task.Delay(TimeSpan.FromMilliseconds(250));
 
             switch (itemId)
             {
-                case Resource.Id.nav_todoItems:
-                    ViewModel.ShowTodoItemsCommand.Execute(null);
-                    break;
                 case Resource.Id.nav_settings:
-                    ViewModel.ShowSettingsCommand.Execute(null);
+                    ViewModel.ShowUserInfoViewModelCommand.Execute(null);
+                    break;
+                case Resource.Id.nav_todoItems:
+                    ViewModel.ShowListTodoItemsViewModelCommand.Execute(null);
                     break;
                 case Resource.Id.nav_logout:
-                    ViewModel.LogoutCommand.Execute(null);
+                    ViewModel.ShowLoginViewModelCommand.Execute(null);
                     break;
             }
         }

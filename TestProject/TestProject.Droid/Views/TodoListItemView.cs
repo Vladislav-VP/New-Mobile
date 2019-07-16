@@ -8,7 +8,6 @@ using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
-using Android.Widget;
 
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using MvvmCross;
@@ -18,20 +17,30 @@ using MvvmCross.Droid.Support.V4;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Droid.Support.V7.RecyclerView;
 using Android.Support.V7.Widget;
+using Android.Support.V4.Widget;
+using TestProject.Core.Resources;
+using Android.Support.V4.View;
 
 namespace TestProject.Droid.Views
 {
-    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_layout)]
+    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame)]
     [Register("testProject.droid.views.TodoListItemFragment")]
 
     public class TodoListItemView : BaseFragment<TodoListItemViewModel>
-    {        
+    {
+        private Toolbar _toolbar;
+        private MvxActionBarDrawerToggle _drawerToggle;
         protected override int FragmentId => Resource.Layout.TodoListItemView;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState);
-            
+
+            ParentActivity.SupportActionBar.Title = Strings.TaskList;
+
+            ((MainView)ParentActivity).DrawerLayout.SetDrawerLockMode(DrawerLayout.LockModeUnlocked);
+            ((MainView)ParentActivity).DrawerLayout.OpenDrawer(GravityCompat.Start);
+
             return view;
         }
     }

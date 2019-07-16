@@ -21,7 +21,7 @@ using Android.Support.V7.Widget;
 
 namespace TestProject.Droid.Views
 {
-    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_layout, true)]
+    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame, true)]
     [Register("testProject.droid.views.CreateTodoItemView")]
     public class CreateTodoItemView : BaseFragment<CreateTodoItemViewModel>
     {
@@ -33,16 +33,11 @@ namespace TestProject.Droid.Views
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState);
 
-            var btDelete = view.FindViewById<Button>(Resource.Id.btDelete);
-            if (btDelete != null)
-            {
-                btDelete.Enabled = false;
-            }
-            var headerText = view.FindViewById<TextView>(Resource.Id.taskNameTextView);
-            if (headerText != null)
-            {
-                headerText.Text = Strings.newTask;
-            }
+            //var headerText = view.FindViewById<TextView>(Resource.Id.taskNameTextView);
+            //if (headerText != null)
+            //{
+            //    headerText.Text = Strings.newTask;
+            //}
             return view;
         }
     }

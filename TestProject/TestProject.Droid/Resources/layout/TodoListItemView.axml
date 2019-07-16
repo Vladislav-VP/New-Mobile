@@ -3,12 +3,18 @@
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include
+		layout="@layout/toolbar_actionbar" />
+
     <RelativeLayout
         android:background="@android:color/holo_blue_light"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        local:layout_behavior="@string/appbar_scrolling_view_behavior">
         <TextView
             android:id="@+id/objectivesTextView"
             android:layout_width="match_parent"
@@ -33,10 +39,12 @@
     <MvxRecyclerView
         android:id="@+id/todoItemsRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        
+        android:layout_height="match_parent"       
         android:minHeight="50dp"
+        android:textSize="30dp"
         android:background="@android:color/darker_gray"
+        local:MvxItemTemplate="@layout/item_name"
+        local:MvxBind="ItemSource TodoItems"
     />
     
 </LinearLayout>

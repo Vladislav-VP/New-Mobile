@@ -57,7 +57,7 @@ namespace TestProject.Services.Repositories
         public async Task<User> FindUser(string userName)
         {
             var users = await _repository.GetAllObjects<User>();
-            return users.Where(user => user.UserName == userName).FirstOrDefault();
+            return users.Where(user => user.Name == userName).FirstOrDefault();
         }
     }
 }

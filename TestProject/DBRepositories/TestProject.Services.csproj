@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MvvmCross" Version="6.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Configuration\TestProject.Configurations.csproj" />
     <ProjectReference Include="..\Models\TestProject.Entities.csproj" />
   </ItemGroup>

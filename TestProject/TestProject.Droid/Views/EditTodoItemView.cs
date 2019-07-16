@@ -17,11 +17,11 @@ using TestProject.Core.ViewModels;
 
 namespace TestProject.Droid.Views
 {
-    [MvvmCross.Platforms.Android.Presenters.Attributes.MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_layout, true)]
+    [MvvmCross.Platforms.Android.Presenters.Attributes.MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame, true)]
     [Register("testProject.droid.views.EditTodoItemView")]
     public class EditTodoItemView : BaseFragment<EditTodoItemViewModel>
     {
-        protected override int FragmentId => Resource.Layout.TodoItemTemplate;
+        protected override int FragmentId => Resource.Layout.EditTodoItemView;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {

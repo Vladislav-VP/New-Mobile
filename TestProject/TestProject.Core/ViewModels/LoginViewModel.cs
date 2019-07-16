@@ -44,14 +44,6 @@ namespace TestProject.Core.ViewModels
             ShowMenuCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MenuViewModel>());
         }
 
-        public async override Task Initialize()
-        {
-            await base.Initialize();
-
-            _userName = string.Empty;
-            _password = string.Empty;
-        }
-
         public IMvxAsyncCommand LoginCommand { get; private set; }
         
         public IMvxAsyncCommand ShowRegistrationScreenCommand { get; private set; }
@@ -61,7 +53,7 @@ namespace TestProject.Core.ViewModels
         private async Task Login()
         {
             bool isSuccess = await new UserRepository()
-                .UserExists(new User { UserName = this.UserName, Password = this.Password });
+                .UserExists(new User { Name = this.UserName, Password = this.Password });
             if (!isSuccess)
             {
                 return;

@@ -17,5 +17,10 @@ namespace TestProject.Entities
 
         [ForeignKey(typeof(User)), NotNull]
         public int UserId { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

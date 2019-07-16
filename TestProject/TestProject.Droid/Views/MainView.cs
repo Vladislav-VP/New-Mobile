@@ -1,33 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-
-using Acr.UserDialogs;
+﻿using Acr.UserDialogs;
 using Android.App;
-using Android.Content;
+using Android.Content.PM;
 using Android.OS;
-using Android.Runtime;
+using Android.Support.V4.View;
+using Android.Support.V4.Widget;
 using Android.Views;
-using Android.Widget;
+using Android.Views.InputMethods;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-using MvvmCross.Platforms.Android.Views;
 using TestProject.Core.ViewModels;
-using Android.Content.PM;
-using TestProject.Core;
-using System.Threading.Tasks;
-using SQLite;
-using TestProject.Entities;
-using Android.Support.V4.Widget;
-using Android.Support.V4.View;
-using Android.Views.InputMethods;
 
 namespace TestProject.Droid.Views
 {
     [MvxActivityPresentation]
-    [Activity(Label = "Task list", LaunchMode = LaunchMode.SingleTop)]
+    [Activity(Label = "Task list", 
+        Theme = "@style/AppTheme", 
+        LaunchMode = LaunchMode.SingleTop, 
+        Name = "testProject.droid.views.MainView")]
     public class MainView : MvxAppCompatActivity<MainViewModel>
     {
         public DrawerLayout DrawerLayout { get; set; }
@@ -41,35 +30,40 @@ namespace TestProject.Droid.Views
             SetContentView(Resource.Layout.MainView);
 
             DrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-            //DrawerLayout.Visibility = ViewStates.Invisible;
 
             if (bundle == null)
-            {
-                ViewModel.ShowLoginScreenCommand.Execute(null);
+            {                
+                ViewModel.ShowListTodoItemsViewModelCommand.Execute(null);
+                ViewModel.ShowMenuViewModelCommand.Execute(null);
             }
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+                    DrawerLayout.OpenDrawer(GravityCompat.Start);
+                    return true;
+            }
+            return base.OnOptionsItemSelected(item);
         }
 
         public override void OnBackPressed()
         {
             if (DrawerLayout != null && DrawerLayout.IsDrawerOpen(GravityCompat.Start))
-            {
                 DrawerLayout.CloseDrawers();
-            }
             else
-            {
                 base.OnBackPressed();
-            }
         }
 
         public void HideSoftKeyboard()
         {
             if (CurrentFocus == null)
-            {
                 return;
-            }
 
-            InputMethodManager manager = (InputMethodManager)GetSystemService(InputMethodService);
-            manager.HideSoftInputFromWindow(CurrentFocus.WindowToken, 0);
+            InputMethodManager inputMethodManager = (InputMethodManager)GetSystemService(InputMethodService);
+            inputMethodManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, 0);
 
             CurrentFocus.ClearFocus();
         }

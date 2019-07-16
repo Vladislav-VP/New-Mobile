@@ -63,18 +63,27 @@ namespace TestProject.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to New task.
         /// </summary>
-        public static string newTask {
+        public static string NewTask {
             get {
-                return ResourceManager.GetString("newTask", resourceCulture);
+                return ResourceManager.GetString("NewTask", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Registrate.
         /// </summary>
-        public static string registrateUser {
+        public static string RegistrateUser {
             get {
-                return ResourceManager.GetString("registrateUser", resourceCulture);
+                return ResourceManager.GetString("RegistrateUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My tasks.
+        /// </summary>
+        public static string TaskList {
+            get {
+                return ResourceManager.GetString("TaskList", resourceCulture);
             }
         }
     }

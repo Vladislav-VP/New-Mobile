@@ -45,19 +45,11 @@ namespace TestProject.Core.ViewModels
             RegistrateUserCommand = new MvxAsyncCommand(UserRegistrated);
         }
 
-        public override async Task Initialize()
-        {
-            await base.Initialize();
-
-            _userName = string.Empty;
-            _password = string.Empty;         
-        }
-
         public IMvxAsyncCommand RegistrateUserCommand { get; private set; }
 
         private async Task UserRegistrated()
         {
-            bool isSuccess = await _userGenericRepository.Insert(new User { UserName = this.UserName, Password = this.Password });
+            bool isSuccess = await _userGenericRepository.Insert(new User { Name = this.UserName, Password = this.Password });
             if (!isSuccess)
             {
                 return;
