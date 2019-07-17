@@ -6,81 +6,8 @@
     android:layout_height="match_parent"
     android:background="#ffffffff">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/holo_blue_light">
-        <TextView
-            android:id="@+id/tvTaskName"          
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="100dp"
-            android:textColor="@android:color/background_light"
-            android:textSize="35dp"/>
-        <Button
-            android:id="@+id/btnBack"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentLeft="true"
-            local:MvxBind="Click BackToListCommand" />
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/tvTaskName"          
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:textSize="25dp"
-            android:text="@string/taskLabel"
-        />
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/etTaskName"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="#fffd"
-            android:layout_margin="5dp"
-            local:MvxBind="Text Name"
-        />
-        <TextView
-            android:id="@+id/tvDescription"          
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:textSize="25dp"
-            android:text="@string/description"
-        />
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/etDescription"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:background="#fffd"
-            android:layout_margin="5dp"
-            local:MvxBind="Text Description"
-        />
-    </LinearLayout>
-               
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <ToggleButton
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            local:MvxBind="Checked IsDone"
-        />
-        <TextView
-            android:id="@+id/tvDone"          
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:textSize="25dp"
-            android:text="@string/doneText"
-        />
-    </LinearLayout>
+    <include
+        layout="@layout/todoitemtemplate"/>
 
     <Button
         android:id="@+id/btnCreate"
@@ -89,8 +16,7 @@
         android:layout_alignParentLeft="true"
         android:layout_margin="5dp"
         android:text="@string/saveTask"
-        local:MvxBind="Click CreateTodoItemCommand"
+        local:MvxBind="Click TodoItemCreatedCommand"
     />
-
 
 </LinearLayout>

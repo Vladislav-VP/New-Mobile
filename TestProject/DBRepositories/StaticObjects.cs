@@ -1,21 +1,18 @@
 ﻿using MvvmCross.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using TestProject.Entities;
 
 namespace TestProject.Services
 {
     public static class StaticObjects
     {
-        static StaticObjects()
-        {
-            User = new User();
-            TodoItems = new MvxObservableCollection<TodoItem>();
-        }
+        public static User CurrentUser { get; set; }
 
-        public static User User { get; set; }
+        public static TodoItem CurrentTodoItem { get; set; }
 
-        public static MvxObservableCollection<TodoItem> TodoItems { get; set; }
+        public static IEnumerable<TodoItem> CurrentTodoItems { get; set; }
     }
 }
 

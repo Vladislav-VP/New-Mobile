@@ -33,11 +33,6 @@ namespace TestProject.Droid.Views
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState);
 
-            //var headerText = view.FindViewById<TextView>(Resource.Id.taskNameTextView);
-            //if (headerText != null)
-            //{
-            //    headerText.Text = Strings.newTask;
-            //}
             return view;
         }
     }

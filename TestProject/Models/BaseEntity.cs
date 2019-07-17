@@ -10,7 +10,6 @@ namespace TestProject.Entities
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
-        [NotNull]
-        public DateTime CreationDateTime { get; set; }
+        public DateTime CreationDateTime { get; set; } = DateTime.Now;
     }
 }

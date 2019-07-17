@@ -28,8 +28,6 @@ namespace TestProject.Droid.Views
 
     public class TodoListItemView : BaseFragment<TodoListItemViewModel>
     {
-        private Toolbar _toolbar;
-        private MvxActionBarDrawerToggle _drawerToggle;
         protected override int FragmentId => Resource.Layout.TodoListItemView;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -37,9 +35,6 @@ namespace TestProject.Droid.Views
             var view = base.OnCreateView(inflater, container, savedInstanceState);
 
             ParentActivity.SupportActionBar.Title = Strings.TaskList;
-
-            ((MainView)ParentActivity).DrawerLayout.SetDrawerLockMode(DrawerLayout.LockModeUnlocked);
-            ((MainView)ParentActivity).DrawerLayout.OpenDrawer(GravityCompat.Start);
 
             return view;
         }

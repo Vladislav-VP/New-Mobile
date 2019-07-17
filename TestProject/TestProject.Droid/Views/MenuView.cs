@@ -11,7 +11,7 @@ using TestProject.Core.ViewModels;
 
 namespace TestProject.Droid.Views
 {
-    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame)]
+    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.navigation_frame)]
     [Register("testProject.droid.views.MenuView")]
     public class MenuView : MvxFragment<MenuViewModel>, NavigationView.IOnNavigationItemSelectedListener
     {
@@ -29,7 +29,7 @@ namespace TestProject.Droid.Views
 
             var todoItemsMenuItem = _navigationView.Menu.FindItem(Resource.Id.nav_todoItems);
             todoItemsMenuItem.SetCheckable(false);
-            todoItemsMenuItem.SetChecked(false);
+            todoItemsMenuItem.SetChecked(true);
 
             _previousMenuItem = todoItemsMenuItem;
 

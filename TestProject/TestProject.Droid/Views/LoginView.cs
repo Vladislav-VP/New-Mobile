@@ -5,32 +5,31 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using TestProject.Core.ViewModels;
 
 namespace TestProject.Droid.Views
 {
-    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame)]
-    [Register("testProject.droid.views.LoginView")]
-    public class LoginView : BaseFragment<LoginViewModel>
+    [MvxActivityPresentation]
+    [Activity(Label = "Log in",
+        Theme = "@style/AppTheme",
+        LaunchMode = LaunchMode.SingleTop,
+        Name = "testProject.droid.views.LoginView")]
+    public class LoginView : MvxAppCompatActivity<LoginViewModel>
     {
-        protected override int FragmentId => Resource.Layout.LoginView;
-
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        protected override void OnCreate(Bundle bundle)
         {
-            var view = base.OnCreateView(inflater, container, savedInstanceState);
+            base.OnCreate(bundle);
 
-            //var btnRegistrate = view.FindViewById<Button>(Resource.Id.btnRegistrate);
-            //if (btnRegistrate != null)
-            //{
-            //    btnRegistrate.Enabled = true;
-            //}
+            SetContentView(Resource.Layout.LoginView);
 
-            return view;
+
         }
     }
 }

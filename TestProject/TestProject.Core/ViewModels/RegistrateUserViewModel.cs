@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 using TestProject.Entities;
 using TestProject.Services.Repositories.Interfaces;
 using TestProject.Services.Repositories;
+using TestProject.Services;
 
 namespace TestProject.Core.ViewModels
 {
     public class RegistrateUserViewModel : BaseViewModel
     {
-        private readonly IBaseRepository<User> _userGenericRepository;
+        private readonly IUserRepository _userRepository;
 
         private string _userName;
         public string UserName
@@ -40,7 +41,7 @@ namespace TestProject.Core.ViewModels
         public RegistrateUserViewModel(IMvxNavigationService navigationService)
             : base(navigationService)
         {
-            _userGenericRepository = new BaseRepository<User>();
+            _userRepository = new UserRepository();
 
             RegistrateUserCommand = new MvxAsyncCommand(UserRegistrated);
         }
@@ -49,13 +50,20 @@ namespace TestProject.Core.ViewModels
 
         private async Task UserRegistrated()
         {
-            bool isSuccess = await _userGenericRepository.Insert(new User { Name = this.UserName, Password = this.Password });
+            await AddUser();
+            await _navigationService.Navigate<TodoListItemViewModel>();
+        }
+
+        private async Task AddUser()
+        {
+            bool isSuccess = await _userRepository.Insert(new User { Name = this.UserName, Password = this.Password });
             if (!isSuccess)
             {
                 return;
             }
 
-            await _navigationService.Navigate<TodoListItemViewModel>();
+            StaticObjects.CurrentUser = await _userRepository.FindUser(UserName);
+            StaticObjects.CurrentTodoItems = new MvxObservableCollection<TodoItem>();
         }
     }
 }

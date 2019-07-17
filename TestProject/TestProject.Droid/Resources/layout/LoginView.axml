@@ -69,4 +69,9 @@
             local:MvxBind="Click ShowRegistrationScreenCommand"/>
     </LinearLayout>
 
+    <FrameLayout
+		android:id="@+id/login_frame"
+		android:layout_height="match_parent"
+		android:layout_width="wrap_content" />
+
 </LinearLayout>

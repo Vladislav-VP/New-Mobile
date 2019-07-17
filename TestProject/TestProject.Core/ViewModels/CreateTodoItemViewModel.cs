@@ -12,53 +12,20 @@ using TestProject.Services;
 
 namespace TestProject.Core.ViewModels
 {
-    public class CreateTodoItemViewModel : BaseViewModel
+    public class CreateTodoItemViewModel : TodoItemViewModel
     {
-        private readonly IBaseRepository<TodoItem> _genericTodoItemRepository;
-
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                _name = value;
-                RaisePropertyChanged(() => Name);
-            }
-        }
-
-        private string _description;
-        public string Description
-        {
-            get => _description;
-            set
-            {
-                _description = value;
-                RaisePropertyChanged(() => Description);
-            }
-        }
-
-        private bool _isDone;
-        public bool IsDone
-        {
-            get => _isDone;
-            set
-            {
-                _isDone = value;
-                RaisePropertyChanged(() => IsDone);
-            }
-        }
+        private readonly ITodoItemRepository _todoItemRepository;       
 
         public CreateTodoItemViewModel(IMvxNavigationService navigationService)
             : base(navigationService)
         {
-            _genericTodoItemRepository = new BaseRepository<TodoItem>();
+            _todoItemRepository = new TodoItemRepository();
 
             BackToListCommand = new MvxAsyncCommand(GoBack);
-            CreateTodoItemCommand = new MvxAsyncCommand(CreateItem);
+            TodoItemCreatedCommand = new MvxAsyncCommand(CreateItem);
         }
         
-        public IMvxAsyncCommand CreateTodoItemCommand { get; private set; }
+        public IMvxAsyncCommand TodoItemCreatedCommand { get; private set; }
 
         public IMvxAsyncCommand BackToListCommand { get; private set; }
 
@@ -69,9 +36,10 @@ namespace TestProject.Core.ViewModels
 
         private async Task CreateItem()
         {
-            TodoItem item = new TodoItem { Name = this.Name, Description = this.Description, IsDone = this.IsDone };
-            await _genericTodoItemRepository.Insert(item);
-            StaticObjects.TodoItems.Add(item);
+            TodoItem item = new TodoItem { Name = this.Name, Description = this.Description,
+                IsDone = this.IsDone, UserId = StaticObjects.CurrentUser.Id };
+            await _todoItemRepository.Insert(item);
+            StaticObjects.CurrentTodoItems = await _todoItemRepository.GetTodoItems(StaticObjects.CurrentUser.Id);
             var result = await _navigationService.Navigate<TodoListItemViewModel>();
         }
     }

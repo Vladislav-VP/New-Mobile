@@ -43,7 +43,7 @@ namespace TestProject.Droid.Views
             switch (item.ItemId)
             {
                 case Android.Resource.Id.Home:
-                    DrawerLayout.OpenDrawer(GravityCompat.Start);
+                    DrawerLayout.OpenDrawer(GravityCompat.RelativeHorizontalGravityMask);
                     return true;
             }
             return base.OnOptionsItemSelected(item);
@@ -51,7 +51,7 @@ namespace TestProject.Droid.Views
 
         public override void OnBackPressed()
         {
-            if (DrawerLayout != null && DrawerLayout.IsDrawerOpen(GravityCompat.Start))
+            if (DrawerLayout != null && DrawerLayout.IsDrawerOpen(GravityCompat.RelativeHorizontalGravityMask))
                 DrawerLayout.CloseDrawers();
             else
                 base.OnBackPressed();

@@ -15,7 +15,6 @@ using MvvmCross.Platforms.Android.Presenters.Attributes;
 
 namespace TestProject.Droid.Views
 {
-    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame)]
     [Register("testProject.droid.views.RegistrateView")]
     public class RegistrateUserView : BaseFragment<RegistrateUserViewModel>
     {

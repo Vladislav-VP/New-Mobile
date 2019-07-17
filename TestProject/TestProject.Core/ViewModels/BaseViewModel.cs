@@ -15,4 +15,16 @@ namespace TestProject.Core.ViewModels
             _navigationService = navigationService;
         }
     }
+
+    public abstract class BaseViewModel<TParameter, TResult> : MvxViewModel<TParameter, TResult>
+        where TParameter : class
+        where TResult : class
+    {
+        protected readonly IMvxNavigationService _navigationService;
+
+        public BaseViewModel(IMvxNavigationService navigationService)
+        {
+            _navigationService = navigationService;
+        }
+    }
 }

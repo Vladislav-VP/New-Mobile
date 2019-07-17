@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+using TestProject.Core.ViewModelResults;
 using TestProject.Entities;
 using TestProject.Services;
+using TestProject.Services.Helpers;
 
 namespace TestProject.Core.ViewModels
 {
@@ -16,8 +19,9 @@ namespace TestProject.Core.ViewModels
         public TodoListItemViewModel(IMvxNavigationService navigationService)
             : base(navigationService)
         {
-            AddTodoItemCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<CreateTodoItemViewModel>());
-            ShowMenuViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MenuViewModel>());
+            ShowCreateTodoItemViewModelCommand = new MvxAsyncCommand(async ()
+                => await _navigationService.Navigate<CreateTodoItemViewModel>());
+            TodoItemSelectedCommand = new MvxAsyncCommand<TodoItem>(TodoItemSelected);
         }
 
         private MvxObservableCollection<TodoItem> _todoItems;
@@ -35,11 +39,21 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            _todoItems = StaticObjects.TodoItems;
+            _todoItems = CastHelper<TodoItem>.ToMvxObservableCollection(StaticObjects.CurrentTodoItems);
         }
 
-        public IMvxAsyncCommand AddTodoItemCommand { get; private set; }
+        public IMvxAsyncCommand ShowCreateTodoItemViewModelCommand { get; private set; }
 
         public IMvxAsyncCommand ShowMenuViewModelCommand { get; private set; }
+
+        public IMvxCommand<TodoItem> TodoItemSelectedCommand { get; private set; }
+
+        private async Task TodoItemSelected(TodoItem selectedTodoItem)
+        {
+            // Write logic
+            var result = await _navigationService
+                .Navigate<EditTodoItemViewModel, TodoItem, DestructionResult<TodoItem>>(selectedTodoItem);
+        }
+
     }
 }
