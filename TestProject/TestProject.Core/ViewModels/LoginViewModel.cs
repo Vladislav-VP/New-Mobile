@@ -19,6 +19,20 @@ namespace TestProject.Core.ViewModels
         private readonly ITodoItemRepository _todoItemRepository;
 
         private string _userName;
+        private string _password;
+
+        public LoginViewModel(IMvxNavigationService navigationService)
+            : base(navigationService)
+        {
+            _userRepository = new UserRepository();
+            _todoItemRepository = new TodoItemRepository();
+
+            LoginCommand = new MvxAsyncCommand(Login);
+            ShowRegistrationScreenCommand = new MvxAsyncCommand(async ()
+                => await _navigationService.Navigate<RegistrationViewModel>());
+            ShowMenuCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MenuViewModel>());
+        }
+
         public string UserName
         {
             get => _userName;
@@ -29,7 +43,6 @@ namespace TestProject.Core.ViewModels
             }
         }
 
-        private string _password;
         public string Password
         {
             get => _password;
@@ -40,18 +53,6 @@ namespace TestProject.Core.ViewModels
             }
         }
 
-        public LoginViewModel(IMvxNavigationService navigationService)
-            : base(navigationService)
-        {
-            _userRepository = new UserRepository();
-            _todoItemRepository = new TodoItemRepository();
-
-            LoginCommand = new MvxAsyncCommand(Login);
-            ShowRegistrationScreenCommand = new MvxAsyncCommand(async ()
-                => await _navigationService.Navigate<RegistrateUserViewModel>());            
-            ShowMenuCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MenuViewModel>());
-        }
-
         public IMvxAsyncCommand LoginCommand { get; private set; }
         
         public IMvxAsyncCommand ShowRegistrationScreenCommand { get; private set; }
@@ -60,8 +61,9 @@ namespace TestProject.Core.ViewModels
 
         private async Task Login()
         {
+            User user = new User { Name = this.UserName, Password = this.Password };
             bool isSuccess = await _userRepository
-                .UserExists(new User { Name = this.UserName, Password = this.Password });
+                .UserExists(user.Name);
             if (!isSuccess)
             {
                 return;

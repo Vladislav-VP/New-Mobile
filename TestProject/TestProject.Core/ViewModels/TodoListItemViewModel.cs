@@ -9,13 +9,14 @@ using MvvmCross.ViewModels;
 using TestProject.Core.ViewModelResults;
 using TestProject.Entities;
 using TestProject.Services;
-using TestProject.Services.Helpers;
 
 namespace TestProject.Core.ViewModels
 {
 
     public class TodoListItemViewModel : BaseViewModel
     {
+        private MvxObservableCollection<TodoItem> _todoItems;
+
         public TodoListItemViewModel(IMvxNavigationService navigationService)
             : base(navigationService)
         {
@@ -23,8 +24,7 @@ namespace TestProject.Core.ViewModels
                 => await _navigationService.Navigate<CreateTodoItemViewModel>());
             TodoItemSelectedCommand = new MvxAsyncCommand<TodoItem>(TodoItemSelected);
         }
-
-        private MvxObservableCollection<TodoItem> _todoItems;
+        
         public MvxObservableCollection<TodoItem> TodoItems
         {
             get => _todoItems;
@@ -39,7 +39,7 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            _todoItems = CastHelper<TodoItem>.ToMvxObservableCollection(StaticObjects.CurrentTodoItems);
+            _todoItems = new MvxObservableCollection<TodoItem>(StaticObjects.CurrentTodoItems);
         }
 
         public IMvxAsyncCommand ShowCreateTodoItemViewModelCommand { get; private set; }
@@ -50,10 +50,9 @@ namespace TestProject.Core.ViewModels
 
         private async Task TodoItemSelected(TodoItem selectedTodoItem)
         {
-            // Write logic
+            // TODO : Write logic
             var result = await _navigationService
                 .Navigate<EditTodoItemViewModel, TodoItem, DestructionResult<TodoItem>>(selectedTodoItem);
         }
-
     }
 }

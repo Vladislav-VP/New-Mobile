@@ -11,7 +11,5 @@ namespace TestProject.Services.Repositories.Interfaces
         Task<User> FindUser(string userName);
 
         Task<bool> UserExists(string userName);
-
-        Task<bool> UserExists(User user);
     }
 }

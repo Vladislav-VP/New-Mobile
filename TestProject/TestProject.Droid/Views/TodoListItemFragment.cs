@@ -26,9 +26,9 @@ namespace TestProject.Droid.Views
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame)]
     [Register("testProject.droid.views.TodoListItemFragment")]
 
-    public class TodoListItemView : BaseFragment<TodoListItemViewModel>
+    public class TodoListItemFragment : BaseFragment<TodoListItemViewModel>
     {
-        protected override int FragmentId => Resource.Layout.TodoListItemView;
+        protected override int FragmentId => Resource.Layout.TodoListItemFragment;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {

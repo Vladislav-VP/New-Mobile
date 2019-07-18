@@ -8,6 +8,12 @@ namespace TestProject.Core.ViewModels
     public abstract class TodoItemViewModel : BaseViewModel
     {
         protected string _name;
+        protected string _description;
+        protected bool _isDone;
+
+        public TodoItemViewModel(IMvxNavigationService navigationService)
+            : base(navigationService) { }
+
         public string Name
         {
             get => _name;
@@ -18,7 +24,6 @@ namespace TestProject.Core.ViewModels
             }
         }
 
-        protected string _description;
         public string Description
         {
             get => _description;
@@ -29,7 +34,6 @@ namespace TestProject.Core.ViewModels
             }
         }
 
-        protected bool _isDone;
         public bool IsDone
         {
             get => _isDone;
@@ -39,8 +43,5 @@ namespace TestProject.Core.ViewModels
                 RaisePropertyChanged(() => IsDone);
             }
         }
-
-        public TodoItemViewModel(IMvxNavigationService navigationService)
-            : base(navigationService) { }
     }
 }

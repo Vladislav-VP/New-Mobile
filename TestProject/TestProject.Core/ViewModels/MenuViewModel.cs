@@ -11,7 +11,6 @@ namespace TestProject.Core.ViewModels
 {
     public class MenuViewModel : BaseViewModel
     {
-
         public MenuViewModel(IMvxNavigationService navigationService)
             : base(navigationService)
         {

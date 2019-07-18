@@ -16,17 +16,13 @@ namespace TestProject.Core.ViewModels
         public MainViewModel(IMvxNavigationService navigationService)
             : base(navigationService)
         {
-            ShowLoginViewModelCommand = new MvxAsyncCommand(async () =>
-                await _navigationService.Navigate<LoginViewModel>());
-            ShowMenuViewModelCommand = new MvxAsyncCommand(async () =>
-                  await _navigationService.Navigate<MenuViewModel>());
             ShowListTodoItemsViewModelCommand = new MvxAsyncCommand(async () =>
                   await _navigationService.Navigate<TodoListItemViewModel>());
+            ShowMenuViewModelCommand = new MvxAsyncCommand(async () =>
+                  await _navigationService.Navigate<MenuViewModel>());
         }
         
         public IMvxAsyncCommand ShowListTodoItemsViewModelCommand { get; private set; }
-
-        public IMvxAsyncCommand ShowLoginViewModelCommand { get; private set; }
 
         public IMvxAsyncCommand ShowMenuViewModelCommand { get; private set; }
     }

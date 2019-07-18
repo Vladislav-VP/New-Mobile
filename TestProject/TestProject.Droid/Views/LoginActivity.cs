@@ -20,16 +20,14 @@ namespace TestProject.Droid.Views
     [Activity(Label = "Log in",
         Theme = "@style/AppTheme",
         LaunchMode = LaunchMode.SingleTop,
-        Name = "testProject.droid.views.LoginView")]
-    public class LoginView : MvxAppCompatActivity<LoginViewModel>
+        Name = "testProject.droid.views.LoginActivity")]
+    public class LoginActivity : MvxAppCompatActivity<LoginViewModel>
     {
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
-            SetContentView(Resource.Layout.LoginView);
-
-
+            SetContentView(Resource.Layout.LoginActivity);
         }
     }
 }

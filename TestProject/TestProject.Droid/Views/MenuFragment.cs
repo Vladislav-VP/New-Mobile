@@ -12,8 +12,8 @@ using TestProject.Core.ViewModels;
 namespace TestProject.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.navigation_frame)]
-    [Register("testProject.droid.views.MenuView")]
-    public class MenuView : MvxFragment<MenuViewModel>, NavigationView.IOnNavigationItemSelectedListener
+    [Register("testProject.droid.views.MenuFragment")]
+    public class MenuFragment : MvxFragment<MenuViewModel>, NavigationView.IOnNavigationItemSelectedListener
     {
         private NavigationView _navigationView;
         private IMenuItem _previousMenuItem;
@@ -22,7 +22,7 @@ namespace TestProject.Droid.Views
         {
             var ignore = base.OnCreateView(inflater, container, savedInstanceState);
 
-            var view = this.BindingInflate(Resource.Layout.MenuView, null);
+            var view = this.BindingInflate(Resource.Layout.MenuFragment, null);
 
             _navigationView = view.FindViewById<NavigationView>(Resource.Id.navigation_view);
             _navigationView.SetNavigationItemSelectedListener(this);
@@ -59,7 +59,7 @@ namespace TestProject.Droid.Views
 
         private async Task Navigate(int itemId)
         {
-            ((MainView)Activity).DrawerLayout.CloseDrawers();
+            ((MainActivity)Activity).DrawerLayout.CloseDrawers();
             await Task.Delay(TimeSpan.FromMilliseconds(250));
 
             switch (itemId)

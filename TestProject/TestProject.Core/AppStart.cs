@@ -15,9 +15,9 @@ namespace TestProject.Core
         {
         }
 
-        protected override Task NavigateToFirstViewModel(object hint = null)
+        protected async override Task NavigateToFirstViewModel(object hint = null)
         {
-            return NavigationService.Navigate<LoginViewModel>();
+            await NavigationService.Navigate<LoginViewModel>();
         }
     }
 }

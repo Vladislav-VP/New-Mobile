@@ -12,11 +12,21 @@ using TestProject.Services;
 
 namespace TestProject.Core.ViewModels
 {
-    public class RegistrateUserViewModel : BaseViewModel
+    public class RegistrationViewModel : BaseViewModel
     {
         private readonly IUserRepository _userRepository;
 
         private string _userName;
+        private string _password;
+
+        public RegistrationViewModel(IMvxNavigationService navigationService)
+            : base(navigationService)
+        {
+            _userRepository = new UserRepository();
+
+            RegistrateUserCommand = new MvxAsyncCommand(UserRegistrated);
+        }
+
         public string UserName
         {
             get => _userName;
@@ -27,7 +37,6 @@ namespace TestProject.Core.ViewModels
             }
         }
 
-        private string _password;
         public string Password
         {
             get => _password;
@@ -36,14 +45,6 @@ namespace TestProject.Core.ViewModels
                 _password = value;
                 RaisePropertyChanged(() => Password);
             }
-        }
-
-        public RegistrateUserViewModel(IMvxNavigationService navigationService)
-            : base(navigationService)
-        {
-            _userRepository = new UserRepository();
-
-            RegistrateUserCommand = new MvxAsyncCommand(UserRegistrated);
         }
 
         public IMvxAsyncCommand RegistrateUserCommand { get; private set; }

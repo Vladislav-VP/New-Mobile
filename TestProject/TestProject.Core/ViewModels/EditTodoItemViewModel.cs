@@ -16,6 +16,17 @@ namespace TestProject.Core.ViewModels
         private readonly ITodoItemRepository _todoItemRepository;
 
         private string _name;
+        private string _description;
+        private bool _isDone;
+        private TodoItem _todoItem;
+
+        public EditTodoItemViewModel(IMvxNavigationService navigationService) 
+            : base(navigationService)
+        {
+            _todoItemRepository = new TodoItemRepository();
+        }
+
+
         public string Name
         {
             get => _name;
@@ -26,7 +37,6 @@ namespace TestProject.Core.ViewModels
             }
         }
 
-        private string _description;
         public string Description
         {
             get => _description;
@@ -37,7 +47,6 @@ namespace TestProject.Core.ViewModels
             }
         }
 
-        protected bool _isDone;
         private bool IsDone
         {
             get => _isDone;
@@ -48,7 +57,6 @@ namespace TestProject.Core.ViewModels
             }
         }
 
-        private TodoItem _todoItem;
         public TodoItem TodoItem
         {
             get => _todoItem;
@@ -59,12 +67,6 @@ namespace TestProject.Core.ViewModels
             }
         }
 
-
-        public EditTodoItemViewModel(IMvxNavigationService navigationService) 
-            : base(navigationService)
-        {
-            _todoItemRepository = new TodoItemRepository();
-        }
 
         public override void Prepare(TodoItem parameter)
         {

@@ -18,16 +18,14 @@ using TestProject.Core.ViewModels;
 namespace TestProject.Droid.Views
 {
     [MvvmCross.Platforms.Android.Presenters.Attributes.MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame, true)]
-    [Register("testProject.droid.views.EditTodoItemView")]
-    public class EditTodoItemView : BaseFragment<EditTodoItemViewModel>
+    [Register("testProject.droid.views.EditTodoItemFragment")]
+    public class EditTodoItemFragment : BaseFragment<EditTodoItemViewModel>
     {
-        protected override int FragmentId => Resource.Layout.EditTodoItemView;
+        protected override int FragmentId => Resource.Layout.EditTodoItemFragment;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState);
-
-            //View.
 
             return view;
         }

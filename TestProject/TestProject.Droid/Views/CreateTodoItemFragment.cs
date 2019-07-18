@@ -22,12 +22,12 @@ using Android.Support.V7.Widget;
 namespace TestProject.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame, true)]
-    [Register("testProject.droid.views.CreateTodoItemView")]
-    public class CreateTodoItemView : BaseFragment<CreateTodoItemViewModel>
+    [Register("testProject.droid.views.CreateTodoItemFragment")]
+    public class CreateTodoItemFragment : BaseFragment<CreateTodoItemViewModel>
     {
-        protected override int FragmentId => Resource.Layout.CreateTodoItemView;
-
         private Button _saveButton;
+
+        protected override int FragmentId => Resource.Layout.CreateTodoItemFragment;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {

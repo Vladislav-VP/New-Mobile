@@ -9538,7 +9538,7 @@ namespace TestProject.Droid
 			public const int browser_actions_context_menu_row = 2130968605;
 			
 			// aapt resource value: 0x7f04001e
-			public const int CreateTodoItemView = 2130968606;
+			public const int CreateTodoItemFragment = 2130968606;
 			
 			// aapt resource value: 0x7f04001f
 			public const int design_bottom_navigation_item = 2130968607;
@@ -9583,7 +9583,7 @@ namespace TestProject.Droid
 			public const int design_text_input_password_icon = 2130968620;
 			
 			// aapt resource value: 0x7f04002d
-			public const int EditTodoItemView = 2130968621;
+			public const int EditTodoItemFragment = 2130968621;
 			
 			// aapt resource value: 0x7f04002e
 			public const int item_name = 2130968622;
@@ -9598,13 +9598,13 @@ namespace TestProject.Droid
 			public const int loadingprogress = 2130968625;
 			
 			// aapt resource value: 0x7f040032
-			public const int LoginView = 2130968626;
+			public const int LoginActivity = 2130968626;
 			
 			// aapt resource value: 0x7f040033
-			public const int MainView = 2130968627;
+			public const int MainActivity = 2130968627;
 			
 			// aapt resource value: 0x7f040034
-			public const int MenuView = 2130968628;
+			public const int MenuFragment = 2130968628;
 			
 			// aapt resource value: 0x7f040035
 			public const int mtrl_layout_snackbar = 2130968629;
@@ -9634,7 +9634,7 @@ namespace TestProject.Droid
 			public const int notification_template_part_time = 2130968637;
 			
 			// aapt resource value: 0x7f04003e
-			public const int RegistrateUserView = 2130968638;
+			public const int RegistrationFragment = 2130968638;
 			
 			// aapt resource value: 0x7f04003f
 			public const int select_dialog_item_material = 2130968639;
@@ -9655,13 +9655,13 @@ namespace TestProject.Droid
 			public const int TodoItemTemplate = 2130968644;
 			
 			// aapt resource value: 0x7f040045
-			public const int TodoListItemView = 2130968645;
+			public const int TodoListItemFragment = 2130968645;
 			
 			// aapt resource value: 0x7f040046
 			public const int toolbar_actionbar = 2130968646;
 			
 			// aapt resource value: 0x7f040047
-			public const int UserInfoView = 2130968647;
+			public const int UserInfoFragment = 2130968647;
 			
 			static Layout()
 			{

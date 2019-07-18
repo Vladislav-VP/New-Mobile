@@ -22,6 +22,8 @@ namespace TestProject.Droid.Views
             }
         }
 
+        protected abstract int FragmentId { get; }
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var ignore = base.OnCreateView(inflater, container, savedInstanceState);
@@ -36,19 +38,17 @@ namespace TestProject.Droid.Views
 
                 _drawerToggle = new MvxActionBarDrawerToggle(
                     Activity,                               // host Activity
-                    ((MainView)ParentActivity).DrawerLayout,  // DrawerLayout object
+                    ((MainActivity)ParentActivity).DrawerLayout,  // DrawerLayout object
                     _toolbar,                              // nav drawer icon to replace 'Up' caret
                     Resource.String.drawer_open,            // "open drawer" description
                     Resource.String.drawer_close            // "close drawer" description
                 );
-                _drawerToggle.DrawerOpened += (object sender, ActionBarDrawerEventArgs e) => ((MainView)Activity)?.HideSoftKeyboard();
-                ((MainView)ParentActivity).DrawerLayout.AddDrawerListener(_drawerToggle);
+                _drawerToggle.DrawerOpened += (object sender, ActionBarDrawerEventArgs e) => ((MainActivity)Activity)?.HideSoftKeyboard();
+                ((MainActivity)ParentActivity).DrawerLayout.AddDrawerListener(_drawerToggle);
             }
 
             return view;
         }
-
-        protected abstract int FragmentId { get; }
 
         public override void OnConfigurationChanged(Configuration newConfig)
         {

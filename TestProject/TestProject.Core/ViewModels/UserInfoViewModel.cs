@@ -10,6 +10,11 @@ namespace TestProject.Core.ViewModels
     public class UserInfoViewModel : BaseViewModel
     {
         private string _userName;
+        private string _password;
+
+        public UserInfoViewModel(IMvxNavigationService navigationService)
+            : base(navigationService) { }
+
         public string UserName
         {
             get => _userName;
@@ -20,7 +25,6 @@ namespace TestProject.Core.ViewModels
             }
         }
 
-        private string _password;
         public string Password
         {
             get => _password;
@@ -30,8 +34,5 @@ namespace TestProject.Core.ViewModels
                 RaisePropertyChanged(() => Password);
             }
         }
-
-        public UserInfoViewModel(IMvxNavigationService navigationService)
-            : base(navigationService) { }
     }
 }

@@ -21,7 +21,8 @@ namespace TestProject.Core.ViewModels
         {
             _todoItemRepository = new TodoItemRepository();
 
-            BackToListCommand = new MvxAsyncCommand(GoBack);
+            BackToListCommand = new MvxAsyncCommand(async ()
+               => await _navigationService.Navigate<TodoListItemViewModel>());
             TodoItemCreatedCommand = new MvxAsyncCommand(CreateItem);
         }
         
@@ -29,14 +30,9 @@ namespace TestProject.Core.ViewModels
 
         public IMvxAsyncCommand BackToListCommand { get; private set; }
 
-        private async Task GoBack()
-        {
-            var result = await _navigationService.Navigate<TodoListItemViewModel>();
-        }
-
         private async Task CreateItem()
         {
-            TodoItem item = new TodoItem { Name = this.Name, Description = this.Description,
+            TodoItem item = new TodoItem { Name = /*this.*/Name, Description = this.Description,
                 IsDone = this.IsDone, UserId = StaticObjects.CurrentUser.Id };
             await _todoItemRepository.Insert(item);
             StaticObjects.CurrentTodoItems = await _todoItemRepository.GetTodoItems(StaticObjects.CurrentUser.Id);

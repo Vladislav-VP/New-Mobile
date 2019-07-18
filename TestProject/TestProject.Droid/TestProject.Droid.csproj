@@ -72,14 +72,14 @@
     <Compile Include="Setup.cs" />
     <Compile Include="SplashScreen.cs" />
     <Compile Include="Views\BaseFragment.cs" />
-    <Compile Include="Views\EditTodoItemView.cs" />
-    <Compile Include="Views\CreateTodoItemView.cs" />
-    <Compile Include="Views\LoginView.cs" />
-    <Compile Include="Views\MainView.cs" />
-    <Compile Include="Views\MenuView.cs" />
-    <Compile Include="Views\RegistrateUserView.cs" />
-    <Compile Include="Views\TodoListItemView.cs" />
-    <Compile Include="Views\UserInfoView.cs" />
+    <Compile Include="Views\EditTodoItemFragment.cs" />
+    <Compile Include="Views\CreateTodoItemFragment.cs" />
+    <Compile Include="Views\LoginActivity.cs" />
+    <Compile Include="Views\MainActivity.cs" />
+    <Compile Include="Views\MenuFragment.cs" />
+    <Compile Include="Views\RegistrationFragment.cs" />
+    <Compile Include="Views\TodoListItemFragment.cs" />
+    <Compile Include="Views\UserInfoFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -128,7 +128,7 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\TodoListItemView.axml">
+    <AndroidResource Include="Resources\layout\TodoListItemFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -151,17 +151,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\CreateTodoItemView.axml">
+    <AndroidResource Include="Resources\layout\CreateTodoItemFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\EditTodoItemView.axml">
+    <AndroidResource Include="Resources\layout\EditTodoItemFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\MainView.axml">
+    <AndroidResource Include="Resources\layout\MainActivity.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -174,22 +174,22 @@
     <AndroidResource Include="Resources\drawable\screen.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\LoginView.axml">
+    <AndroidResource Include="Resources\layout\LoginActivity.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\RegistrateUserView.axml">
+    <AndroidResource Include="Resources\layout\RegistrationFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\UserInfoView.axml">
+    <AndroidResource Include="Resources\layout\UserInfoFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\MenuView.axml">
+    <AndroidResource Include="Resources\layout\MenuFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

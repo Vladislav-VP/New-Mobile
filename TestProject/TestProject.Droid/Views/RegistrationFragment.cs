@@ -15,10 +15,10 @@ using MvvmCross.Platforms.Android.Presenters.Attributes;
 
 namespace TestProject.Droid.Views
 {
-    [Register("testProject.droid.views.RegistrateView")]
-    public class RegistrateUserView : BaseFragment<RegistrateUserViewModel>
+    [Register("testProject.droid.views.RegistrationFragment")]
+    public class RegistrationFragment : BaseFragment<RegistrationViewModel>
     {
-        protected override int FragmentId => Resource.Layout.RegistrateUserView;
+        protected override int FragmentId => Resource.Layout.RegistrationFragment;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {

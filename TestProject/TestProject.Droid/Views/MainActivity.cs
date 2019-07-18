@@ -16,27 +16,10 @@ namespace TestProject.Droid.Views
     [Activity(Label = "Task list", 
         Theme = "@style/AppTheme", 
         LaunchMode = LaunchMode.SingleTop, 
-        Name = "testProject.droid.views.MainView")]
-    public class MainView : MvxAppCompatActivity<MainViewModel>
+        Name = "testProject.droid.views.MainActivity")]
+    public class MainActivity : MvxAppCompatActivity<MainViewModel>
     {
         public DrawerLayout DrawerLayout { get; set; }
-
-        protected override void OnCreate(Bundle bundle)
-        {
-            base.OnCreate(bundle);
-
-            UserDialogs.Init(this);
-
-            SetContentView(Resource.Layout.MainView);
-
-            DrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-
-            if (bundle == null)
-            {                
-                ViewModel.ShowListTodoItemsViewModelCommand.Execute(null);
-                ViewModel.ShowMenuViewModelCommand.Execute(null);
-            }
-        }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
@@ -66,6 +49,22 @@ namespace TestProject.Droid.Views
             inputMethodManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, 0);
 
             CurrentFocus.ClearFocus();
+        }
+
+        protected override void OnCreate(Bundle bundle)
+        {
+            base.OnCreate(bundle);
+
+            UserDialogs.Init(this);
+
+            SetContentView(Resource.Layout.MainActivity);
+
+            DrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+
+            if (bundle == null && ViewModel.ShowMenuViewModelCommand != null)
+            {
+                ViewModel.ShowMenuViewModelCommand.Execute(null);
+            }
         }
     }
 }
