@@ -9,6 +9,8 @@ using TestProject.Entities;
 using TestProject.Services.Repositories.Interfaces;
 using TestProject.Services.Repositories;
 using TestProject.Services;
+using TestProject.Configurations.Interfaces;
+using TestProject.Configurations;
 
 namespace TestProject.Core.ViewModels
 {
@@ -63,8 +65,14 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            StaticObjects.CurrentUser = await _userRepository.FindUser(UserName);
-            StaticObjects.CurrentTodoItems = new MvxObservableCollection<TodoItem>();
+            await SaveUserIntoStorage();
+        }
+
+        private async Task SaveUserIntoStorage()
+        {
+            User user = await _userRepository.FindUser(UserName);
+            ILocalStorage<User> storage = new LocalStorage<User>();
+            storage.Store(user);
         }
     }
 }

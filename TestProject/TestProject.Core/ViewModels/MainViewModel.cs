@@ -4,10 +4,11 @@ using MvvmCross.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.IO;
+using System.IO.IsolatedStorage;
 using SQLite;
 using TestProject.Entities;
 using System.Threading.Tasks;
+using TestProject.Configurations;
 
 namespace TestProject.Core.ViewModels
 {

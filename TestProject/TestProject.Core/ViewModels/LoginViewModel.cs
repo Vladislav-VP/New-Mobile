@@ -10,6 +10,9 @@ using TestProject.Services.Repositories.Interfaces;
 using TestProject.Services.Repositories;
 using TestProject.Services;
 using System.Collections.ObjectModel;
+using TestProject.Configurations;
+using System.IO;
+using TestProject.Configurations.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
@@ -62,16 +65,22 @@ namespace TestProject.Core.ViewModels
         private async Task Login()
         {
             User user = new User { Name = this.UserName, Password = this.Password };
-            bool isSuccess = await _userRepository
-                .UserExists(user.Name);
+            bool isSuccess = await _userRepository.UserExists(user.Name);
             if (!isSuccess)
             {
                 return;
             }
 
-            StaticObjects.CurrentUser = await _userRepository.FindUser(UserName);
-            StaticObjects.CurrentTodoItems = await _todoItemRepository.GetTodoItems(StaticObjects.CurrentUser.Id);
+            await SaveUserIntoStorage();
+
             var result = await _navigationService.Navigate<TodoListItemViewModel>();
+        }
+
+        private async Task SaveUserIntoStorage()
+        {
+            User user = await _userRepository.FindUser(UserName);
+            ILocalStorage<User> storage = new LocalStorage<User>();
+            storage.Store(user);
         }
     }
 }

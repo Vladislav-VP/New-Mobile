@@ -9,6 +9,8 @@ using TestProject.Entities;
 using TestProject.Services.Repositories.Interfaces;
 using TestProject.Services.Repositories;
 using TestProject.Services;
+using TestProject.Configurations.Interfaces;
+using TestProject.Configurations;
 
 namespace TestProject.Core.ViewModels
 {
@@ -32,10 +34,11 @@ namespace TestProject.Core.ViewModels
 
         private async Task CreateItem()
         {
-            TodoItem item = new TodoItem { Name = /*this.*/Name, Description = this.Description,
-                IsDone = this.IsDone, UserId = StaticObjects.CurrentUser.Id };
+            ILocalStorage<User> storage = new LocalStorage<User>();
+            User currentUser = storage.Get();
+            TodoItem item = new TodoItem { Name = Name, Description = Description,
+                IsDone = this.IsDone, UserId = currentUser.Id };
             await _todoItemRepository.Insert(item);
-            StaticObjects.CurrentTodoItems = await _todoItemRepository.GetTodoItems(StaticObjects.CurrentUser.Id);
             var result = await _navigationService.Navigate<TodoListItemViewModel>();
         }
     }

@@ -5,6 +5,7 @@ using SQLite;
 
 namespace TestProject.Entities
 {
+    [Serializable]
     public class User : BaseEntity
     {
         [Unique, NotNull]

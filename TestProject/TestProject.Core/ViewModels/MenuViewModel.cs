@@ -6,6 +6,9 @@ using MvvmCross.Navigation;
 using MvvmCross.Commands;
 using System.Threading.Tasks;
 using TestProject.Services;
+using TestProject.Configurations.Interfaces;
+using TestProject.Entities;
+using TestProject.Configurations;
 
 namespace TestProject.Core.ViewModels
 {
@@ -27,10 +30,15 @@ namespace TestProject.Core.ViewModels
 
         private async Task Logout()
         {
-            StaticObjects.CurrentUser = null;
-            StaticObjects.CurrentTodoItems = null;
+            DeleteUser();
 
             var result = await _navigationService.Navigate<LoginViewModel>();
+        }
+
+        private void DeleteUser()
+        {
+            ILocalStorage<User> storage = new LocalStorage<User>();
+            storage.Clear();
         }
     }
 }
