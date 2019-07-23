@@ -6,40 +6,20 @@
     android:layout_height="match_parent"
     android:background="@android:color/holo_blue_bright">
 
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="viewStart"
-            android:text="@string/usernameText"
-            android:textColor="@android:color/background_light"
-            android:textSize="30dp"
-            android:layout_marginTop="100dp"/>
-        <EditText
-            android:id="@+id/newUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            local:MvxBind="Text UserName"
-            android:textSize="30dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="viewStart"
-            android:text="@string/passwordText"
-            android:textSize="30dp"
-            android:textColor="@android:color/background_light"/>
-        <EditText
-            android:id="@+id/newPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            local:MvxBind="Text Password"
-            android:password="true"
-            android:textSize="30dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp">
+        <include
+        layout="@layout/user_info_layout"/>
         <Button
             android:id="@+id/btnNewUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/registrateText"
             android:textSize="30dp"
-            local:MvxBind="Click RegistrateUserCommand"/>
+            local:MvxBind="Click RegistrateUserCommand"/>   
+    </LinearLayout>
 
 </LinearLayout>

@@ -3,6 +3,8 @@ using MvvmCross.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using MvvmCross.Commands;
+using System.Threading.Tasks;
 
 namespace TestProject.Core.ViewModels
 {
@@ -13,18 +15,15 @@ namespace TestProject.Core.ViewModels
         public BaseViewModel(IMvxNavigationService navigationService)
         {
             _navigationService = navigationService;
+
+            GoBackCommand = new MvxAsyncCommand(GoBack);
         }
-    }
 
-    public abstract class BaseViewModel<TParameter, TResult> : MvxViewModel<TParameter, TResult>
-        where TParameter : class
-        where TResult : class
-    {
-        protected readonly IMvxNavigationService _navigationService;
+        public IMvxAsyncCommand GoBackCommand { get; private set; }
 
-        public BaseViewModel(IMvxNavigationService navigationService)
+        protected virtual async Task GoBack()
         {
-            _navigationService = navigationService;
+            await _navigationService.Close(this);
         }
     }
 }

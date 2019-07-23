@@ -13,7 +13,8 @@ using TestProject.Services;
 using TestProject.Services.Repositories;
 using TestProject.Services.Repositories.Interfaces;
 using System.IO;
-using TestProject.Configurations.Interfaces;
+using TestProject.Services.Storages.Interfaces;
+using TestProject.Services.Storages;
 
 namespace TestProject.Core.ViewModels
 {
@@ -48,7 +49,7 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            User currentUser = GetUser();
+            User currentUser = new LocalStorage<User>().Get();
             var currentTodoItems = await _todoItemRepository.GetTodoItems(currentUser.Id);
             _todoItems = new MvxObservableCollection<TodoItem>(currentTodoItems);
         }
@@ -61,15 +62,9 @@ namespace TestProject.Core.ViewModels
 
         private async Task TodoItemSelected(TodoItem selectedTodoItem)
         {
-            // TODO : Write logic
+            // TODO : Write logic (TodoItemSelected).
             var result = await _navigationService
-                .Navigate<EditTodoItemViewModel, TodoItem, DestructionResult<TodoItem>>(selectedTodoItem);
-        }
-
-        private User GetUser()
-        {
-            ILocalStorage<User> storage = new LocalStorage<User>();
-            return storage.Get();
+                .Navigate<TodoItem>(typeof(EditTodoItemViewModel), selectedTodoItem);
         }
     }
 }

@@ -19,4 +19,5 @@
   <string name="label_logout">Logout</string>
   <string name="drawer_open">Open</string>
   <string name="drawer_close">Close</string>
+  <string name="label_password_tip">(must contain not less than 6 characters, can not contain spaces)</string>
 </resources>

@@ -9,8 +9,13 @@ using TestProject.Entities;
 using TestProject.Services.Repositories.Interfaces;
 using TestProject.Services.Repositories;
 using TestProject.Services;
-using TestProject.Configurations.Interfaces;
 using TestProject.Configurations;
+using TestProject.Services.Storages.Interfaces;
+using TestProject.Services.Storages;
+using System.Text.RegularExpressions;
+using Acr.UserDialogs;
+using TestProject.Core.Resources;
+using TestProject.Services.Helpers;
 
 namespace TestProject.Core.ViewModels
 {
@@ -26,7 +31,7 @@ namespace TestProject.Core.ViewModels
         {
             _userRepository = new UserRepository();
 
-            RegistrateUserCommand = new MvxAsyncCommand(UserRegistrated);
+            RegistrateUserCommand = new MvxAsyncCommand(RegistrateUser);
         }
 
         public string UserName
@@ -48,22 +53,23 @@ namespace TestProject.Core.ViewModels
                 RaisePropertyChanged(() => Password);
             }
         }
-
         public IMvxAsyncCommand RegistrateUserCommand { get; private set; }
 
-        private async Task UserRegistrated()
+        private async Task RegistrateUser()
         {
+            bool userIsValid = await UserValidationHelper.
+                UserInfoIsValid(new User { Name = UserName, Password = Password });
+            if (!userIsValid)
+            {
+                return;
+            }
             await AddUser();
             await _navigationService.Navigate<TodoListItemViewModel>();
         }
 
         private async Task AddUser()
         {
-            bool isSuccess = await _userRepository.Insert(new User { Name = this.UserName, Password = this.Password });
-            if (!isSuccess)
-            {
-                return;
-            }
+            await _userRepository.Insert(new User { Name = UserName, Password = Password });
 
             await SaveUserIntoStorage();
         }

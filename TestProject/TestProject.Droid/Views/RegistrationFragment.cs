@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using TestProject.Core.ViewModels;
+using TestProject.Configurations;
 using TestProject.Core.Resources;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 
@@ -23,6 +24,10 @@ namespace TestProject.Droid.Views
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState);
+
+            var tvPasswordTip = view.FindViewById<TextView>(Resource.Id.tvPasswordTip);
+            tvPasswordTip.Text = "(can contain letters, digits and lower underlines, " +
+                $"not shorter than {Constants.MinPasswordLength} characters)";
 
             return view;
         }

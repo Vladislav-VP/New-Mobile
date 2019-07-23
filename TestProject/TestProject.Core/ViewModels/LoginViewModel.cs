@@ -12,7 +12,9 @@ using TestProject.Services;
 using System.Collections.ObjectModel;
 using TestProject.Configurations;
 using System.IO;
-using TestProject.Configurations.Interfaces;
+using TestProject.Services.Storages.Interfaces;
+using TestProject.Services.Storages;
+using TestProject.Services.Helpers;
 
 namespace TestProject.Core.ViewModels
 {
@@ -64,8 +66,8 @@ namespace TestProject.Core.ViewModels
 
         private async Task Login()
         {
-            User user = new User { Name = this.UserName, Password = this.Password };
-            bool isSuccess = await _userRepository.UserExists(user.Name);
+            bool isSuccess = await UserValidationHelper
+                .LoginDataIsValid(new User { Name = this.UserName, Password = this.Password });
             if (!isSuccess)
             {
                 return;

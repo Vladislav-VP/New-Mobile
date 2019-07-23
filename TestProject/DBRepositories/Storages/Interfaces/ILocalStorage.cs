@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestProject.Configurations.Interfaces
+namespace TestProject.Services.Storages.Interfaces
 {
     public interface ILocalStorage<T>
     {

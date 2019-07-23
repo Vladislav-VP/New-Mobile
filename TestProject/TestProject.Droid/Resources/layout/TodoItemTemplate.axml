@@ -22,7 +22,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
-            local:MvxBind="Click BackToListCommand" />
+            local:MvxBind="Click GoBackCommand" />
     </RelativeLayout>
 
     <LinearLayout
@@ -70,6 +70,7 @@
         <ToggleButton
             android:layout_width="100dp"
             android:layout_height="50dp"
+            style="@android:style/Widget.DeviceDefault.Light.Button.Toggle"
             local:MvxBind="Checked IsDone"
         />
         <TextView

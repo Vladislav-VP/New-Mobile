@@ -25,49 +25,28 @@
             android:layout_height="50dp"/>
     </RelativeLayout>
 
+    <include
+        layout="@layout/user_info_layout"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="viewStart"
-            android:text="@string/usernameText"
-            android:textColor="@android:color/background_dark"
-            android:textSize="30dp"
-        />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            local:MvxBind="Text UserName"
-            android:textSize="30dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="viewStart"
-            android:text="@string/passwordText"
-            android:textSize="30dp"
-            android:textColor="@android:color/background_dark"
-        />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            local:MvxBind="Text Password"
-            android:password="true"
-            android:textSize="30dp"/>
+        
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="30dp"
             android:text="@string/label_save_changes"
-            android:textColor="@android:color/background_dark" />
+            android:textColor="@android:color/background_dark"
+            local:MvxBind="Click UserUpdatedCommand"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="30dp"
             android:text="@string/label_delete_account"
-            android:textColor="@android:color/background_dark" />
+            android:textColor="@android:color/background_dark"
+            local:MvxBind="Click UserDeletedCommand"/>
     </LinearLayout>
 
 </LinearLayout>

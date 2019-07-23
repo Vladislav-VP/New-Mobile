@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CancelButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="DeleteMessageDialog" xml:space="preserve">
+    <value>Are you sure yuo want to delete?</value>
+  </data>
   <data name="InvalidPasswordFormatMessage" xml:space="preserve">
-    <value>Invalid format of username or password!</value>
+    <value>Invalid format of password!</value>
   </data>
   <data name="InvalidTodoItemMessage" xml:space="preserve">
     <value>Name can not be empty!</value>
@@ -126,15 +132,11 @@
   <data name="LoginErrorMessage" xml:space="preserve">
     <value>Incorrect username or password! Check entered data</value>
   </data>
-  <data name="NewTask" xml:space="preserve">
-    <value>New task</value>
-    <comment>Used while creating a new task</comment>
+  <data name="NoButtonText" xml:space="preserve">
+    <value>No</value>
   </data>
-  <data name="RegistrateUser" xml:space="preserve">
-    <value>Registrate</value>
-  </data>
-  <data name="TaskList" xml:space="preserve">
-    <value>My tasks</value>
+  <data name="OkButtonText" xml:space="preserve">
+    <value>Yes</value>
   </data>
   <data name="TooShortPasswordMessage" xml:space="preserve">
     <value>Password is too short!</value>

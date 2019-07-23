@@ -15,7 +15,6 @@ namespace TestProject.Droid.Views
     [Register("testProject.droid.views.MenuFragment")]
     public class MenuFragment : MvxFragment<MenuViewModel>, NavigationView.IOnNavigationItemSelectedListener
     {
-        private NavigationView _navigationView;
         private IMenuItem _previousMenuItem;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -24,19 +23,19 @@ namespace TestProject.Droid.Views
 
             var view = this.BindingInflate(Resource.Layout.MenuFragment, null);
 
-            _navigationView = view.FindViewById<NavigationView>(Resource.Id.navigation_view);
-            _navigationView.SetNavigationItemSelectedListener(this);
+            var navigationView = view.FindViewById<NavigationView>(Resource.Id.navigation_view);
+            navigationView.SetNavigationItemSelectedListener(this);
 
-            var todoItemsMenuItem = _navigationView.Menu.FindItem(Resource.Id.nav_todoItems);
+            var todoItemsMenuItem = navigationView.Menu.FindItem(Resource.Id.nav_todoItems);
             todoItemsMenuItem.SetCheckable(false);
             todoItemsMenuItem.SetChecked(true);
 
             _previousMenuItem = todoItemsMenuItem;
 
-            var settingsMenuItem = _navigationView.Menu.FindItem(Resource.Id.nav_settings);
+            var settingsMenuItem = navigationView.Menu.FindItem(Resource.Id.nav_settings);
             settingsMenuItem.SetCheckable(false);
 
-            var logoutMenuItem = _navigationView.Menu.FindItem(Resource.Id.nav_logout);
+            var logoutMenuItem = navigationView.Menu.FindItem(Resource.Id.nav_logout);
             logoutMenuItem.SetCheckable(false);
 
             return view;

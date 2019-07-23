@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TestProject.Core.Resources {
+namespace TestProject.Services.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace TestProject.Core.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TestProject.Core.Resources.Strings", typeof(Strings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TestProject.Services.Resources.Strings", typeof(Strings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,25 @@ namespace TestProject.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid format of username or password!.
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string CancelButtonText {
+            get {
+                return ResourceManager.GetString("CancelButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure yuo want to delete?.
+        /// </summary>
+        public static string DeleteMessageDialog {
+            get {
+                return ResourceManager.GetString("DeleteMessageDialog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid format of password!.
         /// </summary>
         public static string InvalidPasswordFormatMessage {
             get {
@@ -88,29 +106,20 @@ namespace TestProject.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New task.
+        ///   Looks up a localized string similar to No.
         /// </summary>
-        public static string NewTask {
+        public static string NoButtonText {
             get {
-                return ResourceManager.GetString("NewTask", resourceCulture);
+                return ResourceManager.GetString("NoButtonText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Registrate.
+        ///   Looks up a localized string similar to Yes.
         /// </summary>
-        public static string RegistrateUser {
+        public static string OkButtonText {
             get {
-                return ResourceManager.GetString("RegistrateUser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to My tasks.
-        /// </summary>
-        public static string TaskList {
-            get {
-                return ResourceManager.GetString("TaskList", resourceCulture);
+                return ResourceManager.GetString("OkButtonText", resourceCulture);
             }
         }
         

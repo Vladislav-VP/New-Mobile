@@ -8715,17 +8715,17 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a006b
 			public const int action_bar_title = 2131361899;
 			
-			// aapt resource value: 0x7f0a00c2
-			public const int action_container = 2131361986;
+			// aapt resource value: 0x7f0a00c1
+			public const int action_container = 2131361985;
 			
 			// aapt resource value: 0x7f0a0090
 			public const int action_context_bar = 2131361936;
 			
-			// aapt resource value: 0x7f0a00cd
-			public const int action_divider = 2131361997;
+			// aapt resource value: 0x7f0a00cc
+			public const int action_divider = 2131361996;
 			
-			// aapt resource value: 0x7f0a00c3
-			public const int action_image = 2131361987;
+			// aapt resource value: 0x7f0a00c2
+			public const int action_image = 2131361986;
 			
 			// aapt resource value: 0x7f0a0003
 			public const int action_menu_divider = 2131361795;
@@ -8742,11 +8742,11 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a006d
 			public const int action_mode_close_button = 2131361901;
 			
-			// aapt resource value: 0x7f0a00c4
-			public const int action_text = 2131361988;
+			// aapt resource value: 0x7f0a00c3
+			public const int action_text = 2131361987;
 			
-			// aapt resource value: 0x7f0a00ce
-			public const int actions = 2131361998;
+			// aapt resource value: 0x7f0a00cd
+			public const int actions = 2131361997;
 			
 			// aapt resource value: 0x7f0a006e
 			public const int activity_chooser_view_content = 2131361902;
@@ -8763,8 +8763,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a0041
 			public const int always = 2131361857;
 			
-			// aapt resource value: 0x7f0a00db
-			public const int appbar = 2131362011;
+			// aapt resource value: 0x7f0a00d8
+			public const int appbar = 2131362008;
 			
 			// aapt resource value: 0x7f0a0067
 			public const int async = 2131361895;
@@ -8796,11 +8796,11 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a009f
 			public const int browser_actions_menu_view = 2131361951;
 			
-			// aapt resource value: 0x7f0a00b9
-			public const int btLogin = 2131361977;
+			// aapt resource value: 0x7f0a00b8
+			public const int btLogin = 2131361976;
 			
-			// aapt resource value: 0x7f0a00d4
-			public const int btnBack = 2131362004;
+			// aapt resource value: 0x7f0a00d1
+			public const int btnBack = 2131362001;
 			
 			// aapt resource value: 0x7f0a00a4
 			public const int btnCreate = 2131361956;
@@ -8808,11 +8808,11 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a00b2
 			public const int btnDeleteTodoItem = 2131361970;
 			
-			// aapt resource value: 0x7f0a00d2
-			public const int btnNewUser = 2131362002;
+			// aapt resource value: 0x7f0a00cf
+			public const int btnNewUser = 2131361999;
 			
-			// aapt resource value: 0x7f0a00bb
-			public const int btnRegistrate = 2131361979;
+			// aapt resource value: 0x7f0a00ba
+			public const int btnRegistrate = 2131361978;
 			
 			// aapt resource value: 0x7f0a00b1
 			public const int btnSaveTodoItem = 2131361969;
@@ -8832,8 +8832,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a0088
 			public const int checkbox = 2131361928;
 			
-			// aapt resource value: 0x7f0a00cc
-			public const int chronometer = 2131361996;
+			// aapt resource value: 0x7f0a00cb
+			public const int chronometer = 2131361995;
 			
 			// aapt resource value: 0x7f0a0063
 			public const int clip_horizontal = 2131361891;
@@ -8853,8 +8853,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a0077
 			public const int contentPanel = 2131361911;
 			
-			// aapt resource value: 0x7f0a00be
-			public const int content_frame = 2131361982;
+			// aapt resource value: 0x7f0a00bd
+			public const int content_frame = 2131361981;
 			
 			// aapt resource value: 0x7f0a00a8
 			public const int coordinator = 2131361960;
@@ -8889,8 +8889,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a0029
 			public const int disableHome = 2131361833;
 			
-			// aapt resource value: 0x7f0a00bd
-			public const int drawer_layout = 2131361981;
+			// aapt resource value: 0x7f0a00bc
+			public const int drawer_layout = 2131361980;
 			
 			// aapt resource value: 0x7f0a0091
 			public const int edit_query = 2131361937;
@@ -8904,11 +8904,17 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a0049
 			public const int enterAlwaysCollapsed = 2131361865;
 			
-			// aapt resource value: 0x7f0a00d7
-			public const int etDescription = 2131362007;
+			// aapt resource value: 0x7f0a00d4
+			public const int etDescription = 2131362004;
 			
-			// aapt resource value: 0x7f0a00d5
-			public const int etTaskName = 2131362005;
+			// aapt resource value: 0x7f0a00dc
+			public const int etNewPassword = 2131362012;
+			
+			// aapt resource value: 0x7f0a00da
+			public const int etNewUsername = 2131362010;
+			
+			// aapt resource value: 0x7f0a00d2
+			public const int etTaskName = 2131362002;
 			
 			// aapt resource value: 0x7f0a004a
 			public const int exitUntilCollapsed = 2131361866;
@@ -8952,8 +8958,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a0073
 			public const int icon = 2131361907;
 			
-			// aapt resource value: 0x7f0a00cf
-			public const int icon_group = 2131361999;
+			// aapt resource value: 0x7f0a00ce
+			public const int icon_group = 2131361998;
 			
 			// aapt resource value: 0x7f0a0043
 			public const int ifRoom = 2131361859;
@@ -8961,8 +8967,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a0070
 			public const int image = 2131361904;
 			
-			// aapt resource value: 0x7f0a00c8
-			public const int info = 2131361992;
+			// aapt resource value: 0x7f0a00c7
+			public const int info = 2131361991;
 			
 			// aapt resource value: 0x7f0a006a
 			public const int italic = 2131361898;
@@ -9000,11 +9006,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a00b7
 			public const int loadingProgressWheel = 2131361975;
 			
-			// aapt resource value: 0x7f0a00b8
-			public const int loginLayout = 2131361976;
-			
-			// aapt resource value: 0x7f0a00bc
-			public const int login_frame = 2131361980;
+			// aapt resource value: 0x7f0a00bb
+			public const int login_frame = 2131361979;
 			
 			// aapt resource value: 0x7f0a00de
 			public const int masked = 2131362014;
@@ -9039,23 +9042,17 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a00e1
 			public const int nav_todoItems = 2131362017;
 			
-			// aapt resource value: 0x7f0a00bf
-			public const int navigation_frame = 2131361983;
+			// aapt resource value: 0x7f0a00be
+			public const int navigation_frame = 2131361982;
 			
 			// aapt resource value: 0x7f0a00ab
 			public const int navigation_header_container = 2131361963;
 			
-			// aapt resource value: 0x7f0a00c0
-			public const int navigation_view = 2131361984;
+			// aapt resource value: 0x7f0a00bf
+			public const int navigation_view = 2131361983;
 			
 			// aapt resource value: 0x7f0a0044
 			public const int never = 2131361860;
-			
-			// aapt resource value: 0x7f0a00d1
-			public const int newPassword = 2131362001;
-			
-			// aapt resource value: 0x7f0a00d0
-			public const int newUsername = 2131362000;
 			
 			// aapt resource value: 0x7f0a002b
 			public const int none = 2131361835;
@@ -9063,17 +9060,17 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a0027
 			public const int normal = 2131361831;
 			
-			// aapt resource value: 0x7f0a00ca
-			public const int notification_background = 2131361994;
-			
-			// aapt resource value: 0x7f0a00c6
-			public const int notification_main_column = 2131361990;
+			// aapt resource value: 0x7f0a00c9
+			public const int notification_background = 2131361993;
 			
 			// aapt resource value: 0x7f0a00c5
-			public const int notification_main_column_container = 2131361989;
+			public const int notification_main_column = 2131361989;
 			
-			// aapt resource value: 0x7f0a00d9
-			public const int objectivesTextView = 2131362009;
+			// aapt resource value: 0x7f0a00c4
+			public const int notification_main_column_container = 2131361988;
+			
+			// aapt resource value: 0x7f0a00d6
+			public const int objectivesTextView = 2131362006;
 			
 			// aapt resource value: 0x7f0a0062
 			public const int outline = 2131361890;
@@ -9099,17 +9096,17 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a0089
 			public const int radio = 2131361929;
 			
-			// aapt resource value: 0x7f0a00ba
-			public const int registrateLayout = 2131361978;
+			// aapt resource value: 0x7f0a00b9
+			public const int registrationLayout = 2131361977;
 			
 			// aapt resource value: 0x7f0a0057
 			public const int right = 2131361879;
 			
-			// aapt resource value: 0x7f0a00c9
-			public const int right_icon = 2131361993;
+			// aapt resource value: 0x7f0a00c8
+			public const int right_icon = 2131361992;
 			
-			// aapt resource value: 0x7f0a00c7
-			public const int right_side = 2131361991;
+			// aapt resource value: 0x7f0a00c6
+			public const int right_side = 2131361990;
 			
 			// aapt resource value: 0x7f0a000c
 			public const int save_image_matrix = 2131361804;
@@ -9270,8 +9267,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a001a
 			public const int textinput_helper_text = 2131361818;
 			
-			// aapt resource value: 0x7f0a00cb
-			public const int time = 2131361995;
+			// aapt resource value: 0x7f0a00ca
+			public const int time = 2131361994;
 			
 			// aapt resource value: 0x7f0a0023
 			public const int title = 2131361827;
@@ -9282,11 +9279,11 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a0080
 			public const int title_template = 2131361920;
 			
-			// aapt resource value: 0x7f0a00da
-			public const int todoItemsRecyclerView = 2131362010;
+			// aapt resource value: 0x7f0a00d7
+			public const int todoItemsRecyclerView = 2131362007;
 			
-			// aapt resource value: 0x7f0a00dc
-			public const int toolbar = 2131362012;
+			// aapt resource value: 0x7f0a00d9
+			public const int toolbar = 2131362009;
 			
 			// aapt resource value: 0x7f0a0047
 			public const int top = 2131361863;
@@ -9312,14 +9309,17 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a0013
 			public const int transition_transform = 2131361811;
 			
-			// aapt resource value: 0x7f0a00d6
-			public const int tvDescription = 2131362006;
-			
-			// aapt resource value: 0x7f0a00d8
-			public const int tvDone = 2131362008;
-			
 			// aapt resource value: 0x7f0a00d3
-			public const int tvTaskName = 2131362003;
+			public const int tvDescription = 2131362003;
+			
+			// aapt resource value: 0x7f0a00d5
+			public const int tvDone = 2131362005;
+			
+			// aapt resource value: 0x7f0a00db
+			public const int tvPasswordTip = 2131362011;
+			
+			// aapt resource value: 0x7f0a00d0
+			public const int tvTaskName = 2131362000;
 			
 			// aapt resource value: 0x7f0a00b3
 			public const int txt_name = 2131361971;
@@ -9336,8 +9336,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a002f
 			public const int useLogo = 2131361839;
 			
-			// aapt resource value: 0x7f0a00c1
-			public const int username = 2131361985;
+			// aapt resource value: 0x7f0a00c0
+			public const int username = 2131361984;
 			
 			// aapt resource value: 0x7f0a001b
 			public const int view_offset_helper = 2131361819;
@@ -9661,7 +9661,10 @@ namespace TestProject.Droid
 			public const int toolbar_actionbar = 2130968646;
 			
 			// aapt resource value: 0x7f040047
-			public const int UserInfoFragment = 2130968647;
+			public const int user_info_layout = 2130968647;
+			
+			// aapt resource value: 0x7f040048
+			public const int UserInfoFragment = 2130968648;
 			
 			static Layout()
 			{
@@ -9884,6 +9887,9 @@ namespace TestProject.Droid
 			
 			// aapt resource value: 0x7f0d0049
 			public const int label_logout = 2131558473;
+			
+			// aapt resource value: 0x7f0d004c
+			public const int label_password_tip = 2131558476;
 			
 			// aapt resource value: 0x7f0d0047
 			public const int label_save_changes = 2131558471;

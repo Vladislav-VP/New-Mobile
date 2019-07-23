@@ -12,8 +12,8 @@
 		android:id="@+id/username"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:textColor="@android:color/white"
-		android:text="Darth Vader"
+		android:textColor="@android:color/black"
 		android:textAppearance="@style/TextAppearance.AppCompat.Title"
-		android:textStyle="bold" />
+		android:textStyle="bold"
+        local:MvxBind="Text UserName"/>
 </LinearLayout>

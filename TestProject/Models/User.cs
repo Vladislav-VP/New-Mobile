@@ -16,6 +16,8 @@ namespace TestProject.Entities
 
         public override bool Equals(object obj)
         {
+            if (obj == null)
+                return false;
             User user = (User)obj;
             return this.Name == user.Name && this.Password == user.Password;
         }

@@ -6,20 +6,32 @@ using MvvmCross.Navigation;
 using MvvmCross.Commands;
 using System.Threading.Tasks;
 using TestProject.Services;
-using TestProject.Configurations.Interfaces;
 using TestProject.Entities;
 using TestProject.Configurations;
+using TestProject.Services.Storages.Interfaces;
+using TestProject.Services.Storages;
 
 namespace TestProject.Core.ViewModels
 {
     public class MenuViewModel : BaseViewModel
     {
+        private string _userName;
+
+        private readonly ILocalStorage<User> _storage;
+
         public MenuViewModel(IMvxNavigationService navigationService)
             : base(navigationService)
         {
+            _storage = new LocalStorage<User>();
+
             ShowLoginViewModelCommand = new MvxAsyncCommand(Logout);
             ShowUserInfoViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<UserInfoViewModel>());
             ShowListTodoItemsViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<TodoListItemViewModel>());
+        }
+
+        public string UserName
+        {
+            get => _userName;
         }
 
         public IMvxAsyncCommand ShowLoginViewModelCommand { get; private set; }
@@ -28,17 +40,19 @@ namespace TestProject.Core.ViewModels
 
         public IMvxAsyncCommand ShowListTodoItemsViewModelCommand { get; private set; }
 
-        private async Task Logout()
+        public async override Task Initialize()
         {
-            DeleteUser();
+            await base.Initialize();
 
-            var result = await _navigationService.Navigate<LoginViewModel>();
+            User currentUser = _storage.Get();
+            _userName = currentUser.Name;
         }
 
-        private void DeleteUser()
+        private async Task Logout()
         {
-            ILocalStorage<User> storage = new LocalStorage<User>();
-            storage.Clear();
+            new LocalStorage<User>().Clear();
+
+            var result = await _navigationService.Navigate<LoginViewModel>();
         }
     }
 }
