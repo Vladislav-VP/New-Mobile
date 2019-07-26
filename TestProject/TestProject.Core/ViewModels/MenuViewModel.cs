@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 using TestProject.Services;
 using TestProject.Entities;
 using TestProject.Configurations;
-using TestProject.Services.Storages.Interfaces;
-using TestProject.Services.Storages;
+using TestProject.Services.Helpers;
 
 namespace TestProject.Core.ViewModels
 {
@@ -17,12 +16,9 @@ namespace TestProject.Core.ViewModels
     {
         private string _userName;
 
-        private readonly ILocalStorage<User> _storage;
-
         public MenuViewModel(IMvxNavigationService navigationService)
             : base(navigationService)
         {
-            _storage = new LocalStorage<User>();
 
             ShowLoginViewModelCommand = new MvxAsyncCommand(Logout);
             ShowUserInfoViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<UserInfoViewModel>());
@@ -44,13 +40,11 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            User currentUser = _storage.Get();
-            _userName = currentUser.Name;
+            _userName = (await new CredentialsStorageHelper().Load()).Name;
         }
 
         private async Task Logout()
         {
-            new LocalStorage<User>().Clear();
 
             var result = await _navigationService.Navigate<LoginViewModel>();
         }

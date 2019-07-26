@@ -13,8 +13,7 @@ using TestProject.Services;
 using TestProject.Services.Repositories;
 using TestProject.Services.Repositories.Interfaces;
 using System.IO;
-using TestProject.Services.Storages.Interfaces;
-using TestProject.Services.Storages;
+using TestProject.Services.Helpers;
 
 namespace TestProject.Core.ViewModels
 {
@@ -48,8 +47,8 @@ namespace TestProject.Core.ViewModels
         public async override Task Initialize()
         {
             await base.Initialize();
-
-            User currentUser = new LocalStorage<User>().Get();
+            
+            User currentUser = await new CredentialsStorageHelper().Load();
             var currentTodoItems = await _todoItemRepository.GetTodoItems(currentUser.Id);
             _todoItems = new MvxObservableCollection<TodoItem>(currentTodoItems);
         }
@@ -62,7 +61,6 @@ namespace TestProject.Core.ViewModels
 
         private async Task TodoItemSelected(TodoItem selectedTodoItem)
         {
-            // TODO : Write logic (TodoItemSelected).
             var result = await _navigationService
                 .Navigate<TodoItem>(typeof(EditTodoItemViewModel), selectedTodoItem);
         }

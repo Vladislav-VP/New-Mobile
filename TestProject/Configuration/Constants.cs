@@ -8,12 +8,6 @@ namespace TestProject.Configurations
     {
         public const string DatabaseName = "TestProjectDB.db";
 
-        public const string LocalStorageName = "UserData.xml";
-
-        public const int MinPasswordLength = 6;
-
-        public const string InvalidPasswordCharacterPattern = @"\W";
-
-        public const int ToastDuration = 3000;
+        public const string CredentialsKey = "current_user";
     }
 }

@@ -12,9 +12,8 @@ using TestProject.Services;
 using System.Collections.ObjectModel;
 using TestProject.Configurations;
 using System.IO;
-using TestProject.Services.Storages.Interfaces;
-using TestProject.Services.Storages;
 using TestProject.Services.Helpers;
+using TestProject.Core.Resources;
 
 namespace TestProject.Core.ViewModels
 {
@@ -66,10 +65,11 @@ namespace TestProject.Core.ViewModels
 
         private async Task Login()
         {
-            bool isSuccess = await UserValidationHelper
-                .LoginDataIsValid(new User { Name = this.UserName, Password = this.Password });
-            if (!isSuccess)
+            var enteredUser = new User { Name = UserName, Password = Password };
+            var userFromDatabase = await _userRepository.FindUser(enteredUser.Name);
+            if (!enteredUser.Equals(userFromDatabase))
             {
+                new UserDialogsHelper().ToastErrorMessage(Strings.LoginErrorMessage);
                 return;
             }
 
@@ -81,8 +81,7 @@ namespace TestProject.Core.ViewModels
         private async Task SaveUserIntoStorage()
         {
             User user = await _userRepository.FindUser(UserName);
-            ILocalStorage<User> storage = new LocalStorage<User>();
-            storage.Store(user);
+            await new CredentialsStorageHelper().Save(user);
         }
     }
 }

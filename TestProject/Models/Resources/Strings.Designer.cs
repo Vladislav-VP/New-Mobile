@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TestProject.Services.Resources {
+namespace TestProject.Entities.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace TestProject.Services.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TestProject.Services.Resources.Strings", typeof(Strings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TestProject.Entities.Resources.Strings", typeof(Strings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -70,7 +70,7 @@ namespace TestProject.Services.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete?.
+        ///   Looks up a localized string similar to Are you sure yuo want to delete?.
         /// </summary>
         public static string DeleteMessageDialog {
             get {

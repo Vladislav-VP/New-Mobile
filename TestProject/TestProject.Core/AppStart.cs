@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TestProject.Core.ViewModels;
 using MvvmCross.Navigation;
-using TestProject.Services.Storages;
 using TestProject.Entities;
+using TestProject.Services.Helpers;
 
 namespace TestProject.Core
 {
@@ -19,7 +19,8 @@ namespace TestProject.Core
 
         protected async override Task NavigateToFirstViewModel(object hint = null)
         {
-            if (!LocalStorage<User>.StorageExists())
+
+            if (await new CredentialsStorageHelper().Load() == null)
             {
                 await NavigationService.Navigate<LoginViewModel>();
             }

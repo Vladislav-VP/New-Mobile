@@ -25,5 +25,7 @@ namespace TestProject.Core.ViewModels
         {
             await _navigationService.Close(this);
         }
+
+        
     }
 }

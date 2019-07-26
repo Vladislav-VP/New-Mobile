@@ -21,7 +21,6 @@ namespace TestProject.Services.Repositories
             CreateDatabase();
         }
 
-        // Returns: true if item inserted succesfully, otherwise - false.
         public async Task<bool> Insert(T obj)
         {
             var connection = new SQLiteAsyncConnection(_path);
@@ -75,14 +74,17 @@ namespace TestProject.Services.Repositories
         public async Task<T> Find<T>(object pk) where T : class, new()
         {
             var connection = new SQLiteAsyncConnection(_path);
+            T obj;
             try
             {
-                return await connection.FindAsync<T>(pk: pk);
+                obj = await connection.FindAsync<T>(pk: pk);
             }
             finally
             {
-                await connection.CloseAsync();
+                //TODO: Figure out, why NullReferenceExceprion thrown
+                //await connection.CloseAsync();
             }
+            return obj;
         }
 
         private static void CreateDatabase()

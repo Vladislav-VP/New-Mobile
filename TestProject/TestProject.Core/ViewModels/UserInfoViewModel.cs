@@ -5,13 +5,12 @@ using System.Collections.Generic;
 using System.Text;
 using TestProject.Entities;
 using System.Threading.Tasks;
-using TestProject.Services.Storages.Interfaces;
-using TestProject.Services.Storages;
 using MvvmCross.Commands;
 using TestProject.Services.Repositories.Interfaces;
 using TestProject.Services.Repositories;
 using TestProject.Services.Helpers;
 using Acr.UserDialogs;
+using TestProject.Services.Helpers.Interrfaces;
 
 namespace TestProject.Core.ViewModels
 {
@@ -19,9 +18,9 @@ namespace TestProject.Core.ViewModels
     {
         private readonly IUserRepository _userRepository;
 
-        private readonly IUserDialogs _userDialogs;
+        private readonly IStorageHelper<User> _storage;
 
-        private readonly ILocalStorage<User> _storage;
+        private readonly IUserDialogs _userDialogs;
 
         private string _userName;
         private string _password;
@@ -31,9 +30,9 @@ namespace TestProject.Core.ViewModels
         {
             _userRepository = new UserRepository();
 
-            _userDialogs = userDialogs;
+            _storage = new CredentialsStorageHelper();
 
-            _storage = new LocalStorage<User>();
+            _userDialogs = userDialogs;
 
             UserUpdatedCommand = new MvxAsyncCommand(UserUpdated);
             UserDeletedCommand = new MvxAsyncCommand(UserDeleted);
@@ -67,21 +66,18 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            User currentUser = _storage.Get();
+            User currentUser = await _storage.Load();
+
             _userName = currentUser.Name;
             _password = currentUser.Password;
         }
 
         private async Task UserUpdated()
         {
-            User currentUser = GetCurrentUser();
-            if (!await UserValidationHelper.UserInfoIsValid(currentUser))
-            {
-                return;
-            }
+            User currentUser = await _storage.Load();
 
             await _userRepository.Update(currentUser);
-            ReplaceUserInStorage(currentUser);
+            await ReplaceUserInStorage(currentUser);
 
             await _navigationService.Navigate<TodoListItemViewModel>();
             await _navigationService.Navigate<MenuViewModel>();
@@ -89,32 +85,23 @@ namespace TestProject.Core.ViewModels
 
         private async Task UserDeleted()
         {
-            var delete = await _userDialogs.ConfirmAsync(UserDialogsHelper.DeleteDialogConfig());
+            var delete = await _userDialogs.ConfirmAsync(new UserDialogsHelper().ConfirmDelete());
 
             if (!delete)
             {
                 return;
             }
 
-            User currentUser = GetCurrentUser();
+            User currentUser = await _storage.Load();
             await _userRepository.Delete(currentUser);
-            _storage.Clear();
 
             var result = await _navigationService.Navigate<LoginViewModel>();
         }
 
-        private User GetCurrentUser()
-        {
-            User currentUser = _storage.Get();
-            currentUser.Name = UserName;
-            currentUser.Password = Password;
-            return currentUser;
-        }
-
-        private void ReplaceUserInStorage(User user)
+        private async Task ReplaceUserInStorage(User user)
         {
             _storage.Clear();
-            _storage.Store(user);
+            await _storage.Save(user);
         }
     }
 }

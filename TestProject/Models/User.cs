@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using SQLite;
+using TestProject.Entities.Resources;
+using TestProject.Entities.Attributes;
 
 namespace TestProject.Entities
 {
-    [Serializable]
     public class User : BaseEntity
     {
         [Unique, NotNull]
+        [Required(AllowEmptyStrings = false, ErrorMessage = ErrorMessages.EmptyNameMessage)]
         public string Name { get; set; }
 
         [NotNull]
+        [Required(AllowEmptyStrings = false, ErrorMessage = ErrorMessages.EmptyPasswordMessage)]
+        [Password(nameof(Password))]
         public string Password { get; set; }
 
         public override bool Equals(object obj)

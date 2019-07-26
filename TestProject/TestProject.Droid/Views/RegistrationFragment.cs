@@ -19,6 +19,8 @@ namespace TestProject.Droid.Views
     [Register("testProject.droid.views.RegistrationFragment")]
     public class RegistrationFragment : BaseFragment<RegistrationViewModel>
     {
+        private const int MinPasswordLength = 6;
+
         protected override int FragmentId => Resource.Layout.RegistrationFragment;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -27,7 +29,7 @@ namespace TestProject.Droid.Views
 
             var tvPasswordTip = view.FindViewById<TextView>(Resource.Id.tvPasswordTip);
             tvPasswordTip.Text = "(can contain letters, digits and lower underlines, " +
-                $"not shorter than {Constants.MinPasswordLength} characters)";
+                $"not shorter than {MinPasswordLength} characters)";
 
             return view;
         }

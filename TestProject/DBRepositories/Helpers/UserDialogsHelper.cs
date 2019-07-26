@@ -8,19 +8,17 @@ using TestProject.Services.Resources;
 
 namespace TestProject.Services.Helpers
 {
-    public static class UserDialogsHelper
+    public class UserDialogsHelper
     {
-
-
-        public static void ToastErrorMessage(string message)
+        public void ToastErrorMessage(string message, int duration = 3000)
         {
             ToastConfig toast = new ToastConfig(message);
-            toast.SetDuration(Constants.ToastDuration);
+            toast.SetDuration(duration);
             toast.SetPosition(ToastPosition.Top);
             UserDialogs.Instance.Toast(toast);
         }
 
-        public static ConfirmConfig DeleteDialogConfig()
+        public ConfirmConfig ConfirmDelete()
         {
             ConfirmConfig config = new ConfirmConfig();
             config.CancelText = Strings.NoButtonText;

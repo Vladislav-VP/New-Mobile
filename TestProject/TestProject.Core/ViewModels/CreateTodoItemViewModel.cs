@@ -10,10 +10,10 @@ using TestProject.Services.Repositories.Interfaces;
 using TestProject.Services.Repositories;
 using TestProject.Services;
 using TestProject.Configurations;
-using TestProject.Services.Storages.Interfaces;
-using TestProject.Services.Storages;
 using Acr.UserDialogs;
 using TestProject.Core.Resources;
+using TestProject.Services.Helpers;
+using System.ComponentModel.DataAnnotations;
 
 namespace TestProject.Core.ViewModels
 {
@@ -37,8 +37,12 @@ namespace TestProject.Core.ViewModels
 
         private async Task ItemCreated()
         {
-            if(!TodoItemIsValid())
+            TodoItem todoItem = new TodoItem { Name = Name };
+
+            List<ValidationResult> validationResults;
+            if (!new DataValidationHelper().TodoItemIsValid(todoItem, out validationResults))
             {
+                new UserDialogsHelper().ToastErrorMessage(validationResults[0].ErrorMessage);
                 return;
             }
 
@@ -50,28 +54,19 @@ namespace TestProject.Core.ViewModels
         {
             if(string.IsNullOrWhiteSpace(Name))
             {
-                ToastInvalidTodoItemMessage();
+                
                 return false;
             }
 
             return true;
         }
-
-        private void ToastInvalidTodoItemMessage()
-        {
-            ToastConfig toast = new ToastConfig(Strings.InvalidTodoItemMessage);
-            toast.SetDuration(Constants.ToastDuration);
-            toast.SetPosition(ToastPosition.Top);
-            UserDialogs.Instance.Toast(toast);
-        }
-
+        
         private async Task AddTodoItem()
         {
-            ILocalStorage<User> storage = new LocalStorage<User>();
-            User currentUser = storage.Get();
-            TodoItem item = new TodoItem { Name = Name, Description = Description,
-                IsDone = this.IsDone, UserId = currentUser.Id };
-            await _todoItemRepository.Insert(item);
+            User currentUser = await new CredentialsStorageHelper().Load();
+            TodoItem todoItem = new TodoItem { Name = Name, Description = Description,
+                IsDone = IsDone, UserId = currentUser.Id };
+            await _todoItemRepository.Insert(todoItem);
         }
     }
 }

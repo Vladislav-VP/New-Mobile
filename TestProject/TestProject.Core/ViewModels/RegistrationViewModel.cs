@@ -10,18 +10,20 @@ using TestProject.Services.Repositories.Interfaces;
 using TestProject.Services.Repositories;
 using TestProject.Services;
 using TestProject.Configurations;
-using TestProject.Services.Storages.Interfaces;
-using TestProject.Services.Storages;
-using System.Text.RegularExpressions;
 using Acr.UserDialogs;
 using TestProject.Core.Resources;
 using TestProject.Services.Helpers;
+using Xamarin.Essentials;
+using Plugin.SecureStorage;
+using System.ComponentModel.DataAnnotations;
 
 namespace TestProject.Core.ViewModels
 {
     public class RegistrationViewModel : BaseViewModel
     {
         private readonly IUserRepository _userRepository;
+
+        private readonly UserDialogsHelper _dialogsHelper;
 
         private string _userName;
         private string _password;
@@ -30,6 +32,8 @@ namespace TestProject.Core.ViewModels
             : base(navigationService)
         {
             _userRepository = new UserRepository();
+
+            _dialogsHelper = new UserDialogsHelper();
 
             RegistrateUserCommand = new MvxAsyncCommand(RegistrateUser);
         }
@@ -57,13 +61,24 @@ namespace TestProject.Core.ViewModels
 
         private async Task RegistrateUser()
         {
-            bool userIsValid = await UserValidationHelper.
-                UserInfoIsValid(new User { Name = UserName, Password = Password });
+            User user = new User { Name = UserName, Password = Password };
+
+            List<ValidationResult> validationResults;
+            bool userIsValid = new DataValidationHelper().UserInfoIsValid(user, out validationResults);
             if (!userIsValid)
             {
+                _dialogsHelper.ToastErrorMessage(validationResults[0].ErrorMessage);
                 return;
             }
+
+            if (await _userRepository.UserExists(UserName))
+            {
+                _dialogsHelper.ToastErrorMessage(Strings.UserAlreadyExistsMessage);
+                return;
+            }
+
             await AddUser();
+            var users = await _userRepository.GetAllObjects<User>();
             await _navigationService.Navigate<TodoListItemViewModel>();
         }
 
@@ -77,8 +92,7 @@ namespace TestProject.Core.ViewModels
         private async Task SaveUserIntoStorage()
         {
             User user = await _userRepository.FindUser(UserName);
-            ILocalStorage<User> storage = new LocalStorage<User>();
-            storage.Store(user);
+            await new CredentialsStorageHelper().Save(user);
         }
     }
 }
