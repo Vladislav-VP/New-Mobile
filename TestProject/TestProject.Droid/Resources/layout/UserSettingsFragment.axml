@@ -26,7 +26,7 @@
     </RelativeLayout>
 
     <include
-        layout="@layout/user_info_layout"/>
+        layout="@layout/username_layout"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,19 +34,21 @@
         android:orientation="vertical">
         
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="30dp"
+            style="@style/ButtonStyle1"
             android:text="@string/label_save_changes"
-            android:textColor="@android:color/background_dark"
             local:MvxBind="Click UserUpdatedCommand"/>
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="30dp"
-            android:text="@string/label_delete_account"
-            android:textColor="@android:color/background_dark"
-            local:MvxBind="Click UserDeletedCommand"/>
+            style="@style/ButtonStyle1"
+            android:text="@string/label_change_password"
+            local:MvxBind="Click ShowEditPasswordViewModelCommand"/>
+
     </LinearLayout>
+
+
+    <Button
+        style="@style/ButtonStyle1"
+            android:layout_marginTop="150dp"
+        android:text="@string/label_delete_account"
+        local:MvxBind="Click UserDeletedCommand"/>
 
 </LinearLayout>

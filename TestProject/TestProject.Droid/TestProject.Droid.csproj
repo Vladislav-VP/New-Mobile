@@ -72,6 +72,7 @@
     <Compile Include="Setup.cs" />
     <Compile Include="SplashScreen.cs" />
     <Compile Include="Views\BaseFragment.cs" />
+    <Compile Include="Views\EditPasswordFragment.cs" />
     <Compile Include="Views\EditTodoItemFragment.cs" />
     <Compile Include="Views\CreateTodoItemFragment.cs" />
     <Compile Include="Views\LoginActivity.cs" />
@@ -79,7 +80,7 @@
     <Compile Include="Views\MenuFragment.cs" />
     <Compile Include="Views\RegistrationFragment.cs" />
     <Compile Include="Views\TodoListItemFragment.cs" />
-    <Compile Include="Views\UserInfoFragment.cs" />
+    <Compile Include="Views\UserSettingsFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -136,17 +137,9 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Configuration\TestProject.Configurations.csproj">
-      <Project>{BB6AC278-AB45-4029-8F52-CFD11DBDF720}</Project>
+    <ProjectReference Include="..\TestProject.Configurations\TestProject.Configurations.csproj">
+      <Project>{a5359bc6-a59b-4727-9522-44ffb70df1c7}</Project>
       <Name>TestProject.Configurations</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DBRepositories\TestProject.Services.csproj">
-      <Project>{F7E25FD0-8171-4756-82D2-F9DF3F4D4FC6}</Project>
-      <Name>TestProject.Services</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Models\TestProject.Entities.csproj">
-      <Project>{58557CEF-5781-4139-99DA-093D4A8D83D9}</Project>
-      <Name>TestProject.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestProject.Core\TestProject.Core.csproj">
       <Project>{14e2f76c-3e0a-45ba-a18c-ea6cca174451}</Project>
@@ -187,7 +180,7 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\UserInfoFragment.axml">
+    <AndroidResource Include="Resources\layout\UserSettingsFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -226,6 +219,21 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\user_info_layout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\EditPasswordFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\username_layout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\password_layout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

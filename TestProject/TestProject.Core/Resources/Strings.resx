@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="IncorrectCurrentPasswordMessage" xml:space="preserve">
+    <value>Incorrect current password!</value>
+  </data>
   <data name="InvalidPasswordFormatMessage" xml:space="preserve">
     <value>Invalid format of username or password!</value>
   </data>
@@ -129,6 +132,12 @@
   <data name="NewTask" xml:space="preserve">
     <value>New task</value>
     <comment>Used while creating a new task</comment>
+  </data>
+  <data name="PasswordChangedMessage" xml:space="preserve">
+    <value>Password succesfully changed!</value>
+  </data>
+  <data name="PasswordsNotCorrespondMessage" xml:space="preserve">
+    <value>Passwords do not correspond!</value>
   </data>
   <data name="RegistrateUser" xml:space="preserve">
     <value>Registrate</value>

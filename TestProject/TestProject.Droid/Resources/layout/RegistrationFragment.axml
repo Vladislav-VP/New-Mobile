@@ -15,10 +15,8 @@
         layout="@layout/user_info_layout"/>
         <Button
             android:id="@+id/btnNewUser"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/ButtonStyle1"
             android:text="@string/registrateText"
-            android:textSize="30dp"
             local:MvxBind="Click RegistrateUserCommand"/>   
     </LinearLayout>
 

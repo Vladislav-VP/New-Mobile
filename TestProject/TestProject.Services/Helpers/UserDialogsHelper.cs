@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using TestProject.Configurations;
+using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Resources;
 
 namespace TestProject.Services.Helpers
 {
-    public class UserDialogsHelper
+    public class UserDialogsHelper : IDialogsHelper
     {
-        public void ToastErrorMessage(string message, int duration = 3000)
+        public void ToastMessage(string message, int duration = 3000)
         {
             ToastConfig toast = new ToastConfig(message);
             toast.SetDuration(duration);

@@ -21,13 +21,19 @@ namespace TestProject.Core.ViewModels
         {
 
             ShowLoginViewModelCommand = new MvxAsyncCommand(Logout);
-            ShowUserInfoViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<UserInfoViewModel>());
-            ShowListTodoItemsViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<TodoListItemViewModel>());
+            ShowUserInfoViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<UserSettingsViewModel>());
+            ShowListTodoItemsViewModelCommand = 
+                new MvxAsyncCommand(() => _navigationService.Navigate<TodoListItemViewModel>());
         }
 
         public string UserName
         {
             get => _userName;
+            set
+            {
+                _userName = value;
+                RaisePropertyChanged(() => UserName);
+            }
         }
 
         public IMvxAsyncCommand ShowLoginViewModelCommand { get; private set; }
@@ -40,12 +46,12 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            _userName = (await new CredentialsStorageHelper().Load()).Name;
+            UserName = (await _storage.Load()).Name;
         }
 
         private async Task Logout()
         {
-
+            _storage.Clear();
             var result = await _navigationService.Navigate<LoginViewModel>();
         }
     }

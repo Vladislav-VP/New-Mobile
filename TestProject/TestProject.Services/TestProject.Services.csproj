@@ -19,8 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Configuration\TestProject.Configurations.csproj" />
-    <ProjectReference Include="..\Models\TestProject.Entities.csproj" />
+    <ProjectReference Include="..\TestProject.Configurations\TestProject.Configurations.csproj" />
+    <ProjectReference Include="..\TestProject.Entities\TestProject.Entities.csproj" />
   </ItemGroup>
 
   <ItemGroup>

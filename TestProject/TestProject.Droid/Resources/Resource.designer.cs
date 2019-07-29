@@ -8763,8 +8763,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a0041
 			public const int always = 2131361857;
 			
-			// aapt resource value: 0x7f0a00d8
-			public const int appbar = 2131362008;
+			// aapt resource value: 0x7f0a00da
+			public const int appbar = 2131362010;
 			
 			// aapt resource value: 0x7f0a0067
 			public const int async = 2131361895;
@@ -8799,8 +8799,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a00b8
 			public const int btLogin = 2131361976;
 			
-			// aapt resource value: 0x7f0a00d1
-			public const int btnBack = 2131362001;
+			// aapt resource value: 0x7f0a00d3
+			public const int btnBack = 2131362003;
 			
 			// aapt resource value: 0x7f0a00a4
 			public const int btnCreate = 2131361956;
@@ -8808,8 +8808,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a00b2
 			public const int btnDeleteTodoItem = 2131361970;
 			
-			// aapt resource value: 0x7f0a00cf
-			public const int btnNewUser = 2131361999;
+			// aapt resource value: 0x7f0a00d1
+			public const int btnNewUser = 2131362001;
 			
 			// aapt resource value: 0x7f0a00ba
 			public const int btnRegistrate = 2131361978;
@@ -8904,17 +8904,17 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a0049
 			public const int enterAlwaysCollapsed = 2131361865;
 			
-			// aapt resource value: 0x7f0a00d4
-			public const int etDescription = 2131362004;
+			// aapt resource value: 0x7f0a00d6
+			public const int etDescription = 2131362006;
+			
+			// aapt resource value: 0x7f0a00d0
+			public const int etNewPassword = 2131362000;
 			
 			// aapt resource value: 0x7f0a00dc
-			public const int etNewPassword = 2131362012;
+			public const int etNewUsername = 2131362012;
 			
-			// aapt resource value: 0x7f0a00da
-			public const int etNewUsername = 2131362010;
-			
-			// aapt resource value: 0x7f0a00d2
-			public const int etTaskName = 2131362002;
+			// aapt resource value: 0x7f0a00d4
+			public const int etTaskName = 2131362004;
 			
 			// aapt resource value: 0x7f0a004a
 			public const int exitUntilCollapsed = 2131361866;
@@ -9069,8 +9069,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a00c4
 			public const int notification_main_column_container = 2131361988;
 			
-			// aapt resource value: 0x7f0a00d6
-			public const int objectivesTextView = 2131362006;
+			// aapt resource value: 0x7f0a00d8
+			public const int objectivesTextView = 2131362008;
 			
 			// aapt resource value: 0x7f0a0062
 			public const int outline = 2131361890;
@@ -9279,11 +9279,11 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a0080
 			public const int title_template = 2131361920;
 			
-			// aapt resource value: 0x7f0a00d7
-			public const int todoItemsRecyclerView = 2131362007;
-			
 			// aapt resource value: 0x7f0a00d9
-			public const int toolbar = 2131362009;
+			public const int todoItemsRecyclerView = 2131362009;
+			
+			// aapt resource value: 0x7f0a00db
+			public const int toolbar = 2131362011;
 			
 			// aapt resource value: 0x7f0a0047
 			public const int top = 2131361863;
@@ -9309,17 +9309,17 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a0013
 			public const int transition_transform = 2131361811;
 			
-			// aapt resource value: 0x7f0a00d3
-			public const int tvDescription = 2131362003;
-			
 			// aapt resource value: 0x7f0a00d5
-			public const int tvDone = 2131362005;
+			public const int tvDescription = 2131362005;
 			
-			// aapt resource value: 0x7f0a00db
-			public const int tvPasswordTip = 2131362011;
+			// aapt resource value: 0x7f0a00d7
+			public const int tvDone = 2131362007;
 			
-			// aapt resource value: 0x7f0a00d0
-			public const int tvTaskName = 2131362000;
+			// aapt resource value: 0x7f0a00cf
+			public const int tvPasswordTip = 2131361999;
+			
+			// aapt resource value: 0x7f0a00d2
+			public const int tvTaskName = 2131362002;
 			
 			// aapt resource value: 0x7f0a00b3
 			public const int txt_name = 2131361971;
@@ -9583,88 +9583,97 @@ namespace TestProject.Droid
 			public const int design_text_input_password_icon = 2130968620;
 			
 			// aapt resource value: 0x7f04002d
-			public const int EditTodoItemFragment = 2130968621;
+			public const int EditPasswordFragment = 2130968621;
 			
 			// aapt resource value: 0x7f04002e
-			public const int item_name = 2130968622;
+			public const int EditTodoItemFragment = 2130968622;
 			
 			// aapt resource value: 0x7f04002f
-			public const int loading = 2130968623;
+			public const int item_name = 2130968623;
 			
 			// aapt resource value: 0x7f040030
-			public const int loadingimage = 2130968624;
+			public const int loading = 2130968624;
 			
 			// aapt resource value: 0x7f040031
-			public const int loadingprogress = 2130968625;
+			public const int loadingimage = 2130968625;
 			
 			// aapt resource value: 0x7f040032
-			public const int LoginActivity = 2130968626;
+			public const int loadingprogress = 2130968626;
 			
 			// aapt resource value: 0x7f040033
-			public const int MainActivity = 2130968627;
+			public const int LoginActivity = 2130968627;
 			
 			// aapt resource value: 0x7f040034
-			public const int MenuFragment = 2130968628;
+			public const int MainActivity = 2130968628;
 			
 			// aapt resource value: 0x7f040035
-			public const int mtrl_layout_snackbar = 2130968629;
+			public const int MenuFragment = 2130968629;
 			
 			// aapt resource value: 0x7f040036
-			public const int mtrl_layout_snackbar_include = 2130968630;
+			public const int mtrl_layout_snackbar = 2130968630;
 			
 			// aapt resource value: 0x7f040037
-			public const int navigation_header = 2130968631;
+			public const int mtrl_layout_snackbar_include = 2130968631;
 			
 			// aapt resource value: 0x7f040038
-			public const int notification_action = 2130968632;
+			public const int navigation_header = 2130968632;
 			
 			// aapt resource value: 0x7f040039
-			public const int notification_action_tombstone = 2130968633;
+			public const int notification_action = 2130968633;
 			
 			// aapt resource value: 0x7f04003a
-			public const int notification_template_custom_big = 2130968634;
+			public const int notification_action_tombstone = 2130968634;
 			
 			// aapt resource value: 0x7f04003b
-			public const int notification_template_icon_group = 2130968635;
+			public const int notification_template_custom_big = 2130968635;
 			
 			// aapt resource value: 0x7f04003c
-			public const int notification_template_part_chronometer = 2130968636;
+			public const int notification_template_icon_group = 2130968636;
 			
 			// aapt resource value: 0x7f04003d
-			public const int notification_template_part_time = 2130968637;
+			public const int notification_template_part_chronometer = 2130968637;
 			
 			// aapt resource value: 0x7f04003e
-			public const int RegistrationFragment = 2130968638;
+			public const int notification_template_part_time = 2130968638;
 			
 			// aapt resource value: 0x7f04003f
-			public const int select_dialog_item_material = 2130968639;
+			public const int password_layout = 2130968639;
 			
 			// aapt resource value: 0x7f040040
-			public const int select_dialog_multichoice_material = 2130968640;
+			public const int RegistrationFragment = 2130968640;
 			
 			// aapt resource value: 0x7f040041
-			public const int select_dialog_singlechoice_material = 2130968641;
+			public const int select_dialog_item_material = 2130968641;
 			
 			// aapt resource value: 0x7f040042
-			public const int SplashScreen = 2130968642;
+			public const int select_dialog_multichoice_material = 2130968642;
 			
 			// aapt resource value: 0x7f040043
-			public const int support_simple_spinner_dropdown_item = 2130968643;
+			public const int select_dialog_singlechoice_material = 2130968643;
 			
 			// aapt resource value: 0x7f040044
-			public const int TodoItemTemplate = 2130968644;
+			public const int SplashScreen = 2130968644;
 			
 			// aapt resource value: 0x7f040045
-			public const int TodoListItemFragment = 2130968645;
+			public const int support_simple_spinner_dropdown_item = 2130968645;
 			
 			// aapt resource value: 0x7f040046
-			public const int toolbar_actionbar = 2130968646;
+			public const int TodoItemTemplate = 2130968646;
 			
 			// aapt resource value: 0x7f040047
-			public const int user_info_layout = 2130968647;
+			public const int TodoListItemFragment = 2130968647;
 			
 			// aapt resource value: 0x7f040048
-			public const int UserInfoFragment = 2130968648;
+			public const int toolbar_actionbar = 2130968648;
+			
+			// aapt resource value: 0x7f040049
+			public const int user_info_layout = 2130968649;
+			
+			// aapt resource value: 0x7f04004a
+			public const int username_layout = 2130968650;
+			
+			// aapt resource value: 0x7f04004b
+			public const int UserSettingsFragment = 2130968651;
 			
 			static Layout()
 			{
@@ -9882,11 +9891,23 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0d002e
 			public const int hide_bottom_view_on_scroll_behavior = 2131558446;
 			
+			// aapt resource value: 0x7f0d0050
+			public const int label_change_password = 2131558480;
+			
+			// aapt resource value: 0x7f0d004f
+			public const int label_confirm_password = 2131558479;
+			
+			// aapt resource value: 0x7f0d004d
+			public const int label_current_password = 2131558477;
+			
 			// aapt resource value: 0x7f0d0048
 			public const int label_delete_account = 2131558472;
 			
 			// aapt resource value: 0x7f0d0049
 			public const int label_logout = 2131558473;
+			
+			// aapt resource value: 0x7f0d004e
+			public const int label_new_password = 2131558478;
 			
 			// aapt resource value: 0x7f0d004c
 			public const int label_password_tip = 2131558476;
@@ -10549,6 +10570,9 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0b017b
 			public const int Base_Widget_MaterialComponents_TextInputLayout = 2131427707;
 			
+			// aapt resource value: 0x7f0b01f4
+			public const int ButtonStyle1 = 2131427828;
+			
 			// aapt resource value: 0x7f0b0000
 			public const int CardView = 2131427328;
 			
@@ -10557,6 +10581,12 @@ namespace TestProject.Droid
 			
 			// aapt resource value: 0x7f0b0003
 			public const int CardView_Light = 2131427331;
+			
+			// aapt resource value: 0x7f0b01f5
+			public const int LabelStyle = 2131427829;
+			
+			// aapt resource value: 0x7f0b01f7
+			public const int PasswordStyle = 2131427831;
 			
 			// aapt resource value: 0x7f0b0073
 			public const int Platform_AppCompat = 2131427443;
@@ -11097,6 +11127,9 @@ namespace TestProject.Droid
 			
 			// aapt resource value: 0x7f0b01f2
 			public const int Toolbar = 2131427826;
+			
+			// aapt resource value: 0x7f0b01f6
+			public const int UserNameStyle = 2131427830;
 			
 			// aapt resource value: 0x7f0b010e
 			public const int Widget_AppCompat_ActionBar = 2131427598;

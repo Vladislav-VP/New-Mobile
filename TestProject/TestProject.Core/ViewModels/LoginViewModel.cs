@@ -69,7 +69,7 @@ namespace TestProject.Core.ViewModels
             var userFromDatabase = await _userRepository.FindUser(enteredUser.Name);
             if (!enteredUser.Equals(userFromDatabase))
             {
-                new UserDialogsHelper().ToastErrorMessage(Strings.LoginErrorMessage);
+                new UserDialogsHelper().ToastMessage(Strings.LoginErrorMessage);
                 return;
             }
 
@@ -81,7 +81,7 @@ namespace TestProject.Core.ViewModels
         private async Task SaveUserIntoStorage()
         {
             User user = await _userRepository.FindUser(UserName);
-            await new CredentialsStorageHelper().Save(user);
+            await _storage.Save(user);
         }
     }
 }

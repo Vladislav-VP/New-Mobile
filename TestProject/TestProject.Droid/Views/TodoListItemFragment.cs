@@ -34,6 +34,8 @@ namespace TestProject.Droid.Views
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState);
 
+            var taskList = view.FindViewById<MvxRecyclerView>(Resource.Id.todoItemsRecyclerView);
+
             ParentActivity.SupportActionBar.Title = Strings.TaskList;
 
             return view;

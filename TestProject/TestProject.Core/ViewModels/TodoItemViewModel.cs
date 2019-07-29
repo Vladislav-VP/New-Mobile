@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using MvvmCross.Navigation;
+using TestProject.Services.Helpers;
+using TestProject.Services.Repositories.Interfaces;
+using TestProject.Services.Repositories;
 
 namespace TestProject.Core.ViewModels
 {
@@ -11,8 +14,13 @@ namespace TestProject.Core.ViewModels
         protected string _description;
         protected bool _isDone;
 
+        protected readonly ITodoItemRepository _todoItemRepository;
+
         public TodoItemViewModel(IMvxNavigationService navigationService)
-            : base(navigationService) { }
+            : base(navigationService)
+        {
+            _todoItemRepository = new TodoItemRepository();
+        }
 
         public string Name
         {

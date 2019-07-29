@@ -16,8 +16,8 @@ namespace TestProject.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame)]
     [Register("testProject.droid.views.UserInfoView")]
-    public class UserInfoFragment : BaseFragment<UserInfoViewModel>
+    public class UserSettingsFragment : BaseFragment<UserSettingsViewModel>
     {
-        protected override int FragmentId => Resource.Layout.UserInfoFragment;
+        protected override int FragmentId => Resource.Layout.UserSettingsFragment;
     }
 }

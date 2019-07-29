@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestProject.Configurations;
 using TestProject.Entities;
-using TestProject.Services.Helpers.Interrfaces;
+using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Repositories;
 using Xamarin.Essentials;
 

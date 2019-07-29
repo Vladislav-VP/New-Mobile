@@ -16,6 +16,7 @@ using TestProject.Services.Helpers;
 using Xamarin.Essentials;
 using Plugin.SecureStorage;
 using System.ComponentModel.DataAnnotations;
+using TestProject.Services.Helpers.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
@@ -23,7 +24,8 @@ namespace TestProject.Core.ViewModels
     {
         private readonly IUserRepository _userRepository;
 
-        private readonly UserDialogsHelper _dialogsHelper;
+
+        private readonly IDialogsHelper _dialogsHelper;
 
         private string _userName;
         private string _password;
@@ -63,17 +65,18 @@ namespace TestProject.Core.ViewModels
         {
             User user = new User { Name = UserName, Password = Password };
 
-            List<ValidationResult> validationResults;
-            bool userIsValid = new DataValidationHelper().UserInfoIsValid(user, out validationResults);
+            DataValidationHelper validationHelper = new DataValidationHelper();
+
+            bool userIsValid = validationHelper.UserNameIsValid(user) && validationHelper.PasswordIsValid(user);
             if (!userIsValid)
             {
-                _dialogsHelper.ToastErrorMessage(validationResults[0].ErrorMessage);
+                _dialogsHelper.ToastMessage(validationHelper.ValidationErrors[0].ErrorMessage);
                 return;
             }
 
             if (await _userRepository.UserExists(UserName))
             {
-                _dialogsHelper.ToastErrorMessage(Strings.UserAlreadyExistsMessage);
+                _dialogsHelper.ToastMessage(Strings.UserAlreadyExistsMessage);
                 return;
             }
 
@@ -92,7 +95,7 @@ namespace TestProject.Core.ViewModels
         private async Task SaveUserIntoStorage()
         {
             User user = await _userRepository.FindUser(UserName);
-            await new CredentialsStorageHelper().Save(user);
+            await _storage.Save(user);
         }
     }
 }

@@ -8,19 +8,52 @@
     <item name="android:windowFullscreen">true</item>
   </style>
   <!-- Application theme -->
+  
   <style name="AppTheme" parent="AppTheme.Base">
   </style>
+
   <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
     <item name="android:windowBackground">@android:color/white</item>
   </style>
+
   <style name="Toolbar">
     <item name="android:layout_height">?attr/actionBarSize</item>
     <item name="android:background">?attr/colorPrimary</item>
   </style>
+
   <style name="ThemeToolbarNavigationView">
     <item name="android:listDivider">@color/colorPrimaryDark</item>
   </style>
+
+  <style name="ButtonStyle1">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textSize">30dp</item>
+    <item name="android:textColor">@android:color/background_dark</item>
+  </style>
+
+  <style name="LabelStyle">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_margin">5dp</item>
+    <item name="android:textSize">30dp</item>
+    <item name="android:textAlignment">viewStart</item>
+  </style>
+
+  <style name="UserNameStyle">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textSize">30dp</item>
+  </style>
+
+  <style name="PasswordStyle">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textSize">30dp</item>
+    <item name="android:password">true</item>
+  </style>
+
 </resources>

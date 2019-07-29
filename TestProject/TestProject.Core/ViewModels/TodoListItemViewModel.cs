@@ -48,9 +48,8 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
             
-            User currentUser = await new CredentialsStorageHelper().Load();
-            var currentTodoItems = await _todoItemRepository.GetTodoItems(currentUser.Id);
-            _todoItems = new MvxObservableCollection<TodoItem>(currentTodoItems);
+            User currentUser = await _storage.Load();
+            TodoItems = new MvxObservableCollection<TodoItem>(await _todoItemRepository.GetTodoItems(currentUser.Id));
         }
 
         public IMvxAsyncCommand ShowCreateTodoItemViewModelCommand { get; private set; }

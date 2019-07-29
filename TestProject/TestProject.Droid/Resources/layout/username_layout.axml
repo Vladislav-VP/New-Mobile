@@ -4,8 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:fitsSystemWindows="true"
->
+    android:fitsSystemWindows="true">
 
     <TextView
         style="@style/LabelStyle"
@@ -15,19 +14,5 @@
         android:id="@+id/etNewUsername"
         style="@style/UserNameStyle"
         local:MvxBind="Text UserName"/>
-    <TextView
-        style="@style/LabelStyle"
-        android:text="@string/passwordText"
-        android:textColor="@android:color/background_dark"/>
-    <TextView
-        android:id="@+id/tvPasswordTip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18dp"
-        android:textColor="@android:color/black"/>
-    <EditText
-        android:id="@+id/etNewPassword"
-        style="@style/PasswordStyle"
-        local:MvxBind="Text Password"/>
 
 </LinearLayout>

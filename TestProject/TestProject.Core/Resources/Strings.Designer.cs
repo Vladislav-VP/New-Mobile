@@ -61,6 +61,15 @@ namespace TestProject.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Incorrect current password!.
+        /// </summary>
+        public static string IncorrectCurrentPasswordMessage {
+            get {
+                return ResourceManager.GetString("IncorrectCurrentPasswordMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid format of username or password!.
         /// </summary>
         public static string InvalidPasswordFormatMessage {
@@ -93,6 +102,24 @@ namespace TestProject.Core.Resources {
         public static string NewTask {
             get {
                 return ResourceManager.GetString("NewTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password succesfully changed!.
+        /// </summary>
+        public static string PasswordChangedMessage {
+            get {
+                return ResourceManager.GetString("PasswordChangedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passwords do not correspond!.
+        /// </summary>
+        public static string PasswordsNotCorrespondMessage {
+            get {
+                return ResourceManager.GetString("PasswordsNotCorrespondMessage", resourceCulture);
             }
         }
         
