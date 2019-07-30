@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TestProject.Entities.Resources {
+namespace TestProject.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace TestProject.Entities.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TestProject.Entities.Resources.Strings", typeof(Strings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TestProject.Resources.Strings", typeof(Strings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,15 @@ namespace TestProject.Entities.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account was deleted.
+        /// </summary>
+        public static string AccountDeletedMessage {
+            get {
+                return ResourceManager.GetString("AccountDeletedMessage", resourceCulture);
             }
         }
         
@@ -79,7 +88,25 @@ namespace TestProject.Entities.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid format of password!.
+        ///   Looks up a localized string similar to Name can not be empty!.
+        /// </summary>
+        public static string EmptyTodoItemNameMessage {
+            get {
+                return ResourceManager.GetString("EmptyTodoItemNameMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect current password!.
+        /// </summary>
+        public static string IncorrectCurrentPasswordMessage {
+            get {
+                return ResourceManager.GetString("IncorrectCurrentPasswordMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid format of username or password!.
         /// </summary>
         public static string InvalidPasswordFormatMessage {
             get {
@@ -106,6 +133,15 @@ namespace TestProject.Entities.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New task.
+        /// </summary>
+        public static string NewTask {
+            get {
+                return ResourceManager.GetString("NewTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         public static string NoButtonText {
@@ -120,6 +156,51 @@ namespace TestProject.Entities.Resources {
         public static string OkButtonText {
             get {
                 return ResourceManager.GetString("OkButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password succesfully changed!.
+        /// </summary>
+        public static string PasswordChangedMessage {
+            get {
+                return ResourceManager.GetString("PasswordChangedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passwords do not correspond!.
+        /// </summary>
+        public static string PasswordsNotCorrespondMessage {
+            get {
+                return ResourceManager.GetString("PasswordsNotCorrespondMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registrate.
+        /// </summary>
+        public static string RegistrateUser {
+            get {
+                return ResourceManager.GetString("RegistrateUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save changes?.
+        /// </summary>
+        public static string SaveChangesDialog {
+            get {
+                return ResourceManager.GetString("SaveChangesDialog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My tasks.
+        /// </summary>
+        public static string TaskList {
+            get {
+                return ResourceManager.GetString("TaskList", resourceCulture);
             }
         }
         
@@ -147,6 +228,15 @@ namespace TestProject.Entities.Resources {
         public static string UserDataNullOrEmptyMessage {
             get {
                 return ResourceManager.GetString("UserDataNullOrEmptyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username successfully changed!.
+        /// </summary>
+        public static string UserNameChangedMessage {
+            get {
+                return ResourceManager.GetString("UserNameChangedMessage", resourceCulture);
             }
         }
     }

@@ -28,7 +28,8 @@ namespace TestProject.Droid
             typeof(DrawerLayout).Assembly,
             typeof(Toolbar).Assembly,
             typeof(CoordinatorLayout).Assembly,
-            typeof(NavigationView).Assembly
+            typeof(NavigationView).Assembly,
+            typeof(BottomNavigationView).Assembly
         };
 
         protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)

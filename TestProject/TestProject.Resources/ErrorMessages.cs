@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TestProject.Entities.Resources
+namespace TestProject.Resources
 {
-    internal static class ErrorMessages
+    public static class ErrorMessages
     {
         public const string EmptyNameMessage = "Name can not be empty!";
 

@@ -5,6 +5,8 @@ using MvvmCross.Navigation;
 using TestProject.Services.Helpers;
 using TestProject.Services.Repositories.Interfaces;
 using TestProject.Services.Repositories;
+using TestProject.Services.Helpers.Interfaces;
+using Acr.UserDialogs;
 
 namespace TestProject.Core.ViewModels
 {
@@ -14,12 +16,20 @@ namespace TestProject.Core.ViewModels
         protected string _description;
         protected bool _isDone;
 
+        protected readonly IDialogsHelper _dialogsHelper;
+
+        protected readonly IUserDialogs _userDialogs;
+
         protected readonly ITodoItemRepository _todoItemRepository;
 
-        public TodoItemViewModel(IMvxNavigationService navigationService)
+        public TodoItemViewModel(IMvxNavigationService navigationService, IUserDialogs userDialogs)
             : base(navigationService)
         {
             _todoItemRepository = new TodoItemRepository();
+
+            _userDialogs = userDialogs;
+
+            _dialogsHelper = new UserDialogsHelper();
         }
 
         public string Name

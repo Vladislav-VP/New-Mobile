@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using SQLite;
-using TestProject.Entities.Resources;
+using TestProject.Resources;
 using TestProject.Entities.Attributes;
 
 namespace TestProject.Entities

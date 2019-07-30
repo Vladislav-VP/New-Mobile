@@ -18,7 +18,7 @@ using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Droid.Support.V7.RecyclerView;
 using Android.Support.V7.Widget;
 using Android.Support.V4.Widget;
-using TestProject.Core.Resources;
+using TestProject.Resources;
 using Android.Support.V4.View;
 
 namespace TestProject.Droid.Views

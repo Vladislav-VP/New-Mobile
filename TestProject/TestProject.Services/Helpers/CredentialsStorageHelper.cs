@@ -8,6 +8,9 @@ using TestProject.Entities;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Repositories;
 using Xamarin.Essentials;
+using MvvmCross.IoC;
+using MvvmCross;
+using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Services.Helpers
 {
@@ -20,8 +23,11 @@ namespace TestProject.Services.Helpers
 
         public async Task<User> Load()
         {
-            if (await SecureStorage.GetAsync(Constants.CredentialsKey) == null)
+            var key = await SecureStorage.GetAsync(Constants.CredentialsKey);
+            if (key == null)
+            {
                 return null;
+            }
 
             int id = int.Parse(await SecureStorage.GetAsync(Constants.CredentialsKey));
             return await new UserRepository().Find<User>(id);

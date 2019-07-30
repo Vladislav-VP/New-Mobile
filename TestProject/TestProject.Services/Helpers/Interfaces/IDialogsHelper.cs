@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Acr.UserDialogs;
 
 namespace TestProject.Services.Helpers.Interfaces
@@ -9,6 +10,10 @@ namespace TestProject.Services.Helpers.Interfaces
     {
         void ToastMessage(string message, int duration = 3000);
 
-        ConfirmConfig ConfirmDelete();
+        void AlertMessage(string message);
+
+        Task<bool> ConfirmDelete();
+
+        ConfirmConfig ConfirmCancel();
     }
 }

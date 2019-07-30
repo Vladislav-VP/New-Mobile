@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestProject.Configurations;
 using TestProject.Services.Helpers.Interfaces;
-using TestProject.Services.Resources;
+using TestProject.Resources;
 
 namespace TestProject.Services.Helpers
 {
@@ -19,12 +19,30 @@ namespace TestProject.Services.Helpers
             UserDialogs.Instance.Toast(toast);
         }
 
-        public ConfirmConfig ConfirmDelete()
+        public async Task<bool> ConfirmDelete()
         {
             ConfirmConfig config = new ConfirmConfig();
-            config.CancelText = Strings.NoButtonText;
             config.Message = Strings.DeleteMessageDialog;
+            config.CancelText = Strings.NoButtonText;
             config.OkText = Strings.OkButtonText;
+            return await UserDialogs.Instance.ConfirmAsync(config);
+        }
+
+        public void AlertMessage(string message)
+        {
+            AlertConfig alert = new AlertConfig();
+            alert.Message = message;
+            UserDialogs.Instance.Alert(alert);
+        }
+
+        public ConfirmConfig ConfirmCancel()
+        {
+            ConfirmConfig config = new ConfirmConfig();
+            config.Message = Strings.SaveChangesDialog;
+            //ConfirmConfig.DefaultNo = Strings.NoButtonText;
+            //ConfirmConfig.DefaultYes = Strings.OkButtonText;
+            //ConfirmConfig.DefaultCancelText = Strings.CancelButtonText;
+            //config.UseYesNo();
             return config;
         }
     }

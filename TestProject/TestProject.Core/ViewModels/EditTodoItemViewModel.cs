@@ -9,19 +9,23 @@ using TestProject.Entities;
 using TestProject.Services;
 using TestProject.Core.ViewModelResults;
 using System.Threading.Tasks;
+using MvvmCross.Commands;
+using TestProject.Services.Helpers;
+using TestProject.Services.Helpers.Interfaces;
+using TestProject.Resources;
+using Acr.UserDialogs;
 
 namespace TestProject.Core.ViewModels
 {
     public class EditTodoItemViewModel : TodoItemViewModel, IMvxViewModel<TodoItem>
     {
-        private readonly ITodoItemRepository _todoItemRepository;
-
         private TodoItem _todoItem;
 
-        public EditTodoItemViewModel(IMvxNavigationService navigationService) 
-            : base(navigationService)
+        public EditTodoItemViewModel(IMvxNavigationService navigationService, IUserDialogs userDialogs)
+            : base(navigationService, userDialogs)
         {
-            _todoItemRepository = new TodoItemRepository();
+            TodoItemUpdatedCommand = new MvxAsyncCommand(TodoItemUpdated);
+            TodoItemDeletedCommand = new MvxAsyncCommand(TodoItemDeleted);
         }
 
         public TodoItem TodoItem
@@ -33,6 +37,10 @@ namespace TestProject.Core.ViewModels
                 RaisePropertyChanged(() => TodoItem);
             }
         }
+
+        public IMvxAsyncCommand TodoItemUpdatedCommand { get; private set; }
+
+        public IMvxAsyncCommand TodoItemDeletedCommand { get; private set; }
 
         public void Prepare(TodoItem parameter)
         {
@@ -46,6 +54,51 @@ namespace TestProject.Core.ViewModels
             _name = TodoItem.Name;
             _description = TodoItem.Description;
             _isDone = TodoItem.IsDone;
+        }
+
+        private async Task TodoItemUpdated()
+        {
+            if(!await TryUpdateTodoItem())
+            {
+                return;
+            }
+
+            var result = await _navigationService.Close(this);
+        }
+
+        private async Task<bool> TryUpdateTodoItem()
+        {
+            ChangeAllProperties();
+            DataValidationHelper validationHelper = new DataValidationHelper();
+            if (!validationHelper.TodoItemIsValid(TodoItem))
+            {
+                _dialogsHelper.ToastMessage(Strings.EmptyTodoItemNameMessage);
+                return false;
+            }
+
+            await _todoItemRepository.Update(TodoItem);
+            return true;
+        }
+
+        private void ChangeAllProperties()
+        {
+            TodoItem.Name = Name;
+            TodoItem.Description = Description;
+            TodoItem.IsDone = IsDone;
+        }
+
+        private async Task TodoItemDeleted()
+        {
+            var delete = await _dialogsHelper.ConfirmDelete();
+
+            if (!delete)
+            {
+                return;
+            }
+
+            await _todoItemRepository.Delete(TodoItem);
+
+            var result = await _navigationService.Navigate<TodoListItemViewModel>();
         }
     }
 }

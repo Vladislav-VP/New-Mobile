@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using TestProject.Entities;
 using Acr.UserDialogs;
-using TestProject.Services.Resources;
+using TestProject.Resources;
 using System.Threading.Tasks;
 using TestProject.Configurations;
 using System.Text.RegularExpressions;

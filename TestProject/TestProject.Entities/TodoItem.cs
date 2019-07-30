@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
-using TestProject.Entities.Resources;
+using TestProject.Resources;
 
 namespace TestProject.Entities
 {

@@ -11,7 +11,7 @@ using TestProject.Services.Repositories;
 using TestProject.Services;
 using TestProject.Configurations;
 using Acr.UserDialogs;
-using TestProject.Core.Resources;
+using TestProject.Resources;
 using TestProject.Services.Helpers;
 using Xamarin.Essentials;
 using Plugin.SecureStorage;
@@ -63,6 +63,7 @@ namespace TestProject.Core.ViewModels
 
         private async Task RegistrateUser()
         {
+            UserName = UserName.Trim();
             User user = new User { Name = UserName, Password = Password };
 
             DataValidationHelper validationHelper = new DataValidationHelper();

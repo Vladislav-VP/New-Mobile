@@ -31,8 +31,6 @@ namespace TestProject.Core.ViewModels
         protected virtual async Task GoBack()
         {
             await _navigationService.Close(this);
-        }
-
-        
+        }       
     }
 }

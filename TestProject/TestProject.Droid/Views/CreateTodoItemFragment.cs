@@ -12,7 +12,7 @@ using Android.Widget;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Views;
 using TestProject.Core.ViewModels;
-using TestProject.Core.Resources;
+using TestProject.Resources;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using MvvmCross;
 using MvvmCross.Droid.Support.V4;

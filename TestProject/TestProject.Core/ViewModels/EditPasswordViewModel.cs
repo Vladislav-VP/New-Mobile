@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
-using TestProject.Core.Resources;
+using TestProject.Resources;
 using TestProject.Entities;
 using TestProject.Services.Helpers;
 using TestProject.Services.Helpers.Interfaces;
@@ -88,20 +88,23 @@ namespace TestProject.Core.ViewModels
         {
             if (!ConfirmCurrerntPassword())
             {
-                _dialogsHelper.ToastMessage(Strings.IncorrectCurrentPasswordMessage);
+                _dialogsHelper.AlertMessage(Strings.IncorrectCurrentPasswordMessage);
                 return false;
             }
 
             if (!NewPasswordsEqual())
             {
-                _dialogsHelper.ToastMessage(Strings.PasswordsNotCorrespondMessage);
+                _dialogsHelper.AlertMessage(Strings.PasswordsNotCorrespondMessage);
                 return false;
             }
 
+            _currentUser.Password = NewPassword1;
             DataValidationHelper validationHelper = new DataValidationHelper();
             if (!validationHelper.PasswordIsValid(_currentUser))
             {
-                _dialogsHelper.ToastMessage(validationHelper.ValidationErrors[0].ErrorMessage);
+                _currentUser.Password = CurrentPassword;
+                _dialogsHelper.AlertMessage(validationHelper.ValidationErrors[0].ErrorMessage);
+                var errors = validationHelper.ValidationErrors;
                 return false;
             }
 
@@ -116,7 +119,7 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            
+            _dialogsHelper.ToastMessage(Strings.PasswordChangedMessage);
             var result = await _navigationService.Close(this);
         }
     }

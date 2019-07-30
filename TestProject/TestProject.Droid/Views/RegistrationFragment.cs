@@ -11,7 +11,7 @@ using Android.Views;
 using Android.Widget;
 using TestProject.Core.ViewModels;
 using TestProject.Configurations;
-using TestProject.Core.Resources;
+using TestProject.Resources;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 
 namespace TestProject.Droid.Views

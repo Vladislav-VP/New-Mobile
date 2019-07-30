@@ -13,7 +13,8 @@ using System.Collections.ObjectModel;
 using TestProject.Configurations;
 using System.IO;
 using TestProject.Services.Helpers;
-using TestProject.Core.Resources;
+using TestProject.Resources;
+using MvvmCross;
 
 namespace TestProject.Core.ViewModels
 {
@@ -25,10 +26,11 @@ namespace TestProject.Core.ViewModels
         private string _userName;
         private string _password;
 
-        public LoginViewModel(IMvxNavigationService navigationService)
+        public LoginViewModel(IMvxNavigationService navigationService, IUserRepository userRepository)
             : base(navigationService)
         {
-            _userRepository = new UserRepository();
+            _userRepository = userRepository;
+            //_userRepository = new UserRepository();
             _todoItemRepository = new TodoItemRepository();
 
             LoginCommand = new MvxAsyncCommand(Login);
