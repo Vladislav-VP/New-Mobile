@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
-using TestProject.Configurations;
-using TestProject.Core.ViewModelResults;
 using TestProject.Entities;
-using TestProject.Services;
+using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Repositories;
 using TestProject.Services.Repositories.Interfaces;
-using System.IO;
-using TestProject.Services.Helpers;
 
 namespace TestProject.Core.ViewModels
 {
@@ -24,10 +16,11 @@ namespace TestProject.Core.ViewModels
 
         private MvxObservableCollection<TodoItem> _todoItems;
 
-        public TodoListItemViewModel(IMvxNavigationService navigationService)
-            : base(navigationService)
+        public TodoListItemViewModel(IMvxNavigationService navigationService, 
+            IStorageHelper<User> storage, ITodoItemRepository todoItemRepository)
+            : base(navigationService, storage)
         {
-            _todoItemRepository = new TodoItemRepository();
+            _todoItemRepository = todoItemRepository;
 
             ShowCreateTodoItemViewModelCommand = new MvxAsyncCommand(async ()
                 => await _navigationService.Navigate<CreateTodoItemViewModel>());
@@ -48,7 +41,7 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
             
-            User currentUser = await _storage.Load();
+            User currentUser = await _storage.Retrieve();
             TodoItems = new MvxObservableCollection<TodoItem>(await _todoItemRepository.GetTodoItems(currentUser.Id));
         }
 

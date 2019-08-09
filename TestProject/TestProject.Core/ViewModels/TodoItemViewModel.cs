@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MvvmCross.Navigation;
-using TestProject.Services.Helpers;
+﻿using MvvmCross.Navigation;
 using TestProject.Services.Repositories.Interfaces;
-using TestProject.Services.Repositories;
 using TestProject.Services.Helpers.Interfaces;
-using Acr.UserDialogs;
+using TestProject.Entities;
 
 namespace TestProject.Core.ViewModels
 {
@@ -18,18 +13,22 @@ namespace TestProject.Core.ViewModels
 
         protected readonly IDialogsHelper _dialogsHelper;
 
-        protected readonly IUserDialogs _userDialogs;
+        protected readonly IValidationHelper _validationHelper;
 
         protected readonly ITodoItemRepository _todoItemRepository;
 
-        public TodoItemViewModel(IMvxNavigationService navigationService, IUserDialogs userDialogs)
-            : base(navigationService)
+        public TodoItemViewModel(IMvxNavigationService navigationService,  IValidationHelper validationHelper,
+            ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
+            : this(navigationService, null, validationHelper, todoItemRepository, dialogsHelper) { }
+
+        public TodoItemViewModel(IMvxNavigationService navigationService, IStorageHelper<User> storage,
+            IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
+            : base(navigationService, storage)
         {
-            _todoItemRepository = new TodoItemRepository();
+            _todoItemRepository = todoItemRepository;
+            _validationHelper = validationHelper;
 
-            _userDialogs = userDialogs;
-
-            _dialogsHelper = new UserDialogsHelper();
+            _dialogsHelper = dialogsHelper;
         }
 
         public string Name

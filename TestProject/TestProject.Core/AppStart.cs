@@ -20,7 +20,7 @@ namespace TestProject.Core
         protected async override Task NavigateToFirstViewModel(object hint = null)
         {
 
-            if (await new CredentialsStorageHelper().Load() == null)
+            if (await new CredentialsStorageHelper().Retrieve() == null)
             {
                 await NavigationService.Navigate<LoginViewModel>();
             }

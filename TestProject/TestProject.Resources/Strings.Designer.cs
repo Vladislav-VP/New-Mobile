@@ -79,7 +79,7 @@ namespace TestProject.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure yuo want to delete?.
+        ///   Looks up a localized string similar to Are you sure you want to delete?.
         /// </summary>
         public static string DeleteMessageDialog {
             get {

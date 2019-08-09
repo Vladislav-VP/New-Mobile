@@ -17,14 +17,16 @@ namespace TestProject.Core.ViewModels
 
         protected  readonly IStorageHelper<User> _storage;
 
-        public BaseViewModel(IMvxNavigationService navigationService)
+        public BaseViewModel(IMvxNavigationService navigationService, IStorageHelper<User> storage)
         {
             _navigationService = navigationService;
-
-            _storage = new CredentialsStorageHelper();
+            _storage = storage;
 
             GoBackCommand = new MvxAsyncCommand(GoBack);
         }
+
+        public BaseViewModel(IMvxNavigationService navigationService)
+            : this(navigationService, null) { }
 
         public IMvxAsyncCommand GoBackCommand { get; private set; }
 

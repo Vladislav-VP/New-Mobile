@@ -9,10 +9,11 @@ using TestProject.Configurations;
 using System.Text.RegularExpressions;
 using TestProject.Services.Repositories;
 using System.ComponentModel.DataAnnotations;
+using TestProject.Services.Helpers.Interfaces;
 
 namespace TestProject.Services.Helpers
 {
-    public class DataValidationHelper
+    public class ValidationHelper : IValidationHelper
     {
         private ValidationContext _context;
 
@@ -23,35 +24,27 @@ namespace TestProject.Services.Helpers
             get => _validationErrors;
         }
 
-        public bool UserNameIsValid(User user)
+        public bool ObjectIsValid<T>(T obj, string propertyName = null)
         {
-            Initialize(user, nameof(user.Name));
-
-            return Validator.TryValidateProperty(user.Name, _context, _validationErrors);
-        }
-
-        public bool PasswordIsValid(User user)
-        {
-            Initialize(user, nameof(user.Password));
-
-            return Validator.TryValidateProperty(user.Password, _context, _validationErrors);
-        }
-
-        public bool TodoItemIsValid(TodoItem todoItem)
-        {
-            Initialize(todoItem);
-
-            return Validator.TryValidateObject(todoItem, _context, _validationErrors);
-        }
-
-        private void Initialize(object objToValidate, string propertyName = null)
-        {
-            _context = new ValidationContext(objToValidate);
+            Initialize<T>(obj);
             if (!string.IsNullOrEmpty(propertyName))
             {
                 _context.MemberName = propertyName;
+                Type type = obj.GetType();
+                var propertyValue = type
+                    .GetProperty(propertyName)
+                    .GetValue(obj);
+                return Validator.TryValidateProperty(propertyValue, _context, _validationErrors);
             }
+            else
+            {
+                return Validator.TryValidateObject(obj, _context, _validationErrors);
+            }
+        }
 
+        private void Initialize<T>(T obj)
+        {
+            _context = new ValidationContext(obj);
             _validationErrors = new List<ValidationResult>();
         }
     }

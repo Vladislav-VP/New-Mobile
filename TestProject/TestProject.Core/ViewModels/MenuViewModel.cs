@@ -9,6 +9,7 @@ using TestProject.Services;
 using TestProject.Entities;
 using TestProject.Configurations;
 using TestProject.Services.Helpers;
+using TestProject.Services.Helpers.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
@@ -16,8 +17,8 @@ namespace TestProject.Core.ViewModels
     {
         private string _userName;
 
-        public MenuViewModel(IMvxNavigationService navigationService)
-            : base(navigationService)
+        public MenuViewModel(IMvxNavigationService navigationService, IStorageHelper<User> storage)
+            : base(navigationService, storage)
         {
 
             ShowLoginViewModelCommand = new MvxAsyncCommand(Logout);
@@ -46,7 +47,7 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            UserName = (await _storage.Load()).Name;
+            UserName = (await _storage.Retrieve()).Name;
         }
 
         private async Task Logout()

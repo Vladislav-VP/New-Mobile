@@ -1,38 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MvvmCross.ViewModels;
-using TestProject.Entities;
+﻿using TestProject.Entities;
 using System.Threading.Tasks;
 using MvvmCross.Navigation;
 using MvvmCross.Commands;
 using TestProject.Services.Repositories.Interfaces;
-using TestProject.Services.Repositories;
-using TestProject.Services;
-using System.Collections.ObjectModel;
-using TestProject.Configurations;
-using System.IO;
 using TestProject.Services.Helpers;
 using TestProject.Resources;
-using MvvmCross;
+using TestProject.Services.Helpers.Interfaces;
+using TestProject.Services.Repositories;
 
 namespace TestProject.Core.ViewModels
 {
-    public class LoginViewModel : BaseViewModel
+    public class LoginViewModel : UserViewModel
     {
-        private readonly IUserRepository _userRepository;
-        private readonly ITodoItemRepository _todoItemRepository;
+        protected string _userName;
+        protected string _password;
 
-        private string _userName;
-        private string _password;
-
-        public LoginViewModel(IMvxNavigationService navigationService, IUserRepository userRepository)
-            : base(navigationService)
+        public LoginViewModel(IMvxNavigationService navigationService, IUserRepository userRepository,
+            IStorageHelper<User> userStorage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
+            : base(navigationService, userStorage, userRepository, validationHelper, dialogsHelper)
         {
-            _userRepository = userRepository;
-            //_userRepository = new UserRepository();
-            _todoItemRepository = new TodoItemRepository();
-
             LoginCommand = new MvxAsyncCommand(Login);
             ShowRegistrationScreenCommand = new MvxAsyncCommand(async ()
                 => await _navigationService.Navigate<RegistrationViewModel>());
@@ -68,22 +54,17 @@ namespace TestProject.Core.ViewModels
         private async Task Login()
         {
             var enteredUser = new User { Name = UserName, Password = Password };
-            var userFromDatabase = await _userRepository.FindUser(enteredUser.Name);
-            if (!enteredUser.Equals(userFromDatabase))
+            string query = Queries.GetUserQuery(enteredUser);
+            var userFromDatabase = await _userRepository.FindWithQuery<User>(query);
+            if (userFromDatabase == null)
             {
-                new UserDialogsHelper().ToastMessage(Strings.LoginErrorMessage);
+                _dialogsHelper.ToastMessage(Strings.LoginErrorMessage);
                 return;
             }
 
-            await SaveUserIntoStorage();
+            await _storage.Save(userFromDatabase.Id);
 
             var result = await _navigationService.Navigate<TodoListItemViewModel>();
-        }
-
-        private async Task SaveUserIntoStorage()
-        {
-            User user = await _userRepository.FindUser(UserName);
-            await _storage.Save(user);
         }
     }
 }

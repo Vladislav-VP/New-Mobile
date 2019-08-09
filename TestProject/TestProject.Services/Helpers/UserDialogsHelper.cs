@@ -35,6 +35,7 @@ namespace TestProject.Services.Helpers
             UserDialogs.Instance.Alert(alert);
         }
 
+        // TODO: Write logic after creating viewmodel
         public ConfirmConfig ConfirmCancel()
         {
             ConfirmConfig config = new ConfirmConfig();

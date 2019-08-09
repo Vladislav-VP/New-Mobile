@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MvvmCross.Navigation;
+﻿using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using TestProject.Services.Repositories.Interfaces;
-using TestProject.Services.Repositories;
 using TestProject.Entities;
-using TestProject.Services;
-using TestProject.Core.ViewModelResults;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using TestProject.Services.Helpers;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Resources;
-using Acr.UserDialogs;
 
 namespace TestProject.Core.ViewModels
 {
@@ -21,8 +14,9 @@ namespace TestProject.Core.ViewModels
     {
         private TodoItem _todoItem;
 
-        public EditTodoItemViewModel(IMvxNavigationService navigationService, IUserDialogs userDialogs)
-            : base(navigationService, userDialogs)
+        public EditTodoItemViewModel(IMvxNavigationService navigationService, IValidationHelper validationHelper,
+            ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
+            : base(navigationService, validationHelper, todoItemRepository, dialogsHelper)
         {
             TodoItemUpdatedCommand = new MvxAsyncCommand(TodoItemUpdated);
             TodoItemDeletedCommand = new MvxAsyncCommand(TodoItemDeleted);
@@ -68,11 +62,13 @@ namespace TestProject.Core.ViewModels
 
         private async Task<bool> TryUpdateTodoItem()
         {
-            ChangeAllProperties();
-            DataValidationHelper validationHelper = new DataValidationHelper();
-            if (!validationHelper.TodoItemIsValid(TodoItem))
+            ChangeTodoItem();
+            
+            bool todoItemIsValid = _validationHelper.ObjectIsValid<TodoItem>(TodoItem);
+            bool validationErrorsEmpty = _validationHelper.ValidationErrors.Count == 0;
+            if (!todoItemIsValid && !validationErrorsEmpty)
             {
-                _dialogsHelper.ToastMessage(Strings.EmptyTodoItemNameMessage);
+                _dialogsHelper.ToastMessage(_validationHelper.ValidationErrors[0].ErrorMessage);
                 return false;
             }
 
@@ -80,7 +76,7 @@ namespace TestProject.Core.ViewModels
             return true;
         }
 
-        private void ChangeAllProperties()
+        private void ChangeTodoItem()
         {
             TodoItem.Name = Name;
             TodoItem.Description = Description;

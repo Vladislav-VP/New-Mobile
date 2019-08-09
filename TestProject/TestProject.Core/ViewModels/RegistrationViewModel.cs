@@ -1,41 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MvvmCross.ViewModels;
-using MvvmCross.Navigation;
+﻿using MvvmCross.Navigation;
 using MvvmCross.Commands;
 using System.Threading.Tasks;
 using TestProject.Entities;
 using TestProject.Services.Repositories.Interfaces;
-using TestProject.Services.Repositories;
-using TestProject.Services;
-using TestProject.Configurations;
-using Acr.UserDialogs;
 using TestProject.Resources;
-using TestProject.Services.Helpers;
-using Xamarin.Essentials;
-using Plugin.SecureStorage;
-using System.ComponentModel.DataAnnotations;
 using TestProject.Services.Helpers.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
-    public class RegistrationViewModel : BaseViewModel
+    public class RegistrationViewModel : UserViewModel
     {
-        private readonly IUserRepository _userRepository;
+        protected string _userName;
+        protected string _password;
 
-
-        private readonly IDialogsHelper _dialogsHelper;
-
-        private string _userName;
-        private string _password;
-
-        public RegistrationViewModel(IMvxNavigationService navigationService)
-            : base(navigationService)
+        public RegistrationViewModel(IMvxNavigationService navigationService, IUserRepository userRepository,
+            IStorageHelper<User> userStorage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
+            : base(navigationService, userStorage, userRepository, validationHelper, dialogsHelper)
         {
-            _userRepository = new UserRepository();
-
-            _dialogsHelper = new UserDialogsHelper();
 
             RegistrateUserCommand = new MvxAsyncCommand(RegistrateUser);
         }
@@ -59,23 +40,24 @@ namespace TestProject.Core.ViewModels
                 RaisePropertyChanged(() => Password);
             }
         }
+
         public IMvxAsyncCommand RegistrateUserCommand { get; private set; }
 
         private async Task RegistrateUser()
         {
-            UserName = UserName.Trim();
             User user = new User { Name = UserName, Password = Password };
 
-            DataValidationHelper validationHelper = new DataValidationHelper();
-
-            bool userIsValid = validationHelper.UserNameIsValid(user) && validationHelper.PasswordIsValid(user);
+            bool userIsValid = _validationHelper.ObjectIsValid<User>(user, nameof(user.Name)) 
+                && _validationHelper.ObjectIsValid<User>(user, nameof(user.Password));
             if (!userIsValid)
             {
-                _dialogsHelper.ToastMessage(validationHelper.ValidationErrors[0].ErrorMessage);
+                _dialogsHelper.ToastMessage(_validationHelper.ValidationErrors[0].ErrorMessage);
                 return;
             }
 
-            if (await _userRepository.UserExists(UserName))
+            user.Name = user.Name.Trim();
+            bool userExists = await _userRepository.UserExists(user.Name);
+            if (userExists)
             {
                 _dialogsHelper.ToastMessage(Strings.UserAlreadyExistsMessage);
                 return;
@@ -96,7 +78,7 @@ namespace TestProject.Core.ViewModels
         private async Task SaveUserIntoStorage()
         {
             User user = await _userRepository.FindUser(UserName);
-            await _storage.Save(user);
+            await _storage.Save(user.Id);
         }
     }
 }

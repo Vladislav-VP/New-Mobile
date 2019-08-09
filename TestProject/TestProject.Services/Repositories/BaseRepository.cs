@@ -87,6 +87,25 @@ namespace TestProject.Services.Repositories
             return obj;
         }
 
+        public async Task<T> FindWithQuery<T>(string query) where T : class, new()
+        {
+            var connection = new SQLiteAsyncConnection(_path);
+            T obj;
+            try
+            {
+                obj = await connection.FindWithQueryAsync<T>(query);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+            return obj;
+        }
+
         private static void CreateDatabase()
         {
             var connection = new SQLiteAsyncConnection(_path);

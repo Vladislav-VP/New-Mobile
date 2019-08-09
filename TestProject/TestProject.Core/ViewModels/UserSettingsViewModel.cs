@@ -1,41 +1,23 @@
-﻿using MvvmCross.ViewModels;
-using MvvmCross.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using MvvmCross.Navigation;
 using TestProject.Entities;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using TestProject.Services.Repositories.Interfaces;
-using TestProject.Services.Repositories;
-using TestProject.Services.Helpers;
-using Acr.UserDialogs;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Resources;
 
 namespace TestProject.Core.ViewModels
 {
-    public class UserSettingsViewModel : BaseViewModel
+    public class UserSettingsViewModel : UserViewModel
     {
-        private readonly IUserRepository _userRepository;
-
-        private readonly IDialogsHelper _dialogsHelper;
-
-        private readonly IUserDialogs _userDialogs;
-
-        private string _userName;
-
         private User _currentUser;
 
-        public UserSettingsViewModel(IMvxNavigationService navigationService, IUserDialogs userDialogs)
-            : base(navigationService)
+        protected string _userName;
+
+        public UserSettingsViewModel(IMvxNavigationService navigationService, IUserRepository userRepository, 
+            IStorageHelper<User> userStorage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
+            : base(navigationService, userStorage, userRepository, validationHelper, dialogsHelper)
         {
-            _userRepository = new UserRepository();
-
-            _dialogsHelper = new UserDialogsHelper();
-
-            _userDialogs = userDialogs;
-
             UserUpdatedCommand = new MvxAsyncCommand(UserUpdated);
             UserDeletedCommand = new MvxAsyncCommand(UserDeleted);
             ShowEditPasswordViewModelCommand = 
@@ -62,7 +44,7 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            _currentUser = await _storage.Load();
+            _currentUser = await _storage.Retrieve();
 
             _userName = _currentUser.Name;
         }
@@ -73,15 +55,16 @@ namespace TestProject.Core.ViewModels
             UserName = UserName.Trim();
 
             _currentUser.Name = UserName;
-            DataValidationHelper validationHelper = new DataValidationHelper();
-            if (!validationHelper.UserNameIsValid(_currentUser))
+            bool userIsValid = _validationHelper.ObjectIsValid<User>(_currentUser, nameof(_currentUser.Name));
+            if (!userIsValid)
             {
                 _currentUser.Name = currentUserName;
-                _dialogsHelper.ToastMessage(validationHelper.ValidationErrors[0].ErrorMessage);
+                _dialogsHelper.ToastMessage(_validationHelper.ValidationErrors[0].ErrorMessage);
                 return false;
             }
 
-            if (await _userRepository.UserExists(UserName) && UserName != currentUserName)
+            bool userExists = await _userRepository.UserExists(UserName) && UserName != currentUserName;
+            if (userExists)
             {
                 _dialogsHelper.ToastMessage(Strings.UserAlreadyExistsMessage);
                 return false;
@@ -90,7 +73,6 @@ namespace TestProject.Core.ViewModels
             await _userRepository.Update(_currentUser);
             return true;
         }
-
 
         private async Task UserUpdated()
         {

@@ -1,37 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using TestProject.Resources;
 using TestProject.Entities;
 using TestProject.Services.Helpers;
 using TestProject.Services.Helpers.Interfaces;
-using TestProject.Services.Repositories;
 using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
-    public class EditPasswordViewModel : BaseViewModel
+    public class EditPasswordViewModel : UserViewModel
     {
-        private readonly IUserRepository _userRepository;
-
         private User _currentUser;
-
-        private readonly IDialogsHelper _dialogsHelper;
 
         private string _currentPassword;
         private string _newPassword1;
         private string _newPassword2;
-        
-        public EditPasswordViewModel(IMvxNavigationService navigationService)
-            : base(navigationService)
+
+        public EditPasswordViewModel(IMvxNavigationService navigationService, IUserRepository userRepository,
+            IStorageHelper<User> userStorage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
+            : base(navigationService, userStorage, userRepository, validationHelper, dialogsHelper)
         {
-            _userRepository = new UserRepository();
-
-            _dialogsHelper = new UserDialogsHelper();
-
             PasswordChangedCommand = new MvxAsyncCommand(PasswordChanged);
         }
 
@@ -71,7 +60,7 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            _currentUser = await _storage.Load();
+            _currentUser = await _storage.Retrieve();
         }
 
         private bool ConfirmCurrerntPassword()
@@ -99,12 +88,12 @@ namespace TestProject.Core.ViewModels
             }
 
             _currentUser.Password = NewPassword1;
-            DataValidationHelper validationHelper = new DataValidationHelper();
-            if (!validationHelper.PasswordIsValid(_currentUser))
+            bool userIsValid = _validationHelper.ObjectIsValid<User>(_currentUser, nameof(_currentUser.Password));
+            bool validationErrorsEmpty = _validationHelper.ValidationErrors.Count == 0;
+            if (!userIsValid && !validationErrorsEmpty)
             {
                 _currentUser.Password = CurrentPassword;
-                _dialogsHelper.AlertMessage(validationHelper.ValidationErrors[0].ErrorMessage);
-                var errors = validationHelper.ValidationErrors;
+                _dialogsHelper.AlertMessage(_validationHelper.ValidationErrors[0].ErrorMessage);
                 return false;
             }
 
@@ -119,8 +108,9 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
+            await _navigationService.Navigate<UserSettingsViewModel>();
+            await _navigationService.Close(this);
             _dialogsHelper.ToastMessage(Strings.PasswordChangedMessage);
-            var result = await _navigationService.Close(this);
         }
     }
 }

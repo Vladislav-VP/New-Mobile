@@ -3,15 +3,19 @@ using System.Threading.Tasks;
 using MvvmCross.Commands;
 using TestProject.Entities;
 using TestProject.Services.Helpers;
-using Acr.UserDialogs;
+using TestProject.Services.Repositories.Interfaces;
+using TestProject.Services.Helpers.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
     public class CreateTodoItemViewModel : TodoItemViewModel
     {
-        public CreateTodoItemViewModel(IMvxNavigationService navigationService, IUserDialogs userDialogs)
-            : base(navigationService, userDialogs)
+
+        public CreateTodoItemViewModel(IMvxNavigationService navigationService, IStorageHelper<User> storage,
+            IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
+            : base(navigationService, storage, validationHelper, todoItemRepository, dialogsHelper)
         {
+
             BackToListCommand = new MvxAsyncCommand(async ()
                => await _navigationService.Navigate<TodoListItemViewModel>());
             TodoItemCreatedCommand = new MvxAsyncCommand(ItemCreated);
@@ -25,10 +29,11 @@ namespace TestProject.Core.ViewModels
         {
             TodoItem todoItem = new TodoItem { Name = Name };
 
-            DataValidationHelper validationHelper = new DataValidationHelper();
-            if (!validationHelper.TodoItemIsValid(todoItem))
+            bool todoItemIsValid = _validationHelper.ObjectIsValid<TodoItem>(todoItem);
+            bool validationErrorsEmpty = _validationHelper.ValidationErrors.Count == 0;
+            if (!todoItemIsValid && !validationErrorsEmpty)
             {
-                _dialogsHelper.ToastMessage(validationHelper.ValidationErrors[0].ErrorMessage);
+                _dialogsHelper.ToastMessage(_validationHelper.ValidationErrors[0].ErrorMessage);
                 return;
             }
 
@@ -38,15 +43,20 @@ namespace TestProject.Core.ViewModels
         
         private async Task AddTodoItem()
         {
-            User currentUser = await _storage.Load();
-            TodoItem todoItem = new TodoItem { Name = Name, Description = Description,
-                IsDone = IsDone, UserId = currentUser.Id };
+            User currentUser = await _storage.Retrieve();
+            TodoItem todoItem = new TodoItem
+            {
+                Name = Name,
+                Description = Description,
+                IsDone = IsDone,
+                UserId = currentUser.Id
+            };
             await _todoItemRepository.Insert(todoItem);
         }
 
         protected async override Task GoBack()
         {
-            await _userDialogs.ConfirmAsync(_dialogsHelper.ConfirmCancel());
+            // TODO: Write cancel logic
             await base.GoBack();
         }
     }

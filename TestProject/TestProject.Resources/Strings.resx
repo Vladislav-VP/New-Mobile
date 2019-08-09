@@ -124,7 +124,7 @@
     <value>Cancel</value>
   </data>
   <data name="DeleteMessageDialog" xml:space="preserve">
-    <value>Are you sure yuo want to delete?</value>
+    <value>Are you sure you want to delete?</value>
   </data>
   <data name="EmptyTodoItemNameMessage" xml:space="preserve">
     <value>Name can not be empty!</value>

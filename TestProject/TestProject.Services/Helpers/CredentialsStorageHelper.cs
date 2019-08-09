@@ -16,12 +16,12 @@ namespace TestProject.Services.Helpers
 {
     public class CredentialsStorageHelper : IStorageHelper<User>
     {
-        public async Task Save(User user)
-        {          
-            await SecureStorage.SetAsync(Constants.CredentialsKey, user.Id.ToString());
+        public async Task Save(int id)
+        {
+            await SecureStorage.SetAsync(Constants.CredentialsKey, id.ToString());
         }
 
-        public async Task<User> Load()
+        public async Task<User> Retrieve()
         {
             var key = await SecureStorage.GetAsync(Constants.CredentialsKey);
             if (key == null)
@@ -30,7 +30,8 @@ namespace TestProject.Services.Helpers
             }
 
             int id = int.Parse(await SecureStorage.GetAsync(Constants.CredentialsKey));
-            return await new UserRepository().Find<User>(id);
+            var userRepository = Mvx.IoCProvider.Resolve<IUserRepository>();
+            return await userRepository.Find<User>(id);
         }
 
         public void Clear()

@@ -19,5 +19,7 @@ namespace TestProject.Services.Repositories.Interfaces
         Task<T> Find<T>(object pk) where T : class, new();
 
         Task<IEnumerable<T>> GetAllObjects<T>() where T : class, new();
+
+        Task<T> FindWithQuery<T>(string query) where T : class, new();
     }
 }
