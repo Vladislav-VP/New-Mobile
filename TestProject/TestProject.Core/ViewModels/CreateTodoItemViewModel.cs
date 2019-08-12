@@ -5,6 +5,8 @@ using TestProject.Entities;
 using TestProject.Services.Helpers;
 using TestProject.Services.Repositories.Interfaces;
 using TestProject.Services.Helpers.Interfaces;
+using TestProject.Resources;
+using TestProject.Core.ViewModelResults;
 
 namespace TestProject.Core.ViewModels
 {
@@ -15,17 +17,36 @@ namespace TestProject.Core.ViewModels
             IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
             : base(navigationService, storage, validationHelper, todoItemRepository, dialogsHelper)
         {
-
             BackToListCommand = new MvxAsyncCommand(async ()
                => await _navigationService.Navigate<TodoListItemViewModel>());
-            TodoItemCreatedCommand = new MvxAsyncCommand(ItemCreated);
+            TodoItemCreatedCommand = new MvxAsyncCommand(TodoItemCreated);
         }
         
         public IMvxAsyncCommand TodoItemCreatedCommand { get; private set; }
 
         public IMvxAsyncCommand BackToListCommand { get; private set; }
 
-        private async Task ItemCreated()
+        protected async override Task GoBack()
+        {
+            var result = await _navigationService.Navigate<CancelDialogViewModel, DialogResult>();
+
+            if (result == DialogResult.Cancel)
+            {
+                return;
+            }
+            if (result == DialogResult.No)
+            {
+                await _navigationService.Close(this);
+                return;
+            }
+            if (result == DialogResult.Yes)
+            {
+                await TodoItemCreated();
+                return;
+            }
+        }
+
+        private async Task TodoItemCreated()
         {
             TodoItem todoItem = new TodoItem { Name = Name };
 
@@ -52,12 +73,6 @@ namespace TestProject.Core.ViewModels
                 UserId = currentUser.Id
             };
             await _todoItemRepository.Insert(todoItem);
-        }
-
-        protected async override Task GoBack()
-        {
-            // TODO: Write cancel logic
-            await base.GoBack();
         }
     }
 }

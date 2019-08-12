@@ -14,7 +14,7 @@ using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Services.Helpers
 {
-    public class CredentialsStorageHelper : IStorageHelper<User>
+    public class StorageHelper : IStorageHelper<User>
     {
         public async Task Save(int id)
         {

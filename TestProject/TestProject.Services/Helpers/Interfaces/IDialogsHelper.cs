@@ -12,8 +12,6 @@ namespace TestProject.Services.Helpers.Interfaces
 
         void AlertMessage(string message);
 
-        Task<bool> ConfirmDelete();
-
-        ConfirmConfig ConfirmCancel();
+        Task<bool> Confirm(string message);
     }
 }

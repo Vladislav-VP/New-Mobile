@@ -8,8 +8,6 @@ namespace TestProject.Services.Repositories.Interfaces
 {
     public interface IUserRepository : IBaseRepository<User>
     {
-        Task<User> FindUser(string userName);
-
         Task<bool> UserExists(string userName);
     }
 }

@@ -85,7 +85,7 @@ namespace TestProject.Core.ViewModels
 
         private async Task TodoItemDeleted()
         {
-            var delete = await _dialogsHelper.ConfirmDelete();
+            var delete = await _dialogsHelper.Confirm(Strings.DeleteMessageDialog);
 
             if (!delete)
             {

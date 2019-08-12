@@ -9,7 +9,7 @@ namespace TestProject.Services.Repositories
     {
         private const string SelectFromUserTemplate = "SELECT * FROM User";
 
-        public static string GetUserByNameQuery(string userName)
+        public static string GetUserQuery(string userName)
         {
             return $"SELECT * FROM \"User\" WHERE \"Name\" = \"{userName}\"";
         }

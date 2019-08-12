@@ -2,6 +2,8 @@
 using TestProject.Services.Repositories.Interfaces;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Entities;
+using TestProject.Services.Helpers;
+using TestProject.Core.ViewModelResults;
 
 namespace TestProject.Core.ViewModels
 {

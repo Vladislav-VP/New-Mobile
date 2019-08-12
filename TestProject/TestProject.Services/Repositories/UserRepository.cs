@@ -12,14 +12,9 @@ namespace TestProject.Services.Repositories
     {
         public async Task<bool> UserExists(string userName)
         {
-            var users = await GetAllObjects<User>();
-            return (await FindUser(userName)) != null;
-        }
-
-        public async Task<User> FindUser(string userName)
-        {
-            var users = await GetAllObjects<User>();
-            return users.Where(user => user.Name == userName).FirstOrDefault();
+            string query = Queries.GetUserQuery(userName);
+            var user = await FindWithQuery<User>(query);
+            return user != null;
         }
     }
 }

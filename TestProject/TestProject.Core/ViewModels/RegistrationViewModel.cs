@@ -49,7 +49,8 @@ namespace TestProject.Core.ViewModels
 
             bool userIsValid = _validationHelper.ObjectIsValid<User>(user, nameof(user.Name)) 
                 && _validationHelper.ObjectIsValid<User>(user, nameof(user.Password));
-            if (!userIsValid)
+            bool validationErrorsEmpty = _validationHelper.ValidationErrors.Count == 0;
+            if (!userIsValid && !validationErrorsEmpty)
             {
                 _dialogsHelper.ToastMessage(_validationHelper.ValidationErrors[0].ErrorMessage);
                 return;
@@ -70,14 +71,8 @@ namespace TestProject.Core.ViewModels
 
         private async Task AddUser()
         {
-            await _userRepository.Insert(new User { Name = UserName, Password = Password });
-
-            await SaveUserIntoStorage();
-        }
-
-        private async Task SaveUserIntoStorage()
-        {
-            User user = await _userRepository.FindUser(UserName);
+            User user = new User { Name = UserName, Password = Password };
+            await _userRepository.Insert(user);
             await _storage.Save(user.Id);
         }
     }

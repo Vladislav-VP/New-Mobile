@@ -160,7 +160,7 @@
     <value>Registrate</value>
   </data>
   <data name="SaveChangesDialog" xml:space="preserve">
-    <value>Save changes?</value>
+    <value>Save changes? (Press 'back' to cancel)</value>
   </data>
   <data name="TaskList" xml:space="preserve">
     <value>My tasks</value>

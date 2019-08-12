@@ -187,7 +187,7 @@ namespace TestProject.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save changes?.
+        ///   Looks up a localized string similar to Save changes? (Press &apos;back&apos; to cancel).
         /// </summary>
         public static string SaveChangesDialog {
             get {

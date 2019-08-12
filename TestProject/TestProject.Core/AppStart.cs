@@ -7,6 +7,8 @@ using TestProject.Core.ViewModels;
 using MvvmCross.Navigation;
 using TestProject.Entities;
 using TestProject.Services.Helpers;
+using TestProject.Services.Helpers.Interfaces;
+using MvvmCross;
 
 namespace TestProject.Core
 {
@@ -20,7 +22,9 @@ namespace TestProject.Core
         protected async override Task NavigateToFirstViewModel(object hint = null)
         {
 
-            if (await new CredentialsStorageHelper().Retrieve() == null)
+            var storage = Mvx.IoCProvider.Resolve<IStorageHelper<User>>();
+            var user = await storage.Retrieve();
+            if (user == null)
             {
                 await NavigationService.Navigate<LoginViewModel>();
             }

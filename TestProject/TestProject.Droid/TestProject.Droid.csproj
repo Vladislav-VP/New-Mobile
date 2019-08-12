@@ -72,6 +72,7 @@
     <Compile Include="Setup.cs" />
     <Compile Include="SplashScreen.cs" />
     <Compile Include="Views\BaseFragment.cs" />
+    <Compile Include="Views\CancelDialogFragment.cs" />
     <Compile Include="Views\EditPasswordFragment.cs" />
     <Compile Include="Views\EditTodoItemFragment.cs" />
     <Compile Include="Views\CreateTodoItemFragment.cs" />
@@ -238,6 +239,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\password_layout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\CancelDialogFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

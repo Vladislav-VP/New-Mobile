@@ -25,7 +25,7 @@ public class App : MvxApplication
             Mvx.IoCProvider.RegisterSingleton(typeof(ITodoItemRepository), new TodoItemRepository());
             Mvx.IoCProvider.RegisterSingleton(typeof(IValidationHelper), new ValidationHelper());
             Mvx.IoCProvider.RegisterSingleton(typeof(IDialogsHelper), new UserDialogsHelper());
-            Mvx.IoCProvider.RegisterSingleton(typeof(IStorageHelper<User>), new CredentialsStorageHelper());
+            Mvx.IoCProvider.RegisterSingleton(typeof(IStorageHelper<User>), new StorageHelper());
 
             Mvx.IoCProvider.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
 

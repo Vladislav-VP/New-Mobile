@@ -56,7 +56,8 @@ namespace TestProject.Core.ViewModels
 
             _currentUser.Name = UserName;
             bool userIsValid = _validationHelper.ObjectIsValid<User>(_currentUser, nameof(_currentUser.Name));
-            if (!userIsValid)
+            bool validationErrorsEmpty = _validationHelper.ValidationErrors.Count == 0;
+            if (!userIsValid && !validationErrorsEmpty)
             {
                 _currentUser.Name = currentUserName;
                 _dialogsHelper.ToastMessage(_validationHelper.ValidationErrors[0].ErrorMessage);
@@ -88,7 +89,7 @@ namespace TestProject.Core.ViewModels
 
         private async Task UserDeleted()
         {
-            var delete = await _dialogsHelper.ConfirmDelete();
+            var delete = await _dialogsHelper.Confirm(Strings.DeleteMessageDialog);
 
             if (!delete)
             {

@@ -95,13 +95,14 @@ namespace TestProject.Services.Repositories
             {
                 obj = await connection.FindWithQueryAsync<T>(query);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
             finally
             {
-                await connection.CloseAsync();
+                //TODO: Figure out, why NullReferenceExceprion thrown
+                //await connection.CloseAsync();
             }
             return obj;
         }

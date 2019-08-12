@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        style="@style/DialogTextStyle"
+        android:text="@string/label_save_changes"     
+        
+    />
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    
+        <Button           
+            style="@style/DialogButtonStyle"
+            android:text="@string/label_yes"
+            local:MvxBind="Click SaveCommand"/>
+        <Button           
+            style="@style/DialogButtonStyle"
+            android:text="@string/label_no"
+            local:MvxBind="Click DoNotSaveCommand"/>
+        <Button           
+            style="@style/DialogButtonStyle"
+            android:text="@string/label_cancel"
+            local:MvxBind="Click CancelCommand"/>
+    </LinearLayout>
+
+</LinearLayout>
