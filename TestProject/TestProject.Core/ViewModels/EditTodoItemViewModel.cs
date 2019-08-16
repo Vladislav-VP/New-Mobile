@@ -7,6 +7,7 @@ using MvvmCross.Commands;
 using TestProject.Services.Helpers;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Resources;
+using TestProject.Core.ViewModelResults;
 
 namespace TestProject.Core.ViewModels
 {
@@ -48,6 +49,26 @@ namespace TestProject.Core.ViewModels
             _name = TodoItem.Name;
             _description = TodoItem.Description;
             _isDone = TodoItem.IsDone;
+        }
+
+        protected override async Task GoBack()
+        {
+            var result = await _navigationService.Navigate<CancelDialogViewModel, DialogResult>();
+
+            if (result == DialogResult.Cancel)
+            {
+                return;
+            }
+            if (result == DialogResult.No)
+            {
+                await _navigationService.Close(this);
+                return;
+            }
+            if (result == DialogResult.Yes)
+            {
+                await TodoItemUpdated();
+                return;
+            }
         }
 
         private async Task TodoItemUpdated()

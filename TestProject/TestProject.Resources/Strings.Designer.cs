@@ -72,9 +72,18 @@ namespace TestProject.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        public static string CancelButtonText {
+        public static string CancelText {
             get {
-                return ResourceManager.GetString("CancelButtonText", resourceCulture);
+                return ResourceManager.GetString("CancelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose from gallery.
+        /// </summary>
+        public static string ChoosePicture {
+            get {
+                return ResourceManager.GetString("ChoosePicture", resourceCulture);
             }
         }
         
@@ -84,6 +93,15 @@ namespace TestProject.Resources {
         public static string DeleteMessageDialog {
             get {
                 return ResourceManager.GetString("DeleteMessageDialog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string DeletePicture {
+            get {
+                return ResourceManager.GetString("DeletePicture", resourceCulture);
             }
         }
         
@@ -178,6 +196,15 @@ namespace TestProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Profile photo.
+        /// </summary>
+        public static string ProfilePhotoTitle {
+            get {
+                return ResourceManager.GetString("ProfilePhotoTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Registrate.
         /// </summary>
         public static string RegistrateUser {
@@ -192,6 +219,15 @@ namespace TestProject.Resources {
         public static string SaveChangesDialog {
             get {
                 return ResourceManager.GetString("SaveChangesDialog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Take new photo.
+        /// </summary>
+        public static string TakePicture {
+            get {
+                return ResourceManager.GetString("TakePicture", resourceCulture);
             }
         }
         

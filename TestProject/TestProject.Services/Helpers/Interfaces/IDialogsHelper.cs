@@ -13,5 +13,7 @@ namespace TestProject.Services.Helpers.Interfaces
         void AlertMessage(string message);
 
         Task<bool> Confirm(string message);
+
+        Task<EditPhotoDialogResult> ChooseOption();
     }
 }

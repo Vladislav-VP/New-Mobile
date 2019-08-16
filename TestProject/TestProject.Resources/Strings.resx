@@ -120,11 +120,17 @@
   <data name="AccountDeletedMessage" xml:space="preserve">
     <value>Account was deleted</value>
   </data>
-  <data name="CancelButtonText" xml:space="preserve">
+  <data name="CancelText" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="ChoosePicture" xml:space="preserve">
+    <value>Choose from gallery</value>
   </data>
   <data name="DeleteMessageDialog" xml:space="preserve">
     <value>Are you sure you want to delete?</value>
+  </data>
+  <data name="DeletePicture" xml:space="preserve">
+    <value>Delete</value>
   </data>
   <data name="EmptyTodoItemNameMessage" xml:space="preserve">
     <value>Name can not be empty!</value>
@@ -156,11 +162,17 @@
   <data name="PasswordsNotCorrespondMessage" xml:space="preserve">
     <value>Passwords do not correspond!</value>
   </data>
+  <data name="ProfilePhotoTitle" xml:space="preserve">
+    <value>Profile photo</value>
+  </data>
   <data name="RegistrateUser" xml:space="preserve">
     <value>Registrate</value>
   </data>
   <data name="SaveChangesDialog" xml:space="preserve">
     <value>Save changes? (Press 'back' to cancel)</value>
+  </data>
+  <data name="TakePicture" xml:space="preserve">
+    <value>Take new photo</value>
   </data>
   <data name="TaskList" xml:space="preserve">
     <value>My tasks</value>

@@ -15,6 +15,7 @@ using TestProject.Core.ViewModels;
 
 namespace TestProject.Droid.Views
 {
+    [Register("testProject.droid.views.CancelDialogFragment")]
     public class CancelDialogFragment : MvxDialogFragment<CancelDialogViewModel>
     {
         protected int FragmentId => Resource.Layout.CancelDialogFragment;

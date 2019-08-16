@@ -6,6 +6,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
@@ -13,10 +14,12 @@ using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
 using MvvmCross.Binding.Bindings.Target.Construction;
+using MvvmCross.Converters;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.Platforms.Android.Presenters;
 using TestProject.Core;
+using TestProject.Droid.Converters;
 
 namespace TestProject.Droid
 {
@@ -31,6 +34,23 @@ namespace TestProject.Droid
             typeof(NavigationView).Assembly,
             typeof(BottomNavigationView).Assembly
         };
+
+        protected override IEnumerable<Assembly> ValueConverterAssemblies
+        {
+            get
+            {
+                var toReturn = base.ValueConverterAssemblies as IList<Assembly>;
+                toReturn.Add(typeof(MvxValueConverter<string, Bitmap>).Assembly);
+                toReturn.Add(typeof(ImageValueConverter).Assembly);
+                return (IEnumerable<Assembly>)toReturn;
+            }
+        }
+
+        protected override void FillValueConverters(IMvxValueConverterRegistry registry)
+        {
+            base.FillValueConverters(registry);
+            registry.AddOrOverwrite("ImageValue", new ImageValueConverter());
+        }
 
         protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)
         {

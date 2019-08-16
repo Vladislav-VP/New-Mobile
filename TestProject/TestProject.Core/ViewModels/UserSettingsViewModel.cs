@@ -5,6 +5,7 @@ using MvvmCross.Commands;
 using TestProject.Services.Repositories.Interfaces;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Resources;
+using TestProject.Core.ViewModelResults;
 
 namespace TestProject.Core.ViewModels
 {
@@ -47,6 +48,26 @@ namespace TestProject.Core.ViewModels
             _currentUser = await _storage.Retrieve();
 
             _userName = _currentUser.Name;
+        }
+
+        protected override async Task GoBack()
+        {
+            var result = await _navigationService.Navigate<CancelDialogViewModel, DialogResult>();
+
+            if (result == DialogResult.Cancel)
+            {
+                return;
+            }
+            if (result == DialogResult.No)
+            {
+                await _navigationService.Close(this);
+                return;
+            }
+            if (result == DialogResult.Yes)
+            {
+                await UserUpdated();
+                return;
+            }
         }
 
         private async Task<bool> TryUpdateUserName()
