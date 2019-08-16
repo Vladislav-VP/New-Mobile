@@ -14,6 +14,10 @@ using TestProject.Resources;
 using MvvmCross.Plugin.PictureChooser;
 using TestProject.Services.Repositories.Interfaces;
 using System.IO;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 
 namespace TestProject.Core.ViewModels
 {
@@ -108,7 +112,23 @@ namespace TestProject.Core.ViewModels
                         await _pictureChooserTask.ChoosePictureFromLibraryAsync(_maxPixelDimension, _percentQuality);
                     break;
                 case EditPhotoDialogResult.TakePicture:
-                    imageStream = await _pictureChooserTask.TakePictureAsync(_maxPixelDimension, _percentQuality);
+                    //imageStream = await _pictureChooserTask.TakePictureAsync(_maxPixelDimension, _percentQuality);
+                    var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera); ;
+                    var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
+
+                    if (cameraStatus != PermissionStatus.Granted || storageStatus != PermissionStatus.Granted)
+                    {
+                        var permissionsDictionary = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Camera, Permission.Storage);
+                        cameraStatus = permissionsDictionary[Permission.Camera];
+                        storageStatus = permissionsDictionary[Permission.Storage];
+                    }
+
+                    if (cameraStatus == PermissionStatus.Granted && storageStatus == PermissionStatus.Granted)
+                    {
+                        var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions());
+                        //imageStream = await _pictureChooserTask.TakePictureAsync(_maxPixelDimension, _percentQuality);
+                    }
+                    //imageStream = await _pictureChooserTask.TakePictureAsync(_maxPixelDimension, _percentQuality);
                     break;
                 case EditPhotoDialogResult.DeletePicture:
                     ProfilePhotoInfo = null;
