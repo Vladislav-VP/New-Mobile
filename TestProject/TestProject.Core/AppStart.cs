@@ -1,14 +1,12 @@
-﻿using MvvmCross.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using TestProject.Core.ViewModels;
-using MvvmCross.Navigation;
-using TestProject.Entities;
-using TestProject.Services.Helpers;
-using TestProject.Services.Helpers.Interfaces;
+﻿using System.Threading.Tasks;
+
 using MvvmCross;
+using MvvmCross.Navigation;
+using MvvmCross.ViewModels;
+
+using TestProject.Core.ViewModels;
+using TestProject.Entities;
+using TestProject.Services.Helpers.Interfaces;
 
 namespace TestProject.Core
 {

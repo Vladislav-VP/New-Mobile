@@ -1,9 +1,6 @@
-﻿using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using TestProject.Entities;
 
 namespace TestProject.Services.Repositories.Interfaces

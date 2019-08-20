@@ -1,9 +1,10 @@
 ﻿using System;
+
 using Android.App;
 using Android.Runtime;
 using MvvmCross.Droid.Support.V7.AppCompat;
-using MvvmCross.Platforms.Android.Core;
-using MvvmCross.Platforms.Android.Views;
+using Plugin.CurrentActivity;
+
 using TestProject.Core;
 
 namespace TestProject.Droid
@@ -13,5 +14,12 @@ namespace TestProject.Droid
     {
         public MainApplication(IntPtr javaReference, JniHandleOwnership transfer)
             : base(javaReference, transfer) { }
+
+        public override void OnCreate()
+        {
+            base.OnCreate();
+            CrossCurrentActivity.Current.Init(this);
+        }
+
     }
 }

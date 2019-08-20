@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MvvmCross.Navigation;
+﻿using MvvmCross.Navigation;
+
 using TestProject.Entities;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Repositories.Interfaces;

@@ -1,12 +1,12 @@
-﻿using MvvmCross.Navigation;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+
 using MvvmCross.Commands;
+using MvvmCross.Navigation;
+
 using TestProject.Entities;
-using TestProject.Services.Helpers;
-using TestProject.Services.Repositories.Interfaces;
-using TestProject.Services.Helpers.Interfaces;
-using TestProject.Resources;
 using TestProject.Core.ViewModelResults;
+using TestProject.Services.Helpers.Interfaces;
+using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
@@ -36,7 +36,7 @@ namespace TestProject.Core.ViewModels
             }
             if (result == DialogResult.No)
             {
-                await _navigationService.Close(this);
+                await _navigationService.Navigate<TodoListItemViewModel>();
                 return;
             }
             if (result == DialogResult.Yes)

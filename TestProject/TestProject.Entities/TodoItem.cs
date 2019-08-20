@@ -1,9 +1,8 @@
-﻿using SQLite;
+﻿using System.ComponentModel.DataAnnotations;
+
+using SQLite;
 using SQLiteNetExtensions.Attributes;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+
 using TestProject.Resources;
 
 namespace TestProject.Entities

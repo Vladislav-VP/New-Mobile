@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Acr.UserDialogs;
+﻿using Acr.UserDialogs;
 using Android.App;
-using Android.Content;
 using Android.Content.PM;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
+
 using TestProject.Core.ViewModels;
 
-namespace TestProject.Droid.Views
+namespace TestProject.Droid.Activities
 {
     [MvxActivityPresentation]
     [Activity(Label = "Log in",

@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 using System.Text.RegularExpressions;
+
 using TestProject.Resources;
 
 namespace TestProject.Entities.Attributes

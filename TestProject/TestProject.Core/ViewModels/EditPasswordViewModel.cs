@@ -1,9 +1,10 @@
 ﻿using System.Threading.Tasks;
+
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
-using TestProject.Resources;
+
 using TestProject.Entities;
-using TestProject.Services.Helpers;
+using TestProject.Resources;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Repositories.Interfaces;
 

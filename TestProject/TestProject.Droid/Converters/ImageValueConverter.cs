@@ -1,13 +1,11 @@
-﻿using Android.Graphics;
+﻿using System;
+using System.Globalization;
+
+using Android.Graphics;
 using Android.Util;
-using DE.Hdodenhof.CircleImageViewLib;
 using MvvmCross;
 using MvvmCross.Converters;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Globalization;
-using System.Text;
+
 using TestProject.Droid.Providers.Interfaces;
 
 namespace TestProject.Droid.Converters

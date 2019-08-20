@@ -1,9 +1,8 @@
 ﻿using MvvmCross.Navigation;
-using TestProject.Services.Repositories.Interfaces;
-using TestProject.Services.Helpers.Interfaces;
+
 using TestProject.Entities;
-using TestProject.Services.Helpers;
-using TestProject.Core.ViewModelResults;
+using TestProject.Services.Helpers.Interfaces;
+using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {

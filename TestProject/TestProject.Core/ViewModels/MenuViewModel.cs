@@ -1,23 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MvvmCross.ViewModels;
-using MvvmCross.Navigation;
-using MvvmCross.Commands;
-using System.Threading.Tasks;
-using TestProject.Services;
-using TestProject.Entities;
-using TestProject.Configurations;
-using TestProject.Services.Helpers;
-using TestProject.Services.Helpers.Interfaces;
-using TestProject.Resources;
-using MvvmCross.Plugin.PictureChooser;
-using TestProject.Services.Repositories.Interfaces;
 using System.IO;
+using System.Threading.Tasks;
+
+using MvvmCross.Commands;
+using MvvmCross.Navigation;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
+
+using TestProject.Entities;
+using TestProject.Services.Helpers;
+using TestProject.Services.Helpers.Interfaces;
+using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
@@ -33,16 +28,13 @@ namespace TestProject.Core.ViewModels
         private readonly IUserRepository _userRepository;
 
         private readonly IDialogsHelper _dialogsHelper;
-
-        private readonly IMvxPictureChooserTask _pictureChooserTask;
-
+        
         public MenuViewModel(IMvxNavigationService navigationService, IStorageHelper<User> storage,
-            IUserRepository userRepository, IDialogsHelper dialogsHelper, IMvxPictureChooserTask pictureChooserTask)
+            IUserRepository userRepository, IDialogsHelper dialogsHelper)
             : base(navigationService, storage)
         {
             _userRepository = userRepository;
             _dialogsHelper = dialogsHelper;
-            _pictureChooserTask = pictureChooserTask;
 
             ShowLoginViewModelCommand = new MvxAsyncCommand(Logout);
             ShowUserInfoViewModelCommand = new MvxAsyncCommand(async 
@@ -103,39 +95,7 @@ namespace TestProject.Core.ViewModels
 
         private async Task HandleChangePhotoResult(EditPhotoDialogResult result)
         {
-            Stream imageStream = null;
-
-            switch (result)
-            {
-                case EditPhotoDialogResult.ChooseFromGallery:
-                    imageStream = 
-                        await _pictureChooserTask.ChoosePictureFromLibraryAsync(_maxPixelDimension, _percentQuality);
-                    break;
-                case EditPhotoDialogResult.TakePicture:
-                    //imageStream = await _pictureChooserTask.TakePictureAsync(_maxPixelDimension, _percentQuality);
-                    var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera); ;
-                    var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
-
-                    if (cameraStatus != PermissionStatus.Granted || storageStatus != PermissionStatus.Granted)
-                    {
-                        var permissionsDictionary = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Camera, Permission.Storage);
-                        cameraStatus = permissionsDictionary[Permission.Camera];
-                        storageStatus = permissionsDictionary[Permission.Storage];
-                    }
-
-                    if (cameraStatus == PermissionStatus.Granted && storageStatus == PermissionStatus.Granted)
-                    {
-                        var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions());
-                        //imageStream = await _pictureChooserTask.TakePictureAsync(_maxPixelDimension, _percentQuality);
-                    }
-                    //imageStream = await _pictureChooserTask.TakePictureAsync(_maxPixelDimension, _percentQuality);
-                    break;
-                case EditPhotoDialogResult.DeletePicture:
-                    ProfilePhotoInfo = null;
-                    break;
-                default:
-                    return;
-            }
+            Stream imageStream = await GetImageStream(result);
 
             if (imageStream != null)
             {
@@ -146,6 +106,76 @@ namespace TestProject.Core.ViewModels
             _currentUser.ProfilePhotoInfo = ProfilePhotoInfo;
             await _userRepository.Update(_currentUser);
             await _navigationService.Navigate<MenuViewModel>();
+        }
+
+        private async Task<Stream> GetImageStream(EditPhotoDialogResult result)
+        {
+            Stream imageStream = null;
+
+            switch (result)
+            {
+                case EditPhotoDialogResult.ChooseFromGallery:
+                    var pickedPhoto = await PickPhoto();
+                    imageStream = pickedPhoto.GetStream();
+                    break;
+                case EditPhotoDialogResult.TakePicture:
+                    bool permissionsAreGranted = await TryRequestPermissions();
+                    if (permissionsAreGranted)
+                    {
+                        var takenPhoto = await TakePhoto();
+                        imageStream = takenPhoto.GetStream();
+                    }
+                    break;
+                case EditPhotoDialogResult.DeletePicture:
+                    ProfilePhotoInfo = null;
+                    break;
+            }
+
+            return imageStream;
+        }
+        
+        private async Task<MediaFile> PickPhoto()
+        {
+            var options = new PickMediaOptions
+            {
+                CompressionQuality = _percentQuality,
+                PhotoSize = PhotoSize.MaxWidthHeight,
+                MaxWidthHeight = _maxPixelDimension
+            };
+
+            return await CrossMedia.Current.PickPhotoAsync(options);
+        }
+
+        private async Task<MediaFile> TakePhoto()
+        {
+            var options = new StoreCameraMediaOptions
+            {
+                SaveToAlbum = true,
+                CompressionQuality = _percentQuality,
+                PhotoSize = PhotoSize.MaxWidthHeight,
+                MaxWidthHeight = _maxPixelDimension,
+                DefaultCamera = CameraDevice.Rear
+            };
+
+            return await CrossMedia.Current.TakePhotoAsync(options);
+        }
+
+        private async Task<bool> TryRequestPermissions()
+        {
+            bool isInitialized = await CrossMedia.Current.Initialize();
+            var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
+            var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
+
+            if (cameraStatus != PermissionStatus.Granted || storageStatus != PermissionStatus.Granted)
+            {
+                var permissionsDictionary = await CrossPermissions
+                    .Current
+                    .RequestPermissionsAsync(Permission.Camera, Permission.Storage);
+                cameraStatus = permissionsDictionary[Permission.Camera];
+                storageStatus = permissionsDictionary[Permission.Storage];
+            }
+
+            return cameraStatus == PermissionStatus.Granted && storageStatus == PermissionStatus.Granted;
         }
 
         private void UpdateProfilePhoto(Stream imageStream)

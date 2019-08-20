@@ -1,13 +1,15 @@
-﻿using MvvmCross.Navigation;
-using MvvmCross.ViewModels;
-using TestProject.Services.Repositories.Interfaces;
-using TestProject.Entities;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+
 using MvvmCross.Commands;
-using TestProject.Services.Helpers;
-using TestProject.Services.Helpers.Interfaces;
-using TestProject.Resources;
+using MvvmCross.Navigation;
+using MvvmCross.ViewModels;
+
 using TestProject.Core.ViewModelResults;
+using TestProject.Entities;
+using TestProject.Resources;
+using TestProject.Services.Helpers.Interfaces;
+using TestProject.Services.Repositories.Interfaces;
+
 
 namespace TestProject.Core.ViewModels
 {
@@ -61,7 +63,7 @@ namespace TestProject.Core.ViewModels
             }
             if (result == DialogResult.No)
             {
-                await _navigationService.Close(this);
+                await _navigationService.Navigate<TodoListItemViewModel>();
                 return;
             }
             if (result == DialogResult.Yes)
@@ -78,7 +80,7 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            var result = await _navigationService.Close(this);
+            var result = await _navigationService.Navigate<TodoListItemViewModel>();
         }
 
         private async Task<bool> TryUpdateTodoItem()

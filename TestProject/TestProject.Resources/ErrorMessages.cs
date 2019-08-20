@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TestProject.Resources
+﻿namespace TestProject.Resources
 {
     public static class ErrorMessages
     {

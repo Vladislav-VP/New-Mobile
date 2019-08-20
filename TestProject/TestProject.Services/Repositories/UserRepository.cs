@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+
 using TestProject.Entities;
 using TestProject.Services.Repositories.Interfaces;
 

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 using SQLite;
-using TestProject.Resources;
+
 using TestProject.Entities.Attributes;
-using System.Drawing;
+using TestProject.Resources;
 
 namespace TestProject.Entities
 {

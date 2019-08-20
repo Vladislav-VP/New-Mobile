@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
@@ -7,9 +8,11 @@ using Android.Views;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-using TestProject.Core.ViewModels;
 
-namespace TestProject.Droid.Views
+using TestProject.Core.ViewModels;
+using TestProject.Droid.Activities;
+
+namespace TestProject.Droid.Fragments
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.navigation_frame)]
     [Register("testProject.droid.views.MenuFragment")]

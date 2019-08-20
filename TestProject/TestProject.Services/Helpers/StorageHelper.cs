@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+
+using MvvmCross;
+using Xamarin.Essentials;
+
 using TestProject.Configurations;
 using TestProject.Entities;
 using TestProject.Services.Helpers.Interfaces;
-using TestProject.Services.Repositories;
-using Xamarin.Essentials;
-using MvvmCross.IoC;
-using MvvmCross;
 using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Services.Helpers

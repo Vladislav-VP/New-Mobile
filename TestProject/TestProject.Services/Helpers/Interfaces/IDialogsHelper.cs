@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Acr.UserDialogs;
+﻿using System.Threading.Tasks;
 
 namespace TestProject.Services.Helpers.Interfaces
 {

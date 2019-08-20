@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TestProject.Services.Helpers
+﻿namespace TestProject.Services.Helpers
 {
     public enum EditPhotoDialogResult
     {

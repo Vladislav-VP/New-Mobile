@@ -1,23 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 
-using Android.App;
-using Android.Content;
 using Android.Graphics;
-using Android.OS;
-using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Widget;
-using Android.Views;
 using Android.Widget;
 using MvvmCross.Binding.Bindings.Target.Construction;
 using MvvmCross.Converters;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.Platforms.Android.Presenters;
+
 using TestProject.Core;
 using TestProject.Droid.Converters;
 
@@ -63,5 +56,7 @@ namespace TestProject.Droid
         {
             return new MvxAppCompatViewPresenter(this.AndroidViewAssemblies);
         }
+
+       
     }
 }

@@ -196,6 +196,25 @@ namespace TestProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (can contain letters, digits and lower underlines,
+        ///not shorter than.
+        /// </summary>
+        public static string PasswordTipFirst {
+            get {
+                return ResourceManager.GetString("PasswordTipFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to characters).
+        /// </summary>
+        public static string PasswordTipSecond {
+            get {
+                return ResourceManager.GetString("PasswordTipSecond", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profile photo.
         /// </summary>
         public static string ProfilePhotoTitle {

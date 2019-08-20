@@ -162,6 +162,13 @@
   <data name="PasswordsNotCorrespondMessage" xml:space="preserve">
     <value>Passwords do not correspond!</value>
   </data>
+  <data name="PasswordTipFirst" xml:space="preserve">
+    <value>(can contain letters, digits and lower underlines,
+not shorter than</value>
+  </data>
+  <data name="PasswordTipSecond" xml:space="preserve">
+    <value>characters)</value>
+  </data>
   <data name="ProfilePhotoTitle" xml:space="preserve">
     <value>Profile photo</value>
   </data>

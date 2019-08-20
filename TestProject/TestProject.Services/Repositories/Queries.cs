@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TestProject.Entities;
+﻿using TestProject.Entities;
 
 namespace TestProject.Services.Repositories
 {

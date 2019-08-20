@@ -7,7 +7,9 @@ using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.ViewModels;
 
-namespace TestProject.Droid.Views
+using TestProject.Droid.Activities;
+
+namespace TestProject.Droid.Fragments
 {
     public abstract class BaseFragment : MvxFragment
     {
@@ -37,11 +39,11 @@ namespace TestProject.Droid.Views
                 ParentActivity.SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
                 _drawerToggle = new MvxActionBarDrawerToggle(
-                    Activity,                               // host Activity
-                    ((MainActivity)ParentActivity).DrawerLayout,  // DrawerLayout object
-                    _toolbar,                              // nav drawer icon to replace 'Up' caret
-                    Resource.String.drawer_open,            // "open drawer" description
-                    Resource.String.drawer_close            // "close drawer" description
+                    Activity,
+                    ((MainActivity)ParentActivity).DrawerLayout,
+                    _toolbar,
+                    Resource.String.drawer_open,
+                    Resource.String.drawer_close
                 );
                 _drawerToggle.DrawerOpened += (object sender, ActionBarDrawerEventArgs e) => ((MainActivity)Activity)?.HideSoftKeyboard();
                 ((MainActivity)ParentActivity).DrawerLayout.AddDrawerListener(_drawerToggle);

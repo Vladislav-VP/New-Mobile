@@ -1,14 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using TestProject.Entities;
-using Acr.UserDialogs;
-using TestProject.Resources;
-using System.Threading.Tasks;
-using TestProject.Configurations;
-using System.Text.RegularExpressions;
-using TestProject.Services.Repositories;
 using System.ComponentModel.DataAnnotations;
+
 using TestProject.Services.Helpers.Interfaces;
 
 namespace TestProject.Services.Helpers
