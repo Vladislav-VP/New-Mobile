@@ -20,7 +20,7 @@ namespace TestProject.Core.ViewModels
             : base(navigationService, userStorage, userRepository, validationHelper, dialogsHelper)
         {
 
-            RegistrateUserCommand = new MvxAsyncCommand(RegistrateUser);
+            RegisterUserCommand = new MvxAsyncCommand(RegisterUser);
         }
 
         public string UserName
@@ -43,9 +43,9 @@ namespace TestProject.Core.ViewModels
             }
         }
 
-        public IMvxAsyncCommand RegistrateUserCommand { get; private set; }
+        public IMvxAsyncCommand RegisterUserCommand { get; private set; }
 
-        private async Task RegistrateUser()
+        private async Task RegisterUser()
         {
             User user = new User { Name = UserName, Password = Password };
 

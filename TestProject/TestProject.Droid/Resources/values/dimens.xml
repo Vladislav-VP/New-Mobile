@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <dimen name="button_back_height">60dp</dimen>
+  <dimen name="button_back_width">80dp</dimen>
+</resources>

@@ -7,9 +7,7 @@
 
     <TextView
         style="@style/DialogTextStyle"
-        android:text="@string/label_save_changes"     
-        
-    />
+        android:text="@string/label_save_changes_prompt" />
     
     <LinearLayout
         android:layout_width="wrap_content"

@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject.Entities", "Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject.Services", "TestProject.Services\TestProject.Services.csproj", "{3EE4AD2C-44C3-43B6-986D-513F8FE25D88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject.Resources", "TestProject.Resources\TestProject.Resources.csproj", "{5FE8DD55-88D5-4091-B1AF-06294B995B2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject.Resources", "TestProject.Resources\TestProject.Resources.csproj", "{5FE8DD55-88D5-4091-B1AF-06294B995B2D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -18,10 +18,10 @@
             android:textColor="@android:color/background_light"
             android:textSize="35dp"/>
         <Button
-            android:id="@+id/btnBack"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/button_back_width"
+            android:layout_height="@dimen/button_back_height"
             android:layout_alignParentLeft="true"
+            style="@style/Widget.AppCompat.Button.Colored"
             local:MvxBind="Click GoBackCommand" />
     </RelativeLayout>
 

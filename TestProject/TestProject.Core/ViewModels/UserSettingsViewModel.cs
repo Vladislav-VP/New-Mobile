@@ -62,7 +62,7 @@ namespace TestProject.Core.ViewModels
             }
             if (result == DialogResult.No)
             {
-                await _navigationService.Close(this);
+                await _navigationService.Navigate<TodoListItemViewModel>();
                 return;
             }
             if (result == DialogResult.Yes)

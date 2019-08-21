@@ -4,7 +4,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:layout_marginHorizontal="@dimen/compat_button_padding_horizontal_material">
 
     <TextView
         style="@style/LabelStyle"
