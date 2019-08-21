@@ -74,23 +74,17 @@ namespace TestProject.Services.Repositories
         public async Task<T> Find<T>(object pk) where T : class, new()
         {
             var connection = new SQLiteAsyncConnection(_path);
-            T obj;
-            try
-            {
-                obj = await connection.FindAsync<T>(pk: pk);
-            }
-            finally
-            {
-                //TODO: Figure out, why NullReferenceExceprion thrown
-                //await connection.CloseAsync();
-            }
+            T obj = default;
+
+            obj = await connection.FindAsync<T>(pk: pk);               
+            
             return obj;
         }
 
         public async Task<T> FindWithQuery<T>(string query) where T : class, new()
         {
             var connection = new SQLiteAsyncConnection(_path);
-            T obj;
+            T obj = default;
             try
             {
                 obj = await connection.FindWithQueryAsync<T>(query);
@@ -99,11 +93,7 @@ namespace TestProject.Services.Repositories
             {
                 return null;
             }
-            finally
-            {
-                //TODO: Figure out, why NullReferenceExceprion thrown
-                //await connection.CloseAsync();
-            }
+
             return obj;
         }
 
