@@ -6,11 +6,9 @@ using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
-using Plugin.Permissions;
-using Plugin.Permissions.Abstractions;
 
 using TestProject.Entities;
-using TestProject.Services.Helpers;
+using TestProject.Services.Enums;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Repositories.Interfaces;
 
@@ -18,23 +16,24 @@ namespace TestProject.Core.ViewModels
 {
     public class MenuViewModel : BaseViewModel
     {
-        private const int _maxPixelDimension = 200;
-        private const int _percentQuality = 90;
-
         private User _currentUser;
-        private string _userName;
-        private string _profilePhotoInfo;
+
+        private readonly IPermissionsHelper _permissionsHelper;
 
         private readonly IUserRepository _userRepository;
 
-        private readonly IDialogsHelper _dialogsHelper;
+        private readonly IUserDialogsHelper _dialogsHelper;
+
+        private readonly IPhotoCaptureHelper _photoHelper;
         
-        public MenuViewModel(IMvxNavigationService navigationService, IStorageHelper<User> storage,
-            IUserRepository userRepository, IDialogsHelper dialogsHelper)
+        public MenuViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, IPhotoCaptureHelper photoHelper,
+            IUserRepository userRepository, IUserDialogsHelper dialogsHelper, IPermissionsHelper permissionsHelper)
             : base(navigationService, storage)
         {
             _userRepository = userRepository;
             _dialogsHelper = dialogsHelper;
+            _permissionsHelper = permissionsHelper;
+            _photoHelper = photoHelper;
 
             ShowLoginViewModelCommand = new MvxAsyncCommand(Logout);
             ShowUserInfoViewModelCommand = new MvxAsyncCommand(async 
@@ -44,6 +43,7 @@ namespace TestProject.Core.ViewModels
             EditProfilePhotoCommand = new MvxAsyncCommand(EditProfilePhoto);
         }
 
+        private string _userName;
         public string UserName
         {
             get => _userName;
@@ -54,13 +54,14 @@ namespace TestProject.Core.ViewModels
             }
         }
 
-        public string ProfilePhotoInfo
+        private string _encryptedProfilePhoto;
+        public string EncryptedProfilePhoto
         {
-            get => _profilePhotoInfo;
+            get => _encryptedProfilePhoto;
             set
             {
-                _profilePhotoInfo = value;
-                RaisePropertyChanged(() => ProfilePhotoInfo);
+                _encryptedProfilePhoto = value;
+                RaisePropertyChanged(() => EncryptedProfilePhoto);
             }
         }
 
@@ -76,20 +77,21 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            _currentUser = await _storage.Retrieve();
+            _currentUser = await _storage.Get();
             UserName = _currentUser.Name;
-            ProfilePhotoInfo = _currentUser.ProfilePhotoInfo;
+            EncryptedProfilePhoto = _currentUser.EncryptedProfilePhoto;
         }
 
         private async Task Logout()
         {
             _storage.Clear();
-            var result = await _navigationService.Navigate<LoginViewModel>();
+            await _navigationService.Close(this);
+            await _navigationService.Navigate<LoginViewModel>();
         }
 
         private async Task EditProfilePhoto()
         {
-            var result = await _dialogsHelper.ChooseOption();
+            EditPhotoDialogResult result = await _dialogsHelper.ChooseOption();
             await HandleChangePhotoResult(result);
         }
 
@@ -99,12 +101,13 @@ namespace TestProject.Core.ViewModels
 
             if (imageStream != null)
             {
-                UpdateProfilePhoto(imageStream);
+                EncryptedProfilePhoto = GetEncryptedString(imageStream);
                 imageStream.Close();
             }
 
-            _currentUser.ProfilePhotoInfo = ProfilePhotoInfo;
+            _currentUser.EncryptedProfilePhoto = EncryptedProfilePhoto;
             await _userRepository.Update(_currentUser);
+            // TODO: Correcrt issue with navigation to menu (profile photo is not updated after being deleted).
             await _navigationService.Navigate<MenuViewModel>();
         }
 
@@ -115,77 +118,37 @@ namespace TestProject.Core.ViewModels
             switch (result)
             {
                 case EditPhotoDialogResult.ChooseFromGallery:
-                    var pickedPhoto = await PickPhoto();
+                    MediaFile pickedPhoto = await _photoHelper.PickPhoto();
                     imageStream = pickedPhoto.GetStream();
                     break;
                 case EditPhotoDialogResult.TakePicture:
-                    bool permissionsAreGranted = await TryRequestPermissions();
-                    if (permissionsAreGranted)
+                    bool arePermissionsGranted = await _permissionsHelper.TryRequestPermissions();
+                    if (arePermissionsGranted)
                     {
-                        var takenPhoto = await TakePhoto();
+                        MediaFile takenPhoto = await _photoHelper.TakePhoto();
                         imageStream = takenPhoto.GetStream();
                     }
                     break;
                 case EditPhotoDialogResult.DeletePicture:
-                    ProfilePhotoInfo = null;
+                    EncryptedProfilePhoto = null;
                     break;
             }
 
             return imageStream;
         }
         
-        private async Task<MediaFile> PickPhoto()
+        private string GetEncryptedString(Stream imageStream)
         {
-            var options = new PickMediaOptions
-            {
-                CompressionQuality = _percentQuality,
-                PhotoSize = PhotoSize.MaxWidthHeight,
-                MaxWidthHeight = _maxPixelDimension
-            };
+            string encryptedString = null;
 
-            return await CrossMedia.Current.PickPhotoAsync(options);
-        }
-
-        private async Task<MediaFile> TakePhoto()
-        {
-            var options = new StoreCameraMediaOptions
-            {
-                SaveToAlbum = true,
-                CompressionQuality = _percentQuality,
-                PhotoSize = PhotoSize.MaxWidthHeight,
-                MaxWidthHeight = _maxPixelDimension,
-                DefaultCamera = CameraDevice.Rear
-            };
-
-            return await CrossMedia.Current.TakePhotoAsync(options);
-        }
-
-        private async Task<bool> TryRequestPermissions()
-        {
-            bool isInitialized = await CrossMedia.Current.Initialize();
-            var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
-            var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
-
-            if (cameraStatus != PermissionStatus.Granted || storageStatus != PermissionStatus.Granted)
-            {
-                var permissionsDictionary = await CrossPermissions
-                    .Current
-                    .RequestPermissionsAsync(Permission.Camera, Permission.Storage);
-                cameraStatus = permissionsDictionary[Permission.Camera];
-                storageStatus = permissionsDictionary[Permission.Storage];
-            }
-
-            return cameraStatus == PermissionStatus.Granted && storageStatus == PermissionStatus.Granted;
-        }
-
-        private void UpdateProfilePhoto(Stream imageStream)
-        {
             using (var memoryStream = new MemoryStream())
             {
                 imageStream.CopyTo(memoryStream);
                 byte[] decryptedImageString = memoryStream.ToArray();
-                ProfilePhotoInfo = Convert.ToBase64String(decryptedImageString);
+                encryptedString = Convert.ToBase64String(decryptedImageString);
             }
+
+            return encryptedString;
         }
     }
 }

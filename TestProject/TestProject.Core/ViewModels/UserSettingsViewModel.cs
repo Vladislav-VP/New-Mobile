@@ -17,12 +17,12 @@ namespace TestProject.Core.ViewModels
 
         protected string _userName;
 
-        public UserSettingsViewModel(IMvxNavigationService navigationService, IUserRepository userRepository, 
-            IStorageHelper<User> userStorage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
+        public UserSettingsViewModel(IMvxNavigationService navigationService, IUserRepository userRepository,
+            IUserStorageHelper userStorage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
             : base(navigationService, userStorage, userRepository, validationHelper, dialogsHelper)
         {
-            UserUpdatedCommand = new MvxAsyncCommand(UserUpdated);
-            UserDeletedCommand = new MvxAsyncCommand(UserDeleted);
+            UpdateUserCommand = new MvxAsyncCommand(UpdateUser);
+            DeleteUserCommand = new MvxAsyncCommand(DeleteUser);
             ShowEditPasswordViewModelCommand = 
                 new MvxAsyncCommand(async () => await _navigationService.Navigate<EditPasswordViewModel>());
         }
@@ -37,9 +37,9 @@ namespace TestProject.Core.ViewModels
             }
         }
 
-        public IMvxAsyncCommand UserUpdatedCommand { get; private set; }
+        public IMvxAsyncCommand UpdateUserCommand { get; private set; }
 
-        public IMvxAsyncCommand UserDeletedCommand { get; private set; }
+        public IMvxAsyncCommand DeleteUserCommand { get; private set; }
 
         public IMvxAsyncCommand ShowEditPasswordViewModelCommand { get; private set; }
 
@@ -47,14 +47,14 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            _currentUser = await _storage.Retrieve();
+            _currentUser = await _storage.Get();
 
             _userName = _currentUser.Name;
         }
 
         protected override async Task GoBack()
         {
-            var result = await _navigationService.Navigate<CancelDialogViewModel, DialogResult>();
+            DialogResult result = await _navigationService.Navigate<CancelDialogViewModel, DialogResult>();
 
             if (result == DialogResult.Cancel)
             {
@@ -67,7 +67,7 @@ namespace TestProject.Core.ViewModels
             }
             if (result == DialogResult.Yes)
             {
-                await UserUpdated();
+                await UpdateUser();
                 return;
             }
         }
@@ -83,14 +83,15 @@ namespace TestProject.Core.ViewModels
             if (!userIsValid && !validationErrorsEmpty)
             {
                 _currentUser.Name = currentUserName;
-                _dialogsHelper.ToastMessage(_validationHelper.ValidationErrors[0].ErrorMessage);
+                _dialogsHelper.DisplayToastMessage(_validationHelper.ValidationErrors[0].ErrorMessage);
                 return false;
             }
 
-            bool userExists = await _userRepository.UserExists(UserName) && UserName != currentUserName;
-            if (userExists)
+            string query = _userRepository.GetUserQuery(UserName);
+            User userFromDataBase = await _userRepository.FindWithQuery(query);
+            if (userFromDataBase != null && userFromDataBase.Id != _currentUser.Id)
             {
-                _dialogsHelper.ToastMessage(Strings.UserAlreadyExistsMessage);
+                _dialogsHelper.DisplayToastMessage(Strings.UserAlreadyExistsMessage);
                 return false;
             }
 
@@ -98,23 +99,24 @@ namespace TestProject.Core.ViewModels
             return true;
         }
 
-        private async Task UserUpdated()
+        private async Task UpdateUser()
         {
             if(!await TryUpdateUserName())
             {
                 return;
             }
 
-            _dialogsHelper.ToastMessage(Strings.UserNameChangedMessage);
+            _dialogsHelper.DisplayToastMessage(Strings.UserNameChangedMessage);
             await _navigationService.Navigate<TodoListItemViewModel>();
+            // TODO: Correcrt issue with navigation to menu (username is not updated without navigating).
             await _navigationService.Navigate<MenuViewModel>();
         }
 
-        private async Task UserDeleted()
+        private async Task DeleteUser()
         {
-            var delete = await _dialogsHelper.Confirm(Strings.DeleteMessageDialog);
+            bool isToDelete = await _dialogsHelper.TryGetConfirmation(Strings.DeleteMessageDialog);
 
-            if (!delete)
+            if (!isToDelete)
             {
                 return;
             }
@@ -122,7 +124,7 @@ namespace TestProject.Core.ViewModels
             await _userRepository.Delete(_currentUser);
             _storage.Clear();
 
-            var result = await _navigationService.Navigate<LoginViewModel>();
+            await _navigationService.Navigate<LoginViewModel>();
         }
     }
 }

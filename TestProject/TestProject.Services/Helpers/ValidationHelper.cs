@@ -29,10 +29,8 @@ namespace TestProject.Services.Helpers
                     .GetValue(obj);
                 return Validator.TryValidateProperty(propertyValue, _context, _validationErrors);
             }
-            else
-            {
-                return Validator.TryValidateObject(obj, _context, _validationErrors);
-            }
+
+            return Validator.TryValidateObject(obj, _context, _validationErrors);
         }
 
         private void Initialize<T>(T obj)

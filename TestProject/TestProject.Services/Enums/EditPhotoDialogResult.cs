@@ -1,4 +1,4 @@
-﻿namespace TestProject.Services.Helpers
+﻿namespace TestProject.Services.Enums
 {
     public enum EditPhotoDialogResult
     {

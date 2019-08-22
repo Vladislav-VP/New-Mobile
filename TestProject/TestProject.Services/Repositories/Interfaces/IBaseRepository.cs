@@ -5,7 +5,7 @@ using TestProject.Entities;
 
 namespace TestProject.Services.Repositories.Interfaces
 {
-    public interface IBaseRepository<T> where T : BaseEntity, new()
+    public interface IBaseRepository<T> where T : class, new()
     {
         Task<bool> Insert(T obj);
 
@@ -13,10 +13,10 @@ namespace TestProject.Services.Repositories.Interfaces
 
         Task Delete(T obj);
 
-        Task<T> Find<T>(object pk) where T : class, new();
+        Task<T> Find(object pk);
 
-        Task<IEnumerable<T>> GetAllObjects<T>() where T : class, new();
+        Task<IEnumerable<T>> GetAllObjects();
 
-        Task<T> FindWithQuery<T>(string query) where T : class, new();
+        Task<T> FindWithQuery(string query);
     }
 }

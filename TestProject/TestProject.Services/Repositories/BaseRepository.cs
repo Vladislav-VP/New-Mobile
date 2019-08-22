@@ -52,7 +52,7 @@ namespace TestProject.Services.Repositories
             }
         }
 
-        public async Task<IEnumerable<T>> GetAllObjects<T>() where T : class, new()
+        public async Task<IEnumerable<T>> GetAllObjects()
         {
             var connection = new SQLiteAsyncConnection(_path);
             return await connection.Table<T>().ToListAsync();
@@ -71,7 +71,7 @@ namespace TestProject.Services.Repositories
             }
         }
 
-        public async Task<T> Find<T>(object pk) where T : class, new()
+        public async Task<T> Find(object pk)
         {
             var connection = new SQLiteAsyncConnection(_path);
             T obj = default;
@@ -81,7 +81,7 @@ namespace TestProject.Services.Repositories
             return obj;
         }
 
-        public async Task<T> FindWithQuery<T>(string query) where T : class, new()
+        public async Task<T> FindWithQuery(string query)
         {
             var connection = new SQLiteAsyncConnection(_path);
             T obj = default;

@@ -13,9 +13,9 @@ namespace TestProject.Core.ViewModels
     {
         protected readonly IMvxNavigationService _navigationService;
 
-        protected  readonly IStorageHelper<User> _storage;
+        protected  readonly IUserStorageHelper _storage;
 
-        public BaseViewModel(IMvxNavigationService navigationService, IStorageHelper<User> storage)
+        public BaseViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage)
         {
             _navigationService = navigationService;
             _storage = storage;

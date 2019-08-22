@@ -1,14 +1,13 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Navigation;
 
-using TestProject.Entities;
 using TestProject.Services.Helpers.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        public MainViewModel(IMvxNavigationService navigationService, IStorageHelper<User> storage)
+        public MainViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage)
             : base(navigationService, storage)
         {
             ShowListTodoItemsViewModelCommand = new MvxAsyncCommand(async () =>

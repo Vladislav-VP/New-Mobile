@@ -11,7 +11,7 @@ namespace TestProject.Services.Repositories
     {
         public async Task<IEnumerable<TodoItem>> GetTodoItems(int userId)
         {
-            var todoItems = await GetAllObjects<TodoItem>();
+            var todoItems = await GetAllObjects();
             return todoItems.Where(todoItem => todoItem.UserId == userId);
         }
     }

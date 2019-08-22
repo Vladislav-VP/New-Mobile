@@ -44,7 +44,7 @@
         android:textSize="30dp"
         android:background="#ffffffff"
         local:MvxItemTemplate="@layout/item_name"
-        local:MvxBind="ItemsSource TodoItems; ItemClick TodoItemSelectedCommand"
+        local:MvxBind="ItemsSource TodoItems; ItemClick SelectTodoItemCommand"
     />
     
 </LinearLayout>

@@ -16,7 +16,7 @@ namespace TestProject.Core.ViewModels
 
         protected readonly IDialogsHelper _dialogsHelper;
 
-        public UserViewModel(IMvxNavigationService navigationService, IStorageHelper<User> storage,
+        public UserViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage,
             IUserRepository userRepository, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
             : base(navigationService, storage)
         {

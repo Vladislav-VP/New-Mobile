@@ -20,13 +20,13 @@ namespace TestProject.Core
         protected async override Task NavigateToFirstViewModel(object hint = null)
         {
 
-            var storage = Mvx.IoCProvider.Resolve<IStorageHelper<User>>();
-            var user = await storage.Retrieve();
+            IUserStorageHelper storage = Mvx.IoCProvider.Resolve<IUserStorageHelper>();
+            User user = await storage.Get();
             if (user == null)
             {
                 await NavigationService.Navigate<LoginViewModel>();
             }
-            else
+            if (user != null)
             {
                 await NavigationService.Navigate<TodoListItemViewModel>();
             }

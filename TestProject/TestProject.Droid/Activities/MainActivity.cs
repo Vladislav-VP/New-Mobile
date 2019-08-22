@@ -26,21 +26,24 @@ namespace TestProject.Droid.Activities
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            switch (item.ItemId)
+            if (item.ItemId == Android.Resource.Id.Home)
             {
-                case Android.Resource.Id.Home:
-                    DrawerLayout.OpenDrawer(GravityCompat.RelativeHorizontalGravityMask);
-                    return true;
+                DrawerLayout.OpenDrawer(GravityCompat.RelativeHorizontalGravityMask);
+                return true;
             }
+
             return base.OnOptionsItemSelected(item);
         }
 
         public override void OnBackPressed()
         {
             if (DrawerLayout != null && DrawerLayout.IsDrawerOpen(GravityCompat.RelativeHorizontalGravityMask))
+            {
                 DrawerLayout.CloseDrawers();
-            else
-                base.OnBackPressed();
+                return;
+            }
+                
+            base.OnBackPressed();
         }
 
         public void HideSoftKeyboard()

@@ -1,17 +1,18 @@
-﻿using System.Threading.Tasks;
-
-using TestProject.Entities;
+﻿using TestProject.Entities;
 using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Services.Repositories
 {
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
-        public async Task<bool> UserExists(string userName)
+        public string GetUserQuery(string userName)
         {
-            string query = Queries.GetUserQuery(userName);
-            var user = await FindWithQuery<User>(query);
-            return user != null;
+            return $"SELECT * FROM \"User\" WHERE \"Name\" = \"{userName}\"";
+        }
+
+        public string GetUserQuery(string userName, string password)
+        {
+            return $"SELECT * FROM \"User\" WHERE \"Name\" = \"{userName}\" AND \"Password\" = \"{password}\"";
         }
     }
 }

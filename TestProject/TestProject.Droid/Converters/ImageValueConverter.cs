@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
+using Android.Content;
 using Android.Graphics;
 using Android.Util;
 using MvvmCross;
@@ -22,11 +23,11 @@ namespace TestProject.Droid.Converters
 
                 return decodedBytes;
             }
-            
-            var contextHelper = Mvx.IoCProvider.Resolve<IContextProvider>();
-            var context = contextHelper.Context;
 
-            var placeholder = BitmapFactory.DecodeResource(context.Resources, Resource.Drawable.profile);
+            IContextProvider contextProvider = Mvx.IoCProvider.Resolve<IContextProvider>();
+            Context context = contextProvider.Context;
+
+            Bitmap placeholder = BitmapFactory.DecodeResource(context.Resources, Resource.Drawable.profile);
 
             return placeholder;
         }

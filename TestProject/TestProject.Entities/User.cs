@@ -14,9 +14,10 @@ namespace TestProject.Entities
 
         [NotNull]
         [Required(AllowEmptyStrings = false, ErrorMessage = ErrorMessages.EmptyPasswordMessage)]
-        [Password(nameof(Password))]
+        [Password(nameof(Password), ValidationConstants.InvalidPasswordCharacterPattern,
+            ValidationConstants.MinPasswordLength)]
         public string Password { get; set; }
 
-        public string ProfilePhotoInfo { get; set; }
+        public string EncryptedProfilePhoto { get; set; }
     }
 }

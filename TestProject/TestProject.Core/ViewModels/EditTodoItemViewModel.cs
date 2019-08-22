@@ -14,17 +14,16 @@ using TestProject.Services.Repositories.Interfaces;
 namespace TestProject.Core.ViewModels
 {
     public class EditTodoItemViewModel : TodoItemViewModel, IMvxViewModel<TodoItem>
-    {
-        private TodoItem _todoItem;
-
+    {        
         public EditTodoItemViewModel(IMvxNavigationService navigationService, IValidationHelper validationHelper,
             ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
             : base(navigationService, validationHelper, todoItemRepository, dialogsHelper)
         {
-            TodoItemUpdatedCommand = new MvxAsyncCommand(TodoItemUpdated);
-            TodoItemDeletedCommand = new MvxAsyncCommand(TodoItemDeleted);
+            UpdateTodoItemCommand = new MvxAsyncCommand(UpdateTodoItem);
+            DeleteTodoItemCommand = new MvxAsyncCommand(DeleteTodoItem);
         }
 
+        private TodoItem _todoItem;
         public TodoItem TodoItem
         {
             get => _todoItem;
@@ -35,10 +34,10 @@ namespace TestProject.Core.ViewModels
             }
         }
 
-        public IMvxAsyncCommand TodoItemUpdatedCommand { get; private set; }
+        public IMvxAsyncCommand UpdateTodoItemCommand { get; private set; }
 
-        public IMvxAsyncCommand TodoItemDeletedCommand { get; private set; }
-
+        public IMvxAsyncCommand DeleteTodoItemCommand { get; private set; }
+        
         public void Prepare(TodoItem parameter)
         {
             TodoItem = parameter;
@@ -55,7 +54,7 @@ namespace TestProject.Core.ViewModels
 
         protected override async Task GoBack()
         {
-            var result = await _navigationService.Navigate<CancelDialogViewModel, DialogResult>();
+            DialogResult result = await _navigationService.Navigate<CancelDialogViewModel, DialogResult>();
 
             if (result == DialogResult.Cancel)
             {
@@ -68,30 +67,30 @@ namespace TestProject.Core.ViewModels
             }
             if (result == DialogResult.Yes)
             {
-                await TodoItemUpdated();
+                await UpdateTodoItem();
                 return;
             }
         }
 
-        private async Task TodoItemUpdated()
+        private async Task UpdateTodoItem()
         {
             if(!await TryUpdateTodoItem())
             {
                 return;
             }
 
-            var result = await _navigationService.Navigate<TodoListItemViewModel>();
+            await _navigationService.Navigate<TodoListItemViewModel>();
         }
 
         private async Task<bool> TryUpdateTodoItem()
         {
             ChangeTodoItem();
             
-            bool todoItemIsValid = _validationHelper.ObjectIsValid<TodoItem>(TodoItem);
+            bool isValid = _validationHelper.ObjectIsValid<TodoItem>(TodoItem);
             bool validationErrorsEmpty = _validationHelper.ValidationErrors.Count == 0;
-            if (!todoItemIsValid && !validationErrorsEmpty)
+            if (!isValid && !validationErrorsEmpty)
             {
-                _dialogsHelper.ToastMessage(_validationHelper.ValidationErrors[0].ErrorMessage);
+                _dialogsHelper.DisplayToastMessage(_validationHelper.ValidationErrors[0].ErrorMessage);
                 return false;
             }
 
@@ -106,18 +105,18 @@ namespace TestProject.Core.ViewModels
             TodoItem.IsDone = IsDone;
         }
 
-        private async Task TodoItemDeleted()
+        private async Task DeleteTodoItem()
         {
-            var delete = await _dialogsHelper.Confirm(Strings.DeleteMessageDialog);
+            bool isToDelete = await _dialogsHelper.TryGetConfirmation(Strings.DeleteMessageDialog);
 
-            if (!delete)
+            if (!isToDelete)
             {
                 return;
             }
 
             await _todoItemRepository.Delete(TodoItem);
 
-            var result = await _navigationService.Navigate<TodoListItemViewModel>();
+            await _navigationService.Navigate<TodoListItemViewModel>();
         }
     }
 }

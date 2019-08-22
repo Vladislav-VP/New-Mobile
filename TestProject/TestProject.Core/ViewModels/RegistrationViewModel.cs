@@ -12,17 +12,14 @@ namespace TestProject.Core.ViewModels
 {
     public class RegistrationViewModel : UserViewModel
     {
-        protected string _userName;
-        protected string _password;
-
         public RegistrationViewModel(IMvxNavigationService navigationService, IUserRepository userRepository,
-            IStorageHelper<User> userStorage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
+            IUserStorageHelper userStorage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
             : base(navigationService, userStorage, userRepository, validationHelper, dialogsHelper)
         {
-
             RegisterUserCommand = new MvxAsyncCommand(RegisterUser);
         }
 
+        private string _userName;
         public string UserName
         {
             get => _userName;
@@ -33,6 +30,7 @@ namespace TestProject.Core.ViewModels
             }
         }
 
+        private string _password;
         public string Password
         {
             get => _password;
@@ -47,27 +45,27 @@ namespace TestProject.Core.ViewModels
 
         private async Task RegisterUser()
         {
-            User user = new User { Name = UserName, Password = Password };
+            User enteredUser = new User { Name = UserName, Password = Password };
 
-            bool userIsValid = _validationHelper.ObjectIsValid<User>(user, nameof(user.Name)) 
-                && _validationHelper.ObjectIsValid<User>(user, nameof(user.Password));
+            bool userIsValid = _validationHelper.ObjectIsValid<User>(enteredUser, nameof(enteredUser.Name)) 
+                && _validationHelper.ObjectIsValid<User>(enteredUser, nameof(enteredUser.Password));
             bool validationErrorsEmpty = _validationHelper.ValidationErrors.Count == 0;
             if (!userIsValid && !validationErrorsEmpty)
             {
-                _dialogsHelper.ToastMessage(_validationHelper.ValidationErrors[0].ErrorMessage);
+                _dialogsHelper.DisplayToastMessage(_validationHelper.ValidationErrors[0].ErrorMessage);
                 return;
             }
 
-            user.Name = user.Name.Trim();
-            bool userExists = await _userRepository.UserExists(user.Name);
-            if (userExists)
+            enteredUser.Name = enteredUser.Name.Trim();
+            string query = _userRepository.GetUserQuery(enteredUser.Name);
+            User userFromDataBase = await _userRepository.FindWithQuery(query);
+            if (userFromDataBase != null)
             {
-                _dialogsHelper.ToastMessage(Strings.UserAlreadyExistsMessage);
+                _dialogsHelper.DisplayToastMessage(Strings.UserAlreadyExistsMessage);
                 return;
             }
 
             await AddUser();
-            var users = await _userRepository.GetAllObjects<User>();
             await _navigationService.Navigate<TodoListItemViewModel>();
         }
 

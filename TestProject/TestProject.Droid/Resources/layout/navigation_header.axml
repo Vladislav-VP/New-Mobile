@@ -13,7 +13,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:src="@drawable/profile"
-        local:MvxBind="Click EditProfilePhotoCommand; Bitmap ImageValue(ProfilePhotoInfo)"
+        local:MvxBind="Click EditProfilePhotoCommand; Bitmap ImageValue(EncryptedProfilePhoto)"
     />
 	<TextView
 		android:id="@+id/username"

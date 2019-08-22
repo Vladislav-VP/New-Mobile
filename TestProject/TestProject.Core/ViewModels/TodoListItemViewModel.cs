@@ -15,19 +15,18 @@ namespace TestProject.Core.ViewModels
     {
         private readonly ITodoItemRepository _todoItemRepository;
 
-        private MvxObservableCollection<TodoItem> _todoItems;
-
-        public TodoListItemViewModel(IMvxNavigationService navigationService, 
-            IStorageHelper<User> storage, ITodoItemRepository todoItemRepository)
+        public TodoListItemViewModel(IMvxNavigationService navigationService,
+            IUserStorageHelper storage, ITodoItemRepository todoItemRepository)
             : base(navigationService, storage)
         {
             _todoItemRepository = todoItemRepository;
 
             ShowCreateTodoItemViewModelCommand = new MvxAsyncCommand(async ()
                 => await _navigationService.Navigate<CreateTodoItemViewModel>());
-            TodoItemSelectedCommand = new MvxAsyncCommand<TodoItem>(TodoItemSelected);
+            SelectTodoItemCommand = new MvxAsyncCommand<TodoItem>(SelectTodoItem);
         }
         
+        private MvxObservableCollection<TodoItem> _todoItems;
         public MvxObservableCollection<TodoItem> TodoItems
         {
             get => _todoItems;
@@ -42,7 +41,7 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
             
-            User currentUser = await _storage.Retrieve();
+            User currentUser = await _storage.Get();
             TodoItems = new MvxObservableCollection<TodoItem>(await _todoItemRepository.GetTodoItems(currentUser.Id));
         }
 
@@ -50,12 +49,11 @@ namespace TestProject.Core.ViewModels
 
         public IMvxAsyncCommand ShowMenuViewModelCommand { get; private set; }
 
-        public IMvxCommand<TodoItem> TodoItemSelectedCommand { get; private set; }
+        public IMvxCommand<TodoItem> SelectTodoItemCommand { get; private set; }
 
-        private async Task TodoItemSelected(TodoItem selectedTodoItem)
+        private async Task SelectTodoItem(TodoItem selectedTodoItem)
         {
-            var result = await _navigationService
-                .Navigate<TodoItem>(typeof(EditTodoItemViewModel), selectedTodoItem);
+            await _navigationService.Navigate<TodoItem>(typeof(EditTodoItemViewModel), selectedTodoItem);
         }
     }
 }

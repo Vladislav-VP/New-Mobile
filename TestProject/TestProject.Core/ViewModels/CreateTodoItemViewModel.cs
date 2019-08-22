@@ -13,22 +13,18 @@ namespace TestProject.Core.ViewModels
     public class CreateTodoItemViewModel : TodoItemViewModel
     {
 
-        public CreateTodoItemViewModel(IMvxNavigationService navigationService, IStorageHelper<User> storage,
+        public CreateTodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage,
             IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
             : base(navigationService, storage, validationHelper, todoItemRepository, dialogsHelper)
         {
-            BackToListCommand = new MvxAsyncCommand(async ()
-               => await _navigationService.Navigate<TodoListItemViewModel>());
-            TodoItemCreatedCommand = new MvxAsyncCommand(TodoItemCreated);
+            CreateTodoItemCommand = new MvxAsyncCommand(CreateTodoItem);
         }
         
-        public IMvxAsyncCommand TodoItemCreatedCommand { get; private set; }
-
-        public IMvxAsyncCommand BackToListCommand { get; private set; }
-
+        public IMvxAsyncCommand CreateTodoItemCommand { get; private set; }
+        
         protected async override Task GoBack()
         {
-            var result = await _navigationService.Navigate<CancelDialogViewModel, DialogResult>();
+            DialogResult result = await _navigationService.Navigate<CancelDialogViewModel, DialogResult>();
 
             if (result == DialogResult.Cancel)
             {
@@ -41,12 +37,12 @@ namespace TestProject.Core.ViewModels
             }
             if (result == DialogResult.Yes)
             {
-                await TodoItemCreated();
+                await CreateTodoItem();
                 return;
             }
         }
 
-        private async Task TodoItemCreated()
+        private async Task CreateTodoItem()
         {
             TodoItem todoItem = new TodoItem { Name = Name };
 
@@ -54,17 +50,17 @@ namespace TestProject.Core.ViewModels
             bool validationErrorsEmpty = _validationHelper.ValidationErrors.Count == 0;
             if (!todoItemIsValid && !validationErrorsEmpty)
             {
-                _dialogsHelper.ToastMessage(_validationHelper.ValidationErrors[0].ErrorMessage);
+                _dialogsHelper.DisplayToastMessage(_validationHelper.ValidationErrors[0].ErrorMessage);
                 return;
             }
 
             await AddTodoItem();
-            var result = await _navigationService.Navigate<TodoListItemViewModel>();
+            await _navigationService.Navigate<TodoListItemViewModel>();
         }    
         
         private async Task AddTodoItem()
         {
-            User currentUser = await _storage.Retrieve();
+            User currentUser = await _storage.Get();
             TodoItem todoItem = new TodoItem
             {
                 Name = Name,

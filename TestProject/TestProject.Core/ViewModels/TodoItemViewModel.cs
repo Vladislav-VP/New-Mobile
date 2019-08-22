@@ -8,10 +8,6 @@ namespace TestProject.Core.ViewModels
 {
     public abstract class TodoItemViewModel : BaseViewModel
     {
-        protected string _name;
-        protected string _description;
-        protected bool _isDone;
-
         protected readonly IDialogsHelper _dialogsHelper;
 
         protected readonly IValidationHelper _validationHelper;
@@ -22,7 +18,7 @@ namespace TestProject.Core.ViewModels
             ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
             : this(navigationService, null, validationHelper, todoItemRepository, dialogsHelper) { }
 
-        public TodoItemViewModel(IMvxNavigationService navigationService, IStorageHelper<User> storage,
+        public TodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage,
             IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
             : base(navigationService, storage)
         {
@@ -32,6 +28,7 @@ namespace TestProject.Core.ViewModels
             _dialogsHelper = dialogsHelper;
         }
 
+        protected string _name;
         public string Name
         {
             get => _name;
@@ -42,6 +39,7 @@ namespace TestProject.Core.ViewModels
             }
         }
 
+        protected string _description;
         public string Description
         {
             get => _description;
@@ -52,6 +50,7 @@ namespace TestProject.Core.ViewModels
             }
         }
 
+        protected bool _isDone;
         public bool IsDone
         {
             get => _isDone;

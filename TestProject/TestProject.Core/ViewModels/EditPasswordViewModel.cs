@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
@@ -13,88 +14,80 @@ namespace TestProject.Core.ViewModels
     public class EditPasswordViewModel : UserViewModel
     {
         private User _currentUser;
-
-        private string _currentPassword;
-        private string _newPassword1;
-        private string _newPassword2;
-
+    
         public EditPasswordViewModel(IMvxNavigationService navigationService, IUserRepository userRepository,
-            IStorageHelper<User> userStorage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
+            IUserStorageHelper userStorage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
             : base(navigationService, userStorage, userRepository, validationHelper, dialogsHelper)
         {
-            PasswordChangedCommand = new MvxAsyncCommand(PasswordChanged);
+            ChangePasswordCommand = new MvxAsyncCommand(ChangePassword);
         }
 
-        public string CurrentPassword
+        private string _oldPassword;
+        public string OldPassword
         {
-            get => _currentPassword;
+            get => _oldPassword;
             set
             {
-                _currentPassword = value;
-                RaisePropertyChanged(() => CurrentPassword);
+                _oldPassword = value;
+                RaisePropertyChanged(() => OldPassword);
             }
         }
 
-        public string NewPassword1
+        private string _newPassword;
+        public string NewPassword
         {
-            get => _newPassword1;
+            get => _newPassword;
             set
             {
-                _newPassword1 = value;
-                RaisePropertyChanged(() => NewPassword1);
+                _newPassword = value;
+                RaisePropertyChanged(() => NewPassword);
             }
         }
 
-        public string NewPassword2
+        private string _newPasswordConfirmation;
+        public string NewPasswordConfirmation
         {
-            get => _newPassword2;
+            get => _newPasswordConfirmation;
             set
             {
-                _newPassword2 = value;
-                RaisePropertyChanged(() => NewPassword2);
+                _newPasswordConfirmation = value;
+                RaisePropertyChanged(() => NewPasswordConfirmation);
             }
         }
 
-        public IMvxAsyncCommand PasswordChangedCommand { get; private set; }
+        public IMvxAsyncCommand ChangePasswordCommand { get; private set; }
 
         public override async Task Initialize()
         {
             await base.Initialize();
 
-            _currentUser = await _storage.Retrieve();
-        }
-
-        private bool ConfirmCurrerntPassword()
-        {
-            return CurrentPassword == _currentUser.Password;
-        }
-
-        private bool NewPasswordsEqual()
-        {
-            return NewPassword1 == NewPassword2;
+            _currentUser = await _storage.Get();
         }
 
         private async Task<bool> TryChangePassword()
         {
-            if (!ConfirmCurrerntPassword())
+            if (OldPassword != _currentUser.Password)
             {
-                _dialogsHelper.AlertMessage(Strings.IncorrectCurrentPasswordMessage);
+                _dialogsHelper.DisplayAlertMessage(Strings.IncorrectCurrentPasswordMessage);
                 return false;
             }
 
-            if (!NewPasswordsEqual())
+            if (NewPassword != NewPasswordConfirmation)
             {
-                _dialogsHelper.AlertMessage(Strings.PasswordsNotCorrespondMessage);
+                _dialogsHelper.DisplayAlertMessage(Strings.PasswordsNotCorrespondMessage);
                 return false;
             }
 
-            _currentUser.Password = NewPassword1;
-            bool userIsValid = _validationHelper.ObjectIsValid<User>(_currentUser, nameof(_currentUser.Password));
-            bool validationErrorsEmpty = _validationHelper.ValidationErrors.Count == 0;
-            if (!userIsValid && !validationErrorsEmpty)
+            _currentUser.Password = NewPassword;
+            bool isValid = _validationHelper.ObjectIsValid<User>(_currentUser, nameof(_currentUser.Password));
+            if (!isValid)
             {
-                _currentUser.Password = CurrentPassword;
-                _dialogsHelper.AlertMessage(_validationHelper.ValidationErrors[0].ErrorMessage);
+                _currentUser.Password = OldPassword;
+                string errorMessage = _validationHelper
+                    .ValidationErrors
+                    .FirstOrDefault()
+                    .ErrorMessage;
+                _dialogsHelper.DisplayAlertMessage(errorMessage);
                 return false;
             }
 
@@ -102,7 +95,7 @@ namespace TestProject.Core.ViewModels
             return true;
         }
 
-        private async Task PasswordChanged()
+        private async Task ChangePassword()
         {
             if(!await TryChangePassword())
             {
@@ -111,7 +104,7 @@ namespace TestProject.Core.ViewModels
 
             await _navigationService.Navigate<UserSettingsViewModel>();
             await _navigationService.Close(this);
-            _dialogsHelper.ToastMessage(Strings.PasswordChangedMessage);
+            _dialogsHelper.DisplayToastMessage(Strings.PasswordChangedMessage);
         }
     }
 }

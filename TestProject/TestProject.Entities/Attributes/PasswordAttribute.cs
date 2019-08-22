@@ -9,15 +9,17 @@ namespace TestProject.Entities.Attributes
     [AttributeUsage(AttributeTargets.Property)]
     public class PasswordAttribute : ValidationAttribute
     {
-        private const string InvalidPasswordCharacterPattern = @"\W";
+        private string _invalidPasswordCharacterPattern;
 
-        private const int MinPasswordLength = 6;
+        private int _minPasswordLength;
 
         private readonly string _propeprtyName;
 
-        public PasswordAttribute(string propertyName)
+        public PasswordAttribute(string propertyName, string invalidPasswordCharacterPattern, int minPasswordLength)
         {
             _propeprtyName = propertyName;
+            _invalidPasswordCharacterPattern = invalidPasswordCharacterPattern;
+            _minPasswordLength = minPasswordLength;
         }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -26,13 +28,13 @@ namespace TestProject.Entities.Attributes
 
             var propertyValue = property.GetValue(validationContext.ObjectInstance, null).ToString();
 
-            Regex regex = new Regex(InvalidPasswordCharacterPattern);
+            Regex regex = new Regex(_invalidPasswordCharacterPattern);
             if (regex.IsMatch(propertyValue))
             {
                 return new ValidationResult(Strings.InvalidPasswordFormatMessage);
             }
 
-            if (propertyValue.Length < MinPasswordLength)
+            if (propertyValue.Length < _minPasswordLength)
             {
                 return new ValidationResult(Strings.TooShortPasswordMessage);
             }

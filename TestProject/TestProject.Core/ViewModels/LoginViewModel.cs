@@ -13,11 +13,8 @@ namespace TestProject.Core.ViewModels
 {
     public class LoginViewModel : UserViewModel
     {
-        protected string _userName;
-        protected string _password;
-
         public LoginViewModel(IMvxNavigationService navigationService, IUserRepository userRepository,
-            IStorageHelper<User> userStorage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
+            IUserStorageHelper userStorage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
             : base(navigationService, userStorage, userRepository, validationHelper, dialogsHelper)
         {
             LoginCommand = new MvxAsyncCommand(Login);
@@ -26,6 +23,7 @@ namespace TestProject.Core.ViewModels
             ShowMenuCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MenuViewModel>());
         }
 
+        private string _userName;
         public string UserName
         {
             get => _userName;
@@ -36,6 +34,7 @@ namespace TestProject.Core.ViewModels
             }
         }
 
+        private string _password;
         public string Password
         {
             get => _password;
@@ -54,18 +53,17 @@ namespace TestProject.Core.ViewModels
 
         private async Task Login()
         {
-            var enteredUser = new User { Name = UserName, Password = Password };
-            string query = Queries.GetUserQuery(enteredUser);
-            var userFromDatabase = await _userRepository.FindWithQuery<User>(query);
+            string query = _userRepository.GetUserQuery(UserName, Password);
+            User userFromDatabase = await _userRepository.FindWithQuery(query);
             if (userFromDatabase == null)
             {
-                _dialogsHelper.ToastMessage(Strings.LoginErrorMessage);
+                _dialogsHelper.DisplayToastMessage(Strings.LoginErrorMessage);
                 return;
             }
 
             await _storage.Save(userFromDatabase.Id);
 
-            var result = await _navigationService.Navigate<TodoListItemViewModel>();
+            await _navigationService.Navigate<TodoListItemViewModel>();
         }
     }
 }

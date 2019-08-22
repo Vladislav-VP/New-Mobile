@@ -18,7 +18,7 @@
         android:layout_alignParentLeft="true"
         android:layout_margin="5dp"
         android:text="@string/saveTask"
-        local:MvxBind="Click TodoItemUpdatedCommand"/>
+        local:MvxBind="Click UpdateTodoItemCommand"/>
         <Button
         android:id="@+id/btnDeleteTodoItem"
         android:layout_width="180dp"
@@ -26,7 +26,7 @@
         android:layout_alignParentLeft="true"
         android:layout_margin="5dp"
         android:text="@string/deleteTask"
-        local:MvxBind="Click TodoItemDeletedCommand" />
+        local:MvxBind="Click DeleteTodoItemCommand" />
     </LinearLayout>
 
 </LinearLayout>

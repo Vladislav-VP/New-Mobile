@@ -6,7 +6,7 @@ namespace TestProject.Services.Helpers.Interfaces
     {
         Task Save(int id);
 
-        Task<T> Retrieve();
+        Task<T> Get();
 
         void Clear();
     }

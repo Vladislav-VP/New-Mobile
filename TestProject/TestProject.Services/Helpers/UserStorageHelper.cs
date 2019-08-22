@@ -10,14 +10,14 @@ using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Services.Helpers
 {
-    public class StorageHelper : IStorageHelper<User>
+    public class UserStorageHelper : IUserStorageHelper
     {
         public async Task Save(int id)
         {
             await SecureStorage.SetAsync(Constants.CredentialsKey, id.ToString());
         }
 
-        public async Task<User> Retrieve()
+        public async Task<User> Get()
         {
             var key = await SecureStorage.GetAsync(Constants.CredentialsKey);
             if (key == null)
@@ -25,9 +25,9 @@ namespace TestProject.Services.Helpers
                 return null;
             }
 
-            int id = int.Parse(await SecureStorage.GetAsync(Constants.CredentialsKey));
+            int id = int.Parse(key);
             var userRepository = Mvx.IoCProvider.Resolve<IUserRepository>();
-            return await userRepository.Find<User>(id);
+            return await userRepository.Find(id);
         }
 
         public void Clear()

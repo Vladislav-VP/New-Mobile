@@ -3,7 +3,6 @@ using MvvmCross;
 using MvvmCross.IoC;
 using MvvmCross.ViewModels;
 
-using TestProject.Entities;
 using TestProject.Services.Helpers;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Repositories;
@@ -24,9 +23,12 @@ namespace TestProject.Core
             Mvx.IoCProvider.RegisterSingleton(typeof(IUserRepository), new UserRepository());
             Mvx.IoCProvider.RegisterSingleton(typeof(ITodoItemRepository), new TodoItemRepository());
             Mvx.IoCProvider.RegisterSingleton(typeof(IValidationHelper), new ValidationHelper());
-            Mvx.IoCProvider.RegisterSingleton(typeof(IDialogsHelper), new UserDialogsHelper());
-            Mvx.IoCProvider.RegisterSingleton(typeof(IStorageHelper<User>), new StorageHelper());
-            
+            Mvx.IoCProvider.RegisterSingleton(typeof(IDialogsHelper), new DialogsHelper());
+            Mvx.IoCProvider.RegisterSingleton(typeof(IUserDialogsHelper), new UserDialogsHelper());
+            Mvx.IoCProvider.RegisterSingleton(typeof(IUserStorageHelper), new UserStorageHelper());
+            Mvx.IoCProvider.RegisterSingleton(typeof(IPermissionsHelper), new PermissionsHelper());
+            Mvx.IoCProvider.RegisterSingleton(typeof(IPhotoCaptureHelper), new PhotoCaptureHelper());
+
             Mvx.IoCProvider.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
 
             RegisterCustomAppStart<AppStart>();

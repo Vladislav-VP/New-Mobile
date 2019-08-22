@@ -16,14 +16,17 @@
     
         <Button           
             style="@style/DialogButtonStyle"
+            android:background="@drawable/main_button_shape"
             android:text="@string/label_yes"
             local:MvxBind="Click SaveCommand"/>
         <Button           
             style="@style/DialogButtonStyle"
+            android:background="@drawable/main_button_shape"
             android:text="@string/label_no"
             local:MvxBind="Click DoNotSaveCommand"/>
         <Button           
             style="@style/DialogButtonStyle"
+            android:background="@drawable/main_button_shape"
             android:text="@string/label_cancel"
             local:MvxBind="Click CancelCommand"/>
     </LinearLayout>
