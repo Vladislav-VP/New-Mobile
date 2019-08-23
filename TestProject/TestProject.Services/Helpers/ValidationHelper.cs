@@ -8,7 +8,6 @@ namespace TestProject.Services.Helpers
 {
     public class ValidationHelper : IValidationHelper
     {
-        private ValidationContext _context;
 
         private List<ValidationResult> _validationErrors;
 
@@ -17,26 +16,66 @@ namespace TestProject.Services.Helpers
             get => _validationErrors;
         }
 
-        public bool ObjectIsValid<T>(T obj, string propertyName = null)
+        public bool IsObjectValid<T>(T obj, string propertyName = null)
         {
-            Initialize<T>(obj);
+            bool isValid;
+            var context = new ValidationContext(obj);
+
             if (!string.IsNullOrEmpty(propertyName))
-            {
-                _context.MemberName = propertyName;
+            {                
+                context.MemberName = propertyName;
                 Type type = obj.GetType();
-                var propertyValue = type
+                object propertyValue = type
                     .GetProperty(propertyName)
                     .GetValue(obj);
-                return Validator.TryValidateProperty(propertyValue, _context, _validationErrors);
+
+                try
+                {
+                    Validator.ValidateProperty(propertyValue, context);
+                    isValid = true;
+                }
+                catch (ValidationException)
+                {
+                    isValid = false;
+                }
+
+                return isValid;
             }
 
-            return Validator.TryValidateObject(obj, _context, _validationErrors);
+            try
+            {
+                Validator.ValidateObject(obj, context);
+                isValid = true;
+            }
+            catch (ValidationException)
+            {
+                isValid = false;
+            }
+
+            return isValid;
         }
 
-        private void Initialize<T>(T obj)
+        public ICollection<ValidationResult> ValidateObject<T>(T obj, string propertyName = null)
         {
-            _context = new ValidationContext(obj);
-            _validationErrors = new List<ValidationResult>();
+            var context = new ValidationContext(obj);
+            ICollection<ValidationResult> errors = new List<ValidationResult>();
+
+            if (!string.IsNullOrEmpty(propertyName))
+            {
+                context.MemberName = propertyName;
+                Type type = obj.GetType();
+                object propertyValue = type
+                    .GetProperty(propertyName)
+                    .GetValue(obj);
+                Validator.TryValidateProperty(propertyValue, context, errors);
+
+                return errors;
+            }
+
+            Validator.TryValidateObject(obj, context, errors);
+
+            return errors;
         }
+
     }
 }

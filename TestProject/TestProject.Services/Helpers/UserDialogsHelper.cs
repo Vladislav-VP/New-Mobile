@@ -11,7 +11,7 @@ namespace TestProject.Services.Helpers
 {
     public class UserDialogsHelper : DialogsHelper, IUserDialogsHelper
     {
-        public async Task<EditPhotoDialogResult> ChooseOption()
+        public async Task<EditPhotoDialogResult> ChoosePhotoEditOption()
         {
             string[] buttons =
                 {

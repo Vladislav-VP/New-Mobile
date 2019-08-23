@@ -15,9 +15,9 @@ namespace TestProject.Core.ViewModels
     {
         private User _currentUser;
     
-        public EditPasswordViewModel(IMvxNavigationService navigationService, IUserRepository userRepository,
-            IUserStorageHelper userStorage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
-            : base(navigationService, userStorage, userRepository, validationHelper, dialogsHelper)
+        public EditPasswordViewModel(IMvxNavigationService navigationService, IUserRepository userRepository, IUserStorageHelper storage,
+            IValidationHelper validationHelper, IValidationResultHelper validationResultHelper, IDialogsHelper dialogsHelper)             
+            : base(navigationService, storage, userRepository, validationHelper, validationResultHelper, dialogsHelper)
         {
             ChangePasswordCommand = new MvxAsyncCommand(ChangePassword);
         }
@@ -64,7 +64,7 @@ namespace TestProject.Core.ViewModels
             _currentUser = await _storage.Get();
         }
 
-        private async Task<bool> TryChangePassword()
+        protected override async Task<bool> TryValidateData()
         {
             if (OldPassword != _currentUser.Password)
             {
@@ -79,15 +79,11 @@ namespace TestProject.Core.ViewModels
             }
 
             _currentUser.Password = NewPassword;
-            bool isValid = _validationHelper.ObjectIsValid<User>(_currentUser, nameof(_currentUser.Password));
-            if (!isValid)
+            bool isPasswordValid = _validationHelper.IsObjectValid(_currentUser, nameof(_currentUser.Password));
+            if (!isPasswordValid)
             {
+                _validationResultHelper.HandleValidationResult(_currentUser, nameof(_currentUser.Password));
                 _currentUser.Password = OldPassword;
-                string errorMessage = _validationHelper
-                    .ValidationErrors
-                    .FirstOrDefault()
-                    .ErrorMessage;
-                _dialogsHelper.DisplayAlertMessage(errorMessage);
                 return false;
             }
 
@@ -97,7 +93,8 @@ namespace TestProject.Core.ViewModels
 
         private async Task ChangePassword()
         {
-            if(!await TryChangePassword())
+            bool isPasswordChanged = await TryValidateData();
+            if (!isPasswordChanged)
             {
                 return;
             }

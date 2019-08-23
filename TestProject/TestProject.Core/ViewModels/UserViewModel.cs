@@ -6,23 +6,17 @@ using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
-    public abstract class UserViewModel : BaseViewModel
+    public abstract class UserViewModel : BaseEntityViewModel
     {
         protected readonly IUserRepository _userRepository;
 
-        protected readonly IStorageHelper<User> _userStorage;
+        protected readonly IStorageHelper<User> _userStorage;        
 
-        protected readonly IValidationHelper _validationHelper;
-
-        protected readonly IDialogsHelper _dialogsHelper;
-
-        public UserViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage,
-            IUserRepository userRepository, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
-            : base(navigationService, storage)
+        public UserViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, IUserRepository userRepository,
+             IValidationHelper validationHelper, IValidationResultHelper validationResultHelper, IDialogsHelper dialogsHelper)
+            : base(navigationService, storage, dialogsHelper, validationHelper, validationResultHelper)
         {
             _userRepository = userRepository;
-            _validationHelper = validationHelper;
-            _dialogsHelper = dialogsHelper;
         }
     }
 }

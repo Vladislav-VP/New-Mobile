@@ -1,9 +1,11 @@
 ﻿using System.Threading.Tasks;
 
+using Plugin.Permissions.Abstractions;
+
 namespace TestProject.Services.Helpers.Interfaces
 {
     public interface IPermissionsHelper
     {
-        Task<bool> TryRequestPermissions();
+        Task<bool> TryRequestPermission(Permission permission);
     }
 }

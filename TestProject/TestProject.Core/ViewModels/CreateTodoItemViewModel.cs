@@ -13,9 +13,9 @@ namespace TestProject.Core.ViewModels
     public class CreateTodoItemViewModel : TodoItemViewModel
     {
 
-        public CreateTodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage,
-            IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
-            : base(navigationService, storage, validationHelper, todoItemRepository, dialogsHelper)
+        public CreateTodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, IValidationHelper validationHelper,
+            IValidationResultHelper validationResultHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
+            : base(navigationService, storage, validationHelper, validationResultHelper, todoItemRepository, dialogsHelper)
         {
             CreateTodoItemCommand = new MvxAsyncCommand(CreateTodoItem);
         }
@@ -24,17 +24,9 @@ namespace TestProject.Core.ViewModels
         
         protected async override Task GoBack()
         {
-            DialogResult result = await _navigationService.Navigate<CancelDialogViewModel, DialogResult>();
+            await base.GoBack();
 
-            if (result == DialogResult.Cancel)
-            {
-                return;
-            }
-            if (result == DialogResult.No)
-            {
-                await _navigationService.Navigate<TodoListItemViewModel>();
-                return;
-            }
+            DialogResult result = await _navigationService.Navigate<CancelDialogViewModel, DialogResult>();
             if (result == DialogResult.Yes)
             {
                 await CreateTodoItem();
@@ -42,15 +34,12 @@ namespace TestProject.Core.ViewModels
             }
         }
 
+
         private async Task CreateTodoItem()
         {
-            TodoItem todoItem = new TodoItem { Name = Name };
-
-            bool todoItemIsValid = _validationHelper.ObjectIsValid<TodoItem>(todoItem);
-            bool validationErrorsEmpty = _validationHelper.ValidationErrors.Count == 0;
-            if (!todoItemIsValid && !validationErrorsEmpty)
+            bool isTodoItemValid = await TryValidateData();
+            if (!isTodoItemValid)
             {
-                _dialogsHelper.DisplayToastMessage(_validationHelper.ValidationErrors[0].ErrorMessage);
                 return;
             }
 
@@ -70,5 +59,7 @@ namespace TestProject.Core.ViewModels
             };
             await _todoItemRepository.Insert(todoItem);
         }
+
+
     }
 }

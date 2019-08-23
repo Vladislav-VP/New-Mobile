@@ -19,7 +19,7 @@ namespace TestProject.Droid.Activities
     [Activity(Label = "Task list", 
         Theme = "@style/AppTheme", 
         LaunchMode = LaunchMode.SingleTop, 
-        Name = "testProject.droid.views.MainActivity")]
+        Name = "testProject.droid.activities.MainActivity")]
     public class MainActivity : MvxAppCompatActivity<MainViewModel>
     {
         public DrawerLayout DrawerLayout { get; set; }

@@ -13,13 +13,15 @@ namespace TestProject.Core.ViewModels
 {
     public class UserSettingsViewModel : UserViewModel
     {
+        // TODO: Fix validation logic in UserSettingsViewModel
+
         private User _currentUser;
 
         protected string _userName;
 
         public UserSettingsViewModel(IMvxNavigationService navigationService, IUserRepository userRepository,
-            IUserStorageHelper userStorage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
-            : base(navigationService, userStorage, userRepository, validationHelper, dialogsHelper)
+            IUserStorageHelper userStorage, IValidationResultHelper validationResultHelper, IDialogsHelper dialogsHelper)
+            : base(navigationService, userStorage, userRepository, validationResultHelper, dialogsHelper)
         {
             UpdateUserCommand = new MvxAsyncCommand(UpdateUser);
             DeleteUserCommand = new MvxAsyncCommand(DeleteUser);
@@ -54,17 +56,9 @@ namespace TestProject.Core.ViewModels
 
         protected override async Task GoBack()
         {
-            DialogResult result = await _navigationService.Navigate<CancelDialogViewModel, DialogResult>();
+            await base.GoBack();
 
-            if (result == DialogResult.Cancel)
-            {
-                return;
-            }
-            if (result == DialogResult.No)
-            {
-                await _navigationService.Navigate<TodoListItemViewModel>();
-                return;
-            }
+            DialogResult result = await _navigationService.Navigate<CancelDialogViewModel, DialogResult>();
             if (result == DialogResult.Yes)
             {
                 await UpdateUser();
@@ -78,14 +72,14 @@ namespace TestProject.Core.ViewModels
             UserName = UserName.Trim();
 
             _currentUser.Name = UserName;
-            bool userIsValid = _validationHelper.ObjectIsValid<User>(_currentUser, nameof(_currentUser.Name));
-            bool validationErrorsEmpty = _validationHelper.ValidationErrors.Count == 0;
-            if (!userIsValid && !validationErrorsEmpty)
-            {
-                _currentUser.Name = currentUserName;
-                _dialogsHelper.DisplayToastMessage(_validationHelper.ValidationErrors[0].ErrorMessage);
-                return false;
-            }
+            //bool userIsValid = _validationHelper.IsObjectValid<User>(_currentUser, nameof(_currentUser.Name));
+            //bool validationErrorsEmpty = _validationHelper.ValidationErrors.Count == 0;
+            //if (!userIsValid && !validationErrorsEmpty)
+            //{
+            //    _currentUser.Name = currentUserName;
+            //    _dialogsHelper.DisplayToastMessage(_validationHelper.ValidationErrors[0].ErrorMessage);
+            //    return false;
+            //}
 
             string query = _userRepository.GetUserQuery(UserName);
             User userFromDataBase = await _userRepository.FindWithQuery(query);
@@ -125,6 +119,11 @@ namespace TestProject.Core.ViewModels
             _storage.Clear();
 
             await _navigationService.Navigate<LoginViewModel>();
+        }
+
+        protected override Task<bool> TryValidateData()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

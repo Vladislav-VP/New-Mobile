@@ -6,16 +6,17 @@ using MvvmCross.Navigation;
 using TestProject.Entities;
 using TestProject.Resources;
 using TestProject.Services.Helpers.Interfaces;
-using TestProject.Services.Repositories;
 using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
     public class LoginViewModel : UserViewModel
     {
-        public LoginViewModel(IMvxNavigationService navigationService, IUserRepository userRepository,
-            IUserStorageHelper userStorage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
-            : base(navigationService, userStorage, userRepository, validationHelper, dialogsHelper)
+        private User _currentUser;
+
+        public LoginViewModel(IMvxNavigationService navigationService, IUserRepository userRepository, IUserStorageHelper storage,
+             IValidationHelper validationHelper, IValidationResultHelper validationResultHelper, IDialogsHelper dialogsHelper)
+            : base(navigationService, storage, userRepository, validationHelper, validationResultHelper, dialogsHelper)
         {
             LoginCommand = new MvxAsyncCommand(Login);
             ShowRegistrationScreenCommand = new MvxAsyncCommand(async ()
@@ -51,18 +52,23 @@ namespace TestProject.Core.ViewModels
 
         public IMvxAsyncCommand ShowMenuCommand { get; private set; }
 
-        private async Task Login()
+        protected override async Task<bool> TryValidateData()
         {
             string query = _userRepository.GetUserQuery(UserName, Password);
-            User userFromDatabase = await _userRepository.FindWithQuery(query);
-            if (userFromDatabase == null)
+            _currentUser = await _userRepository.FindWithQuery(query);
+            return _currentUser != null;
+        }
+
+        private async Task Login()
+        {
+            bool isUserDataValid = await TryValidateData();
+            if (isUserDataValid)
             {
                 _dialogsHelper.DisplayToastMessage(Strings.LoginErrorMessage);
                 return;
             }
 
-            await _storage.Save(userFromDatabase.Id);
-
+            await _storage.Save(_currentUser.Id);
             await _navigationService.Navigate<TodoListItemViewModel>();
         }
     }

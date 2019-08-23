@@ -12,9 +12,9 @@ namespace TestProject.Core.ViewModels
 {
     public class RegistrationViewModel : UserViewModel
     {
-        public RegistrationViewModel(IMvxNavigationService navigationService, IUserRepository userRepository,
-            IUserStorageHelper userStorage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
-            : base(navigationService, userStorage, userRepository, validationHelper, dialogsHelper)
+        public RegistrationViewModel(IMvxNavigationService navigationService, IUserRepository userRepository, IUserStorageHelper storage,
+             IValidationHelper validationHelper, IValidationResultHelper validationResultHelper, IDialogsHelper dialogsHelper)
+            : base(navigationService, storage, userRepository, validationHelper, validationResultHelper, dialogsHelper)
         {
             RegisterUserCommand = new MvxAsyncCommand(RegisterUser);
         }
@@ -43,17 +43,17 @@ namespace TestProject.Core.ViewModels
 
         public IMvxAsyncCommand RegisterUserCommand { get; private set; }
 
-        private async Task RegisterUser()
+        protected override async Task<bool> TryValidateData()
         {
             User enteredUser = new User { Name = UserName, Password = Password };
 
-            bool userIsValid = _validationHelper.ObjectIsValid<User>(enteredUser, nameof(enteredUser.Name)) 
-                && _validationHelper.ObjectIsValid<User>(enteredUser, nameof(enteredUser.Password));
-            bool validationErrorsEmpty = _validationHelper.ValidationErrors.Count == 0;
-            if (!userIsValid && !validationErrorsEmpty)
+            bool isUserDataValid = _validationHelper.IsObjectValid(enteredUser, nameof(enteredUser.Name))
+                && _validationHelper.IsObjectValid(enteredUser, nameof(enteredUser.Password));
+            if (!isUserDataValid)
             {
-                _dialogsHelper.DisplayToastMessage(_validationHelper.ValidationErrors[0].ErrorMessage);
-                return;
+                _validationResultHelper.HandleValidationResult(enteredUser, nameof(enteredUser.Name));
+                _validationResultHelper.HandleValidationResult(enteredUser, nameof(enteredUser.Password));
+                return false;
             }
 
             enteredUser.Name = enteredUser.Name.Trim();
@@ -62,6 +62,17 @@ namespace TestProject.Core.ViewModels
             if (userFromDataBase != null)
             {
                 _dialogsHelper.DisplayToastMessage(Strings.UserAlreadyExistsMessage);
+                return false;
+            }
+
+            return true;
+        }
+
+        private async Task RegisterUser()
+        {
+            bool isUserValid = await TryValidateData();
+            if (!isUserValid)
+            {
                 return;
             }
 

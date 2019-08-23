@@ -1,4 +1,5 @@
-﻿using MvvmCross.Navigation;
+﻿using System.Threading.Tasks;
+using MvvmCross.Navigation;
 
 using TestProject.Entities;
 using TestProject.Services.Helpers.Interfaces;
@@ -6,26 +7,19 @@ using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
-    public abstract class TodoItemViewModel : BaseViewModel
+    public abstract class TodoItemViewModel : BaseEntityViewModel
     {
-        protected readonly IDialogsHelper _dialogsHelper;
-
-        protected readonly IValidationHelper _validationHelper;
-
         protected readonly ITodoItemRepository _todoItemRepository;
 
-        public TodoItemViewModel(IMvxNavigationService navigationService,  IValidationHelper validationHelper,
-            ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
-            : this(navigationService, null, validationHelper, todoItemRepository, dialogsHelper) { }
+        public TodoItemViewModel(IMvxNavigationService navigationService, IValidationHelper validationHelper,
+            IValidationResultHelper validationResultHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
+            : this(navigationService, null, validationHelper, validationResultHelper, todoItemRepository, dialogsHelper) { }
 
-        public TodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage,
-            IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
-            : base(navigationService, storage)
+        public TodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, IValidationHelper validationHelper,
+            IValidationResultHelper validationResultHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
+            : base(navigationService, storage, dialogsHelper, validationHelper, validationResultHelper)
         {
             _todoItemRepository = todoItemRepository;
-            _validationHelper = validationHelper;
-
-            _dialogsHelper = dialogsHelper;
         }
 
         protected string _name;
@@ -59,6 +53,18 @@ namespace TestProject.Core.ViewModels
                 _isDone = value;
                 RaisePropertyChanged(() => IsDone);
             }
+        }
+
+        protected override async Task<bool> TryValidateData()
+        {
+            var todoItem = new TodoItem { Name = Name, Description = Description, IsDone = IsDone };
+            bool isTodoItemValid = _validationHelper.IsObjectValid<TodoItem>(todoItem);
+            if (!isTodoItemValid)
+            {
+                _validationResultHelper.HandleValidationResult(todoItem);
+                return false;
+            }
+            return true;
         }
     }
 }

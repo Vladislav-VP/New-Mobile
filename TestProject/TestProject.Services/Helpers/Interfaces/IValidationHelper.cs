@@ -6,6 +6,9 @@ namespace TestProject.Services.Helpers.Interfaces
     public interface IValidationHelper
     {
         List<ValidationResult> ValidationErrors { get; }
-        bool ObjectIsValid<T>(T obj, string propertyName = null);
+
+        bool IsObjectValid<T>(T obj, string propertyName = null);
+
+        ICollection<ValidationResult> ValidateObject<T>(T obj, string propertyName = null);
     }
 }

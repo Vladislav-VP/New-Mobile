@@ -13,7 +13,7 @@ namespace TestProject.Droid.Activities
     [Activity(Label = "Log in",
         Theme = "@style/AppTheme",
         LaunchMode = LaunchMode.SingleTop,
-        Name = "testProject.droid.views.LoginActivity")]
+        Name = "testProject.droid.activities.LoginActivity")]
     public class LoginActivity : MvxAppCompatActivity<LoginViewModel>
     {
         protected override void OnCreate(Bundle bundle)

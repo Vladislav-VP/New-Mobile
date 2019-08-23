@@ -73,7 +73,7 @@ namespace TestProject.Droid.Fragments
                     ViewModel.ShowListTodoItemsViewModelCommand.Execute(null);
                     break;
                 case Resource.Id.nav_logout:
-                    ViewModel.ShowLoginViewModelCommand.Execute(null);
+                    ViewModel.LogoutCommand.Execute(null);
                     break;
             }
         }

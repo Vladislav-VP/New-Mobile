@@ -1,11 +1,7 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
-using Plugin.Media;
-using Plugin.Media.Abstractions;
 
 using TestProject.Entities;
 using TestProject.Services.Enums;
@@ -18,24 +14,21 @@ namespace TestProject.Core.ViewModels
     {
         private User _currentUser;
 
-        private readonly IPermissionsHelper _permissionsHelper;
-
         private readonly IUserRepository _userRepository;
 
-        private readonly IUserDialogsHelper _dialogsHelper;
+        private readonly IUserDialogsHelper _userDialogsHelper;
 
-        private readonly IPhotoCaptureHelper _photoHelper;
+        private readonly IPhotoEditHelper _photoEditHelper;
         
-        public MenuViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, IPhotoCaptureHelper photoHelper,
-            IUserRepository userRepository, IUserDialogsHelper dialogsHelper, IPermissionsHelper permissionsHelper)
+        public MenuViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage,
+            IUserRepository userRepository, IUserDialogsHelper userDialogsHelper, IPhotoEditHelper photoEditHelper)
             : base(navigationService, storage)
         {
             _userRepository = userRepository;
-            _dialogsHelper = dialogsHelper;
-            _permissionsHelper = permissionsHelper;
-            _photoHelper = photoHelper;
+            _userDialogsHelper = userDialogsHelper;
+            _photoEditHelper = photoEditHelper;
 
-            ShowLoginViewModelCommand = new MvxAsyncCommand(Logout);
+            LogoutCommand = new MvxAsyncCommand(Logout);
             ShowUserInfoViewModelCommand = new MvxAsyncCommand(async 
                 () => await _navigationService.Navigate<UserSettingsViewModel>());
             ShowListTodoItemsViewModelCommand = 
@@ -65,7 +58,7 @@ namespace TestProject.Core.ViewModels
             }
         }
 
-        public IMvxAsyncCommand ShowLoginViewModelCommand { get; private set; }
+        public IMvxAsyncCommand LogoutCommand { get; private set; }
 
         public IMvxAsyncCommand ShowUserInfoViewModelCommand { get; private set; }
 
@@ -91,64 +84,17 @@ namespace TestProject.Core.ViewModels
 
         private async Task EditProfilePhoto()
         {
-            EditPhotoDialogResult result = await _dialogsHelper.ChooseOption();
-            await HandleChangePhotoResult(result);
-        }
+            EditPhotoDialogResult result = await _userDialogsHelper.ChoosePhotoEditOption();
 
-        private async Task HandleChangePhotoResult(EditPhotoDialogResult result)
-        {
-            Stream imageStream = await GetImageStream(result);
-
-            if (imageStream != null)
+            if (result == EditPhotoDialogResult.Cancel)
             {
-                EncryptedProfilePhoto = GetEncryptedString(imageStream);
-                imageStream.Close();
+                return;
             }
 
-            _currentUser.EncryptedProfilePhoto = EncryptedProfilePhoto;
+            _currentUser.EncryptedProfilePhoto = await _photoEditHelper.ReplacePhoto(result);
+
             await _userRepository.Update(_currentUser);
-            // TODO: Correcrt issue with navigation to menu (profile photo is not updated after being deleted).
             await _navigationService.Navigate<MenuViewModel>();
-        }
-
-        private async Task<Stream> GetImageStream(EditPhotoDialogResult result)
-        {
-            Stream imageStream = null;
-
-            switch (result)
-            {
-                case EditPhotoDialogResult.ChooseFromGallery:
-                    MediaFile pickedPhoto = await _photoHelper.PickPhoto();
-                    imageStream = pickedPhoto.GetStream();
-                    break;
-                case EditPhotoDialogResult.TakePicture:
-                    bool arePermissionsGranted = await _permissionsHelper.TryRequestPermissions();
-                    if (arePermissionsGranted)
-                    {
-                        MediaFile takenPhoto = await _photoHelper.TakePhoto();
-                        imageStream = takenPhoto.GetStream();
-                    }
-                    break;
-                case EditPhotoDialogResult.DeletePicture:
-                    EncryptedProfilePhoto = null;
-                    break;
-            }
-
-            return imageStream;
-        }
-        
-        private string GetEncryptedString(Stream imageStream)
-        {
-            string encryptedString = null;
-
-            using (var memoryStream = new MemoryStream())
-            {
-                imageStream.CopyTo(memoryStream);
-                byte[] decryptedImageString = memoryStream.ToArray();
-                encryptedString = Convert.ToBase64String(decryptedImageString);
-            }
-
-            return encryptedString;
         }
     }
 }

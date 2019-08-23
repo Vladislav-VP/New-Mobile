@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using Plugin.Media;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 
@@ -11,24 +10,24 @@ namespace TestProject.Services.Helpers
 {
     public class PermissionsHelper : IPermissionsHelper
     {
-        public async Task<bool> TryRequestPermissions()
+        public async Task<bool> TryRequestPermission(Permission permission)
         {
-            await CrossMedia.Current.Initialize();
-            PermissionStatus cameraStatus =
-                await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
-            PermissionStatus storageStatus =
-                await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
-
-            if (cameraStatus != PermissionStatus.Granted || storageStatus != PermissionStatus.Granted)
+            PermissionStatus status =
+                await CrossPermissions.Current.CheckPermissionStatusAsync(permission);
+            if (status != PermissionStatus.Granted)
             {
-                Dictionary<Permission, PermissionStatus> permissionsDictionary = await CrossPermissions
-                    .Current
-                    .RequestPermissionsAsync(Permission.Camera, Permission.Storage);
-                cameraStatus = permissionsDictionary[Permission.Camera];
-                storageStatus = permissionsDictionary[Permission.Storage];
+                status = await GetPermission(permission);
             }
 
-            return cameraStatus == PermissionStatus.Granted && storageStatus == PermissionStatus.Granted;
+            return status == PermissionStatus.Granted;
+        }
+
+        private async Task<PermissionStatus> GetPermission(Permission permission)
+        {
+            Dictionary<Permission, PermissionStatus> permissionsDictionary = await CrossPermissions
+                    .Current
+                    .RequestPermissionsAsync(permission);
+            return permissionsDictionary[permission];
         }
     }
 }

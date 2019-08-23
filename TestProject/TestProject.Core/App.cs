@@ -27,7 +27,10 @@ namespace TestProject.Core
             Mvx.IoCProvider.RegisterSingleton(typeof(IUserDialogsHelper), new UserDialogsHelper());
             Mvx.IoCProvider.RegisterSingleton(typeof(IUserStorageHelper), new UserStorageHelper());
             Mvx.IoCProvider.RegisterSingleton(typeof(IPermissionsHelper), new PermissionsHelper());
+            Mvx.IoCProvider.RegisterSingleton(typeof(IEncryptionHelper), new EncryptionHelper());
             Mvx.IoCProvider.RegisterSingleton(typeof(IPhotoCaptureHelper), new PhotoCaptureHelper());
+            Mvx.IoCProvider.RegisterSingleton(typeof(IPhotoEditHelper), new PhotoEditHelper());
+            Mvx.IoCProvider.RegisterSingleton(typeof(IValidationResultHelper), new ValidationResultHelper());
 
             Mvx.IoCProvider.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
 
