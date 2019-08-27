@@ -13,6 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="ControlsLabels.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ControlsLabels.resx</DependentUpon>
+    </Compile>
     <Compile Update="Strings.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -21,6 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="ControlsLabels.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ControlsLabels.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>

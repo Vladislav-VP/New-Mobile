@@ -18,11 +18,24 @@ namespace TestProject.Droid.Fragments
         {
             View view = base.OnCreateView(inflater, container, savedInstanceState);
 
-            TextView tvPasswordTip = view.FindViewById<TextView>(Resource.Id.tvPasswordTip);
-            tvPasswordTip.Text =
-                $"{Strings.PasswordTipFirst} {Constants.MinPasswordLength} {Strings.PasswordTipSecond}";
+            InitializeAllControls(view);
 
             return view;
+        }
+
+        protected override void InitializeAllControls(View view)
+        {
+            TextView tvUsername = view.FindViewById<TextView>(Resource.Id.tvUsername);
+            TextView tvPassword = view.FindViewById<TextView>(Resource.Id.tvPassword);
+            TextView tvPasswordTip = view.FindViewById<TextView>(Resource.Id.tvPasswordTip);
+            Button btRegister = view.FindViewById<Button>(Resource.Id.btRegister);
+
+            _controlInitializingHelper.SignControl(tvUsername, ControlsLabels.UsernameTextViewLabel);
+            _controlInitializingHelper.SignControl(tvPassword, ControlsLabels.PasswordTextViewLabel);
+            _controlInitializingHelper.SignControl(btRegister, ControlsLabels.RegistrationButtonLabel);
+            string tvPasswordTipLabel =
+                $"{Strings.PasswordTipFirst} {Constants.MinPasswordLength} {Strings.PasswordTipSecond}";
+            _controlInitializingHelper.SignControl(tvPasswordTip, tvPasswordTipLabel);
         }
     }
 }

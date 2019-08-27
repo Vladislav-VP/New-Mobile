@@ -77,9 +77,10 @@
   <style name="DialogButtonStyle">
     <item name="android:layout_marginHorizontal">@dimen/compat_button_padding_horizontal_material</item>
     <item name="android:layout_marginVertical">@dimen/compat_button_padding_horizontal_material</item>
-    <item name="android:layout_width">100dp</item>
+    <item name="android:layout_width">@dimen/dialog_button_width</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:textSize">15dp</item>
+    <item name="android:background">@drawable/main_button_shape</item>
   </style>
   
 </resources>

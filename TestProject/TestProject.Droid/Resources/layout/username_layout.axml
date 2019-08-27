@@ -8,8 +8,8 @@
     android:layout_marginHorizontal="@dimen/compat_button_padding_horizontal_material">
 
     <TextView
+        android:id="@+id/tvUserNameSettings"
         style="@style/LabelStyle"
-        android:text="@string/usernameText"
         android:textColor="@android:color/background_dark" />
     <EditText
         android:id="@+id/etNewUsername"

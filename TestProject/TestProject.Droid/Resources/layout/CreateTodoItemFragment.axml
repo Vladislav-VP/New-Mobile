@@ -10,7 +10,7 @@
         layout="@layout/todoitemtemplate"/>
 
     <Button
-        android:id="@+id/btnCreate"
+        android:id="@+id/btCreate"
         android:layout_width="188dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"

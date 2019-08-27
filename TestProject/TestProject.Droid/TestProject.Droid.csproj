@@ -45,6 +45,7 @@
     <AndroidLinkTool>proguard</AndroidLinkTool>
     <DocumentationFile>
     </DocumentationFile>
+    <AndroidCreatePackagePerAbi>true</AndroidCreatePackagePerAbi>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -71,7 +72,11 @@
   <ItemGroup>
     <Compile Include="Converters\ImageValueConverter.cs" />
     <Compile Include="Helpers\BitmapConvertionHelper.cs" />
+    <Compile Include="Helpers\ControlInitializingHelper.cs" />
+    <Compile Include="Helpers\Interfaces\IControlInitializingHelper.cs" />
     <Compile Include="Helpers\Interfaces\IBitmapConvertionHelper.cs" />
+    <Compile Include="Helpers\Interfaces\ILayoutInitializingHelper.cs" />
+    <Compile Include="Helpers\LayoutInitializingHelper.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Providers\ContextProvider.cs" />
     <Compile Include="Providers\Interfaces\IContextProvider.cs" />

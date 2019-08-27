@@ -30,5 +30,10 @@ namespace TestProject.Droid.Fragments
 
             return view;
         }
+
+        protected override void InitializeAllControls(View view)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

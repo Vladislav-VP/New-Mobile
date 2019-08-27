@@ -12,7 +12,7 @@
     <Button
         style="@style/ButtonStyle1"
         android:id="@+id/btLogin"
-        android:text="@string/loginText"
+        
         android:background="@drawable/main_button_shape"
         local:MvxBind="Click LoginCommand"/>
 
@@ -23,15 +23,16 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="50dp">
         <TextView
+            android:id="@+id/tvWithoutAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:text="@string/accountText"
             android:textColor="@android:color/background_light"
             android:textSize="30dp"/>
         <Button
+            android:id="@+id/btGoToRegistration"
+            
             style="@style/ButtonStyle1"      
-            android:text="@string/label_register_text"
             android:background="@drawable/main_button_shape"
             local:MvxBind="Click ShowRegistrationScreenCommand"/>
     </LinearLayout>

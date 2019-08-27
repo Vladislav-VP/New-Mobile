@@ -14,8 +14,8 @@
         <include
         layout="@layout/user_info_layout"/>
         <Button
+            android:id="@+id/btRegister"
             style="@style/ButtonStyle1"
-            android:text="@string/label_register_text"
             android:background="@drawable/main_button_shape"
             local:MvxBind="Click RegisterUserCommand"/>   
     </LinearLayout>
