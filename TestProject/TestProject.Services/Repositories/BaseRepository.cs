@@ -1,8 +1,8 @@
-﻿using SQLite;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
+using SQLite;
 
 using TestProject.Configurations;
 using TestProject.Entities;
@@ -26,7 +26,7 @@ namespace TestProject.Services.Repositories
             var connection = new SQLiteAsyncConnection(_path);
             try
             {
-                var result = await connection.InsertAsync(obj, obj.GetType());
+                int result = await connection.InsertAsync(obj, obj.GetType());
                 return true;              
             }
             catch (SQLiteException)

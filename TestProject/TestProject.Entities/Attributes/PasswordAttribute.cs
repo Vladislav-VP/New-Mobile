@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 using TestProject.Resources;
@@ -24,9 +25,9 @@ namespace TestProject.Entities.Attributes
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var property = validationContext.ObjectType.GetProperty(_propeprtyName);
+            PropertyInfo property = validationContext.ObjectType.GetProperty(_propeprtyName);
 
-            var propertyValue = property.GetValue(validationContext.ObjectInstance, null).ToString();
+            string propertyValue = property.GetValue(validationContext.ObjectInstance, null).ToString();
 
             Regex regex = new Regex(_invalidPasswordCharacterPattern);
             if (regex.IsMatch(propertyValue))

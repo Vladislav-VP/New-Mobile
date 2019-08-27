@@ -4,7 +4,7 @@ using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 
-using TestProject.Core.ViewModelResults;
+using TestProject.Core.Enums;
 
 namespace TestProject.Core.ViewModels
 {
@@ -31,19 +31,19 @@ namespace TestProject.Core.ViewModels
         private async Task Save()
         {
             _dialogResult = DialogResult.Yes;
-            await _navigationService.Close<DialogResult>(this, _dialogResult);
+            await _navigationService.Close(this, _dialogResult);
         }
 
         private async Task DoNotSave()
         {
             _dialogResult = DialogResult.No;
-            await _navigationService.Close<DialogResult>(this, _dialogResult);
+            await _navigationService.Close(this, _dialogResult);
         }
 
         private async Task Cancel()
         {
             _dialogResult = DialogResult.Cancel;
-            await _navigationService.Close<DialogResult>(this, _dialogResult);
+            await _navigationService.Close(this, _dialogResult);
         }
     }
 }

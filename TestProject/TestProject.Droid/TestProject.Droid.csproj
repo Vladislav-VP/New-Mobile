@@ -70,6 +70,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\ImageValueConverter.cs" />
+    <Compile Include="Helpers\BitmapConvertionHelper.cs" />
+    <Compile Include="Helpers\Interfaces\IBitmapConvertionHelper.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Providers\ContextProvider.cs" />
     <Compile Include="Providers\Interfaces\IContextProvider.cs" />

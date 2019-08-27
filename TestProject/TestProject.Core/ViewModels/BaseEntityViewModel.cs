@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
+
 using MvvmCross.Navigation;
-using TestProject.Core.ViewModelResults;
+
+using TestProject.Core.Enums;
 using TestProject.Services.Helpers.Interfaces;
 
 namespace TestProject.Core.ViewModels
@@ -24,10 +26,8 @@ namespace TestProject.Core.ViewModels
 
         protected abstract Task<bool> TryValidateData();
 
-        protected override async Task GoBack()
+        protected virtual async Task HandleDialogResult(DialogResult result)
         {
-            DialogResult result = await _navigationService.Navigate<CancelDialogViewModel, DialogResult>();
-
             if (result == DialogResult.Cancel)
             {
                 return;

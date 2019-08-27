@@ -47,8 +47,8 @@ namespace TestProject.Core.ViewModels
         {
             User enteredUser = new User { Name = UserName, Password = Password };
 
-            bool isUserDataValid = _validationHelper.IsObjectValid(enteredUser, nameof(enteredUser.Name))
-                && _validationHelper.IsObjectValid(enteredUser, nameof(enteredUser.Password));
+            bool isUserDataValid = _validationHelper.TryValidateObject(enteredUser, nameof(enteredUser.Name))
+                && _validationHelper.TryValidateObject(enteredUser, nameof(enteredUser.Password));
             if (!isUserDataValid)
             {
                 _validationResultHelper.HandleValidationResult(enteredUser, nameof(enteredUser.Name));
@@ -61,7 +61,7 @@ namespace TestProject.Core.ViewModels
             User userFromDataBase = await _userRepository.FindWithQuery(query);
             if (userFromDataBase != null)
             {
-                _dialogsHelper.DisplayToastMessage(Strings.UserAlreadyExistsMessage);
+                _dialogsHelper.DisplayAlertMessage(Strings.UserAlreadyExistsMessage);
                 return false;
             }
 

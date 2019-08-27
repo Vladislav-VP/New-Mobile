@@ -17,7 +17,7 @@ namespace TestProject.Droid.Fragments
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            var view = base.OnCreateView(inflater, container, savedInstanceState);
+            View view = base.OnCreateView(inflater, container, savedInstanceState);
 
             ((MainActivity)Activity).DrawerLayout.SetDrawerLockMode(DrawerLayout.LockModeLockedClosed);
 

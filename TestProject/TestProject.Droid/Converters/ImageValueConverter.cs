@@ -3,10 +3,9 @@ using System.Globalization;
 
 using Android.Content;
 using Android.Graphics;
-using Android.Util;
 using MvvmCross;
 using MvvmCross.Converters;
-
+using TestProject.Droid.Helpers.Interfaces;
 using TestProject.Droid.Providers.Interfaces;
 
 namespace TestProject.Droid.Converters
@@ -17,11 +16,11 @@ namespace TestProject.Droid.Converters
         {
             if (!string.IsNullOrEmpty(encodedImage))
             {
-                byte[] decodedString = Base64.Decode(encodedImage, Base64Flags.Default);
+                IBitmapConvertionHelper bitmapConvertionHelper = Mvx.IoCProvider.Resolve<IBitmapConvertionHelper>();
 
-                Bitmap decodedBytes = BitmapFactory.DecodeByteArray(decodedString, 0, decodedString.Length);
+                Bitmap bitmap = bitmapConvertionHelper.DecryptBitmap(encodedImage);
 
-                return decodedBytes;
+                return bitmap;
             }
 
             IContextProvider contextProvider = Mvx.IoCProvider.Resolve<IContextProvider>();

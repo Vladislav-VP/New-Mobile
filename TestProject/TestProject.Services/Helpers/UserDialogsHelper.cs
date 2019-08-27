@@ -19,16 +19,17 @@ namespace TestProject.Services.Helpers
                     Strings.TakePicture
                 };
 
-            Dictionary<string, EditPhotoDialogResult> keyValuePairs = new Dictionary<string, EditPhotoDialogResult>();
-            keyValuePairs.Add(Strings.CancelText, EditPhotoDialogResult.Cancel);
-            keyValuePairs.Add(Strings.ChoosePicture, EditPhotoDialogResult.ChooseFromGallery);
-            keyValuePairs.Add(Strings.TakePicture, EditPhotoDialogResult.TakePicture);
-            keyValuePairs.Add(Strings.DeletePicture, EditPhotoDialogResult.DeletePicture);
+            Dictionary<string, EditPhotoDialogResult> messageOptionPairs = 
+                new Dictionary<string, EditPhotoDialogResult>();
+            messageOptionPairs.Add(Strings.CancelText, EditPhotoDialogResult.Cancel);
+            messageOptionPairs.Add(Strings.ChoosePicture, EditPhotoDialogResult.ChooseFromGallery);
+            messageOptionPairs.Add(Strings.TakePicture, EditPhotoDialogResult.TakePicture);
+            messageOptionPairs.Add(Strings.DeletePicture, EditPhotoDialogResult.DeletePicture);
 
-            var result = await UserDialogs.Instance.ActionSheetAsync(Strings.ProfilePhotoTitle,
+            string result = await UserDialogs.Instance.ActionSheetAsync(Strings.ProfilePhotoTitle,
                 Strings.CancelText, Strings.DeletePicture, buttons: buttons);
 
-            return keyValuePairs[result];
+            return messageOptionPairs[result];
         }
     }
 }

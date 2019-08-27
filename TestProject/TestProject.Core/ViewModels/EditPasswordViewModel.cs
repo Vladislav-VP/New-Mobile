@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
@@ -79,7 +78,7 @@ namespace TestProject.Core.ViewModels
             }
 
             _currentUser.Password = NewPassword;
-            bool isPasswordValid = _validationHelper.IsObjectValid(_currentUser, nameof(_currentUser.Password));
+            bool isPasswordValid = _validationHelper.TryValidateObject(_currentUser, nameof(_currentUser.Password));
             if (!isPasswordValid)
             {
                 _validationResultHelper.HandleValidationResult(_currentUser, nameof(_currentUser.Password));
@@ -93,8 +92,8 @@ namespace TestProject.Core.ViewModels
 
         private async Task ChangePassword()
         {
-            bool isPasswordChanged = await TryValidateData();
-            if (!isPasswordChanged)
+            bool isPasswordValid = await TryValidateData();
+            if (!isPasswordValid)
             {
                 return;
             }

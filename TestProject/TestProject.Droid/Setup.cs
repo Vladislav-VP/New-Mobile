@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 
-using Android.Graphics;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Widget;
 using Android.Widget;
+using MvvmCross;
 using MvvmCross.Binding.Bindings.Target.Construction;
 using MvvmCross.Converters;
 using MvvmCross.Droid.Support.V7.AppCompat;
@@ -13,6 +13,8 @@ using MvvmCross.Platforms.Android.Presenters;
 
 using TestProject.Core;
 using TestProject.Droid.Converters;
+using TestProject.Droid.Helpers;
+using TestProject.Droid.Helpers.Interfaces;
 
 namespace TestProject.Droid
 {
@@ -27,17 +29,6 @@ namespace TestProject.Droid
             typeof(NavigationView).Assembly,
             typeof(BottomNavigationView).Assembly
         };
-
-        protected override IEnumerable<Assembly> ValueConverterAssemblies
-        {
-            get
-            {
-                var toReturn = base.ValueConverterAssemblies as IList<Assembly>;
-                toReturn.Add(typeof(MvxValueConverter<string, Bitmap>).Assembly);
-                toReturn.Add(typeof(ImageValueConverter).Assembly);
-                return (IEnumerable<Assembly>)toReturn;
-            }
-        }
 
         protected override void FillValueConverters(IMvxValueConverterRegistry registry)
         {
@@ -56,7 +47,13 @@ namespace TestProject.Droid
         {
             return new MvxAppCompatViewPresenter(this.AndroidViewAssemblies);
         }
+        
+        protected override void InitializeIoC()
+        {
 
-       
+            base.InitializeIoC();
+
+            Mvx.IoCProvider.RegisterSingleton(typeof(IBitmapConvertionHelper), new BitmapConvertionHelper());            
+        }
     }
 }

@@ -94,6 +94,7 @@ namespace TestProject.Core.ViewModels
             _currentUser.EncryptedProfilePhoto = await _photoEditHelper.ReplacePhoto(result);
 
             await _userRepository.Update(_currentUser);
+            // TODO: Correcrt issue with navigation to menu (profile photo is displayed after deleted without navigating).
             await _navigationService.Navigate<MenuViewModel>();
         }
     }

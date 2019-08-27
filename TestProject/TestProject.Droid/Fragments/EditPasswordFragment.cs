@@ -15,9 +15,9 @@ namespace TestProject.Droid.Fragments
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            var ignore = base.OnCreateView(inflater, container, savedInstanceState);
+            View ignore = base.OnCreateView(inflater, container, savedInstanceState);
 
-            var view = this.BindingInflate(FragmentId, null);
+            View view = this.BindingInflate(FragmentId, null);
             
             return view;
         }

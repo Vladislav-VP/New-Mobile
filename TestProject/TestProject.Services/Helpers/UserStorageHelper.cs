@@ -19,14 +19,14 @@ namespace TestProject.Services.Helpers
 
         public async Task<User> Get()
         {
-            var key = await SecureStorage.GetAsync(Constants.CredentialsKey);
+            string key = await SecureStorage.GetAsync(Constants.CredentialsKey);
             if (key == null)
             {
                 return null;
             }
 
             int id = int.Parse(key);
-            var userRepository = Mvx.IoCProvider.Resolve<IUserRepository>();
+            IUserRepository userRepository = Mvx.IoCProvider.Resolve<IUserRepository>();
             return await userRepository.Find(id);
         }
 

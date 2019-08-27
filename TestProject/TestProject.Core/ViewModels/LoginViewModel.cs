@@ -62,9 +62,9 @@ namespace TestProject.Core.ViewModels
         private async Task Login()
         {
             bool isUserDataValid = await TryValidateData();
-            if (isUserDataValid)
+            if (!isUserDataValid)
             {
-                _dialogsHelper.DisplayToastMessage(Strings.LoginErrorMessage);
+                _dialogsHelper.DisplayAlertMessage(Strings.LoginErrorMessage);
                 return;
             }
 

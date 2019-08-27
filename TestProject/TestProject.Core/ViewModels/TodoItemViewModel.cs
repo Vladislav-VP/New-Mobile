@@ -58,7 +58,7 @@ namespace TestProject.Core.ViewModels
         protected override async Task<bool> TryValidateData()
         {
             var todoItem = new TodoItem { Name = Name, Description = Description, IsDone = IsDone };
-            bool isTodoItemValid = _validationHelper.IsObjectValid<TodoItem>(todoItem);
+            bool isTodoItemValid = _validationHelper.TryValidateObject<TodoItem>(todoItem);
             if (!isTodoItemValid)
             {
                 _validationResultHelper.HandleValidationResult(todoItem);

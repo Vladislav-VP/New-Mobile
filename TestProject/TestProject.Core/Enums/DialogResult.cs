@@ -1,4 +1,4 @@
-﻿namespace TestProject.Core.ViewModelResults
+﻿namespace TestProject.Core.Enums
 {
     public enum DialogResult
     {

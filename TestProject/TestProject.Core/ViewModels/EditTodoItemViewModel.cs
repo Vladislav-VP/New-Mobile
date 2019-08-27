@@ -4,7 +4,7 @@ using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 
-using TestProject.Core.ViewModelResults;
+using TestProject.Core.Enums;
 using TestProject.Entities;
 using TestProject.Resources;
 using TestProject.Services.Helpers.Interfaces;
@@ -54,14 +54,15 @@ namespace TestProject.Core.ViewModels
 
         protected override async Task GoBack()
         {
-            await base.GoBack();
-
             DialogResult result = await _navigationService.Navigate<CancelDialogViewModel, DialogResult>();
+
             if (result == DialogResult.Yes)
             {
                 await UpdateTodoItem();
                 return;
             }
+
+            await HandleDialogResult(result);
         }
 
         private async Task UpdateTodoItem()

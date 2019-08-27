@@ -23,7 +23,7 @@ namespace TestProject.Services.Helpers
 
         public async Task<MediaFile> TakePhoto(int compressionQuality = 90, int maxPixelDimension = 200)
         {
-            bool initialized = await CrossMedia.Current.Initialize();
+            await CrossMedia.Current.Initialize();
             var options = new StoreCameraMediaOptions
             {
                 SaveToAlbum = true,
@@ -32,7 +32,7 @@ namespace TestProject.Services.Helpers
                 MaxWidthHeight = maxPixelDimension,
                 DefaultCamera = CameraDevice.Rear
             };
-            MediaFile file= await CrossMedia.Current.TakePhotoAsync(options);
+
             return await CrossMedia.Current.TakePhotoAsync(options);
         }
     }

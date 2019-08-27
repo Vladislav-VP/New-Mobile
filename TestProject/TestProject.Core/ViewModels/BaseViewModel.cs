@@ -4,7 +4,6 @@ using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 
-using TestProject.Entities;
 using TestProject.Services.Helpers.Interfaces;
 
 namespace TestProject.Core.ViewModels

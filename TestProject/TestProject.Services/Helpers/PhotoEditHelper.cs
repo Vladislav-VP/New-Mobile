@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 
 using MvvmCross;
-using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Plugin.Permissions.Abstractions;
 

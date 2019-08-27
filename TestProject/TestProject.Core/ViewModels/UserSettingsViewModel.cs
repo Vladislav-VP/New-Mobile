@@ -3,7 +3,7 @@
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 
-using TestProject.Core.ViewModelResults;
+using TestProject.Core.Enums;
 using TestProject.Entities;
 using TestProject.Resources;
 using TestProject.Services.Helpers.Interfaces;
@@ -13,15 +13,13 @@ namespace TestProject.Core.ViewModels
 {
     public class UserSettingsViewModel : UserViewModel
     {
-        // TODO: Fix validation logic in UserSettingsViewModel
-
         private User _currentUser;
 
         protected string _userName;
 
-        public UserSettingsViewModel(IMvxNavigationService navigationService, IUserRepository userRepository,
-            IUserStorageHelper userStorage, IValidationResultHelper validationResultHelper, IDialogsHelper dialogsHelper)
-            : base(navigationService, userStorage, userRepository, validationResultHelper, dialogsHelper)
+        public UserSettingsViewModel(IMvxNavigationService navigationService, IUserRepository userRepository, IUserStorageHelper userStorage, 
+            IValidationHelper validationHelper, IValidationResultHelper validationResultHelper, IDialogsHelper dialogsHelper)
+            : base(navigationService, userStorage, userRepository, validationHelper, validationResultHelper, dialogsHelper)
         {
             UpdateUserCommand = new MvxAsyncCommand(UpdateUser);
             DeleteUserCommand = new MvxAsyncCommand(DeleteUser);
@@ -56,51 +54,56 @@ namespace TestProject.Core.ViewModels
 
         protected override async Task GoBack()
         {
-            await base.GoBack();
-
             DialogResult result = await _navigationService.Navigate<CancelDialogViewModel, DialogResult>();
+
             if (result == DialogResult.Yes)
             {
                 await UpdateUser();
                 return;
             }
+
+            await HandleDialogResult(result);
         }
 
-        private async Task<bool> TryUpdateUserName()
+        protected override async Task<bool> TryValidateData()
         {
-            string currentUserName = _currentUser.Name;
+            string oldUserName = _currentUser.Name;
             UserName = UserName.Trim();
 
             _currentUser.Name = UserName;
-            //bool userIsValid = _validationHelper.IsObjectValid<User>(_currentUser, nameof(_currentUser.Name));
-            //bool validationErrorsEmpty = _validationHelper.ValidationErrors.Count == 0;
-            //if (!userIsValid && !validationErrorsEmpty)
-            //{
-            //    _currentUser.Name = currentUserName;
-            //    _dialogsHelper.DisplayToastMessage(_validationHelper.ValidationErrors[0].ErrorMessage);
-            //    return false;
-            //}
+            bool isUserNameValid = _validationHelper.TryValidateObject(_currentUser);
+            if (!isUserNameValid)
+            {                
+                _validationResultHelper.HandleValidationResult(_currentUser);
+                _currentUser.Name = oldUserName;
+                UserName = oldUserName;
+                return false;
+            }
 
             string query = _userRepository.GetUserQuery(UserName);
             User userFromDataBase = await _userRepository.FindWithQuery(query);
             if (userFromDataBase != null && userFromDataBase.Id != _currentUser.Id)
             {
-                _dialogsHelper.DisplayToastMessage(Strings.UserAlreadyExistsMessage);
+                _dialogsHelper.DisplayAlertMessage(Strings.UserAlreadyExistsMessage);
+                _currentUser.Name = oldUserName;
+                UserName = oldUserName;
                 return false;
             }
 
-            await _userRepository.Update(_currentUser);
             return true;
         }
 
         private async Task UpdateUser()
         {
-            if(!await TryUpdateUserName())
+            bool isUserValid = await TryValidateData();
+            if (!isUserValid)
             {
                 return;
             }
 
+            await _userRepository.Update(_currentUser);
             _dialogsHelper.DisplayToastMessage(Strings.UserNameChangedMessage);
+
             await _navigationService.Navigate<TodoListItemViewModel>();
             // TODO: Correcrt issue with navigation to menu (username is not updated without navigating).
             await _navigationService.Navigate<MenuViewModel>();
@@ -119,11 +122,6 @@ namespace TestProject.Core.ViewModels
             _storage.Clear();
 
             await _navigationService.Navigate<LoginViewModel>();
-        }
-
-        protected override Task<bool> TryValidateData()
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

@@ -22,23 +22,23 @@ namespace TestProject.Droid.Fragments
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            var ignore = base.OnCreateView(inflater, container, savedInstanceState);
+            View ignore = base.OnCreateView(inflater, container, savedInstanceState);
 
-            var view = this.BindingInflate(Resource.Layout.MenuFragment, null);
+            View view = this.BindingInflate(Resource.Layout.MenuFragment, null);
 
-            var navigationView = view.FindViewById<NavigationView>(Resource.Id.navigation_view);
+            NavigationView navigationView = view.FindViewById<NavigationView>(Resource.Id.navigation_view);
             navigationView.SetNavigationItemSelectedListener(this);
 
-            var todoItemsMenuItem = navigationView.Menu.FindItem(Resource.Id.nav_todoItems);
+            IMenuItem todoItemsMenuItem = navigationView.Menu.FindItem(Resource.Id.nav_todoItems);
             todoItemsMenuItem.SetCheckable(false);
             todoItemsMenuItem.SetChecked(true);
 
             _previousMenuItem = todoItemsMenuItem;
 
-            var settingsMenuItem = navigationView.Menu.FindItem(Resource.Id.nav_settings);
+            IMenuItem settingsMenuItem = navigationView.Menu.FindItem(Resource.Id.nav_settings);
             settingsMenuItem.SetCheckable(false);
 
-            var logoutMenuItem = navigationView.Menu.FindItem(Resource.Id.nav_logout);
+            IMenuItem logoutMenuItem = navigationView.Menu.FindItem(Resource.Id.nav_logout);
             logoutMenuItem.SetCheckable(false);
 
             return view;

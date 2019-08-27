@@ -16,9 +16,9 @@ namespace TestProject.Droid.Fragments
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            var view = base.OnCreateView(inflater, container, savedInstanceState);
+            View view = base.OnCreateView(inflater, container, savedInstanceState);
 
-            var tvPasswordTip = view.FindViewById<TextView>(Resource.Id.tvPasswordTip);
+            TextView tvPasswordTip = view.FindViewById<TextView>(Resource.Id.tvPasswordTip);
             tvPasswordTip.Text =
                 $"{Strings.PasswordTipFirst} {Constants.MinPasswordLength} {Strings.PasswordTipSecond}";
 

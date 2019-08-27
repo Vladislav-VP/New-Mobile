@@ -1,7 +1,9 @@
-﻿using MvvmCross;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+
+using MvvmCross;
+
 using TestProject.Services.Helpers.Interfaces;
 
 namespace TestProject.Services.Helpers
@@ -20,7 +22,7 @@ namespace TestProject.Services.Helpers
 
         public void HandleValidationResult<T>(T obj, string propertyName = null)
         {
-            ICollection<ValidationResult> errors = _validationHelper.ValidateObject<T>(obj, propertyName);
+            ICollection<ValidationResult> errors = _validationHelper.ValidateObject(obj, propertyName);
 
             ValidationResult error = errors.FirstOrDefault();
             if (error != null)

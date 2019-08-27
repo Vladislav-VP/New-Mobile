@@ -8,15 +8,7 @@ namespace TestProject.Services.Helpers
 {
     public class ValidationHelper : IValidationHelper
     {
-
-        private List<ValidationResult> _validationErrors;
-
-        public List<ValidationResult> ValidationErrors
-        {
-            get => _validationErrors;
-        }
-
-        public bool IsObjectValid<T>(T obj, string propertyName = null)
+        public bool TryValidateObject<T>(T obj, string propertyName = null)
         {
             bool isValid;
             var context = new ValidationContext(obj);
