@@ -10,13 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="@dimen/user_info_layout_margin_top">
         <include
         layout="@layout/user_info_layout"/>
         <Button
             android:id="@+id/btRegister"
-            style="@style/ButtonStyle1"
-            android:background="@drawable/main_button_shape"
+            style="@style/MainButtonStyle"
             local:MvxBind="Click RegisterUserCommand"/>   
     </LinearLayout>
 

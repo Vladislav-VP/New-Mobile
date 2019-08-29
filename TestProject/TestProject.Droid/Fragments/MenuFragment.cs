@@ -5,15 +5,12 @@ using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Views;
-using MvvmCross;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 
 using TestProject.Core.ViewModels;
 using TestProject.Droid.Activities;
-using TestProject.Droid.Helpers.Interfaces;
-using TestProject.Resources;
 
 namespace TestProject.Droid.Fragments
 {

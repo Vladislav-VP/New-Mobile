@@ -32,11 +32,11 @@ namespace TestProject.Droid.Fragments
             Button btChangePassword = view.FindViewById<Button>(Resource.Id.btChangePassword);
             Button btDeleteAccount = view.FindViewById<Button>(Resource.Id.btDeleteAccount);
 
-            _controlSigningHelper.SignControl(tvUserNameSettings, ControlsLabels.UsernameTextViewLabel);
-            _controlSigningHelper.SignControl(tvSettings, ControlsLabels.SettingsLabel);
-            _controlSigningHelper.SignControl(btSaveUserName, ControlsLabels.SaveChangesButtonLabel);
-            _controlSigningHelper.SignControl(btChangePassword, ControlsLabels.ChangePasswordButtonLabel);
-            _controlSigningHelper.SignControl(btDeleteAccount, ControlsLabels.DeleteAccountButtonLabel);
+            _controlSigningHelper.SignControl(tvUserNameSettings, Strings.UsernameTextViewLabel);
+            _controlSigningHelper.SignControl(tvSettings, Strings.SettingsLabel);
+            _controlSigningHelper.SignControl(btSaveUserName, Strings.SaveChangesButtonLabel);
+            _controlSigningHelper.SignControl(btChangePassword, Strings.ChangePasswordButtonLabel);
+            _controlSigningHelper.SignControl(btDeleteAccount, Strings.DeleteAccountButtonLabel);
         }
     }
 }

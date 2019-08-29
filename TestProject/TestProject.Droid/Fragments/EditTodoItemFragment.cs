@@ -36,11 +36,11 @@ namespace TestProject.Droid.Fragments
             Button btSaveTodoItem = view.FindViewById<Button>(Resource.Id.btSaveTodoItem);
             Button btDeleteTodoItem = view.FindViewById<Button>(Resource.Id.btDeleteTodoItem);
 
-            _controlSigningHelper.SignControl(tvTodoItemName, ControlsLabels.TodoItemNameTextViewLabel);
-            _controlSigningHelper.SignControl(tvDescription, ControlsLabels.TodoItemDescriptionTextViewLabel);
-            _controlSigningHelper.SignControl(tvDone, ControlsLabels.TodoItemIsDoneTextViewLabel);
-            _controlSigningHelper.SignControl(btSaveTodoItem, ControlsLabels.SaveButtonLabel);
-            _controlSigningHelper.SignControl(btDeleteTodoItem, ControlsLabels.DeleteTodoItemButtonLabel);
+            _controlSigningHelper.SignControl(tvTodoItemName, Strings.TodoItemNameTextViewLabel);
+            _controlSigningHelper.SignControl(tvDescription, Strings.TodoItemDescriptionTextViewLabel);
+            _controlSigningHelper.SignControl(tvDone, Strings.TodoItemIsDoneTextViewLabel);
+            _controlSigningHelper.SignControl(btSaveTodoItem, Strings.SaveButtonLabel);
+            _controlSigningHelper.SignControl(btDeleteTodoItem, Strings.DeleteTodoItemButtonLabel);
         }
     }
 }

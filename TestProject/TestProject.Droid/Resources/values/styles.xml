@@ -2,7 +2,7 @@
 <resources>
   <!-- Splash style -->
   <style name="Theme.Splash" parent="AppTheme.Base">
-    <item name="android:windowBackground">@drawable/screen</item>
+    <item name="android:windowBackground">@mipmap/screen</item>
     <item name="android:statusBarColor">@color/colorPrimaryDark</item>
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowFullscreen">true</item>
@@ -28,50 +28,42 @@
     <item name="android:listDivider">@color/colorPrimaryDark</item>
   </style>
 
-  <style name="ButtonStyle1">
+  <style name="MainButtonStyle">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_marginHorizontal">@dimen/compat_button_padding_horizontal_material</item>
     <item name="android:layout_marginVertical">@dimen/compat_button_padding_horizontal_material</item>
-    <item name="android:textSize">30dp</item>
+    <item name="android:textSize">@dimen/main_button_text_size</item>
     <item name="android:textColor">@android:color/background_dark</item>
-  </style>
-
-  <style name="ButtonStyle2">
-    <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:layout_marginTop">150dp</item>
-    <item name="android:layout_marginHorizontal">@dimen/compat_button_padding_horizontal_material</item>
-    <item name="android:textSize">30dp</item>
-    <item name="android:textColor">@android:color/background_dark</item>
+    <item name="android:background">@drawable/main_button_shape</item>
   </style>
 
   <style name="LabelStyle">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
-    <item name="android:layout_margin">5dp</item>
-    <item name="android:textSize">30dp</item>
+    <item name="android:layout_margin">@dimen/compat_button_padding_vertical_material</item>
+    <item name="android:textSize">@dimen/label_text_size</item>
     <item name="android:textAlignment">viewStart</item>
   </style>
 
   <style name="UserNameStyle">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
-    <item name="android:textSize">30dp</item>
+    <item name="android:textSize">@dimen/input_text_size</item>
   </style>
 
   <style name="PasswordStyle">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
-    <item name="android:textSize">30dp</item>
+    <item name="android:textSize">@dimen/input_text_size</item>
     <item name="android:password">true</item>
   </style>
 
   <style name="DialogTextStyle">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
-    <item name="android:layout_margin">5dp</item>
-    <item name="android:textSize">15dp</item>
+    <item name="android:layout_margin">@dimen/dialog_text_margin</item>
+    <item name="android:textSize">@dimen/dialog_window_text_size</item>
   </style>
 
   <style name="DialogButtonStyle">
@@ -79,7 +71,7 @@
     <item name="android:layout_marginVertical">@dimen/compat_button_padding_horizontal_material</item>
     <item name="android:layout_width">@dimen/dialog_button_width</item>
     <item name="android:layout_height">wrap_content</item>
-    <item name="android:textSize">15dp</item>
+    <item name="android:textSize">@dimen/dialog_window_text_size</item>
     <item name="android:background">@drawable/main_button_shape</item>
   </style>
 
@@ -90,5 +82,38 @@
     <item name="android:layout_margin">@dimen/todo_item_margin</item>
     <item name="android:background">@drawable/main_button_shape</item>
   </style>
+
+  <style name="RecyclerViewStyle">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:background">@color/material_grey_100</item>
+    <item name="android:minHeight">@dimen/recycler_view_min_height</item>
+    <item name="android:textSize">@dimen/recycler_view_text_size</item>
+  </style>
+
+  <style name="TitleStyle">
+    <item name="android:textAlignment">center</item>
+    <item name="android:layout_marginVertical">@dimen/title_margin_vertical</item>
+    <item name="android:layout_marginHorizontal">@dimen/title_margin_horizontal</item>
+    <item name="android:textColor">@android:color/background_light</item>
+    <item name="android:textSize">@dimen/title_text_size</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">@dimen/title_height</item>
+  </style>
+
+  <style name="TodoItemTextEditStyle">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:background">#fffd</item>
+    <item name="android:layout_margin">@dimen/todo_item_edit_text_margin</item>
+  </style>
+
+  <style name="TopPanelCircleImageViewStyle">    
+    <item name="android:layout_width">@dimen/top_panel_circle_image_view_height</item>
+    <item name="android:layout_height">@dimen/top_panel_circle_image_view_width</item>
+    <item name="android:layout_marginVertical">@dimen/top_panel_circle_image_view_margin_vertical</item>
+    <item name="android:layout_marginHorizontal">@dimen/top_panel_circle_image_view_margin_horizontal</item>
+    <item name="android:textAlignment">center</item>
+  </style>
+
 
 </resources>

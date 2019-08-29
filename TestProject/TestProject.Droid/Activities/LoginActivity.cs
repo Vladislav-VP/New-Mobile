@@ -46,11 +46,11 @@ namespace TestProject.Droid.Activities
             Button btLogin = FindViewById<Button>(Resource.Id.btLogin);
             Button btGoToRegistration = FindViewById<Button>(Resource.Id.btGoToRegistration);
 
-            _controlInitializingHelper.SignControl(tvUsername, ControlsLabels.UsernameTextViewLabel);
-            _controlInitializingHelper.SignControl(tvPassword, ControlsLabels.PasswordTextViewLabel);
-            _controlInitializingHelper.SignControl(tvWithoutAccount, ControlsLabels.WithoutAccountPrompt);
-            _controlInitializingHelper.SignControl(btLogin, ControlsLabels.LoginButtonLabel);
-            _controlInitializingHelper.SignControl(btGoToRegistration, ControlsLabels.RegistrationButtonLabel);
+            _controlInitializingHelper.SignControl(tvUsername, Strings.UsernameTextViewLabel);
+            _controlInitializingHelper.SignControl(tvPassword, Strings.PasswordTextViewLabel);
+            _controlInitializingHelper.SignControl(tvWithoutAccount, Strings.WithoutAccountPrompt);
+            _controlInitializingHelper.SignControl(btLogin, Strings.LoginButtonLabel);
+            _controlInitializingHelper.SignControl(btGoToRegistration, Strings.RegistrationButtonLabel);
         }
 
 

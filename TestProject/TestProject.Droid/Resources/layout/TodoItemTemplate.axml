@@ -8,20 +8,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:background="@android:color/holo_blue_light">
         <TextView       
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="100dp"
-            android:textColor="@android:color/background_light"
-            android:textSize="35dp"
+            style="@style/TitleStyle"
             local:MvxBind="Text Name"/>
-        <Button
-            android:layout_width="@dimen/button_back_width"
-            android:layout_height="@dimen/button_back_height"
-            android:layout_alignParentLeft="true"
-            style="@style/Widget.AppCompat.Button.Colored"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:src="@mipmap/back"
+            style="@style/TopPanelCircleImageViewStyle"
             local:MvxBind="Click GoBackCommand" />
     </RelativeLayout>
 
@@ -34,10 +28,8 @@
             style="@style/LabelStyle"/>
         <android.support.design.widget.TextInputEditText
             android:id="@+id/etTaskName"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="#fffd"
-            android:layout_margin="5dp  "
+            style="@style/TodoItemTextEditStyle"
+            android:layout_height="@dimen/todo_item_name_edit_text_height"            
             local:MvxBind="Text Name"
         />
         <TextView
@@ -45,10 +37,8 @@
             style="@style/LabelStyle"/>
         <android.support.design.widget.TextInputEditText
             android:id="@+id/etDescription"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:background="#fffd"
-            android:layout_margin="5dp"
+            style="@style/TodoItemTextEditStyle"
+            android:layout_height="@dimen/todo_item_description_edit_text_height"
             local:MvxBind="Text Description"
         />
     </LinearLayout>
@@ -58,18 +48,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Switch
-
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/todo_item_switch_width"
+            android:layout_height="@dimen/todo_item_switch_height"
             style="@style/TextAppearance.AppCompat.Widget.Switch"
             local:MvxBind="Checked IsDone"
         />
         <TextView
             android:id="@+id/tvDone"          
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:textSize="25dp"/>
+            style="@style/LabelStyle"/>
     </LinearLayout>
 
 </LinearLayout>

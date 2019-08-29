@@ -32,10 +32,10 @@ namespace TestProject.Droid.Fragments
             TextView tvConfirmNewPassword = view.FindViewById<TextView>(Resource.Id.tvConfirmNewPassword);
             Button btSavePasssword = view.FindViewById<Button>(Resource.Id.btSavePasssword);
 
-            _controlSigningHelper.SignControl(tvOldPassword, ControlsLabels.EnterOldPasswordTipLabel);
-            _controlSigningHelper.SignControl(tvNewPassword, ControlsLabels.EnterNewPasswordTipLabel);
-            _controlSigningHelper.SignControl(tvConfirmNewPassword, ControlsLabels.ConfirmNewPasswordTipLabel);
-            _controlSigningHelper.SignControl(btSavePasssword, ControlsLabels.SaveChangesButtonLabel);
+            _controlSigningHelper.SignControl(tvOldPassword, Strings.EnterOldPasswordTipLabel);
+            _controlSigningHelper.SignControl(tvNewPassword, Strings.EnterNewPasswordTipLabel);
+            _controlSigningHelper.SignControl(tvConfirmNewPassword, Strings.ConfirmNewPasswordTipLabel);
+            _controlSigningHelper.SignControl(btSavePasssword, Strings.SaveChangesButtonLabel);
         }
     }
 }

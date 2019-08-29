@@ -8,14 +8,14 @@
 		android:id="@+id/tvName"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_margin="16dp"
+		android:layout_margin="@dimen/list_item_margin"
 		android:textStyle="bold"
-		android:textSize="20dp"
+		android:textSize="@dimen/todoitem_list_text_size"
 		android:textColor="@color/colorAccent"
 		local:MvxBind="Text Name" />
 	<View
 		android:layout_width="match_parent"
-		android:layout_height="1dp"
-		android:layout_marginLeft="8dp"
+		android:layout_height="@dimen/list_separator_thickness"
+		android:layout_marginLeft="@dimen/list_margin_left"
 		android:background="@android:color/darker_gray" />
 </LinearLayout>

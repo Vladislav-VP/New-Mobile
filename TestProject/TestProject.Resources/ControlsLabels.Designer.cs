@@ -205,7 +205,7 @@ namespace TestProject.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Task list.
+        ///   Looks up a localized string similar to Tasks.
         /// </summary>
         public static string TaskListLabel {
             get {

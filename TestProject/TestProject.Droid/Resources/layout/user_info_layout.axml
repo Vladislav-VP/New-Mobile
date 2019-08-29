@@ -25,7 +25,7 @@
         android:id="@+id/tvPasswordTip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18dp"
+        android:textSize="@dimen/tip_text_size"
         android:textColor="@android:color/black"/>
     <EditText
         android:id="@+id/etNewPassword"

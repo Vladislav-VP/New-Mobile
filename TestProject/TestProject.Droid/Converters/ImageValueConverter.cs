@@ -26,7 +26,7 @@ namespace TestProject.Droid.Converters
             IContextProvider contextProvider = Mvx.IoCProvider.Resolve<IContextProvider>();
             Context context = contextProvider.Context;
 
-            Bitmap placeholder = BitmapFactory.DecodeResource(context.Resources, Resource.Drawable.profile);
+            Bitmap placeholder = BitmapFactory.DecodeResource(context.Resources, Resource.Mipmap.profile);
 
             return placeholder;
         }

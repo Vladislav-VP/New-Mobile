@@ -8,39 +8,10 @@
 
     <include
 		layout="@layout/toolbar_actionbar" />
-
-    <RelativeLayout
-        android:background="@android:color/holo_blue_light"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        local:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <TextView
-            android:id="@+id/tvTaskListTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/background_light"
-            android:textSize="35dp"
-            android:textAlignment="center"
-            android:layout_marginHorizontal="80dp"
-        />
-        <Button
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentRight="true"
-            android:textSize="30dp"
-            android:textAlignment="center"
-            local:MvxBind="Click ShowCreateTodoItemViewModelCommand"
-        />
-    </RelativeLayout>
     
     <MvxRecyclerView
         android:id="@+id/todoItemsRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"       
-        android:minHeight="50dp"
-        android:textSize="30dp"
-        android:background="#ffffffff"
+        style="@style/RecyclerViewStyle"
         local:MvxItemTemplate="@layout/item_name"
         local:MvxBind="ItemsSource TodoItems; ItemClick SelectTodoItemCommand"
     />

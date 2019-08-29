@@ -3,7 +3,6 @@ using Android.Runtime;
 using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
-using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 
 using TestProject.Core.ViewModels;
@@ -32,8 +31,8 @@ namespace TestProject.Droid.Fragments
         {
             TextView tvTaskListTitle = view.FindViewById<TextView>(Resource.Id.tvTaskListTitle);
 
-            _controlSigningHelper.SignControl(tvTaskListTitle, Strings.TaskList);
-            ParentActivity.SupportActionBar.Title = Strings.TaskList;
+            _controlSigningHelper.SignControl(tvTaskListTitle, Strings.TaskListLabel);
+            ParentActivity.SupportActionBar.Title = string.Empty;
             ((MainActivity)Activity).DrawerLayout.SetDrawerLockMode(DrawerLayout.LockModeUnlocked);
         }
     }

@@ -33,10 +33,10 @@ namespace TestProject.Droid.Fragments
             Button btNo = view.FindViewById<Button>(Resource.Id.btNo);
             Button btCancel = view.FindViewById<Button>(Resource.Id.btCancel);
 
-            _controlSigningHelper.SignControl(tvSaveChanges, ControlsLabels.SaveChangesPrompt);
-            _controlSigningHelper.SignControl(btYes, ControlsLabels.YesButtonLabel);
-            _controlSigningHelper.SignControl(btNo, ControlsLabels.NoButtonLabel);
-            _controlSigningHelper.SignControl(btCancel, ControlsLabels.CancelButtonLabel);
+            _controlSigningHelper.SignControl(tvSaveChanges, Strings.SaveChangesPrompt);
+            _controlSigningHelper.SignControl(btYes, Strings.YesButtonLabel);
+            _controlSigningHelper.SignControl(btNo, Strings.NoButtonLabel);
+            _controlSigningHelper.SignControl(btCancel, Strings.CancelButtonLabel);
         }
     }
 }
