@@ -16,8 +16,8 @@ namespace TestProject.Core.ViewModels
     public class EditTodoItemViewModel : TodoItemViewModel, IMvxViewModel<TodoItem>
     {        
         public EditTodoItemViewModel(IMvxNavigationService navigationService,  IDialogsHelper dialogsHelper,
-            IValidationHelper validationHelper, IValidationResultHelper validationResultHelper, ITodoItemRepository todoItemRepository)
-            : base(navigationService, validationHelper, validationResultHelper, todoItemRepository, dialogsHelper)
+            IValidationHelper validationHelper, ITodoItemRepository todoItemRepository)
+            : base(navigationService, validationHelper, todoItemRepository, dialogsHelper)
         {
             UpdateTodoItemCommand = new MvxAsyncCommand(UpdateTodoItem);
             DeleteTodoItemCommand = new MvxAsyncCommand(DeleteTodoItem);
@@ -54,9 +54,9 @@ namespace TestProject.Core.ViewModels
 
         protected override async Task GoBack()
         {
-            DialogResult result = await _navigationService.Navigate<CancelDialogViewModel, DialogResult>();
+            YesNoCancelDialogResult result = await _navigationService.Navigate<CancelDialogViewModel, YesNoCancelDialogResult>();
 
-            if (result == DialogResult.Yes)
+            if (result == YesNoCancelDialogResult.Yes)
             {
                 await UpdateTodoItem();
                 return;
@@ -68,7 +68,7 @@ namespace TestProject.Core.ViewModels
         private async Task UpdateTodoItem()
         {
             ChangeTodoItem();
-            bool isTodoItemValid = await TryValidateData();
+            bool isTodoItemValid = await IsDataValid();
             if (!isTodoItemValid)
             {
                 return;
@@ -86,7 +86,7 @@ namespace TestProject.Core.ViewModels
 
         private async Task DeleteTodoItem()
         {
-            bool isToDelete = await _dialogsHelper.TryGetConfirmation(Strings.DeleteMessageDialog);
+            bool isToDelete = await _dialogsHelper.IsConfirmed(Strings.DeleteMessageDialog);
 
             if (!isToDelete)
             {

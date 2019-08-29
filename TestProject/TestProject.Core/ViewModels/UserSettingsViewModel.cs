@@ -17,9 +17,9 @@ namespace TestProject.Core.ViewModels
 
         protected string _userName;
 
-        public UserSettingsViewModel(IMvxNavigationService navigationService, IUserRepository userRepository, IUserStorageHelper userStorage, 
-            IValidationHelper validationHelper, IValidationResultHelper validationResultHelper, IDialogsHelper dialogsHelper)
-            : base(navigationService, userStorage, userRepository, validationHelper, validationResultHelper, dialogsHelper)
+        public UserSettingsViewModel(IMvxNavigationService navigationService, IUserRepository userRepository, 
+            IUserStorageHelper userStorage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
+            : base(navigationService, userStorage, userRepository, validationHelper, dialogsHelper)
         {
             UpdateUserCommand = new MvxAsyncCommand(UpdateUser);
             DeleteUserCommand = new MvxAsyncCommand(DeleteUser);
@@ -54,9 +54,9 @@ namespace TestProject.Core.ViewModels
 
         protected override async Task GoBack()
         {
-            DialogResult result = await _navigationService.Navigate<CancelDialogViewModel, DialogResult>();
+            YesNoCancelDialogResult result = await _navigationService.Navigate<CancelDialogViewModel, YesNoCancelDialogResult>();
 
-            if (result == DialogResult.Yes)
+            if (result == YesNoCancelDialogResult.Yes)
             {
                 await UpdateUser();
                 return;
@@ -65,24 +65,22 @@ namespace TestProject.Core.ViewModels
             await HandleDialogResult(result);
         }
 
-        protected override async Task<bool> TryValidateData()
+        protected override async Task<bool> IsDataValid()
         {
             string oldUserName = _currentUser.Name;
             UserName = UserName.Trim();
 
             _currentUser.Name = UserName;
-            bool isUserNameValid = _validationHelper.TryValidateObject(_currentUser);
+            bool isUserNameValid = _validationHelper.IsObjectValid(_currentUser);
             if (!isUserNameValid)
             {                
-                _validationResultHelper.HandleValidationResult(_currentUser);
                 _currentUser.Name = oldUserName;
                 UserName = oldUserName;
                 return false;
             }
 
-            string query = _userRepository.GetUserQuery(UserName);
-            User userFromDataBase = await _userRepository.FindWithQuery(query);
-            if (userFromDataBase != null && userFromDataBase.Id != _currentUser.Id)
+            User retrievedUser = await _userRepository.GetUser(UserName);
+            if (retrievedUser != null && retrievedUser.Id != _currentUser.Id)
             {
                 _dialogsHelper.DisplayAlertMessage(Strings.UserAlreadyExistsMessage);
                 _currentUser.Name = oldUserName;
@@ -95,7 +93,7 @@ namespace TestProject.Core.ViewModels
 
         private async Task UpdateUser()
         {
-            bool isUserValid = await TryValidateData();
+            bool isUserValid = await IsDataValid();
             if (!isUserValid)
             {
                 return;
@@ -111,7 +109,7 @@ namespace TestProject.Core.ViewModels
 
         private async Task DeleteUser()
         {
-            bool isToDelete = await _dialogsHelper.TryGetConfirmation(Strings.DeleteMessageDialog);
+            bool isToDelete = await _dialogsHelper.IsConfirmed(Strings.DeleteMessageDialog);
 
             if (!isToDelete)
             {

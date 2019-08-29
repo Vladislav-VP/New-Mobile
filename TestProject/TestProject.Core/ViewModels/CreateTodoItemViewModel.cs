@@ -13,9 +13,9 @@ namespace TestProject.Core.ViewModels
     public class CreateTodoItemViewModel : TodoItemViewModel
     {
 
-        public CreateTodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, IValidationHelper validationHelper,
-            IValidationResultHelper validationResultHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
-            : base(navigationService, storage, validationHelper, validationResultHelper, todoItemRepository, dialogsHelper)
+        public CreateTodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, 
+            IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
+            : base(navigationService, storage, validationHelper, todoItemRepository, dialogsHelper)
         {
             CreateTodoItemCommand = new MvxAsyncCommand(CreateTodoItem);
         }
@@ -24,9 +24,9 @@ namespace TestProject.Core.ViewModels
         
         protected async override Task GoBack()
         {
-            DialogResult result = await _navigationService.Navigate<CancelDialogViewModel, DialogResult>();
+            YesNoCancelDialogResult result = await _navigationService.Navigate<CancelDialogViewModel, YesNoCancelDialogResult>();
 
-            if (result == DialogResult.Yes)
+            if (result == YesNoCancelDialogResult.Yes)
             {
                 await CreateTodoItem();
                 return;
@@ -38,7 +38,7 @@ namespace TestProject.Core.ViewModels
 
         private async Task CreateTodoItem()
         {
-            bool isTodoItemValid = await TryValidateData();
+            bool isTodoItemValid = await IsDataValid();
             if (!isTodoItemValid)
             {
                 return;

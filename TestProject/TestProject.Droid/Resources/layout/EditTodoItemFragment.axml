@@ -13,17 +13,11 @@
         android:layout_height="wrap_content">
         <Button
         android:id="@+id/btSaveTodoItem"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_margin="5dp"
+        style="@style/TodoItemButtonStyle"
         local:MvxBind="Click UpdateTodoItemCommand"/>
         <Button
         android:id="@+id/btDeleteTodoItem"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_margin="5dp"
+        style="@style/TodoItemButtonStyle"
         local:MvxBind="Click DeleteTodoItemCommand" />
     </LinearLayout>
 

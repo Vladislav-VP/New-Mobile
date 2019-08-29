@@ -10,29 +10,26 @@ namespace TestProject.Core.ViewModels
     public abstract class BaseEntityViewModel : BaseViewModel
     {
         protected readonly IValidationHelper _validationHelper;
-
-        protected readonly IValidationResultHelper _validationResultHelper;
-
+        
         protected readonly IDialogsHelper _dialogsHelper;
 
         public BaseEntityViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage,
-            IDialogsHelper dialogsHelper, IValidationHelper validationHelper, IValidationResultHelper validationResultHelper)
+            IDialogsHelper dialogsHelper, IValidationHelper validationHelper)
             : base(navigationService, storage)
         {
             _dialogsHelper=dialogsHelper;
             _validationHelper = validationHelper;
-            _validationResultHelper = validationResultHelper;
         }
 
-        protected abstract Task<bool> TryValidateData();
+        protected abstract Task<bool> IsDataValid();
 
-        protected virtual async Task HandleDialogResult(DialogResult result)
+        protected virtual async Task HandleDialogResult(YesNoCancelDialogResult result)
         {
-            if (result == DialogResult.Cancel)
+            if (result == YesNoCancelDialogResult.Cancel)
             {
                 return;
             }
-            if (result == DialogResult.No)
+            if (result == YesNoCancelDialogResult.No)
             {
                 await _navigationService.Navigate<TodoListItemViewModel>();
                 return;

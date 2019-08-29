@@ -12,12 +12,12 @@ namespace TestProject.Core.ViewModels
         protected readonly ITodoItemRepository _todoItemRepository;
 
         public TodoItemViewModel(IMvxNavigationService navigationService, IValidationHelper validationHelper,
-            IValidationResultHelper validationResultHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
-            : this(navigationService, null, validationHelper, validationResultHelper, todoItemRepository, dialogsHelper) { }
+            ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
+            : this(navigationService, null, validationHelper, todoItemRepository, dialogsHelper) { }
 
-        public TodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, IValidationHelper validationHelper,
-            IValidationResultHelper validationResultHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
-            : base(navigationService, storage, dialogsHelper, validationHelper, validationResultHelper)
+        public TodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage,
+            IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
+            : base(navigationService, storage, dialogsHelper, validationHelper)
         {
             _todoItemRepository = todoItemRepository;
         }
@@ -55,15 +55,15 @@ namespace TestProject.Core.ViewModels
             }
         }
 
-        protected override async Task<bool> TryValidateData()
+        protected override async Task<bool> IsDataValid()
         {
             var todoItem = new TodoItem { Name = Name, Description = Description, IsDone = IsDone };
-            bool isTodoItemValid = _validationHelper.TryValidateObject<TodoItem>(todoItem);
+            bool isTodoItemValid = _validationHelper.IsObjectValid<TodoItem>(todoItem);
             if (!isTodoItemValid)
             {
-                _validationResultHelper.HandleValidationResult(todoItem);
                 return false;
             }
+
             return true;
         }
     }

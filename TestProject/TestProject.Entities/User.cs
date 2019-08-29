@@ -14,7 +14,7 @@ namespace TestProject.Entities
 
         [NotNull]
         [Required(AllowEmptyStrings = false, ErrorMessage = ErrorMessages.EmptyPasswordMessage)]
-        [Password(nameof(Password), ValidationConstants.InvalidPasswordCharacterPattern,
+        [Password(nameof(Password), ValidationConstants.PasswordCharacterPattern,
             ValidationConstants.MinPasswordLength)]
         public string Password { get; set; }
 

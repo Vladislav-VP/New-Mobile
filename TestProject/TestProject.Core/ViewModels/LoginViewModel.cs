@@ -14,9 +14,9 @@ namespace TestProject.Core.ViewModels
     {
         private User _currentUser;
 
-        public LoginViewModel(IMvxNavigationService navigationService, IUserRepository userRepository, IUserStorageHelper storage,
-             IValidationHelper validationHelper, IValidationResultHelper validationResultHelper, IDialogsHelper dialogsHelper)
-            : base(navigationService, storage, userRepository, validationHelper, validationResultHelper, dialogsHelper)
+        public LoginViewModel(IMvxNavigationService navigationService, IUserRepository userRepository,
+            IUserStorageHelper storage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
+            : base(navigationService, storage, userRepository, validationHelper, dialogsHelper)
         {
             LoginCommand = new MvxAsyncCommand(Login);
             ShowRegistrationScreenCommand = new MvxAsyncCommand(async ()
@@ -52,16 +52,15 @@ namespace TestProject.Core.ViewModels
 
         public IMvxAsyncCommand ShowMenuCommand { get; private set; }
 
-        protected override async Task<bool> TryValidateData()
+        protected override async Task<bool> IsDataValid()
         {
-            string query = _userRepository.GetUserQuery(UserName, Password);
-            _currentUser = await _userRepository.FindWithQuery(query);
+            _currentUser = await _userRepository.GetUser(UserName, Password);
             return _currentUser != null;
         }
 
         private async Task Login()
         {
-            bool isUserDataValid = await TryValidateData();
+            bool isUserDataValid = await IsDataValid();
             if (!isUserDataValid)
             {
                 _dialogsHelper.DisplayAlertMessage(Strings.LoginErrorMessage);

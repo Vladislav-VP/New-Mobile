@@ -10,7 +10,7 @@ namespace TestProject.Services.Helpers
 {
     public class PermissionsHelper : IPermissionsHelper
     {
-        public async Task<bool> TryRequestPermission(Permission permission)
+        public async Task<bool> IsPermissionGranted(Permission permission)
         {
             PermissionStatus status =
                 await CrossPermissions.Current.CheckPermissionStatusAsync(permission);

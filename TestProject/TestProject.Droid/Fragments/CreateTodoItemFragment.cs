@@ -35,10 +35,10 @@ namespace TestProject.Droid.Fragments
             TextView tvDone = view.FindViewById<TextView>(Resource.Id.tvDone);
             Button btCreate = view.FindViewById<Button>(Resource.Id.btCreate);
 
-            _controlInitializingHelper.SignControl(tvTodoItemName, ControlsLabels.TodoItemNameTextViewLabel);
-            _controlInitializingHelper.SignControl(tvDescription, ControlsLabels.TodoItemDescriptionTextViewLabel);
-            _controlInitializingHelper.SignControl(tvDone, ControlsLabels.TodoItemIsDoneTextViewLabel);
-            _controlInitializingHelper.SignControl(btCreate, ControlsLabels.SaveTodoItemButtonLabel);
+            _controlSigningHelper.SignControl(tvTodoItemName, ControlsLabels.TodoItemNameTextViewLabel);
+            _controlSigningHelper.SignControl(tvDescription, ControlsLabels.TodoItemDescriptionTextViewLabel);
+            _controlSigningHelper.SignControl(tvDone, ControlsLabels.TodoItemIsDoneTextViewLabel);
+            _controlSigningHelper.SignControl(btCreate, ControlsLabels.SaveButtonLabel);
         }
     }
 }

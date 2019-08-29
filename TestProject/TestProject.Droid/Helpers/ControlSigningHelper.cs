@@ -4,7 +4,7 @@ using TestProject.Droid.Helpers.Interfaces;
 
 namespace TestProject.Droid.Helpers
 {
-    public class ControlInitializingHelper : IControlInitializingHelper
+    public class ControlSigningHelper : IControlSigningHelper
     {
         public void SignControl(TextView control, string label)
         {

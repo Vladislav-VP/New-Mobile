@@ -24,6 +24,7 @@
         android:layout_marginVertical="50dp">
         <TextView
             android:id="@+id/tvWithoutAccount"
+            android:layout_marginHorizontal="@dimen/text_view_padding_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -36,10 +37,5 @@
             android:background="@drawable/main_button_shape"
             local:MvxBind="Click ShowRegistrationScreenCommand"/>
     </LinearLayout>
-
-    <FrameLayout
-		android:id="@+id/login_frame"
-		android:layout_height="match_parent"
-		android:layout_width="wrap_content" />
 
 </LinearLayout>

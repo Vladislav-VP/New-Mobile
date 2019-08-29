@@ -10,16 +10,16 @@ namespace TestProject.Entities.Attributes
     [AttributeUsage(AttributeTargets.Property)]
     public class PasswordAttribute : ValidationAttribute
     {
-        private string _invalidPasswordCharacterPattern;
+        private string _passwordCharacterPattern;
 
         private int _minPasswordLength;
 
         private readonly string _propeprtyName;
 
-        public PasswordAttribute(string propertyName, string invalidPasswordCharacterPattern, int minPasswordLength)
+        public PasswordAttribute(string propertyName, string passwordCharacterPattern, int minPasswordLength)
         {
             _propeprtyName = propertyName;
-            _invalidPasswordCharacterPattern = invalidPasswordCharacterPattern;
+            _passwordCharacterPattern = passwordCharacterPattern;
             _minPasswordLength = minPasswordLength;
         }
 
@@ -29,8 +29,9 @@ namespace TestProject.Entities.Attributes
 
             string propertyValue = property.GetValue(validationContext.ObjectInstance, null).ToString();
 
-            Regex regex = new Regex(_invalidPasswordCharacterPattern);
-            if (regex.IsMatch(propertyValue))
+            Regex regex = new Regex(_passwordCharacterPattern);
+            MatchCollection matches = regex.Matches(propertyValue);
+            if (matches.Count != propertyValue.Length)
             {
                 return new ValidationResult(Strings.InvalidPasswordFormatMessage);
             }

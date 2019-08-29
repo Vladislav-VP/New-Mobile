@@ -30,12 +30,12 @@ namespace TestProject.Droid.Fragments
             TextView tvPasswordTip = view.FindViewById<TextView>(Resource.Id.tvPasswordTip);
             Button btRegister = view.FindViewById<Button>(Resource.Id.btRegister);
 
-            _controlInitializingHelper.SignControl(tvUsername, ControlsLabels.UsernameTextViewLabel);
-            _controlInitializingHelper.SignControl(tvPassword, ControlsLabels.PasswordTextViewLabel);
-            _controlInitializingHelper.SignControl(btRegister, ControlsLabels.RegistrationButtonLabel);
+            _controlSigningHelper.SignControl(tvUsername, ControlsLabels.UsernameTextViewLabel);
+            _controlSigningHelper.SignControl(tvPassword, ControlsLabels.PasswordTextViewLabel);
+            _controlSigningHelper.SignControl(btRegister, ControlsLabels.RegistrationButtonLabel);
             string tvPasswordTipLabel =
                 $"{Strings.PasswordTipFirst} {Constants.MinPasswordLength} {Strings.PasswordTipSecond}";
-            _controlInitializingHelper.SignControl(tvPasswordTip, tvPasswordTipLabel);
+            _controlSigningHelper.SignControl(tvPasswordTip, tvPasswordTipLabel);
         }
     }
 }

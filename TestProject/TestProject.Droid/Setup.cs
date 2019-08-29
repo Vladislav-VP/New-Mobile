@@ -54,7 +54,7 @@ namespace TestProject.Droid
             base.InitializeIoC();
 
             Mvx.IoCProvider.RegisterSingleton(typeof(IBitmapConvertionHelper), new BitmapConvertionHelper());
-            Mvx.IoCProvider.RegisterSingleton(typeof(IControlInitializingHelper), new ControlInitializingHelper());
+            Mvx.IoCProvider.RegisterSingleton(typeof(Helpers.Interfaces.IControlSigningHelper), new Helpers.ControlSigningHelper());
         }
     }
 }

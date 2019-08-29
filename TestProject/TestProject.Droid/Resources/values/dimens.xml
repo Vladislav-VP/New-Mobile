@@ -3,4 +3,7 @@
   <dimen name="button_back_height">45dp</dimen>
   <dimen name="button_back_width">80dp</dimen>
   <dimen name="dialog_button_width">80dp</dimen>
+  <dimen name="text_view_padding_horizontal">12dp</dimen>
+  <dimen name="todoitem_button_width">170dp</dimen>
+  <dimen name="todo_item_margin">5dp</dimen>
 </resources>

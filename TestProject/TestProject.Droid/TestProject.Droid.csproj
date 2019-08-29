@@ -71,9 +71,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\ImageValueConverter.cs" />
+    <Compile Include="Fragments\BaseDialogFragment.cs" />
     <Compile Include="Helpers\BitmapConvertionHelper.cs" />
-    <Compile Include="Helpers\ControlInitializingHelper.cs" />
-    <Compile Include="Helpers\Interfaces\IControlInitializingHelper.cs" />
+    <Compile Include="Helpers\ControlSigningHelper.cs" />
+    <Compile Include="Helpers\Interfaces\ControlSigningHelper.cs" />
     <Compile Include="Helpers\Interfaces\IBitmapConvertionHelper.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Providers\ContextProvider.cs" />
@@ -281,11 +282,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\username_layout.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\password_layout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

@@ -16,7 +16,7 @@ namespace TestProject.Services.Helpers
             UserDialogs.Instance.Toast(toast);
         }
 
-        public async Task<bool> TryGetConfirmation(string message)
+        public async Task<bool> IsConfirmed(string message)
         {
             ConfirmConfig config = new ConfirmConfig();
             config.Message = message;
@@ -29,6 +29,15 @@ namespace TestProject.Services.Helpers
             AlertConfig alert = new AlertConfig();
             alert.Message = message;
             UserDialogs.Instance.Alert(alert);
+        }
+
+        public async Task<string> ChooseOption(string title, string cancel, string destructive, params string[] buttons)
+        {
+            string option = await UserDialogs
+                .Instance
+                .ActionSheetAsync(title, cancel, destructive, buttons: buttons);
+
+            return option;
         }
     }
 }

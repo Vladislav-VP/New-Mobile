@@ -8,9 +8,9 @@ using TestProject.Core.Enums;
 
 namespace TestProject.Core.ViewModels
 {
-    public class CancelDialogViewModel : BaseViewModel, IMvxViewModelResult<DialogResult>
+    public class CancelDialogViewModel : BaseViewModel, IMvxViewModelResult<YesNoCancelDialogResult>
     {
-        private DialogResult _dialogResult = DialogResult.Cancel;
+        private YesNoCancelDialogResult _dialogResult = YesNoCancelDialogResult.Cancel;
 
         public CancelDialogViewModel(IMvxNavigationService navigationService)
             : base(navigationService)
@@ -30,19 +30,19 @@ namespace TestProject.Core.ViewModels
 
         private async Task Save()
         {
-            _dialogResult = DialogResult.Yes;
+            _dialogResult = YesNoCancelDialogResult.Yes;
             await _navigationService.Close(this, _dialogResult);
         }
 
         private async Task DoNotSave()
         {
-            _dialogResult = DialogResult.No;
+            _dialogResult = YesNoCancelDialogResult.No;
             await _navigationService.Close(this, _dialogResult);
         }
 
         private async Task Cancel()
         {
-            _dialogResult = DialogResult.Cancel;
+            _dialogResult = YesNoCancelDialogResult.Cancel;
             await _navigationService.Close(this, _dialogResult);
         }
     }

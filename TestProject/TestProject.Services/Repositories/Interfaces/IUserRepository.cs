@@ -1,11 +1,13 @@
-﻿using TestProject.Entities;
+﻿using System.Threading.Tasks;
+
+using TestProject.Entities;
 
 namespace TestProject.Services.Repositories.Interfaces
 {
     public interface IUserRepository : IBaseRepository<User>
     {
-        string GetUserQuery(string userName);
+        Task<User> GetUser(string userName);
 
-        string GetUserQuery(string userName, string password);
+        Task<User> GetUser(string userName, string password);
     }
 }

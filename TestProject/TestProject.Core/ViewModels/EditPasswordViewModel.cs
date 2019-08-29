@@ -14,9 +14,9 @@ namespace TestProject.Core.ViewModels
     {
         private User _currentUser;
     
-        public EditPasswordViewModel(IMvxNavigationService navigationService, IUserRepository userRepository, IUserStorageHelper storage,
-            IValidationHelper validationHelper, IValidationResultHelper validationResultHelper, IDialogsHelper dialogsHelper)             
-            : base(navigationService, storage, userRepository, validationHelper, validationResultHelper, dialogsHelper)
+        public EditPasswordViewModel(IMvxNavigationService navigationService, IUserRepository userRepository, 
+            IUserStorageHelper storage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)             
+            : base(navigationService, storage, userRepository, validationHelper, dialogsHelper)
         {
             ChangePasswordCommand = new MvxAsyncCommand(ChangePassword);
         }
@@ -63,7 +63,7 @@ namespace TestProject.Core.ViewModels
             _currentUser = await _storage.Get();
         }
 
-        protected override async Task<bool> TryValidateData()
+        protected override async Task<bool> IsDataValid()
         {
             if (OldPassword != _currentUser.Password)
             {
@@ -78,10 +78,9 @@ namespace TestProject.Core.ViewModels
             }
 
             _currentUser.Password = NewPassword;
-            bool isPasswordValid = _validationHelper.TryValidateObject(_currentUser, nameof(_currentUser.Password));
+            bool isPasswordValid = _validationHelper.IsObjectValid(_currentUser, nameof(_currentUser.Password));
             if (!isPasswordValid)
             {
-                _validationResultHelper.HandleValidationResult(_currentUser, nameof(_currentUser.Password));
                 _currentUser.Password = OldPassword;
                 return false;
             }
@@ -92,7 +91,7 @@ namespace TestProject.Core.ViewModels
 
         private async Task ChangePassword()
         {
-            bool isPasswordValid = await TryValidateData();
+            bool isPasswordValid = await IsDataValid();
             if (!isPasswordValid)
             {
                 return;

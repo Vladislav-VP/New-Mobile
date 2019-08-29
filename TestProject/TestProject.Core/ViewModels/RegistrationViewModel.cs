@@ -12,9 +12,9 @@ namespace TestProject.Core.ViewModels
 {
     public class RegistrationViewModel : UserViewModel
     {
-        public RegistrationViewModel(IMvxNavigationService navigationService, IUserRepository userRepository, IUserStorageHelper storage,
-             IValidationHelper validationHelper, IValidationResultHelper validationResultHelper, IDialogsHelper dialogsHelper)
-            : base(navigationService, storage, userRepository, validationHelper, validationResultHelper, dialogsHelper)
+        public RegistrationViewModel(IMvxNavigationService navigationService, IUserRepository userRepository, 
+            IUserStorageHelper storage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
+            : base(navigationService, storage, userRepository, validationHelper, dialogsHelper)
         {
             RegisterUserCommand = new MvxAsyncCommand(RegisterUser);
         }
@@ -43,23 +43,20 @@ namespace TestProject.Core.ViewModels
 
         public IMvxAsyncCommand RegisterUserCommand { get; private set; }
 
-        protected override async Task<bool> TryValidateData()
+        protected override async Task<bool> IsDataValid()
         {
-            User enteredUser = new User { Name = UserName, Password = Password };
+            User user = new User { Name = UserName, Password = Password };
 
-            bool isUserDataValid = _validationHelper.TryValidateObject(enteredUser, nameof(enteredUser.Name))
-                && _validationHelper.TryValidateObject(enteredUser, nameof(enteredUser.Password));
+            bool isUserDataValid = _validationHelper.IsObjectValid(user, nameof(user.Name))
+                && _validationHelper.IsObjectValid(user, nameof(user.Password));
             if (!isUserDataValid)
             {
-                _validationResultHelper.HandleValidationResult(enteredUser, nameof(enteredUser.Name));
-                _validationResultHelper.HandleValidationResult(enteredUser, nameof(enteredUser.Password));
                 return false;
             }
 
-            enteredUser.Name = enteredUser.Name.Trim();
-            string query = _userRepository.GetUserQuery(enteredUser.Name);
-            User userFromDataBase = await _userRepository.FindWithQuery(query);
-            if (userFromDataBase != null)
+            user.Name = user.Name.Trim();
+            User retrievedUser = await _userRepository.GetUser(user.Name);
+            if (retrievedUser != null)
             {
                 _dialogsHelper.DisplayAlertMessage(Strings.UserAlreadyExistsMessage);
                 return false;
@@ -70,7 +67,7 @@ namespace TestProject.Core.ViewModels
 
         private async Task RegisterUser()
         {
-            bool isUserValid = await TryValidateData();
+            bool isUserValid = await IsDataValid();
             if (!isUserValid)
             {
                 return;

@@ -20,11 +20,11 @@ namespace TestProject.Droid.Activities
         Name = "testProject.droid.activities.LoginActivity")]
     public class LoginActivity : MvxAppCompatActivity<LoginViewModel>
     {
-        private readonly IControlInitializingHelper _controlInitializingHelper;
+        private readonly IControlSigningHelper _controlInitializingHelper;
 
         public LoginActivity()
         {
-            _controlInitializingHelper = Mvx.IoCProvider.Resolve<IControlInitializingHelper>();
+            _controlInitializingHelper = Mvx.IoCProvider.Resolve<IControlSigningHelper>();
         }
         
         protected override void OnCreate(Bundle bundle)

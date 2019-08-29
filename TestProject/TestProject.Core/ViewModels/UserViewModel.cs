@@ -12,9 +12,9 @@ namespace TestProject.Core.ViewModels
 
         protected readonly IStorageHelper<User> _userStorage;        
 
-        public UserViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, IUserRepository userRepository,
-             IValidationHelper validationHelper, IValidationResultHelper validationResultHelper, IDialogsHelper dialogsHelper)
-            : base(navigationService, storage, dialogsHelper, validationHelper, validationResultHelper)
+        public UserViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage,
+            IUserRepository userRepository, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
+            : base(navigationService, storage, dialogsHelper, validationHelper)
         {
             _userRepository = userRepository;
         }

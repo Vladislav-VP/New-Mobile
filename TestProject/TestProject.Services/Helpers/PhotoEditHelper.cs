@@ -53,8 +53,8 @@ namespace TestProject.Services.Helpers
                     file = await _photoCaptureHelper.PickPhoto();
                     break;
                 case EditPhotoDialogResult.TakePicture:                    
-                    bool isCameraPermitted = await _permissionsHelper.TryRequestPermission(Permission.Camera);
-                    bool isStoragePermitted = await _permissionsHelper.TryRequestPermission(Permission.Storage);
+                    bool isCameraPermitted = await _permissionsHelper.IsPermissionGranted(Permission.Camera);
+                    bool isStoragePermitted = await _permissionsHelper.IsPermissionGranted(Permission.Storage);
                     if (isCameraPermitted && isStoragePermitted)
                     {
                         file = await _photoCaptureHelper.TakePhoto();

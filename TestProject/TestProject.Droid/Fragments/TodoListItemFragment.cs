@@ -2,6 +2,7 @@
 using Android.Runtime;
 using Android.Support.V4.Widget;
 using Android.Views;
+using Android.Widget;
 using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 
@@ -22,18 +23,18 @@ namespace TestProject.Droid.Fragments
         {
             View view = base.OnCreateView(inflater, container, savedInstanceState);
 
-            ((MainActivity)Activity).DrawerLayout.SetDrawerLockMode(DrawerLayout.LockModeUnlocked);
-
-            MvxRecyclerView taskList = view.FindViewById<MvxRecyclerView>(Resource.Id.todoItemsRecyclerView);
-
-            ParentActivity.SupportActionBar.Title = Strings.TaskList;
+            InitializeAllControls(view);
 
             return view;
         }
 
         protected override void InitializeAllControls(View view)
         {
-            throw new System.NotImplementedException();
+            TextView tvTaskListTitle = view.FindViewById<TextView>(Resource.Id.tvTaskListTitle);
+
+            _controlSigningHelper.SignControl(tvTaskListTitle, Strings.TaskList);
+            ParentActivity.SupportActionBar.Title = Strings.TaskList;
+            ((MainActivity)Activity).DrawerLayout.SetDrawerLockMode(DrawerLayout.LockModeUnlocked);
         }
     }
 }

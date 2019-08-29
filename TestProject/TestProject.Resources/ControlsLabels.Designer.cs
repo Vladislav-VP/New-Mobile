@@ -79,6 +79,15 @@ namespace TestProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm new password.
+        /// </summary>
+        public static string ConfirmNewPasswordTipLabel {
+            get {
+                return ResourceManager.GetString("ConfirmNewPasswordTipLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete account.
         /// </summary>
         public static string DeleteAccountButtonLabel {
@@ -97,11 +106,38 @@ namespace TestProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter new password.
+        /// </summary>
+        public static string EnterNewPasswordTipLabel {
+            get {
+                return ResourceManager.GetString("EnterNewPasswordTipLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter old password.
+        /// </summary>
+        public static string EnterOldPasswordTipLabel {
+            get {
+                return ResourceManager.GetString("EnterOldPasswordTipLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log in.
         /// </summary>
         public static string LoginButtonLabel {
             get {
                 return ResourceManager.GetString("LoginButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log out.
+        /// </summary>
+        public static string LogoutLabel {
+            get {
+                return ResourceManager.GetString("LogoutLabel", resourceCulture);
             }
         }
         
@@ -133,6 +169,24 @@ namespace TestProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string SaveButtonLabel {
+            get {
+                return ResourceManager.GetString("SaveButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save changes.
+        /// </summary>
+        public static string SaveChangesButtonLabel {
+            get {
+                return ResourceManager.GetString("SaveChangesButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save changes?.
         /// </summary>
         public static string SaveChangesPrompt {
@@ -142,20 +196,20 @@ namespace TestProject.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save.
+        ///   Looks up a localized string similar to Settings.
         /// </summary>
-        public static string SaveTodoItemButtonLabel {
+        public static string SettingsLabel {
             get {
-                return ResourceManager.GetString("SaveTodoItemButtonLabel", resourceCulture);
+                return ResourceManager.GetString("SettingsLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save changes.
+        ///   Looks up a localized string similar to Task list.
         /// </summary>
-        public static string SaveUserNameButtonLabel {
+        public static string TaskListLabel {
             get {
-                return ResourceManager.GetString("SaveUserNameButtonLabel", resourceCulture);
+                return ResourceManager.GetString("TaskListLabel", resourceCulture);
             }
         }
         
@@ -192,15 +246,6 @@ namespace TestProject.Resources {
         public static string UsernameTextViewLabel {
             get {
                 return ResourceManager.GetString("UsernameTextViewLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Settings.
-        /// </summary>
-        public static string UserSettingsTextViewLabel {
-            get {
-                return ResourceManager.GetString("UserSettingsTextViewLabel", resourceCulture);
             }
         }
         

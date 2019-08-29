@@ -124,7 +124,7 @@ namespace TestProject.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid format of username or password!.
+        ///   Looks up a localized string similar to Invalid format of password!.
         /// </summary>
         public static string InvalidPasswordFormatMessage {
             get {

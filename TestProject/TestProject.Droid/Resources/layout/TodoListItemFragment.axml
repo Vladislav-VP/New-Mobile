@@ -16,10 +16,9 @@
         android:fitsSystemWindows="true"
         local:layout_behavior="@string/appbar_scrolling_view_behavior">
         <TextView
-            android:id="@+id/objectivesTextView"
+            android:id="@+id/tvTaskListTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/label_task_list"
             android:textColor="@android:color/background_light"
             android:textSize="35dp"
             android:textAlignment="center"
@@ -29,7 +28,6 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentRight="true"
-            android:text="+"
             android:textSize="30dp"
             android:textAlignment="center"
             local:MvxBind="Click ShowCreateTodoItemViewModelCommand"

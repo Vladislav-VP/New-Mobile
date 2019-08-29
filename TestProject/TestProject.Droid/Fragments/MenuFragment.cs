@@ -5,12 +5,15 @@ using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Views;
+using MvvmCross;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 
 using TestProject.Core.ViewModels;
 using TestProject.Droid.Activities;
+using TestProject.Droid.Helpers.Interfaces;
+using TestProject.Resources;
 
 namespace TestProject.Droid.Fragments
 {
@@ -26,20 +29,7 @@ namespace TestProject.Droid.Fragments
 
             View view = this.BindingInflate(Resource.Layout.MenuFragment, null);
 
-            NavigationView navigationView = view.FindViewById<NavigationView>(Resource.Id.navigation_view);
-            navigationView.SetNavigationItemSelectedListener(this);
-
-            IMenuItem todoItemsMenuItem = navigationView.Menu.FindItem(Resource.Id.nav_todoItems);
-            todoItemsMenuItem.SetCheckable(false);
-            todoItemsMenuItem.SetChecked(true);
-
-            _previousMenuItem = todoItemsMenuItem;
-
-            IMenuItem settingsMenuItem = navigationView.Menu.FindItem(Resource.Id.nav_settings);
-            settingsMenuItem.SetCheckable(false);
-
-            IMenuItem logoutMenuItem = navigationView.Menu.FindItem(Resource.Id.nav_logout);
-            logoutMenuItem.SetCheckable(false);
+            InitializeAllControls(view);
 
             return view;
         }
@@ -57,6 +47,24 @@ namespace TestProject.Droid.Fragments
             Task.Run(() => Navigate(item.ItemId));
 
             return true;
+        }
+
+        private void InitializeAllControls(View view)
+        {
+            NavigationView navigationView = view.FindViewById<NavigationView>(Resource.Id.navigation_view);
+            navigationView.SetNavigationItemSelectedListener(this);
+            
+            IMenuItem todoItemsMenuItem = navigationView.Menu.FindItem(Resource.Id.nav_todoItems);
+            todoItemsMenuItem.SetCheckable(false);
+            todoItemsMenuItem.SetChecked(true);
+
+            _previousMenuItem = todoItemsMenuItem;
+
+            IMenuItem settingsMenuItem = navigationView.Menu.FindItem(Resource.Id.nav_settings);
+            settingsMenuItem.SetCheckable(false);
+
+            IMenuItem logoutMenuItem = navigationView.Menu.FindItem(Resource.Id.nav_logout);
+            logoutMenuItem.SetCheckable(false);
         }
 
         private async Task Navigate(int itemId)

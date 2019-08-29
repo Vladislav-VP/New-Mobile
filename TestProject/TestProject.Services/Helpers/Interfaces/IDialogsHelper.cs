@@ -8,6 +8,8 @@ namespace TestProject.Services.Helpers.Interfaces
 
         void DisplayAlertMessage(string message);
 
-        Task<bool> TryGetConfirmation(string message);
+        Task<bool> IsConfirmed(string message);
+
+        Task<string> ChooseOption(string title, string cancel, string destructive, params string[] buttons);
     }
 }

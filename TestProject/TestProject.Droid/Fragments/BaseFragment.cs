@@ -18,11 +18,11 @@ namespace TestProject.Droid.Fragments
         private Toolbar _toolbar;
         private MvxActionBarDrawerToggle _drawerToggle;
 
-        protected readonly IControlInitializingHelper _controlInitializingHelper;
+        protected readonly IControlSigningHelper _controlSigningHelper;
 
         public BaseFragment()
         {
-            _controlInitializingHelper = Mvx.IoCProvider.Resolve<IControlInitializingHelper>();
+            _controlSigningHelper = Mvx.IoCProvider.Resolve<IControlSigningHelper>();
         }
 
         public MvxAppCompatActivity ParentActivity
