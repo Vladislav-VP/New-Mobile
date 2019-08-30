@@ -15,7 +15,8 @@ namespace TestProject.Core.ViewModels
     {
         private User _currentUser;
 
-        protected string _userName;
+        protected string _oldUserName;
+        protected string _newUserName;
 
         public UserSettingsViewModel(IMvxNavigationService navigationService, IUserRepository userRepository, 
             IUserStorageHelper userStorage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
@@ -27,13 +28,13 @@ namespace TestProject.Core.ViewModels
                 new MvxAsyncCommand(async () => await _navigationService.Navigate<EditPasswordViewModel>());
         }
 
-        public string UserName
+        public string NewUserName
         {
-            get => _userName;
+            get => _newUserName;
             set
             {
-                _userName = value;
-                RaisePropertyChanged(() => UserName);
+                _newUserName = value;
+                RaisePropertyChanged(() => NewUserName);
             }
         }
 
@@ -43,17 +44,29 @@ namespace TestProject.Core.ViewModels
 
         public IMvxAsyncCommand ShowEditPasswordViewModelCommand { get; private set; }
 
+        protected override bool IsStateChanged
+        {
+            get => _oldUserName != _newUserName;
+        }
+
         public async override Task Initialize()
         {
             await base.Initialize();
 
             _currentUser = await _storage.Get();
 
-            _userName = _currentUser.Name;
+            _oldUserName = _currentUser.Name;
+            _newUserName = _currentUser.Name;
         }
 
         protected override async Task GoBack()
         {
+            if (!IsStateChanged)
+            {
+                await _navigationService.Navigate<TodoListItemViewModel>();
+                return;
+            }
+
             YesNoCancelDialogResult result = await _navigationService.Navigate<CancelDialogViewModel, YesNoCancelDialogResult>();
 
             if (result == YesNoCancelDialogResult.Yes)
@@ -68,23 +81,23 @@ namespace TestProject.Core.ViewModels
         protected override async Task<bool> IsDataValid()
         {
             string oldUserName = _currentUser.Name;
-            UserName = UserName.Trim();
+            NewUserName = NewUserName.Trim();
 
-            _currentUser.Name = UserName;
+            _currentUser.Name = NewUserName;
             bool isUserNameValid = _validationHelper.IsObjectValid(_currentUser);
             if (!isUserNameValid)
             {                
                 _currentUser.Name = oldUserName;
-                UserName = oldUserName;
+                NewUserName = oldUserName;
                 return false;
             }
 
-            User retrievedUser = await _userRepository.GetUser(UserName);
+            User retrievedUser = await _userRepository.GetUser(NewUserName);
             if (retrievedUser != null && retrievedUser.Id != _currentUser.Id)
             {
                 _dialogsHelper.DisplayAlertMessage(Strings.UserAlreadyExistsMessage);
                 _currentUser.Name = oldUserName;
-                UserName = oldUserName;
+                NewUserName = oldUserName;
                 return false;
             }
 
@@ -99,8 +112,11 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            await _userRepository.Update(_currentUser);
-            _dialogsHelper.DisplayToastMessage(Strings.UserNameChangedMessage);
+            if (IsStateChanged)
+            {
+                await _userRepository.Update(_currentUser);
+                _dialogsHelper.DisplayToastMessage(Strings.UserNameChangedMessage);
+            }
 
             await _navigationService.Navigate<TodoListItemViewModel>();
             // TODO: Correcrt issue with navigation to menu (username is not updated without navigating).

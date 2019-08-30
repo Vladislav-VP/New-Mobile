@@ -19,4 +19,13 @@
             local:MvxBind="Click RegisterUserCommand"/>   
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btBackToLogin"
+        android:layout_width="@dimen/button_back_to_login_width"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/main_button_text_size"
+        android:layout_margin="@dimen/compat_button_padding_horizontal_material"
+        android:background="@drawable/main_button_shape"
+        local:MvxBind="Click GoBackCommand"
+    />
 </LinearLayout>

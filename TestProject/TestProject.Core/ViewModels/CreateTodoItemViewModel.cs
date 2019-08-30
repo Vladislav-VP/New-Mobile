@@ -21,9 +21,25 @@ namespace TestProject.Core.ViewModels
         }
         
         public IMvxAsyncCommand CreateTodoItemCommand { get; private set; }
-        
+
+        protected override bool IsStateChanged
+        {
+            get
+            {
+                return !string.IsNullOrWhiteSpace(Name) 
+                    || !string.IsNullOrWhiteSpace(Description)
+                    || IsDone;
+            }
+        }
+
         protected async override Task GoBack()
         {
+            if (!IsStateChanged)
+            {
+                await _navigationService.Navigate<TodoListItemViewModel>();
+                return;
+            }
+
             YesNoCancelDialogResult result = await _navigationService.Navigate<CancelDialogViewModel, YesNoCancelDialogResult>();
 
             if (result == YesNoCancelDialogResult.Yes)

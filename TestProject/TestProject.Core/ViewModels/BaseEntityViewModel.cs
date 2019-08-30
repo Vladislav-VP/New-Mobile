@@ -21,6 +21,11 @@ namespace TestProject.Core.ViewModels
             _validationHelper = validationHelper;
         }
 
+        protected virtual bool IsStateChanged
+        {
+            get => false;
+        }
+
         protected abstract Task<bool> IsDataValid();
 
         protected virtual async Task HandleDialogResult(YesNoCancelDialogResult result)

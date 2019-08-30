@@ -1,4 +1,4 @@
-﻿namespace TestProject.Entities
+﻿namespace TestProject.ValidationConfigurations
 {
     static class ValidationConstants
     {

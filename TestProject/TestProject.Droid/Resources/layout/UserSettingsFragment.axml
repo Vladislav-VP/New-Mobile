@@ -15,7 +15,7 @@
             android:id="@+id/tvSettings"
             style="@style/TitleStyle"/>
         <de.hdodenhof.circleimageview.CircleImageView
-            android:src="@mipmap/back"
+            android:src="@mipmap/ic_back_from_settings"
             style="@style/TopPanelCircleImageViewStyle"           
             local:MvxBind="Click GoBackCommand" />
     </RelativeLayout>
@@ -39,11 +39,9 @@
 
     </LinearLayout>
 
-
     <Button
         android:id="@+id/btDeleteAccount"
         style="@style/MainButtonStyle"
-        android:layout_marginTop="@dimen/delete_account_button_margin_top"
         local:MvxBind="Click DeleteUserCommand"/>
 
 </LinearLayout>

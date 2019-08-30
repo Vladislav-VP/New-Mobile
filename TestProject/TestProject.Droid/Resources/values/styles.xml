@@ -79,7 +79,7 @@
     <item name="android:layout_width">@dimen/todoitem_button_width</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_alignParentLeft">true</item>
-    <item name="android:layout_margin">@dimen/todo_item_margin</item>
+    <item name="android:layout_margin">@dimen/todoitem_button_margin</item>
     <item name="android:background">@drawable/main_button_shape</item>
   </style>
 

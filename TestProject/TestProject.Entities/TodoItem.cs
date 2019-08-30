@@ -2,17 +2,18 @@
 
 using SQLite;
 using SQLiteNetExtensions.Attributes;
-
-using TestProject.Resources;
+using TestProject.ValidationConfigurations;
 
 namespace TestProject.Entities
 {
     public class TodoItem : BaseEntity
     {
         [NotNull]
-        [Required(AllowEmptyStrings = false, ErrorMessage = ErrorMessages.EmptyNameMessage)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = ErrorMessages.EmptyTodoItemNameMessage)]
         public string Name { get; set; }
 
+        [NotNull]
+        [Required(AllowEmptyStrings = false, ErrorMessage = ErrorMessages.EmptyTodoItemDescriptionMessage)]
         public string Description { get; set; }
 
         public bool IsDone { get; set; }

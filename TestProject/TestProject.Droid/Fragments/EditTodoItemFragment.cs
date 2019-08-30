@@ -1,5 +1,6 @@
 ﻿using Android.OS;
 using Android.Runtime;
+using Android.Support.Design.Widget;
 using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
@@ -11,7 +12,7 @@ using TestProject.Resources;
 
 namespace TestProject.Droid.Fragments
 {
-    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame)]
+    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame, AddToBackStack = true)]
     [Register("testProject.droid.views.EditTodoItemFragment")]
     public class EditTodoItemFragment : BaseFragment<EditTodoItemViewModel>
     {
@@ -33,6 +34,7 @@ namespace TestProject.Droid.Fragments
             TextView tvTodoItemName = view.FindViewById<TextView>(Resource.Id.tvTodoItemName);
             TextView tvDescription = view.FindViewById<TextView>(Resource.Id.tvDescription);
             TextView tvDone = view.FindViewById<TextView>(Resource.Id.tvDone);
+            TextInputEditText etTodoItemName = view.FindViewById<TextInputEditText>(Resource.Id.etTodoItemName);
             Button btSaveTodoItem = view.FindViewById<Button>(Resource.Id.btSaveTodoItem);
             Button btDeleteTodoItem = view.FindViewById<Button>(Resource.Id.btDeleteTodoItem);
 
@@ -41,6 +43,8 @@ namespace TestProject.Droid.Fragments
             _controlSigningHelper.SignControl(tvDone, Strings.TodoItemIsDoneTextViewLabel);
             _controlSigningHelper.SignControl(btSaveTodoItem, Strings.SaveButtonLabel);
             _controlSigningHelper.SignControl(btDeleteTodoItem, Strings.DeleteTodoItemButtonLabel);
+
+            etTodoItemName.Enabled = false;
         }
     }
 }

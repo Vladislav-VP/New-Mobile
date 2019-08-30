@@ -265,4 +265,7 @@ not shorter than</value>
   <data name="YesButtonLabel" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="BackLabel" xml:space="preserve">
+    <value>Back</value>
+  </data>
 </root>

@@ -70,6 +70,15 @@ namespace TestProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        public static string BackLabel {
+            get {
+                return ResourceManager.GetString("BackLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string CancelButtonLabel {

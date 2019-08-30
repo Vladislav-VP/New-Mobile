@@ -2,14 +2,14 @@
 using SQLite;
 
 using TestProject.Entities.Attributes;
-using TestProject.Resources;
+using TestProject.ValidationConfigurations;
 
 namespace TestProject.Entities
 {
     public class User : BaseEntity
     {
         [Unique, NotNull]
-        [Required(AllowEmptyStrings = false, ErrorMessage = ErrorMessages.EmptyNameMessage)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = ErrorMessages.EmptyUserNameMessage)]
         public string Name { get; set; }
 
         [NotNull]

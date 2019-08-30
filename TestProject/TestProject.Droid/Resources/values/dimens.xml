@@ -2,7 +2,7 @@
 <resources>
   <dimen name="dialog_button_width">80dp</dimen>
   <dimen name="text_view_padding_horizontal">12dp</dimen>
-  <dimen name="todoitem_button_width">170dp</dimen>
+  <dimen name="todoitem_button_width">160dp</dimen>
   <dimen name="todo_item_margin">5dp</dimen>
   <dimen name="recycler_view_min_height">50dp</dimen>
   <dimen name="recycler_view_text_size">30dp</dimen>
@@ -38,4 +38,8 @@
   <dimen name="delete_account_button_margin_top">150dp</dimen>
   <dimen name="dialog_text_margin">5dp</dimen>
   <dimen name="title_height">40dp</dimen>
+  <dimen name="todoitem_layout_margin_horizontal">5dp</dimen>
+  <dimen name="todoitem_button_margin">10dp</dimen>
+  <dimen name="button_back_to_login_width">180dp</dimen>
+  <dimen name="button_back_to_login_margin">10dp</dimen>
 </resources>

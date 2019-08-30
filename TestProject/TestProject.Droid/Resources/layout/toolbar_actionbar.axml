@@ -24,7 +24,7 @@
                 android:id="@+id/tvTaskListTitle"
                 style="@style/TitleStyle" />        
             <de.hdodenhof.circleimageview.CircleImageView                
-                android:src="@mipmap/add_icon"
+                android:src="@mipmap/ic_add_todoitem"
                 style="@style/TopPanelCircleImageViewStyle"
                 android:layout_alignParentRight="true"
                 local:MvxBind="Click ShowCreateTodoItemViewModelCommand"/>

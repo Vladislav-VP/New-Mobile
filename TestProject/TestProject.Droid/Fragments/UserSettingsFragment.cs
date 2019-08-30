@@ -9,7 +9,7 @@ using TestProject.Resources;
 
 namespace TestProject.Droid.Fragments
 {
-    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame)]
+    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame, AddToBackStack = true)]
     [Register("testProject.droid.views.UserInfoView")]
     public class UserSettingsFragment : BaseFragment<UserSettingsViewModel>
     {

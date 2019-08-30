@@ -37,7 +37,16 @@ namespace TestProject.Core.ViewModels
         public IMvxAsyncCommand UpdateTodoItemCommand { get; private set; }
 
         public IMvxAsyncCommand DeleteTodoItemCommand { get; private set; }
-        
+
+        protected override bool IsStateChanged
+        {
+            get
+            {
+                return Description != TodoItem.Description 
+                    || IsDone != TodoItem.IsDone;
+            }
+        }
+
         public void Prepare(TodoItem parameter)
         {
             TodoItem = parameter;
@@ -54,6 +63,12 @@ namespace TestProject.Core.ViewModels
 
         protected override async Task GoBack()
         {
+            if (!IsStateChanged)
+            {
+                await _navigationService.Navigate<TodoListItemViewModel>();
+                return;
+            }
+
             YesNoCancelDialogResult result = await _navigationService.Navigate<CancelDialogViewModel, YesNoCancelDialogResult>();
 
             if (result == YesNoCancelDialogResult.Yes)
@@ -77,9 +92,9 @@ namespace TestProject.Core.ViewModels
             await _todoItemRepository.Update(TodoItem);
             await _navigationService.Navigate<TodoListItemViewModel>();
         }
+
         private void ChangeTodoItem()
         {
-            TodoItem.Name = Name;
             TodoItem.Description = Description;
             TodoItem.IsDone = IsDone;
         }

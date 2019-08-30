@@ -14,7 +14,7 @@
             style="@style/TitleStyle"
             local:MvxBind="Text Name"/>
         <de.hdodenhof.circleimageview.CircleImageView
-            android:src="@mipmap/back"
+            android:src="@mipmap/ic_back_from_todoitem"
             style="@style/TopPanelCircleImageViewStyle"
             local:MvxBind="Click GoBackCommand" />
     </RelativeLayout>
@@ -22,12 +22,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/todoitem_layout_margin_horizontal"
         android:orientation="vertical">
         <TextView
             android:id="@+id/tvTodoItemName"
             style="@style/LabelStyle"/>
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/etTaskName"
+            android:id="@+id/etTodoItemName"
             style="@style/TodoItemTextEditStyle"
             android:layout_height="@dimen/todo_item_name_edit_text_height"            
             local:MvxBind="Text Name"

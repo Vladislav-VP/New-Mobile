@@ -42,7 +42,7 @@ namespace TestProject.Droid.Activities
                 DrawerLayout.CloseDrawers();
                 return;
             }
-                
+            
             base.OnBackPressed();
         }
 
