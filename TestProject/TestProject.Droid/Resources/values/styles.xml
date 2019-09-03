@@ -103,6 +103,16 @@
     <item name="android:layout_height">@dimen/title_height</item>
   </style>
 
+  <style name="TaskListTitleStyle">
+    <item name="android:textAlignment">center</item>
+    <item name="android:layout_marginVertical">@dimen/title_margin_vertical</item>
+    <item name="android:layout_marginLeft">@dimen/task_list_title_margin_left</item>
+    <item name="android:textColor">@android:color/background_light</item>
+    <item name="android:textSize">@dimen/title_text_size</item>
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">@dimen/title_height</item>
+  </style>
+
   <style name="TodoItemTextEditStyle">
     <item name="android:inputType">text</item>
     <item name="android:layout_width">match_parent</item>

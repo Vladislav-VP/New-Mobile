@@ -8404,6 +8404,9 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f09006e
 			public const int subtitle_shadow_radius = 2131296366;
 			
+			// aapt resource value: 0x7f09010f
+			public const int task_list_title_margin_left = 2131296527;
+			
 			// aapt resource value: 0x7f0900e4
 			public const int text_view_padding_horizontal = 2131296484;
 			
@@ -11827,6 +11830,9 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0d002b
 			public const int RtlUnderlay_Widget_AppCompat_ActionButton_Overflow = 2131558443;
 			
+			// aapt resource value: 0x7f0d020d
+			public const int TaskListTitleStyle = 2131558925;
+			
 			// aapt resource value: 0x7f0d00d2
 			public const int TextAppearance_AppCompat = 2131558610;
 			
@@ -12319,14 +12325,14 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0d020a
 			public const int TodoItemButtonStyle = 2131558922;
 			
-			// aapt resource value: 0x7f0d020d
-			public const int TodoItemTextEditStyle = 2131558925;
+			// aapt resource value: 0x7f0d020e
+			public const int TodoItemTextEditStyle = 2131558926;
 			
 			// aapt resource value: 0x7f0d0202
 			public const int Toolbar = 2131558914;
 			
-			// aapt resource value: 0x7f0d020e
-			public const int TopPanelCircleImageViewStyle = 2131558926;
+			// aapt resource value: 0x7f0d020f
+			public const int TopPanelCircleImageViewStyle = 2131558927;
 			
 			// aapt resource value: 0x7f0d0206
 			public const int UserNameStyle = 2131558918;

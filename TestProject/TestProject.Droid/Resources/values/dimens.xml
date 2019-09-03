@@ -44,4 +44,5 @@
   <dimen name="button_back_to_login_width">180dp</dimen>
   <dimen name="button_back_to_login_margin">10dp</dimen>
   <dimen name="todo_item_edit_text_min_height">40dp</dimen>
+  <dimen name="task_list_title_margin_left">65dp</dimen>
 </resources>
