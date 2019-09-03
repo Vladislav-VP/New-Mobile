@@ -9,7 +9,7 @@ using TestProject.Resources;
 
 namespace TestProject.Droid.Fragments
 {
-    [Register("testProject.droid.views.EditPasswordFragment")]
+    [Register("testProject.droid.fragments.EditPasswordFragment")]
     public class EditPasswordFragment : BaseDialogFragment<EditPasswordViewModel>
     {
         protected override int FragmentId => Resource.Layout.EditPasswordFragment;

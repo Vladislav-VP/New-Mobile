@@ -5,6 +5,7 @@ using Android.Content;
 using Android.Graphics;
 using MvvmCross;
 using MvvmCross.Converters;
+
 using TestProject.Droid.Helpers.Interfaces;
 using TestProject.Droid.Providers.Interfaces;
 

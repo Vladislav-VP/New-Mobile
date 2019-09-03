@@ -9,7 +9,7 @@ using TestProject.Resources;
 
 namespace TestProject.Droid.Fragments
 {
-    [Register("testProject.droid.views.CancelDialogFragment")]
+    [Register("testProject.droid.fragments.CancelDialogFragment")]
     public class CancelDialogFragment : BaseDialogFragment<CancelDialogViewModel>
     {
         protected override int FragmentId => Resource.Layout.CancelDialogFragment;

@@ -21,6 +21,8 @@ namespace TestProject.Core.ViewModels
         {
             _todoItemRepository = todoItemRepository;
 
+            ShowMenuViewModelCommand = new MvxAsyncCommand(async ()
+                  => await _navigationService.Navigate<MenuViewModel>());
             ShowCreateTodoItemViewModelCommand = new MvxAsyncCommand(async ()
                 => await _navigationService.Navigate<CreateTodoItemViewModel>());
             SelectTodoItemCommand = new MvxAsyncCommand<TodoItem>(SelectTodoItem);
@@ -42,6 +44,11 @@ namespace TestProject.Core.ViewModels
             await base.Initialize();
             
             User currentUser = await _storage.Get();
+            if (currentUser == null)
+            {
+                await _navigationService.Navigate<LoginViewModel>();
+                return;
+            }
             TodoItems = new MvxObservableCollection<TodoItem>(await _todoItemRepository.GetTodoItems(currentUser.Id));
         }
 

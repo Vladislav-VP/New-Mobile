@@ -14,8 +14,8 @@ using TestProject.Droid.Activities;
 
 namespace TestProject.Droid.Fragments
 {
-    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.navigation_frame)]
-    [Register("testProject.droid.views.MenuFragment")]
+    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.navigation_frame, AddToBackStack = false)]
+    [Register("testProject.droid.fragments.MenuFragment")]
     public class MenuFragment : MvxFragment<MenuViewModel>, NavigationView.IOnNavigationItemSelectedListener
     {
         private IMenuItem _previousMenuItem;

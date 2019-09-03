@@ -51,7 +51,6 @@ namespace TestProject.Core.ViewModels
             await HandleDialogResult(result);
         }
 
-
         private async Task CreateTodoItem()
         {
             bool isTodoItemValid = await IsDataValid();
@@ -76,7 +75,5 @@ namespace TestProject.Core.ViewModels
             };
             await _todoItemRepository.Insert(todoItem);
         }
-
-
     }
 }

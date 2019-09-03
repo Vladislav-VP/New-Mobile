@@ -13,7 +13,7 @@ using TestProject.Resources;
 namespace TestProject.Droid.Fragments
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame, AddToBackStack = true)]
-    [Register("testProject.droid.views.EditTodoItemFragment")]
+    [Register("testProject.droid.fragments.EditTodoItemFragment")]
     public class EditTodoItemFragment : BaseFragment<EditTodoItemViewModel>
     {
         protected override int FragmentId => Resource.Layout.EditTodoItemFragment;

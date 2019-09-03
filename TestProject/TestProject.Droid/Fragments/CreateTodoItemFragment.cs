@@ -12,7 +12,7 @@ using TestProject.Resources;
 namespace TestProject.Droid.Fragments
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame, AddToBackStack = true)]
-    [Register("testProject.droid.views.CreateTodoItemFragment")]
+    [Register("testProject.droid.fragments.CreateTodoItemFragment")]
     public class CreateTodoItemFragment : BaseFragment<CreateTodoItemViewModel>
     {
         protected override int FragmentId => Resource.Layout.CreateTodoItemFragment;

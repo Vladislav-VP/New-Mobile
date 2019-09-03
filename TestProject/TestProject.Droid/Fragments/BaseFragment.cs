@@ -32,7 +32,7 @@ namespace TestProject.Droid.Fragments
                 return (MvxAppCompatActivity)Activity;
             }
         }
-
+        
         protected abstract int FragmentId { get; }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -57,6 +57,8 @@ namespace TestProject.Droid.Fragments
                 _drawerToggle.DrawerOpened += (object sender, ActionBarDrawerEventArgs e) => ((MainActivity)Activity)?.HideSoftKeyboard();
                 ((MainActivity)ParentActivity).DrawerLayout.AddDrawerListener(_drawerToggle);
             }
+
+            ((MainActivity)ParentActivity).HideSoftKeyboard();
 
             return view;
         }

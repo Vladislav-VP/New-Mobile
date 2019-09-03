@@ -11,8 +11,8 @@ using TestProject.Resources;
 
 namespace TestProject.Droid.Fragments
 {
-    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame, AddToBackStack = true)]
-    [Register("testProject.droid.views.TodoListItemFragment")]
+    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame, AddToBackStack = false)]
+    [Register("testProject.droid.fragments.TodoListItemFragment")]
 
     public class TodoListItemFragment : BaseFragment<TodoListItemViewModel>
     {
@@ -22,10 +22,17 @@ namespace TestProject.Droid.Fragments
         {
             View view = base.OnCreateView(inflater, container, savedInstanceState);
 
+            if (savedInstanceState == null && ViewModel.ShowMenuViewModelCommand != null)
+            {
+                ViewModel.ShowMenuViewModelCommand.Execute(null);
+            }
+
             InitializeAllControls(view);
 
             return view;
         }
+
+        
 
         protected override void InitializeAllControls(View view)
         {

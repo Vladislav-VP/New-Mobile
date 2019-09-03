@@ -18,6 +18,7 @@ namespace TestProject.Droid.Fragments
         }
 
         protected abstract int FragmentId { get; }
+
         protected abstract void InitializeAllControls(View view);
     }
 }

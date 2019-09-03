@@ -46,8 +46,14 @@ namespace TestProject.Droid.Activities
             base.OnBackPressed();
         }
 
+        public override bool OnTouchEvent(MotionEvent e)
+        {
+            return base.OnTouchEvent(e);
+        }
+
         public void HideSoftKeyboard()
         {
+
             if (CurrentFocus == null)
                 return;
 
@@ -68,12 +74,6 @@ namespace TestProject.Droid.Activities
             CrossCurrentActivity.Current.Init(this, bundle);
 
             DrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-
-            if (bundle == null && ViewModel.ShowMenuViewModelCommand != null)
-            {
-                ViewModel.ShowMenuViewModelCommand.Execute(null);
-            }
-
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)

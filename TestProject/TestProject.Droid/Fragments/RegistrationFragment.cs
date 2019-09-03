@@ -9,9 +9,8 @@ using TestProject.Resources;
 
 namespace TestProject.Droid.Fragments
 {
-    // TODO: Replace magic number 16908290. Decide if LoginActivity required.
-    [MvxFragmentPresentation(typeof(LoginViewModel), 16908290, AddToBackStack = true)]
-    [Register("testProject.droid.views.RegistrationFragment")]
+    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame, AddToBackStack = true)]
+    [Register("testProject.droid.fragments.RegistrationFragment")]
     public class RegistrationFragment : BaseFragment<RegistrationViewModel>
     {
         protected override int FragmentId => Resource.Layout.RegistrationFragment;

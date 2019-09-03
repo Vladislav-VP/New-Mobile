@@ -30,7 +30,8 @@
         <android.support.design.widget.TextInputEditText
             android:id="@+id/etTodoItemName"
             style="@style/TodoItemTextEditStyle"
-            android:layout_height="@dimen/todo_item_name_edit_text_height"            
+            android:imeOptions="actionGo"
+            android:maxHeight="@dimen/todo_item_name_edit_text_max_height"
             local:MvxBind="Text Name"
         />
         <TextView
@@ -39,7 +40,8 @@
         <android.support.design.widget.TextInputEditText
             android:id="@+id/etDescription"
             style="@style/TodoItemTextEditStyle"
-            android:layout_height="@dimen/todo_item_description_edit_text_height"
+            android:imeOptions="actionDone"
+            android:maxHeight="@dimen/todo_item_description_edit_text_max_height"
             local:MvxBind="Text Description"
         />
     </LinearLayout>

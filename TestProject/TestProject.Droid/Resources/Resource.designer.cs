@@ -7912,11 +7912,11 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0900cc
 			public const int browser_actions_context_menu_min_padding = 2131296460;
 			
-			// aapt resource value: 0x7f09010c
-			public const int button_back_to_login_margin = 2131296524;
+			// aapt resource value: 0x7f09010d
+			public const int button_back_to_login_margin = 2131296525;
 			
-			// aapt resource value: 0x7f09010b
-			public const int button_back_to_login_width = 2131296523;
+			// aapt resource value: 0x7f09010c
+			public const int button_back_to_login_width = 2131296524;
 			
 			// aapt resource value: 0x7f0900e9
 			public const int button_corners_radius = 2131296489;
@@ -7951,8 +7951,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0900d7
 			public const int compat_notification_large_icon_max_width = 2131296471;
 			
-			// aapt resource value: 0x7f090106
-			public const int delete_account_button_margin_top = 2131296518;
+			// aapt resource value: 0x7f090107
+			public const int delete_account_button_margin_top = 2131296519;
 			
 			// aapt resource value: 0x7f090077
 			public const int design_appbar_elevation = 2131296375;
@@ -8089,8 +8089,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0900e3
 			public const int dialog_button_width = 2131296483;
 			
-			// aapt resource value: 0x7f090107
-			public const int dialog_text_margin = 2131296519;
+			// aapt resource value: 0x7f090108
+			public const int dialog_text_margin = 2131296520;
 			
 			// aapt resource value: 0x7f0900f4
 			public const int dialog_window_text_size = 2131296500;
@@ -8146,14 +8146,17 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0900f1
 			public const int label_text_size = 2131296497;
 			
+			// aapt resource value: 0x7f090100
+			public const int list_item_height = 2131296512;
+			
 			// aapt resource value: 0x7f0900ff
 			public const int list_item_margin = 2131296511;
 			
-			// aapt resource value: 0x7f090101
-			public const int list_margin_left = 2131296513;
+			// aapt resource value: 0x7f090102
+			public const int list_margin_left = 2131296514;
 			
-			// aapt resource value: 0x7f090100
-			public const int list_separator_thickness = 2131296512;
+			// aapt resource value: 0x7f090101
+			public const int list_separator_thickness = 2131296513;
 			
 			// aapt resource value: 0x7f0900f3
 			public const int main_button_text_size = 2131296499;
@@ -8386,8 +8389,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0900e8
 			public const int recycler_view_text_size = 2131296488;
 			
-			// aapt resource value: 0x7f090102
-			public const int registration_layout_margin_vertical = 2131296514;
+			// aapt resource value: 0x7f090103
+			public const int registration_layout_margin_vertical = 2131296515;
 			
 			// aapt resource value: 0x7f09006b
 			public const int subtitle_corner_radius = 2131296363;
@@ -8407,8 +8410,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0900ea
 			public const int tip_text_size = 2131296490;
 			
-			// aapt resource value: 0x7f090108
-			public const int title_height = 2131296520;
+			// aapt resource value: 0x7f090109
+			public const int title_height = 2131296521;
 			
 			// aapt resource value: 0x7f0900ef
 			public const int title_margin_horizontal = 2131296495;
@@ -8420,16 +8423,19 @@ namespace TestProject.Droid
 			public const int title_text_size = 2131296496;
 			
 			// aapt resource value: 0x7f0900f7
-			public const int todo_item_description_edit_text_height = 2131296503;
+			public const int todo_item_description_edit_text_max_height = 2131296503;
 			
 			// aapt resource value: 0x7f0900f5
 			public const int todo_item_edit_text_margin = 2131296501;
+			
+			// aapt resource value: 0x7f09010e
+			public const int todo_item_edit_text_min_height = 2131296526;
 			
 			// aapt resource value: 0x7f0900e6
 			public const int todo_item_margin = 2131296486;
 			
 			// aapt resource value: 0x7f0900f6
-			public const int todo_item_name_edit_text_height = 2131296502;
+			public const int todo_item_name_edit_text_max_height = 2131296502;
 			
 			// aapt resource value: 0x7f0900f8
 			public const int todo_item_switch_height = 2131296504;
@@ -8437,14 +8443,14 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0900f9
 			public const int todo_item_switch_width = 2131296505;
 			
-			// aapt resource value: 0x7f09010a
-			public const int todoitem_button_margin = 2131296522;
+			// aapt resource value: 0x7f09010b
+			public const int todoitem_button_margin = 2131296523;
 			
 			// aapt resource value: 0x7f0900e5
 			public const int todoitem_button_width = 2131296485;
 			
-			// aapt resource value: 0x7f090109
-			public const int todoitem_layout_margin_horizontal = 2131296521;
+			// aapt resource value: 0x7f09010a
+			public const int todoitem_layout_margin_horizontal = 2131296522;
 			
 			// aapt resource value: 0x7f0900fe
 			public const int todoitem_list_text_size = 2131296510;
@@ -8476,17 +8482,17 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0900ec
 			public const int top_panel_circle_image_view_height = 2131296492;
 			
-			// aapt resource value: 0x7f090105
-			public const int top_panel_circle_image_view_margin_horizontal = 2131296517;
+			// aapt resource value: 0x7f090106
+			public const int top_panel_circle_image_view_margin_horizontal = 2131296518;
 			
-			// aapt resource value: 0x7f090104
-			public const int top_panel_circle_image_view_margin_vertical = 2131296516;
+			// aapt resource value: 0x7f090105
+			public const int top_panel_circle_image_view_margin_vertical = 2131296517;
 			
 			// aapt resource value: 0x7f0900ed
 			public const int top_panel_circle_image_view_width = 2131296493;
 			
-			// aapt resource value: 0x7f090103
-			public const int user_info_layout_margin_top = 2131296515;
+			// aapt resource value: 0x7f090104
+			public const int user_info_layout_margin_top = 2131296516;
 			
 			static Dimension()
 			{
@@ -10633,7 +10639,7 @@ namespace TestProject.Droid
 			public const int loadingprogress = 2130968627;
 			
 			// aapt resource value: 0x7f040034
-			public const int LoginActivity = 2130968628;
+			public const int LoginFragment = 2130968628;
 			
 			// aapt resource value: 0x7f040035
 			public const int MainActivity = 2130968629;

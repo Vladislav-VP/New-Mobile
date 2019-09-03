@@ -16,6 +16,7 @@
     <EditText
         android:id="@+id/etNewUsername"
         style="@style/UserNameStyle"
+        android:imeOptions="actionGo"
         local:MvxBind="Text UserName"/>
     <TextView
         android:id="@+id/tvPassword"
@@ -30,6 +31,7 @@
     <EditText
         android:id="@+id/etNewPassword"
         style="@style/PasswordStyle"
+        android:imeOptions="actionDone"
         local:MvxBind="Text Password"/>
 
 </LinearLayout>
