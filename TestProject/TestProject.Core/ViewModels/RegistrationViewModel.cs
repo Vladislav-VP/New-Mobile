@@ -74,7 +74,7 @@ namespace TestProject.Core.ViewModels
             }
 
             await AddUser();
-            await _navigationService.Navigate<TodoListItemViewModel>();
+            await _navigationService.Navigate<TodoItemListViewModel>();
         }
 
         private async Task AddUser()

@@ -27,7 +27,7 @@
                 android:src="@mipmap/ic_add_todoitem"
                 style="@style/TopPanelCircleImageViewStyle"
                 android:layout_alignParentRight="true"
-                local:MvxBind="Click ShowCreateTodoItemViewModelCommand"/>
+                local:MvxBind="Click AddTodoItemCommand"/>
             </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>

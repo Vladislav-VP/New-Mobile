@@ -63,7 +63,7 @@ namespace TestProject.Core.ViewModels
         {
             if (!IsStateChanged)
             {
-                await _navigationService.Navigate<TodoListItemViewModel>();
+                await _navigationService.Navigate<TodoItemListViewModel>();
                 return;
             }
 
@@ -118,7 +118,7 @@ namespace TestProject.Core.ViewModels
                 _dialogsHelper.DisplayToastMessage(Strings.UserNameChangedMessage);
             }
 
-            await _navigationService.Navigate<TodoListItemViewModel>();
+            await _navigationService.Navigate<TodoItemListViewModel>();
             // TODO: Correcrt issue with navigation to menu (username is not updated without navigating).
             await _navigationService.Navigate<MenuViewModel>();
         }

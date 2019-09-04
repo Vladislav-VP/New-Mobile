@@ -11,7 +11,7 @@ namespace TestProject.Core.ViewModels
             : base(navigationService, storage)
         {
             ShowListTodoItemsViewModelCommand = new MvxAsyncCommand(async () =>
-                  await _navigationService.Navigate<TodoListItemViewModel>());
+                  await _navigationService.Navigate<TodoItemListViewModel>());
             ShowMenuViewModelCommand = new MvxAsyncCommand(async () =>
                   await _navigationService.Navigate<MenuViewModel>());
         }

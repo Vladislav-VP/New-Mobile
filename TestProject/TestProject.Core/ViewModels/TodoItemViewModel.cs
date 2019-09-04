@@ -23,6 +23,17 @@ namespace TestProject.Core.ViewModels
             _todoItemRepository = todoItemRepository;
         }
 
+        protected TodoItem _todoItem;
+        public TodoItem TodoItem
+        {
+            get => _todoItem;
+            set
+            {
+                _todoItem = value;
+                RaisePropertyChanged(() => TodoItem);
+            }
+        }
+
         protected string _name;
         public string Name
         {
@@ -59,7 +70,7 @@ namespace TestProject.Core.ViewModels
         protected override async Task<bool> IsDataValid()
         {
             var todoItem = new TodoItem { Name = Name, Description = Description, IsDone = IsDone };
-            bool isTodoItemValid = _validationHelper.IsObjectValid<TodoItem>(todoItem);
+            bool isTodoItemValid = _validationHelper.IsObjectValid(todoItem);
             if (!isTodoItemValid)
             {
                 return false;

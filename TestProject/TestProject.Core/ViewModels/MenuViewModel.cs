@@ -34,7 +34,7 @@ namespace TestProject.Core.ViewModels
             ShowUserInfoViewModelCommand = new MvxAsyncCommand(async 
                 () => await _navigationService.Navigate<UserSettingsViewModel>());
             ShowListTodoItemsViewModelCommand = 
-                new MvxAsyncCommand(async () => await _navigationService.Navigate<TodoListItemViewModel>());
+                new MvxAsyncCommand(async () => await _navigationService.Navigate<TodoItemListViewModel>());
             EditProfilePhotoCommand = new MvxAsyncCommand(EditProfilePhoto);
         }
 

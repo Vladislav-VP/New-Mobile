@@ -2,17 +2,18 @@
 
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
+using MvvmCross.ViewModels;
 
-using TestProject.Entities;
 using TestProject.Core.Enums;
+using TestProject.Core.ViewModelResults;
+using TestProject.Entities;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
-    public class CreateTodoItemViewModel : TodoItemViewModel
+    public class CreateTodoItemViewModel : TodoItemViewModel, IMvxViewModel<TodoItem, CreationResult<TodoItem>>
     {
-
         public CreateTodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, 
             IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
             : base(navigationService, storage, validationHelper, todoItemRepository, dialogsHelper)
@@ -32,15 +33,21 @@ namespace TestProject.Core.ViewModels
             }
         }
 
+        public void Prepare(TodoItem parameter)
+        {
+            TodoItem = parameter;
+        }
+
         protected async override Task GoBack()
         {
             if (!IsStateChanged)
             {
-                await _navigationService.Navigate<TodoListItemViewModel>();
+                await _navigationService.Close<CreationResult<TodoItem>>(this, result: null);
                 return;
             }
 
-            YesNoCancelDialogResult result = await _navigationService.Navigate<CancelDialogViewModel, YesNoCancelDialogResult>();
+            YesNoCancelDialogResult result = 
+                await _navigationService.Navigate<CancelDialogViewModel, YesNoCancelDialogResult>();
 
             if (result == YesNoCancelDialogResult.Yes)
             {
@@ -60,20 +67,20 @@ namespace TestProject.Core.ViewModels
             }
 
             await AddTodoItem();
-            await _navigationService.Navigate<TodoListItemViewModel>();
-        }    
-        
+
+            CreationResult<TodoItem> creationResult = GetCreationResult(TodoItem);
+            await _navigationService.Close(this, creationResult);
+        }
+
         private async Task AddTodoItem()
         {
             User currentUser = await _storage.Get();
-            TodoItem todoItem = new TodoItem
-            {
-                Name = Name,
-                Description = Description,
-                IsDone = IsDone,
-                UserId = currentUser.Id
-            };
-            await _todoItemRepository.Insert(todoItem);
+            TodoItem.Name = Name;
+            TodoItem.Description = Description;
+            TodoItem.IsDone = IsDone;
+            TodoItem.UserId = currentUser.Id;
+
+            await _todoItemRepository.Insert(TodoItem);
         }
     }
 }

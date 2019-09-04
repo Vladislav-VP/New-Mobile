@@ -68,7 +68,7 @@ namespace TestProject.Core.ViewModels
             }
 
             await _storage.Save(_currentUser.Id);
-            await _navigationService.Navigate<TodoListItemViewModel>();
+            await _navigationService.Navigate<TodoItemListViewModel>();
         }
     }
 }

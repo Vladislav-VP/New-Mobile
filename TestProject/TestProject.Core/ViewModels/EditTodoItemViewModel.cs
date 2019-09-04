@@ -5,6 +5,7 @@ using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 
 using TestProject.Core.Enums;
+using TestProject.Core.ViewModelResults;
 using TestProject.Entities;
 using TestProject.Resources;
 using TestProject.Services.Helpers.Interfaces;
@@ -13,7 +14,7 @@ using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
-    public class EditTodoItemViewModel : TodoItemViewModel, IMvxViewModel<TodoItem>
+    public class EditTodoItemViewModel : TodoItemViewModel, IMvxViewModel<TodoItem, DeletionResult<TodoItem>>
     {        
         public EditTodoItemViewModel(IMvxNavigationService navigationService,  IDialogsHelper dialogsHelper,
             IValidationHelper validationHelper, ITodoItemRepository todoItemRepository)
@@ -21,19 +22,8 @@ namespace TestProject.Core.ViewModels
         {
             UpdateTodoItemCommand = new MvxAsyncCommand(UpdateTodoItem);
             DeleteTodoItemCommand = new MvxAsyncCommand(DeleteTodoItem);
-        }
-
-        private TodoItem _todoItem;
-        public TodoItem TodoItem
-        {
-            get => _todoItem;
-            set
-            {
-                _todoItem = value;
-                RaisePropertyChanged(() => TodoItem);
-            }
-        }
-
+        }        
+        
         public IMvxAsyncCommand UpdateTodoItemCommand { get; private set; }
 
         public IMvxAsyncCommand DeleteTodoItemCommand { get; private set; }
@@ -65,7 +55,7 @@ namespace TestProject.Core.ViewModels
         {
             if (!IsStateChanged)
             {
-                await _navigationService.Navigate<TodoListItemViewModel>();
+                await _navigationService.Close<DeletionResult<TodoItem>>(this, result: null);
                 return;
             }
 
@@ -90,7 +80,7 @@ namespace TestProject.Core.ViewModels
             }
 
             await _todoItemRepository.Update(TodoItem);
-            await _navigationService.Navigate<TodoListItemViewModel>();
+            await _navigationService.Close<DeletionResult<TodoItem>>(this, result:null);
         }
 
         private void ChangeTodoItem()
@@ -110,7 +100,8 @@ namespace TestProject.Core.ViewModels
 
             await _todoItemRepository.Delete(TodoItem);
 
-            await _navigationService.Navigate<TodoListItemViewModel>();
+            DeletionResult<TodoItem> deletionResult = GetDeletionResult(TodoItem);
+            await _navigationService.Close(this, deletionResult);
         }
     }
 }

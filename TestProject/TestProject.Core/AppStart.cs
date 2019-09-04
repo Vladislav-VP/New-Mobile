@@ -28,7 +28,7 @@ namespace TestProject.Core
             }
             if (user != null)
             {
-                await NavigationService.Navigate<TodoListItemViewModel>();
+                await NavigationService.Navigate<TodoItemListViewModel>();
             }
         }
     }
