@@ -15,6 +15,7 @@ using TestProject.Core;
 using TestProject.Droid.Converters;
 using TestProject.Droid.Helpers;
 using TestProject.Droid.Helpers.Interfaces;
+using TestProject.Droid.ViewPresenters;
 
 namespace TestProject.Droid
 {
@@ -45,7 +46,7 @@ namespace TestProject.Droid
 
         protected override IMvxAndroidViewPresenter CreateViewPresenter()
         {
-            return new MvxAppCompatViewPresenter(this.AndroidViewAssemblies);
+            return new CustomAndroidViewPresenter(this.AndroidViewAssemblies);
         }
         
         protected override void InitializeIoC()

@@ -73,10 +73,10 @@
     <Compile Include="Converters\ImageValueConverter.cs" />
     <Compile Include="Fragments\BaseDialogFragment.cs" />
     <Compile Include="Fragments\LoginFragment.cs" />
-    <Compile Include="Helpers\BitmapConvertionHelper.cs" />
-    <Compile Include="Helpers\ControlSigningHelper.cs" />
-    <Compile Include="Helpers\Interfaces\ControlSigningHelper.cs" />
-    <Compile Include="Helpers\Interfaces\IBitmapConvertionHelper.cs" />
+    <Compile Include="Providers\Helpers\BitmapConvertionHelper.cs" />
+    <Compile Include="Providers\Helpers\ControlSigningHelper.cs" />
+    <Compile Include="Providers\Helpers\Interfaces\ControlSigningHelper.cs" />
+    <Compile Include="Providers\Helpers\Interfaces\IBitmapConvertionHelper.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Providers\ContextProvider.cs" />
     <Compile Include="Providers\Interfaces\IContextProvider.cs" />
@@ -94,6 +94,7 @@
     <Compile Include="Fragments\RegistrationFragment.cs" />
     <Compile Include="Fragments\TodoListItemFragment.cs" />
     <Compile Include="Fragments\UserSettingsFragment.cs" />
+    <Compile Include="ViewPresenters\CustomAndroidViewPresenter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -181,7 +182,7 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.2.0" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\TodoListItemFragment.axml">
+    <AndroidResource Include="Resources\layout\TodoItemListFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -193,6 +194,10 @@
     <ProjectReference Include="..\TestProject.Core\TestProject.Core.csproj">
       <Project>{14e2f76c-3e0a-45ba-a18c-ea6cca174451}</Project>
       <Name>TestProject.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestProject.Entities\TestProject.Entities.csproj">
+      <Project>{FB972AE8-4355-4407-8D53-0CDAD7C72F5A}</Project>
+      <Name>TestProject.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestProject.Resources\TestProject.Resources.csproj">
       <Project>{5fe8dd55-88d5-4091-b1af-06294b995b2d}</Project>

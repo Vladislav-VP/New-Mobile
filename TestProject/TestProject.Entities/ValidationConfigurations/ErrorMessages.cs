@@ -6,8 +6,8 @@
 
         public const string EmptyUserNameMessage = "Username can not be empty!";
 
-        public const string EmptyTodoItemNameMessage = "Todo item name can not be empty";
+        public const string EmptyTodoItemNameMessage = "Task name can not be empty";
 
-        public const string EmptyTodoItemDescriptionMessage = "Todo item description can not be empty!";
+        public const string EmptyTodoItemDescriptionMessage = "Task description can not be empty!";
     }
 }

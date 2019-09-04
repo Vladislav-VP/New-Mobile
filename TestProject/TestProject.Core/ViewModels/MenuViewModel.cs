@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
-
+using TestProject.Core.ViewModelResults;
 using TestProject.Entities;
 using TestProject.Resources;
 using TestProject.Services.Enums;
@@ -31,9 +31,8 @@ namespace TestProject.Core.ViewModels
             _photoEditHelper = photoEditHelper;
 
             LogoutCommand = new MvxAsyncCommand(Logout);
-            ShowUserInfoViewModelCommand = new MvxAsyncCommand(async 
-                () => await _navigationService.Navigate<UserSettingsViewModel>());
-            ShowListTodoItemsViewModelCommand = 
+            ShowSettingsCommand = new MvxAsyncCommand<User>(ShowSettings);
+            ShowTodoItemListCommand = 
                 new MvxAsyncCommand(async () => await _navigationService.Navigate<TodoItemListViewModel>());
             EditProfilePhotoCommand = new MvxAsyncCommand(EditProfilePhoto);
         }
@@ -62,9 +61,9 @@ namespace TestProject.Core.ViewModels
 
         public IMvxAsyncCommand LogoutCommand { get; private set; }
 
-        public IMvxAsyncCommand ShowUserInfoViewModelCommand { get; private set; }
+        public IMvxAsyncCommand<User> ShowSettingsCommand { get; private set; }
 
-        public IMvxAsyncCommand ShowListTodoItemsViewModelCommand { get; private set; }
+        public IMvxAsyncCommand ShowTodoItemListCommand { get; private set; }
 
         public IMvxAsyncCommand EditProfilePhotoCommand { get; private set; }
 
@@ -85,6 +84,7 @@ namespace TestProject.Core.ViewModels
         private async Task Logout()
         {
             _storage.Clear();
+            await _navigationService.Close(this);
             await _navigationService.Navigate<LoginViewModel>();
         }
 
@@ -129,6 +129,13 @@ namespace TestProject.Core.ViewModels
             await _userRepository.Update(_currentUser);
             // TODO: Correcrt issue with navigation to menu (profile photo is displayed after deleted without navigating).
             await _navigationService.Navigate<MenuViewModel>();
+        }
+
+        private async Task ShowSettings(User user)
+        {
+            user = _currentUser;
+            UpdateResult<User> updateResult = await _navigationService
+                .Navigate<UserSettingsViewModel, User, UpdateResult<User>>(user);
         }
     }
 }

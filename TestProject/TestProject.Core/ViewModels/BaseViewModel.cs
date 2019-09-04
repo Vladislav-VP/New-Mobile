@@ -1,9 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
-using MvvmCross.Navigation.EventArguments;
 using MvvmCross.ViewModels;
 
 using TestProject.Services.Helpers.Interfaces;
@@ -12,6 +10,9 @@ namespace TestProject.Core.ViewModels
 {
     public abstract class BaseViewModel : MvxViewModel
     {
+        // TODO: Remove this _bufferViewModel field! Axillary
+        protected static MvxViewModel _bufferViewModel;
+
         protected readonly IMvxNavigationService _navigationService;
 
         protected  readonly IUserStorageHelper _storage;
@@ -28,20 +29,6 @@ namespace TestProject.Core.ViewModels
             : this(navigationService, null) { }
 
         public IMvxAsyncCommand GoBackCommand { get; private set; }
-
-        public override async Task Initialize()
-        {
-            await base.Initialize();
-
-            _navigationService.AfterNavigate += (object sender, IMvxNavigateEventArgs e) =>
-            {
-                Type viewModelType = e.ViewModel.GetType();
-                if (viewModelType == typeof(RegistrationViewModel))
-                {
-                    _storage.Clear();
-                }
-            };
-        }
 
         protected virtual async Task GoBack()
         {

@@ -4,7 +4,6 @@ using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 
 using TestProject.Core.Enums;
-using TestProject.Core.MvxInteraction;
 using TestProject.Core.ViewModelResults;
 using TestProject.Core.ViewModelResults.Interfaces;
 using TestProject.Entities;
@@ -28,63 +27,12 @@ namespace TestProject.Core.ViewModels
         
         public TaskCompletionSource<object> CloseCompletionSource { get; set; }
 
-        public MvxInteraction<CreationAction> CreationInteraction { get; set; } = new MvxInteraction<CreationAction>();
-
-        public MvxInteraction<UpdateAction> UpdateInteraction { get; set; } = new MvxInteraction<UpdateAction>();
-
-        public MvxInteraction<DeletionAction> DeletionInteraction { get; set; } = new MvxInteraction<DeletionAction>();
-
         protected virtual bool IsStateChanged
         {
             get => false;
         }
 
         protected abstract Task<bool> IsDataValid();
-
-        protected virtual CreationAction GetCreationRequest(BaseEntity entity)
-        {
-            var creationRequest = new CreationAction();
-            var creationResult = new CreationResult<BaseEntity>
-            {
-                Entity = entity,
-                IsCreated = true
-            };
-
-            creationRequest.OnCreated = () => _navigationService
-                .Close((IMvxViewModelResult<CreationResult<BaseEntity>>)this, creationResult);
-
-            return creationRequest;
-        }
-
-        protected virtual UpdateAction GetUpdateRequest(BaseEntity entity)
-        {
-            var updateRequest = new UpdateAction();
-            var updateResult = new UpdateResult<BaseEntity>
-            {
-                Entity = entity,
-                IsUpdated = true
-            };
-
-            updateRequest.OnUpdated = async () => await _navigationService
-                .Close((IMvxViewModelResult<UpdateResult<BaseEntity>>)this, updateResult);
-
-            return updateRequest;
-        }
-
-        protected virtual DeletionAction GetDeleteRequest(BaseEntity entity)
-        {
-            var deletionRequest = new DeletionAction();
-            var deletionResult = new DeletionResult<BaseEntity>
-            {
-                Entity = entity,
-                IsDeleted = true
-            };
-
-            deletionRequest.OnDeleted = () => _navigationService
-              .Close((IMvxViewModelResult<DeletionResult<BaseEntity>>)this, deletionResult);
-
-            return deletionRequest;
-        }
 
         protected virtual async Task HandleDialogResult(YesNoCancelDialogResult result)
         {

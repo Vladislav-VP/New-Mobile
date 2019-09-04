@@ -35,7 +35,7 @@
         <Button            
             android:id="@+id/btChangePassword"
             style="@style/MainButtonStyle"
-            local:MvxBind="Click ShowEditPasswordViewModelCommand"/>
+            local:MvxBind="Click EditPasswordCommand"/>
 
     </LinearLayout>
 

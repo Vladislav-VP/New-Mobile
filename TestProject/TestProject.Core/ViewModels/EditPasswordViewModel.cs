@@ -97,7 +97,6 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            await _navigationService.Navigate<UserSettingsViewModel>();
             await _navigationService.Close(this);
             _dialogsHelper.DisplayToastMessage(Strings.PasswordChangedMessage);
         }

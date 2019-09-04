@@ -1,9 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
+using MvvmCross.ViewModels;
 
 using TestProject.Core.Enums;
+using TestProject.Core.ViewModelResults;
 using TestProject.Entities;
 using TestProject.Resources;
 using TestProject.Services.Helpers.Interfaces;
@@ -11,10 +14,8 @@ using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
-    public class UserSettingsViewModel : UserViewModel
+    public class UserSettingsViewModel : UserViewModel, IMvxViewModel<User, UpdateResult<User>>
     {
-        private User _currentUser;
-
         protected string _oldUserName;
         protected string _newUserName;
 
@@ -24,8 +25,7 @@ namespace TestProject.Core.ViewModels
         {
             UpdateUserCommand = new MvxAsyncCommand(UpdateUser);
             DeleteUserCommand = new MvxAsyncCommand(DeleteUser);
-            ShowEditPasswordViewModelCommand = 
-                new MvxAsyncCommand(async () => await _navigationService.Navigate<EditPasswordViewModel>());
+            EditPasswordCommand = new MvxAsyncCommand(EditPassword);
         }
 
         public string NewUserName
@@ -38,11 +38,22 @@ namespace TestProject.Core.ViewModels
             }
         }
 
+        private User _user;
+        public User User
+        {
+            get => _user;
+            set
+            {
+                _user = value;
+                RaisePropertyChanged(() => User);
+            }
+        }
+
         public IMvxAsyncCommand UpdateUserCommand { get; private set; }
 
         public IMvxAsyncCommand DeleteUserCommand { get; private set; }
 
-        public IMvxAsyncCommand ShowEditPasswordViewModelCommand { get; private set; }
+        public IMvxAsyncCommand EditPasswordCommand { get; private set; }
 
         protected override bool IsStateChanged
         {
@@ -53,10 +64,13 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            _currentUser = await _storage.Get();
+            _oldUserName = _user.Name;
+            _newUserName = _user.Name;
+        }
 
-            _oldUserName = _currentUser.Name;
-            _newUserName = _currentUser.Name;
+        public void Prepare(User parameter)
+        {
+            User = parameter;
         }
 
         protected override async Task GoBack()
@@ -67,7 +81,8 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            YesNoCancelDialogResult result = await _navigationService.Navigate<CancelDialogViewModel, YesNoCancelDialogResult>();
+            YesNoCancelDialogResult result = await _navigationService
+                .Navigate<CancelDialogViewModel, YesNoCancelDialogResult>();
 
             if (result == YesNoCancelDialogResult.Yes)
             {
@@ -80,23 +95,23 @@ namespace TestProject.Core.ViewModels
 
         protected override async Task<bool> IsDataValid()
         {
-            string oldUserName = _currentUser.Name;
+            string oldUserName = _user.Name;
             NewUserName = NewUserName.Trim();
 
-            _currentUser.Name = NewUserName;
-            bool isUserNameValid = _validationHelper.IsObjectValid(_currentUser);
+            _user.Name = NewUserName;
+            bool isUserNameValid = _validationHelper.IsObjectValid(_user);
             if (!isUserNameValid)
             {                
-                _currentUser.Name = oldUserName;
+                _user.Name = oldUserName;
                 NewUserName = oldUserName;
                 return false;
             }
 
             User retrievedUser = await _userRepository.GetUser(NewUserName);
-            if (retrievedUser != null && retrievedUser.Id != _currentUser.Id)
+            if (retrievedUser != null && retrievedUser.Id != _user.Id)
             {
                 _dialogsHelper.DisplayAlertMessage(Strings.UserAlreadyExistsMessage);
-                _currentUser.Name = oldUserName;
+                _user.Name = oldUserName;
                 NewUserName = oldUserName;
                 return false;
             }
@@ -114,13 +129,12 @@ namespace TestProject.Core.ViewModels
 
             if (IsStateChanged)
             {
-                await _userRepository.Update(_currentUser);
+                await _userRepository.Update(_user);
                 _dialogsHelper.DisplayToastMessage(Strings.UserNameChangedMessage);
             }
 
-            await _navigationService.Navigate<TodoItemListViewModel>();
-            // TODO: Correcrt issue with navigation to menu (username is not updated without navigating).
-            await _navigationService.Navigate<MenuViewModel>();
+            UpdateResult<User> updateResult = GetUpdateResult(User);
+            await _navigationService.Close(this, updateResult);
         }
 
         private async Task DeleteUser()
@@ -132,10 +146,22 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            await _userRepository.Delete(_currentUser);
+            await _userRepository.Delete(_user);
             _storage.Clear();
 
+
             await _navigationService.Navigate<LoginViewModel>();
+            await _navigationService.Close(this);
+            await _navigationService.Close(_bufferViewModel);
+            //var presentationBundle = new MvxBundle(new Dictionary<string, string> { { "ClearBackStack", "True" } });
+
+            //await _navigationService.Navigate<LoginViewModel>(presentationBundle: presentationBundle);
+
+        }
+
+        private async Task EditPassword()
+        {
+            await _navigationService.Navigate<EditPasswordViewModel>();
         }
     }
 }

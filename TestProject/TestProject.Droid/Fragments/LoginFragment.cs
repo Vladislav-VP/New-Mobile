@@ -1,9 +1,10 @@
-﻿using Android.OS;
+﻿using Android.Content;
+using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-
+using MvvmCross.ViewModels;
 using TestProject.Core.ViewModels;
 using TestProject.Resources;
 
@@ -23,6 +24,22 @@ namespace TestProject.Droid.Fragments
 
             return view;
         }
+
+        //protected override Intent CreateIntentForRequest(MvxViewModelRequest request)
+        //{
+        //    var intent = base.CreateIntentForRequest(request);
+
+        //    if (request.PresentationValues != null)
+        //    {
+        //        if (request.PresentationValues.ContainsKey("ClearBackStack") && request.PresentationValues["ClearBackStack"] == "True")
+        //        {
+        //            intent.AddFlags(ActivityFlags.ClearTop);
+
+        //        }
+        //    }
+
+        //    return intent;
+        //}
 
         protected override void InitializeAllControls(View view)
         {

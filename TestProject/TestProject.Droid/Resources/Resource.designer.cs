@@ -9747,8 +9747,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a0049
 			public const int enterAlwaysCollapsed = 2131361865;
 			
-			// aapt resource value: 0x7f0a0111
-			public const int etDescription = 2131362065;
+			// aapt resource value: 0x7f0a0112
+			public const int etDescription = 2131362066;
 			
 			// aapt resource value: 0x7f0a011c
 			public const int etNewPassword = 2131362076;
@@ -9756,8 +9756,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a0119
 			public const int etNewUsername = 2131362073;
 			
-			// aapt resource value: 0x7f0a010f
-			public const int etTodoItemName = 2131362063;
+			// aapt resource value: 0x7f0a0110
+			public const int etTodoItemName = 2131362064;
 			
 			// aapt resource value: 0x7f0a004a
 			public const int exitUntilCollapsed = 2131361866;
@@ -10266,8 +10266,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a0080
 			public const int title_template = 2131361920;
 			
-			// aapt resource value: 0x7f0a0113
-			public const int todoItemsRecyclerView = 2131362067;
+			// aapt resource value: 0x7f0a010e
+			public const int todoItemsRecyclerView = 2131362062;
 			
 			// aapt resource value: 0x7f0a0115
 			public const int toolbar = 2131362069;
@@ -10299,11 +10299,11 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a00b7
 			public const int tvConfirmNewPassword = 2131361975;
 			
-			// aapt resource value: 0x7f0a0110
-			public const int tvDescription = 2131362064;
+			// aapt resource value: 0x7f0a0111
+			public const int tvDescription = 2131362065;
 			
-			// aapt resource value: 0x7f0a0112
-			public const int tvDone = 2131362066;
+			// aapt resource value: 0x7f0a0113
+			public const int tvDone = 2131362067;
 			
 			// aapt resource value: 0x7f0a00bb
 			public const int tvName = 2131361979;
@@ -10329,8 +10329,8 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0a0116
 			public const int tvTaskListTitle = 2131362070;
 			
-			// aapt resource value: 0x7f0a010e
-			public const int tvTodoItemName = 2131362062;
+			// aapt resource value: 0x7f0a010f
+			public const int tvTodoItemName = 2131362063;
 			
 			// aapt resource value: 0x7f0a011d
 			public const int tvUserNameSettings = 2131362077;
@@ -10765,10 +10765,10 @@ namespace TestProject.Droid
 			public const int support_simple_spinner_dropdown_item = 2130968668;
 			
 			// aapt resource value: 0x7f04005d
-			public const int TodoItemTemplate = 2130968669;
+			public const int TodoItemListFragment = 2130968669;
 			
 			// aapt resource value: 0x7f04005e
-			public const int TodoListItemFragment = 2130968670;
+			public const int TodoItemTemplate = 2130968670;
 			
 			// aapt resource value: 0x7f04005f
 			public const int toolbar_actionbar = 2130968671;

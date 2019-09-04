@@ -72,10 +72,10 @@ namespace TestProject.Droid.Fragments
             switch (itemId)
             {
                 case Resource.Id.nav_settings:
-                    ViewModel.ShowUserInfoViewModelCommand.Execute(null);
+                    ViewModel.ShowSettingsCommand.Execute(null);
                     break;
                 case Resource.Id.nav_todoItems:
-                    ViewModel.ShowListTodoItemsViewModelCommand.Execute(null);
+                    ViewModel.ShowTodoItemListCommand.Execute(null);
                     break;
                 case Resource.Id.nav_logout:
                     ViewModel.LogoutCommand.Execute(null);

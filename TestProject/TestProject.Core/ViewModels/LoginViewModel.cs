@@ -19,9 +19,7 @@ namespace TestProject.Core.ViewModels
             : base(navigationService, storage, userRepository, validationHelper, dialogsHelper)
         {
             LoginCommand = new MvxAsyncCommand(Login);
-            ShowRegistrationScreenCommand = new MvxAsyncCommand(async ()
-                => await _navigationService.Navigate<RegistrationViewModel>());
-            ShowMenuCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MenuViewModel>());
+            GoToRegistrationCommand = new MvxAsyncCommand(GoToRegistration);
         }
 
         private string _userName;
@@ -48,9 +46,7 @@ namespace TestProject.Core.ViewModels
 
         public IMvxAsyncCommand LoginCommand { get; private set; }
         
-        public IMvxAsyncCommand ShowRegistrationScreenCommand { get; private set; }
-
-        public IMvxAsyncCommand ShowMenuCommand { get; private set; }
+        public IMvxAsyncCommand GoToRegistrationCommand { get; private set; }
 
         protected override async Task<bool> IsDataValid()
         {
@@ -68,7 +64,13 @@ namespace TestProject.Core.ViewModels
             }
 
             await _storage.Save(_currentUser.Id);
+            await _navigationService.Close(this);
             await _navigationService.Navigate<TodoItemListViewModel>();
+        }
+
+        private async Task GoToRegistration()
+        {
+            await _navigationService.Navigate<RegistrationViewModel>();
         }
     }
 }

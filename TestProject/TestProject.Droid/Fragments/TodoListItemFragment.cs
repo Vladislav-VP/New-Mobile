@@ -12,11 +12,11 @@ using TestProject.Resources;
 namespace TestProject.Droid.Fragments
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame, AddToBackStack = false)]
-    [Register("testProject.droid.fragments.TodoListItemFragment")]
+    [Register("testProject.droid.fragments.TodoItemListFragment")]
 
-    public class TodoListItemFragment : BaseFragment<TodoItemListViewModel>
+    public class TodoItemListFragment : BaseFragment<TodoItemListViewModel>
     {
-        protected override int FragmentId => Resource.Layout.TodoListItemFragment;
+        protected override int FragmentId => Resource.Layout.TodoItemListFragment;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -32,7 +32,10 @@ namespace TestProject.Droid.Fragments
             return view;
         }
 
-        
+        public override void OnDestroy()
+        {
+            base.OnDestroy();   
+        }
 
         protected override void InitializeAllControls(View view)
         {

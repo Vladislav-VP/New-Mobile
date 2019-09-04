@@ -3,8 +3,8 @@
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+
 using TestProject.Core.ViewModelResults;
-using TestProject.Core.ViewModelResults.Interfaces;
 using TestProject.Entities;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Repositories.Interfaces;
@@ -42,7 +42,7 @@ namespace TestProject.Core.ViewModels
         public async override Task Initialize()
         {
             await base.Initialize();
-            
+            _bufferViewModel = this;
             User currentUser = await _storage.Get();
             if (currentUser == null)
             {
