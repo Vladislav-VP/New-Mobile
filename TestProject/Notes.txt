@@ -1,3 +1,2 @@
 1) Lead app to one style.
-3) Move switch with "Done" label.
-4) Move button "Back" onto the top panel.
+2) Move button "Back" onto the top panel.

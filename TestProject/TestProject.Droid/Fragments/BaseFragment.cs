@@ -58,8 +58,6 @@ namespace TestProject.Droid.Fragments
                 ((MainActivity)ParentActivity).DrawerLayout.AddDrawerListener(_drawerToggle);
             }
 
-            ((MainActivity)ParentActivity).HideSoftKeyboard();
-
             return view;
         }
 

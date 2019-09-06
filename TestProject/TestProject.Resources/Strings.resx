@@ -268,4 +268,7 @@ not shorter than</value>
   <data name="BackLabel" xml:space="preserve">
     <value>Back</value>
   </data>
+  <data name="RegistrationTitle" xml:space="preserve">
+    <value>Registration</value>
+  </data>
 </root>
