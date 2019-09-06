@@ -11,7 +11,7 @@ using TestProject.Resources;
 
 namespace TestProject.Droid.Fragments
 {
-    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame, AddToBackStack = true)]
+    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame, true)]
     [Register("testProject.droid.fragments.CreateTodoItemFragment")]
     public class CreateTodoItemFragment : BaseFragment<CreateTodoItemViewModel>
     {
@@ -26,6 +26,11 @@ namespace TestProject.Droid.Fragments
             ((MainActivity)Activity).DrawerLayout.SetDrawerLockMode(DrawerLayout.LockModeLockedClosed);
 
             return view;
+        }
+
+        public override void OnPause()
+        {
+            base.OnPause();
         }
 
         protected override void InitializeAllControls(View view)

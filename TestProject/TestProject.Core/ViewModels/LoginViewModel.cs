@@ -48,6 +48,11 @@ namespace TestProject.Core.ViewModels
         
         public IMvxAsyncCommand GoToRegistrationCommand { get; private set; }
 
+        public override Task Initialize()
+        {
+            return base.Initialize();
+        }
+
         protected override async Task<bool> IsDataValid()
         {
             _currentUser = await _userRepository.GetUser(UserName, Password);

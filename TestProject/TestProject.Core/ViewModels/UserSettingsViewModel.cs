@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
@@ -149,14 +148,7 @@ namespace TestProject.Core.ViewModels
             await _userRepository.Delete(_user);
             _storage.Clear();
 
-
             await _navigationService.Navigate<LoginViewModel>();
-            await _navigationService.Close(this);
-            await _navigationService.Close(_bufferViewModel);
-            //var presentationBundle = new MvxBundle(new Dictionary<string, string> { { "ClearBackStack", "True" } });
-
-            //await _navigationService.Navigate<LoginViewModel>(presentationBundle: presentationBundle);
-
         }
 
         private async Task EditPassword()

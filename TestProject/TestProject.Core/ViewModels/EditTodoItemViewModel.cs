@@ -11,7 +11,6 @@ using TestProject.Resources;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Repositories.Interfaces;
 
-
 namespace TestProject.Core.ViewModels
 {
     public class EditTodoItemViewModel : TodoItemViewModel, IMvxViewModel<TodoItem, DeletionResult<TodoItem>>

@@ -70,13 +70,15 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\LoginActivity.cs" />
     <Compile Include="Converters\ImageValueConverter.cs" />
     <Compile Include="Fragments\BaseDialogFragment.cs" />
-    <Compile Include="Fragments\LoginFragment.cs" />
-    <Compile Include="Providers\Helpers\BitmapConvertionHelper.cs" />
-    <Compile Include="Providers\Helpers\ControlSigningHelper.cs" />
-    <Compile Include="Providers\Helpers\Interfaces\ControlSigningHelper.cs" />
-    <Compile Include="Providers\Helpers\Interfaces\IBitmapConvertionHelper.cs" />
+    <Compile Include="Helpers\ActivityStorageHelper.cs" />
+    <Compile Include="Helpers\BitmapConvertionHelper.cs" />
+    <Compile Include="Helpers\ControlSigningHelper.cs" />
+    <Compile Include="Helpers\Interfaces\ControlSigningHelper.cs" />
+    <Compile Include="Helpers\Interfaces\IActivityStorageHelper.cs" />
+    <Compile Include="Helpers\Interfaces\IBitmapConvertionHelper.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Providers\ContextProvider.cs" />
     <Compile Include="Providers\Interfaces\IContextProvider.cs" />
@@ -94,7 +96,6 @@
     <Compile Include="Fragments\RegistrationFragment.cs" />
     <Compile Include="Fragments\TodoListItemFragment.cs" />
     <Compile Include="Fragments\UserSettingsFragment.cs" />
-    <Compile Include="ViewPresenters\CustomAndroidViewPresenter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -372,7 +373,7 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_back_from_settings.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\LoginFragment.axml" />
+    <AndroidResource Include="Resources\layout\LoginActivity.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

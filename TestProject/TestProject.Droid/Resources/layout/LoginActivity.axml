@@ -31,7 +31,7 @@
         <Button
             android:id="@+id/btGoToRegistration"
             style="@style/MainButtonStyle"      
-            local:MvxBind="Click ShowRegistrationScreenCommand"/>
+            local:MvxBind="Click GoToRegistrationCommand"/>
     </LinearLayout>
 
 </LinearLayout>

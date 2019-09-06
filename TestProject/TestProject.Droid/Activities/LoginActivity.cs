@@ -22,9 +22,12 @@ namespace TestProject.Droid.Activities
     {
         private readonly IControlSigningHelper _controlInitializingHelper;
 
+        private readonly IActivityStorageHelper _activityStorageHelper;
+
         public LoginActivity()
         {
             _controlInitializingHelper = Mvx.IoCProvider.Resolve<IControlSigningHelper>();
+            _activityStorageHelper = Mvx.IoCProvider.Resolve<IActivityStorageHelper>();
         }
         
         protected override void OnCreate(Bundle bundle)
@@ -34,6 +37,8 @@ namespace TestProject.Droid.Activities
             UserDialogs.Init(this);
 
             SetContentView(Resource.Layout.LoginActivity);
+
+            _activityStorageHelper.ReplaceActivity(this);
 
             InitializeAllControls();
         }
@@ -52,7 +57,5 @@ namespace TestProject.Droid.Activities
             _controlInitializingHelper.SignControl(btLogin, Strings.LoginButtonLabel);
             _controlInitializingHelper.SignControl(btGoToRegistration, Strings.RegistrationButtonLabel);
         }
-
-
     }
 }

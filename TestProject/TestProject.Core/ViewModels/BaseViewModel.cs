@@ -10,9 +10,6 @@ namespace TestProject.Core.ViewModels
 {
     public abstract class BaseViewModel : MvxViewModel
     {
-        // TODO: Remove this _bufferViewModel field! Axillary
-        protected static MvxViewModel _bufferViewModel;
-
         protected readonly IMvxNavigationService _navigationService;
 
         protected  readonly IUserStorageHelper _storage;

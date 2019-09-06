@@ -22,7 +22,7 @@ namespace TestProject.Core.ViewModels
         {
             _todoItemRepository = todoItemRepository;
 
-            ShowMenuViewModelCommand = new MvxAsyncCommand(async ()
+            ShowMenuCommand = new MvxAsyncCommand(async ()
                   => await _navigationService.Navigate<MenuViewModel>());
             AddTodoItemCommand = new MvxAsyncCommand<TodoItem>(AddTodoItem);
             SelectTodoItemCommand = new MvxAsyncCommand<TodoItem>(SelectTodoItem);
@@ -42,26 +42,21 @@ namespace TestProject.Core.ViewModels
         public async override Task Initialize()
         {
             await base.Initialize();
-            _bufferViewModel = this;
             User currentUser = await _storage.Get();
-            if (currentUser == null)
-            {
-                await _navigationService.Navigate<LoginViewModel>();
-                return;
-            }
+
             TodoItems = new MvxObservableCollection<TodoItem>(await _todoItemRepository.GetTodoItems(currentUser.Id));
         }
 
         public IMvxAsyncCommand<TodoItem> AddTodoItemCommand { get; private set; }
 
-        public IMvxAsyncCommand ShowMenuViewModelCommand { get; private set; }
+        public IMvxAsyncCommand ShowMenuCommand { get; private set; }
 
         public IMvxCommand<TodoItem> SelectTodoItemCommand { get; private set; }
 
         private async Task SelectTodoItem(TodoItem selectedTodoItem)
         {
-            DeletionResult<TodoItem> deletionResult = await _navigationService.
-                Navigate<EditTodoItemViewModel, TodoItem, DeletionResult<TodoItem>>(selectedTodoItem);
+            DeletionResult<TodoItem> deletionResult = await _navigationService
+                .Navigate<EditTodoItemViewModel, TodoItem, DeletionResult<TodoItem>>(selectedTodoItem);
 
             if (deletionResult != null && deletionResult.IsDeleted)
             {

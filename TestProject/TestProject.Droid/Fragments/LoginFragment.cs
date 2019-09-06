@@ -1,11 +1,12 @@
-﻿using Android.Content;
-using Android.OS;
+﻿using Android.OS;
 using Android.Runtime;
+using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-using MvvmCross.ViewModels;
+
 using TestProject.Core.ViewModels;
+using TestProject.Droid.Activities;
 using TestProject.Resources;
 
 namespace TestProject.Droid.Fragments
@@ -25,22 +26,6 @@ namespace TestProject.Droid.Fragments
             return view;
         }
 
-        //protected override Intent CreateIntentForRequest(MvxViewModelRequest request)
-        //{
-        //    var intent = base.CreateIntentForRequest(request);
-
-        //    if (request.PresentationValues != null)
-        //    {
-        //        if (request.PresentationValues.ContainsKey("ClearBackStack") && request.PresentationValues["ClearBackStack"] == "True")
-        //        {
-        //            intent.AddFlags(ActivityFlags.ClearTop);
-
-        //        }
-        //    }
-
-        //    return intent;
-        //}
-
         protected override void InitializeAllControls(View view)
         {
             TextView tvUsername = view.FindViewById<TextView>(Resource.Id.tvUsername);
@@ -48,6 +33,8 @@ namespace TestProject.Droid.Fragments
             TextView tvWithoutAccount = view.FindViewById<TextView>(Resource.Id.tvWithoutAccount);
             Button btLogin = view.FindViewById<Button>(Resource.Id.btLogin);
             Button btGoToRegistration = view.FindViewById<Button>(Resource.Id.btGoToRegistration);
+
+            ((MainActivity)Activity).DrawerLayout.SetDrawerLockMode(DrawerLayout.LockModeLockedClosed);
 
             _controlSigningHelper.SignControl(tvUsername, Strings.UsernameTextViewLabel);
             _controlSigningHelper.SignControl(tvPassword, Strings.PasswordTextViewLabel);

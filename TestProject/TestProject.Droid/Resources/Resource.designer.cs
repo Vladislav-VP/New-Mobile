@@ -10642,7 +10642,7 @@ namespace TestProject.Droid
 			public const int loadingprogress = 2130968627;
 			
 			// aapt resource value: 0x7f040034
-			public const int LoginFragment = 2130968628;
+			public const int LoginActivity = 2130968628;
 			
 			// aapt resource value: 0x7f040035
 			public const int MainActivity = 2130968629;

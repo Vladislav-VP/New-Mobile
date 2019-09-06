@@ -10,14 +10,10 @@ namespace TestProject.Core.ViewModels
         public MainViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage)
             : base(navigationService, storage)
         {
-            ShowListTodoItemsViewModelCommand = new MvxAsyncCommand(async () =>
+            ShowTodoItemListCommand = new MvxAsyncCommand(async () =>
                   await _navigationService.Navigate<TodoItemListViewModel>());
-            ShowMenuViewModelCommand = new MvxAsyncCommand(async () =>
-                  await _navigationService.Navigate<MenuViewModel>());
         }
         
-        public IMvxAsyncCommand ShowListTodoItemsViewModelCommand { get; private set; }
-
-        public IMvxAsyncCommand ShowMenuViewModelCommand { get; private set; }
+        public IMvxAsyncCommand ShowTodoItemListCommand { get; private set; }
     }
 }

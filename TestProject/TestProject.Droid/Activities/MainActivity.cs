@@ -6,12 +6,14 @@ using Android.Support.V4.View;
 using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Views.InputMethods;
+using MvvmCross;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using Plugin.CurrentActivity;
 using Plugin.Permissions;
 
 using TestProject.Core.ViewModels;
+using TestProject.Droid.Helpers.Interfaces;
 
 namespace TestProject.Droid.Activities
 {
@@ -22,6 +24,13 @@ namespace TestProject.Droid.Activities
         Name = "testProject.droid.activities.MainActivity")]
     public class MainActivity : MvxAppCompatActivity<MainViewModel>
     {
+        private readonly IActivityStorageHelper _activityStorageHelper;
+
+        public MainActivity()
+        {
+            _activityStorageHelper = Mvx.IoCProvider.Resolve<IActivityStorageHelper>();
+        }
+
         public DrawerLayout DrawerLayout { get; set; }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -45,15 +54,9 @@ namespace TestProject.Droid.Activities
             
             base.OnBackPressed();
         }
-
-        public override bool OnTouchEvent(MotionEvent e)
-        {
-            return base.OnTouchEvent(e);
-        }
-
+        
         public void HideSoftKeyboard()
         {
-
             if (CurrentFocus == null)
                 return;
 
@@ -70,7 +73,9 @@ namespace TestProject.Droid.Activities
             UserDialogs.Init(this);
                         
             SetContentView(Resource.Layout.MainActivity);
-            
+
+            _activityStorageHelper.ReplaceActivity(this);
+
             CrossCurrentActivity.Current.Init(this, bundle);
 
             DrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);

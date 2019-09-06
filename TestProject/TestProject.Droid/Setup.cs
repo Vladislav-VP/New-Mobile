@@ -15,13 +15,13 @@ using TestProject.Core;
 using TestProject.Droid.Converters;
 using TestProject.Droid.Helpers;
 using TestProject.Droid.Helpers.Interfaces;
-using TestProject.Droid.ViewPresenters;
 
 namespace TestProject.Droid
 {
     public class Setup : MvxAppCompatSetup<App>
     {
-        protected override IEnumerable<Assembly> AndroidViewAssemblies => new List<Assembly>(base.AndroidViewAssemblies)
+        protected override IEnumerable<Assembly> AndroidViewAssemblies
+            => new List<Assembly>(base.AndroidViewAssemblies)
         {
             typeof(MvxRecyclerView).Assembly,
             typeof(DrawerLayout).Assembly,
@@ -41,21 +41,21 @@ namespace TestProject.Droid
         {
             MvxAppCompatSetupHelper.FillTargetFactories(registry);
             base.FillTargetFactories(registry);
-
         }
 
         protected override IMvxAndroidViewPresenter CreateViewPresenter()
         {
-            return new CustomAndroidViewPresenter(this.AndroidViewAssemblies);
+            return new MvxAppCompatViewPresenter(AndroidViewAssemblies);
         }
         
         protected override void InitializeIoC()
         {
-
             base.InitializeIoC();
 
             Mvx.IoCProvider.RegisterSingleton(typeof(IBitmapConvertionHelper), new BitmapConvertionHelper());
-            Mvx.IoCProvider.RegisterSingleton(typeof(Helpers.Interfaces.IControlSigningHelper), new Helpers.ControlSigningHelper());
+            Mvx.IoCProvider.RegisterSingleton(typeof(Helpers.Interfaces.IControlSigningHelper), new ControlSigningHelper());
+            Mvx.IoCProvider.RegisterSingleton(typeof(IActivityStorageHelper), new ActivityStorageHelper());
+
         }
     }
 }

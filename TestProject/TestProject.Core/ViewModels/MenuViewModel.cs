@@ -109,7 +109,6 @@ namespace TestProject.Core.ViewModels
             return optionResultPairs[option];
         }
 
-
         private async Task EditProfilePhoto()
         {
             EditPhotoDialogResult result = await GetEditPhotoDialogResult();
@@ -127,7 +126,6 @@ namespace TestProject.Core.ViewModels
 
             _currentUser.EncryptedProfilePhoto = newEncryptedProfilePhoto;
             await _userRepository.Update(_currentUser);
-            // TODO: Correcrt issue with navigation to menu (profile photo is displayed after deleted without navigating).
             await _navigationService.Navigate<MenuViewModel>();
         }
 
