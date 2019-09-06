@@ -1,4 +1,3 @@
 1) Lead app to one style.
-2) Fix navigation for user.
 3) Move switch with "Done" label.
 4) Move button "Back" onto the top panel.

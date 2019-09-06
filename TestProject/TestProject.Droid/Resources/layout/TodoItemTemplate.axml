@@ -49,9 +49,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/todoitem_layout_margin_horizontal"
         android:orientation="horizontal">
         <Switch
-            android:layout_width="@dimen/todo_item_switch_width"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/todo_item_switch_height"
             style="@style/TextAppearance.AppCompat.Widget.Switch"
             local:MvxBind="Checked IsDone"
