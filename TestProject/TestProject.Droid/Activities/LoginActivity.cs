@@ -2,6 +2,7 @@
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using MvvmCross;
 using MvvmCross.Droid.Support.V7.AppCompat;
@@ -37,6 +38,7 @@ namespace TestProject.Droid.Activities
             UserDialogs.Init(this);
 
             SetContentView(Resource.Layout.LoginActivity);
+            Window.AddFlags(WindowManagerFlags.Fullscreen);
 
             _activityStorageHelper.ReplaceActivity(this);
 

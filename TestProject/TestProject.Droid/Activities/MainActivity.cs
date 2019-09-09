@@ -7,12 +7,14 @@ using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Views.InputMethods;
 using MvvmCross;
+using MvvmCross.Droid.Support.V4;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using Plugin.CurrentActivity;
 using Plugin.Permissions;
-
+using System.Collections.Generic;
 using TestProject.Core.ViewModels;
+using TestProject.Droid.Fragments;
 using TestProject.Droid.Helpers.Interfaces;
 
 namespace TestProject.Droid.Activities
@@ -51,8 +53,8 @@ namespace TestProject.Droid.Activities
                 DrawerLayout.CloseDrawers();
                 return;
             }
-            
-            base.OnBackPressed();
+
+            CloseCurrentFragment();
         }
         
         public void HideSoftKeyboard()
@@ -66,6 +68,11 @@ namespace TestProject.Droid.Activities
             CurrentFocus.ClearFocus();
         }
 
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
+        {
+            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -73,6 +80,7 @@ namespace TestProject.Droid.Activities
             UserDialogs.Init(this);
                         
             SetContentView(Resource.Layout.MainActivity);
+            Window.AddFlags(WindowManagerFlags.Fullscreen);
 
             _activityStorageHelper.ReplaceActivity(this);
 
@@ -81,9 +89,20 @@ namespace TestProject.Droid.Activities
             DrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
         }
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
+        private void CloseCurrentFragment()
         {
-            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            IList<Android.Support.V4.App.Fragment> fragments = SupportFragmentManager.Fragments;
+            if (fragments.Count == 0)
+            {
+                return;
+            }
+
+            MvxFragment currentFragment = (MvxFragment)fragments[fragments.Count - 1];
+            BaseViewModel viewModel = (BaseViewModel)currentFragment.ViewModel;
+            if (viewModel.GoBackCommand != null)
+            {                
+                viewModel.GoBackCommand.Execute(null);
+            }
         }
     }
 }

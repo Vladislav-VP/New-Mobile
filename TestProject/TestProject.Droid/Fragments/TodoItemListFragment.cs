@@ -11,7 +11,7 @@ using TestProject.Resources;
 
 namespace TestProject.Droid.Fragments
 {
-    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame, false)]
+    [MvxFragmentPresentation(typeof(MainViewModel),  Resource.Id.content_frame)]
     [Register("testProject.droid.fragments.TodoItemListFragment")]
 
     public class TodoItemListFragment : BaseFragment<TodoItemListViewModel>

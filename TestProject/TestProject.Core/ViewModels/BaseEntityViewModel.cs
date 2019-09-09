@@ -21,7 +21,7 @@ namespace TestProject.Core.ViewModels
             IDialogsHelper dialogsHelper, IValidationHelper validationHelper)
             : base(navigationService, storage)
         {
-            _dialogsHelper=dialogsHelper;
+            _dialogsHelper = dialogsHelper;
             _validationHelper = validationHelper;
         }
         

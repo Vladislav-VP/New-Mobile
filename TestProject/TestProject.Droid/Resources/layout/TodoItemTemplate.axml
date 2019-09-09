@@ -14,7 +14,7 @@
             style="@style/TitleStyle"
             local:MvxBind="Text Name"/>
         <de.hdodenhof.circleimageview.CircleImageView
-            android:src="@mipmap/ic_back_from_todoitem"
+            android:src="@mipmap/ic_back_blue_light"
             style="@style/TopPanelCircleImageViewStyle"
             local:MvxBind="Click GoBackCommand" />
     </RelativeLayout>

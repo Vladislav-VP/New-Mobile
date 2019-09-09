@@ -10,7 +10,7 @@ using TestProject.Resources;
 
 namespace TestProject.Droid.Fragments
 {
-    [MvxFragmentPresentation(AddToBackStack = true)]
+    [MvxFragmentPresentation(ActivityHostViewModelType = typeof(LoginViewModel), AddToBackStack = true)]
     [Register("testProject.droid.fragments.RegistrationFragment")]
     public class RegistrationFragment : BaseFragment<RegistrationViewModel>
     {

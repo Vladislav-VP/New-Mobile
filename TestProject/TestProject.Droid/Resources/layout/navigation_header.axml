@@ -6,6 +6,7 @@
 	android:layout_height="@dimen/navigation_header_layout_height"
 	android:gravity="bottom"
 	android:orientation="vertical"
+    android:background="@android:color/background_light"
 	android:padding="@dimen/navigation_header_layout_padding"
 	android:theme="@style/ThemeOverlay.AppCompat.Dark">
     <de.hdodenhof.circleimageview.CircleImageView

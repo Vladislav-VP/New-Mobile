@@ -27,12 +27,7 @@ namespace TestProject.Droid.Fragments
 
             return view;
         }
-
-        public override void OnPause()
-        {
-            base.OnPause();
-        }
-
+        
         protected override void InitializeAllControls(View view)
         {
             TextView tvTodoItemName = view.FindViewById<TextView>(Resource.Id.tvTodoItemName);

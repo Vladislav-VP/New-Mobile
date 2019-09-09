@@ -5,17 +5,17 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/material_grey_100">
+    android:background="@color/material_grey_50">
 
     <RelativeLayout
-        android:background="#aaa"
+        android:background="@android:color/holo_blue_light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView           
             android:id="@+id/tvSettings"
             style="@style/TitleStyle"/>
         <de.hdodenhof.circleimageview.CircleImageView
-            android:src="@mipmap/ic_back_from_settings"
+            android:src="@mipmap/ic_back_blue_light"
             style="@style/TopPanelCircleImageViewStyle"           
             local:MvxBind="Click GoBackCommand" />
     </RelativeLayout>

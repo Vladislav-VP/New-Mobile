@@ -67,8 +67,10 @@ namespace TestProject.Core.ViewModels
         private async Task AddTodoItem(TodoItem todoItem)
         {
             todoItem = new TodoItem();
+            await _navigationService.Navigate<CreateTodoItemViewModel>();
             CreationResult<TodoItem> creationResult = await _navigationService
                 .Navigate<CreateTodoItemViewModel, TodoItem, CreationResult<TodoItem>>(todoItem);
+
 
             if (creationResult != null && creationResult.IsCreated)
             {
