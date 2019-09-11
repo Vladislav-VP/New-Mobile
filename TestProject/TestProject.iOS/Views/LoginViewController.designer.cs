@@ -1,4 +1,4 @@
-﻿// WARNING
+// WARNING
 //
 // This file has been generated automatically by Visual Studio from the outlets and
 // actions declared in your storyboard file.
@@ -7,30 +7,31 @@
 using Foundation;
 using System;
 using System.CodeDom.Compiler;
+using UIKit;
 
-namespace TestProject.iOS.Views
+namespace TipCalc.iOS
 {
     [Register ("LoginViewController")]
     partial class LoginViewController
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton btnTest { get; set; }
+        UIKit.UILabel lbUsername { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIView vView { get; set; }
+        UIKit.UIView vUserInfo { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
-            if (btnTest != null) {
-                btnTest.Dispose ();
-                btnTest = null;
+            if (lbUsername != null) {
+                lbUsername.Dispose ();
+                lbUsername = null;
             }
 
-            if (vView != null) {
-                vView.Dispose ();
-                vView = null;
+            if (vUserInfo != null) {
+                vUserInfo.Dispose ();
+                vUserInfo = null;
             }
         }
     }

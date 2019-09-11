@@ -12,10 +12,12 @@ using MvvmCross.Platforms.Ios.Presenters.Attributes;
 
 namespace TestProject.iOS.Views
 {
-    [MvxRootPresentation]
+    //[MvxRootPresentation]
     public class MainViewController : MvxViewController<MainViewModel>
     {
-        public override void ViewDidLoad()
+
+
+        public override async void ViewDidLoad()
         {
             base.ViewDidLoad();
 
@@ -23,9 +25,10 @@ namespace TestProject.iOS.Views
             
             set.Apply();
 
-            if (ViewModel.User == null)
+            if (await ViewModel.User == null)
             {
                 ViewModel.GoToLoginCommand.Execute(null);
+                return;
             }
         }
     }
