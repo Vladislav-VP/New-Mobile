@@ -5,6 +5,7 @@ using Android.Widget;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 
 using TestProject.Core.ViewModels;
+using TestProject.Droid.Activities;
 using TestProject.Resources;
 
 namespace TestProject.Droid.Fragments
@@ -22,6 +23,23 @@ namespace TestProject.Droid.Fragments
             InitializeAllControls(view);
 
             return view;
+        }
+
+        public override void OnPause()
+        {
+            base.OnPause();
+
+            if (ViewModel.User == null)
+            {
+                return;
+            }
+
+            if (((MainActivity)Activity).ViewModel.ShowMenuCommand != null &&
+                ((MainActivity)Activity).ViewModel.ShowTodoItemListCommand != null)
+            {
+                ((MainActivity)Activity).ViewModel.ShowMenuCommand.Execute(null);
+                ((MainActivity)Activity).ViewModel.ShowTodoItemListCommand.Execute(null);
+            }
         }
 
         protected override void InitializeAllControls(View view)

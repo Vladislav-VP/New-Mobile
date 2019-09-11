@@ -1,4 +1,7 @@
-﻿using Acr.UserDialogs;
+﻿using System;
+using System.Collections.Generic;
+
+using Acr.UserDialogs;
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
@@ -12,7 +15,7 @@ using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using Plugin.CurrentActivity;
 using Plugin.Permissions;
-using System.Collections.Generic;
+
 using TestProject.Core.ViewModels;
 using TestProject.Droid.Fragments;
 using TestProject.Droid.Helpers.Interfaces;
@@ -54,7 +57,7 @@ namespace TestProject.Droid.Activities
                 return;
             }
 
-            CloseCurrentFragment();
+            CloseCurrentFragment(typeof(TodoItemListFragment));
         }
         
         public void HideSoftKeyboard()
@@ -73,23 +76,37 @@ namespace TestProject.Droid.Activities
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
-        protected override void OnCreate(Bundle bundle)
+        protected override async void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+
+            _activityStorageHelper.ReplaceActivity(this);
+
+            if (await ViewModel.User == null)
+            {
+                ViewModel.GoToLoginCommand.Execute(null);
+                return;
+            }
 
             UserDialogs.Init(this);
                         
             SetContentView(Resource.Layout.MainActivity);
             Window.AddFlags(WindowManagerFlags.Fullscreen);
 
-            _activityStorageHelper.ReplaceActivity(this);
+
+
+            if (bundle == null && ViewModel.ShowMenuCommand != null && ViewModel.ShowTodoItemListCommand != null)
+            {
+                ViewModel.ShowMenuCommand.Execute(null);
+                ViewModel.ShowTodoItemListCommand.Execute(null);
+            }
 
             CrossCurrentActivity.Current.Init(this, bundle);
 
             DrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
         }
 
-        private void CloseCurrentFragment()
+        private void CloseCurrentFragment(Type fragmentType)
         {
             IList<Android.Support.V4.App.Fragment> fragments = SupportFragmentManager.Fragments;
             if (fragments.Count == 0)
@@ -98,6 +115,13 @@ namespace TestProject.Droid.Activities
             }
 
             MvxFragment currentFragment = (MvxFragment)fragments[fragments.Count - 1];
+            Type currentFragmentType = currentFragment.GetType();
+            if (currentFragmentType == fragmentType)
+            {
+                Finish();
+                return;
+            }
+
             BaseViewModel viewModel = (BaseViewModel)currentFragment.ViewModel;
             if (viewModel.GoBackCommand != null)
             {                

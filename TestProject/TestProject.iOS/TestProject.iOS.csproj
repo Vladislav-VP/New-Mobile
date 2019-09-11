@@ -66,12 +66,16 @@
     <Compile Include="Views\EditPasswordViewController.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Views\LoginViewController.cs" />
+    <Compile Include="Views\LoginViewController.designer.cs">
+      <DependentUpon>LoginViewController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\MenuViewController.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="Views\CreateTodoItemViewController.cs" />
     <Compile Include="Views\EditTodoItemViewController.cs" />
-    <Compile Include="Views\LoginViewController.cs" />
     <Compile Include="Views\MainViewController.cs" />
+    <Compile Include="Views\MvxPanelPresentationAttribute.cs" />
     <Compile Include="Views\RegistrationViewController.cs" />
     <Compile Include="Views\TodoListItemViewController.cs" />
     <Compile Include="Views\UserSettingsViewController.cs" />
@@ -79,6 +83,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Entitlements.plist" />
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
+    <InterfaceDefinition Include="Views\LoginView.xib" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -145,6 +150,10 @@
     <ProjectReference Include="..\TestProject.Core\TestProject.Core.csproj">
       <Project>{14e2f76c-3e0a-45ba-a18c-ea6cca174451}</Project>
       <Name>TestProject.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestProject.Entities\TestProject.Entities.csproj">
+      <Project>{FB972AE8-4355-4407-8D53-0CDAD7C72F5A}</Project>
+      <Name>TestProject.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

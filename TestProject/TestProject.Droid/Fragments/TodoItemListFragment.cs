@@ -22,11 +22,6 @@ namespace TestProject.Droid.Fragments
         {
             View view = base.OnCreateView(inflater, container, savedInstanceState);
 
-            if (savedInstanceState == null && ViewModel.ShowMenuCommand != null)
-            {
-                ViewModel.ShowMenuCommand.Execute(null);
-            }
-
             InitializeAllControls(view);
 
             return view;

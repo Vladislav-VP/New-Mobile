@@ -76,7 +76,7 @@ namespace TestProject.Core.ViewModels
         {
             if (!IsStateChanged)
             {
-                await _navigationService.Navigate<TodoItemListViewModel>();
+                await _navigationService.Close<UpdateResult<User>>(this, result: null);
                 return;
             }
 
@@ -148,6 +148,7 @@ namespace TestProject.Core.ViewModels
             await _userRepository.Delete(_user);
             _storage.Clear();
 
+            User = null;
             await _navigationService.Navigate<LoginViewModel>();
         }
 

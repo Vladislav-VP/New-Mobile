@@ -1,6 +1,9 @@
-﻿using MvvmCross.Commands;
+﻿using System.Threading.Tasks;
+
+using MvvmCross.Commands;
 using MvvmCross.Navigation;
 
+using TestProject.Entities;
 using TestProject.Services.Helpers.Interfaces;
 
 namespace TestProject.Core.ViewModels
@@ -10,10 +13,23 @@ namespace TestProject.Core.ViewModels
         public MainViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage)
             : base(navigationService, storage)
         {
+            GoToLoginCommand = new MvxAsyncCommand(async () =>
+             await _navigationService.Navigate<LoginViewModel>());
             ShowTodoItemListCommand = new MvxAsyncCommand(async () =>
                   await _navigationService.Navigate<TodoItemListViewModel>());
+            ShowMenuCommand = new MvxAsyncCommand(async () => 
+                  await _navigationService.Navigate<MenuViewModel>());
         }
         
+        public Task<User> User
+        {
+            get => _storage.Get();
+        }
+
         public IMvxAsyncCommand ShowTodoItemListCommand { get; private set; }
+
+        public IMvxAsyncCommand ShowMenuCommand { get; private set; }
+
+        public IMvxAsyncCommand GoToLoginCommand { get; private set; }
     }
 }

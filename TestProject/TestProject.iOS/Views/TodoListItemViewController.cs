@@ -12,15 +12,15 @@ using MvvmCross.Binding.BindingContext;
 
 namespace TestProject.iOS.Views
 {
-    public class TodoListItemViewController : MvxViewController<TodoListItemViewModel>
+    public class TodoListItemViewController : UIViewController
     {
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-            var set = this.CreateBindingSet<TodoListItemViewController, TodoListItemViewModel>();
+            //var set = this.CreateBindingSet<TodoListItemViewController, TodoListItemViewModel>();
 
-            set.Apply();
+            //set.Apply();
         }
     }
 }

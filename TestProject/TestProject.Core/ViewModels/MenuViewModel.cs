@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
+
 using TestProject.Core.ViewModelResults;
 using TestProject.Entities;
 using TestProject.Resources;
