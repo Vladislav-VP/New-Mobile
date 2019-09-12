@@ -66,6 +66,10 @@
     <Compile Include="Views\EditPasswordViewController.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Views\TodoItemListViewController.cs" />
+    <Compile Include="Views\TodoItemListViewController.designer.cs">
+      <DependentUpon>TodoItemListViewController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\RegistrationViewController.cs" />
     <Compile Include="Views\RegistrationViewController.designer.cs">
       <DependentUpon>RegistrationViewController.cs</DependentUpon>
@@ -79,7 +83,6 @@
     <Compile Include="Views\LoginViewController.designer.cs">
       <DependentUpon>LoginViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\TodoListItemViewController.cs" />
     <Compile Include="Views\UserSettingsViewController.cs" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,6 +90,7 @@
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Views\LoginViewController.xib" />
     <InterfaceDefinition Include="Views\RegistrationViewController.xib" />
+    <InterfaceDefinition Include="Views\TodoItemListViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -101,7 +105,7 @@
       <Version>6.3.1</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross.Plugin.Json">
-      <Version>6.4.0</Version>
+      <Version>6.3.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Essentials" Version="1.2.0" />
   </ItemGroup>

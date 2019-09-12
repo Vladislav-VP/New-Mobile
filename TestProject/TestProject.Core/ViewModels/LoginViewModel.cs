@@ -68,8 +68,9 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            await _storage.Save(_currentUser.Id);
-            await _navigationService.Navigate<MainViewModel>();
+            // TODO: Uncomment line below and change TodoItemListViewModel to MainViewModel after TodoItemListViewController UI defined
+            //await _storage.Save(_currentUser.Id);
+            await _navigationService.Navigate<TodoItemListViewModel>();
         }
 
         private async Task GoToRegistration()

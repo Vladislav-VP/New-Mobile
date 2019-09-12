@@ -7,7 +7,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController">
@@ -15,6 +14,12 @@
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
                 <outlet property="vUserInfo" destination="1125" id="name-outlet-1125"/>
                 <outlet property="lbUsername" destination="1538" id="name-outlet-1538"/>
+                <outlet property="tfUsername" destination="2364" id="name-outlet-2364"/>
+                <outlet property="lbPassword" destination="2771" id="name-outlet-2771"/>
+                <outlet property="tfPassword" destination="3323" id="name-outlet-3323"/>
+                <outlet property="btLogin" destination="3937" id="name-outlet-3937"/>
+                <outlet property="btRegistration" destination="5202" id="name-outlet-5202"/>
+                <outlet property="lbWithoutAccount" destination="5484" id="name-outlet-5484"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -24,31 +29,130 @@
             <color key="backgroundColor" colorSpace="calibratedRGB" red="0.15294117647058825" green="0.803921568627451" blue="1" alpha="1"/>
             <subviews>
                 <view contentMode="scaleToFill" id="1125" translatesAutoresizingMaskIntoConstraints="NO">
-                    <rect key="frame" x="5" y="60" width="404" height="404"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <rect key="frame" x="5" y="5" width="404" height="180"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1538" translatesAutoresizingMaskIntoConstraints="NO">
                             <rect key="frame" x="5" y="5" width="394" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                            <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                             <constraints>
                                 <constraint id="1996" firstAttribute="height" constant="30"/>
                             </constraints>
                         </label>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="2364" translatesAutoresizingMaskIntoConstraints="NO">
+                            <rect key="frame" x="5" y="45" width="394" height="40"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                            <textInputTraits key="textInputTraits" textContentType="username"/>
+                            <constraints>
+                                <constraint id="2533" firstAttribute="height" constant="40"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
+                                    <real key="value" value="10"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </textField>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2771" translatesAutoresizingMaskIntoConstraints="NO">
+                            <rect key="frame" x="5" y="95" width="394" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                            <constraints>
+                                <constraint id="3137" firstAttribute="height" constant="30"/>
+                            </constraints>
+                        </label>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="3323" translatesAutoresizingMaskIntoConstraints="NO">
+                            <rect key="frame" x="5" y="130" width="394" height="40"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                            <textInputTraits key="textInputTraits" textContentType="password"/>
+                            <constraints>
+                                <constraint id="3327" firstAttribute="height" constant="40"/>
+                            </constraints>
+                            <accessibility key="accessibilityConfiguration">
+                                <accessibilityTraits key="traits" keyboardKey="YES"/>
+                            </accessibility>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
+                                    <real key="value" value="10"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </textField>
                     </subviews>
                     <constraints>
-                        <constraint id="1135" firstAttribute="width" secondItem="1125" secondAttribute="height"/>
                         <constraint id="1541" firstAttribute="right" secondItem="1538" secondAttribute="right" constant="5"/>
                         <constraint id="1543" firstItem="1538" firstAttribute="left" secondItem="1125" secondAttribute="left" constant="5"/>
                         <constraint id="1545" firstItem="1538" firstAttribute="top" secondItem="1125" secondAttribute="top" constant="5"/>
+                        <constraint id="2530" firstAttribute="trailing" secondItem="2364" secondAttribute="trailing" constant="5"/>
+                        <constraint id="2531" firstItem="2364" firstAttribute="leading" secondItem="1125" secondAttribute="leading" constant="5"/>
+                        <constraint id="2532" firstItem="2364" firstAttribute="top" secondItem="1538" secondAttribute="bottom" constant="10"/>
+                        <constraint id="2951" firstItem="2771" firstAttribute="left" secondItem="1125" secondAttribute="left" constant="5"/>
+                        <constraint id="2952" firstAttribute="right" secondItem="2771" secondAttribute="right" constant="5"/>
+                        <constraint id="2953" firstItem="2771" firstAttribute="top" secondItem="2364" secondAttribute="bottom" constant="10"/>
+                        <constraint id="3324" firstAttribute="right" secondItem="3323" secondAttribute="right" constant="5"/>
+                        <constraint id="3325" firstItem="3323" firstAttribute="left" secondItem="1125" secondAttribute="left" constant="5"/>
+                        <constraint id="3326" firstItem="3323" firstAttribute="top" secondItem="2771" secondAttribute="bottom" constant="5"/>
+                        <constraint id="4960" firstAttribute="height" constant="180"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3937" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="10" y="190" width="394" height="40"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                    <state key="normal" title="Button">
+                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                    </state>
+                    <constraints>
+                        <constraint id="3940" firstAttribute="height" constant="40"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5202" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="10" y="496" width="394" height="40"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                    <state key="normal" title="Button">
+                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <constraints>
+                        <constraint id="5205" firstAttribute="height" constant="40"/>
+                    </constraints>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5484" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="10" y="456" width="394" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                    <color key="highlightedColor" colorSpace="calibratedRGB" red="0" green="0" blue="0" alpha="1"/>
+                    <constraints>
+                        <constraint id="5566" firstAttribute="height" constant="30"/>
+                    </constraints>
+                    <color key="textColor" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace" white="1" alpha="1"/>
+                </label>
             </subviews>
             <constraints>
                 <constraint id="1126" firstAttribute="right" secondItem="1125" secondAttribute="right" constant="5"/>
                 <constraint id="1128" firstItem="1125" firstAttribute="left" secondItem="2" secondAttribute="left" constant="5"/>
-                <constraint id="1129" firstItem="1125" firstAttribute="top" secondItem="2" secondAttribute="top" constant="60"/>
+                <constraint id="1129" firstItem="1125" firstAttribute="top" secondItem="2" secondAttribute="top" constant="5"/>
+                <constraint id="2160" firstItem="1125" firstAttribute="top" secondItem="2" secondAttribute="top" constant="5"/>
+                <constraint id="3938" firstAttribute="right" secondItem="3937" secondAttribute="right" constant="10"/>
+                <constraint id="3939" firstItem="3937" firstAttribute="left" secondItem="2" secondAttribute="left" constant="10"/>
+                <constraint id="3941" firstItem="3937" firstAttribute="top" secondItem="1125" secondAttribute="bottom" constant="5"/>
+                <constraint id="4586" firstItem="1125" firstAttribute="centerX" secondItem="2" secondAttribute="centerX"/>
+                <constraint id="5203" firstAttribute="right" secondItem="5202" secondAttribute="right" constant="10"/>
+                <constraint id="5204" firstItem="5202" firstAttribute="left" secondItem="2" secondAttribute="left" constant="10"/>
+                <constraint id="5206" firstAttribute="bottom" secondItem="5202" secondAttribute="bottom" constant="200"/>
+                <constraint id="5563" firstAttribute="trailing" secondItem="5484" secondAttribute="trailing" constant="10"/>
+                <constraint id="5564" firstItem="5484" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="10"/>
+                <constraint id="5565" firstItem="5202" firstAttribute="top" secondItem="5484" secondAttribute="bottom" constant="10"/>
             </constraints>
         </view>
     </objects>

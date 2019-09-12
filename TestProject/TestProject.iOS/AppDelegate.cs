@@ -15,6 +15,8 @@ namespace TestProject.iOS
         {
             var result = base.FinishedLaunching(application, launchOptions);
 
+            UINavigationBar.Appearance.Translucent = false;
+
             return result;
         }
     }

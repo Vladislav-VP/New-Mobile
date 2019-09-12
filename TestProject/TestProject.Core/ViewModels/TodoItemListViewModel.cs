@@ -44,7 +44,8 @@ namespace TestProject.Core.ViewModels
             await base.Initialize();
             User currentUser = await _storage.Get();
 
-            TodoItems = new MvxObservableCollection<TodoItem>(await _todoItemRepository.GetTodoItems(currentUser.Id));
+            // TODO : Uncomment line below after view defined
+            //TodoItems = new MvxObservableCollection<TodoItem>(await _todoItemRepository.GetTodoItems(currentUser.Id));
         }
 
         public IMvxAsyncCommand<TodoItem> AddTodoItemCommand { get; private set; }

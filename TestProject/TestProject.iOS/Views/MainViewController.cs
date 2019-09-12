@@ -30,6 +30,11 @@ namespace TestProject.iOS.Views
                 ViewModel.GoToLoginCommand.Execute(null);
                 return;
             }
+
+            if(await ViewModel.User != null)
+            {
+                ViewModel.ShowTodoItemListCommand.Execute(null);
+            }
         }
     }
 }
