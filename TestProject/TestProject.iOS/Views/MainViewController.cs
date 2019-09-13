@@ -13,9 +13,9 @@ using MvvmCross.Platforms.Ios.Presenters.Attributes;
 namespace TestProject.iOS.Views
 {
     //[MvxRootPresentation]
-    public class MainViewController : MvxViewController<MainViewModel>
+    public class MainViewController : MvxTabBarViewController<MainViewModel>
     {
-
+        private bool _firstTimePresented = true;
 
         public override async void ViewDidLoad()
         {
@@ -25,16 +25,30 @@ namespace TestProject.iOS.Views
             
             set.Apply();
 
-            if (await ViewModel.User == null)
-            {
-                ViewModel.GoToLoginCommand.Execute(null);
-                return;
-            }
+            //if (await ViewModel.User == null)
+            //{
+            //    ViewModel.GoToLoginCommand.Execute(null);
+            //    return;
+            //}
 
-            if(await ViewModel.User != null)
+            //ViewModel.ShowTodoItemListCommand.Execute(null);
+            //if(await ViewModel.User != null)
+            //{
+                
+            //}
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            if (_firstTimePresented)
             {
+                _firstTimePresented = false;
                 ViewModel.ShowTodoItemListCommand.Execute(null);
+                ViewModel.ShowMenuCommand.Execute(null);
             }
         }
+
     }
 }

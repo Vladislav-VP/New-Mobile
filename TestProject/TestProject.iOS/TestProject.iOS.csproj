@@ -62,10 +62,17 @@
     <CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
+    <Compile Include="Helpers\Interfaces\IControlsSettingHelper.cs" />
+    <Compile Include="Sources\TableSource.cs" />
     <Compile Include="Views\CancelDialogViewController.cs" />
     <Compile Include="Views\EditPasswordViewController.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Views\MenuViewController.cs" />
+    <Compile Include="Views\MenuViewController.designer.cs">
+      <DependentUpon>MenuViewController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\TodoItemListViewController.cs" />
     <Compile Include="Views\TodoItemListViewController.designer.cs">
       <DependentUpon>TodoItemListViewController.cs</DependentUpon>
@@ -75,7 +82,6 @@
       <DependentUpon>RegistrationViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\MainViewController.cs" />
-    <Compile Include="Views\MenuViewController.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="Views\CreateTodoItemViewController.cs" />
     <Compile Include="Views\EditTodoItemViewController.cs" />
@@ -84,6 +90,11 @@
       <DependentUpon>LoginViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\UserSettingsViewController.cs" />
+    <BundleResource Include="Resources\profile.png" />
+    <BundleResource Include="Resources\car8.jpg" />
+    <BundleResource Include="Resources\LaunchScreen.jpg" />
+    <BundleResource Include="Resources\LaunchScreen%402x.jpg" />
+    <BundleResource Include="Resources\LaunchScreen%403x.jpg" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Entitlements.plist" />
@@ -91,6 +102,7 @@
     <InterfaceDefinition Include="Views\LoginViewController.xib" />
     <InterfaceDefinition Include="Views\RegistrationViewController.xib" />
     <InterfaceDefinition Include="Views\TodoItemListViewController.xib" />
+    <InterfaceDefinition Include="Views\MenuViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -102,6 +114,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MvvmCross">
+      <Version>6.3.1</Version>
+    </PackageReference>
+    <PackageReference Include="MvvmCross.Plugin.Color">
       <Version>6.3.1</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross.Plugin.Json">
@@ -153,9 +168,7 @@
       <Visible>false</Visible>
     </ImageAsset>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\TestProject.Core\TestProject.Core.csproj">
       <Project>{14e2f76c-3e0a-45ba-a18c-ea6cca174451}</Project>

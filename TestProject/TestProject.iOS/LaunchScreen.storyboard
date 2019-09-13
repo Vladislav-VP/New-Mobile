@@ -17,19 +17,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Splash Screen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="447" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
-                                <rect key="frame" x="115" y="189" width="180" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="781" translatesAutoresizingMaskIntoConstraints="NO" image="LaunchScreen.jpg">
+                                <rect key="frame" x="0.0" y="20" width="413" height="716"/>
+                            </imageView>
                         </subviews>
+                        <constraints>
+                            <constraint id="796" firstAttribute="right" secondItem="781" secondAttribute="right" constant="1"/>
+                            <constraint id="811" firstItem="781" firstAttribute="top" secondItem="219" secondAttribute="bottom"/>
+                            <constraint id="826" firstItem="781" firstAttribute="left" secondItem="223" secondAttribute="left"/>
+                            <constraint id="841" firstItem="220" firstAttribute="top" secondItem="781" secondAttribute="bottom"/>
+                        </constraints>
                     </view>
+                    <connections/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="224" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-200" y="-388"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="LaunchScreen.jpg" width="266" height="341"/>
+    </resources>
 </document>

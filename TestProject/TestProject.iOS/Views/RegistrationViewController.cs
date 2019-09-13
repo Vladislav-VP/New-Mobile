@@ -1,32 +1,23 @@
 ﻿using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Views;
+using MvvmCross.Plugin.Color.Platforms.Ios;
 using UIKit;
 
 using TestProject.Core.ViewModels;
 using TestProject.Resources;
+using TestProject.iOS.Helpers.Interfaces;
 
 namespace TestProject.iOS.Views
 {
-    public partial class RegistrationViewController : MvxViewController<RegistrationViewModel>
+    public partial class RegistrationViewController : MvxViewController<RegistrationViewModel>, IControlsSettingHelper
     {
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-            NavigationController.SetNavigationBarHidden(false, true);
+            InitializeAllControls();
 
-            lbUsername.Text = Strings.UsernameTextViewLabel;
-            lbPassword.Text = Strings.PasswordTextViewLabel;
-            btRegistration.SetTitle(Strings.RegistrationButtonLabel, UIControlState.Normal);
-            tfPassword.SecureTextEntry = true;
-
-            var set = this.CreateBindingSet<RegistrationViewController, RegistrationViewModel>();
-
-            set.Bind(tfUsername).To(vm => vm.UserName);
-            set.Bind(tfPassword).To(vm => vm.Password);
-            set.Bind(btRegistration).To(vm => vm.RegisterUserCommand);
-
-            set.Apply();
+            CreateBindings();
         }        
 
 
@@ -35,6 +26,35 @@ namespace TestProject.iOS.Views
             base.ViewWillDisappear(animated);
 
             ViewModel.GoBackCommand.Execute(null);
+        }
+
+        public override bool PrefersStatusBarHidden()
+        {
+            return true;
+        }
+
+        public void InitializeAllControls()
+        {
+            Title = Strings.RegistrationTitle;
+
+            UINavigationBar.Appearance.BarTintColor = AppColors.DarkBlue.ToNativeColor();
+            NavigationController.SetNavigationBarHidden(false, true);
+
+            lbUsername.Text = Strings.UsernameTextViewLabel;
+            lbPassword.Text = Strings.PasswordTextViewLabel;
+            btRegistration.SetTitle(Strings.RegistrationButtonLabel, UIControlState.Normal);
+            tfPassword.SecureTextEntry = true;
+        }
+
+        public void CreateBindings()
+        {
+            var set = this.CreateBindingSet<RegistrationViewController, RegistrationViewModel>();
+
+            set.Bind(tfUsername).To(vm => vm.UserName);
+            set.Bind(tfPassword).To(vm => vm.Password);
+            set.Bind(btRegistration).To(vm => vm.RegisterUserCommand);
+
+            set.Apply();
         }
     }
 }

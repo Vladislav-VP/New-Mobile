@@ -13,8 +13,16 @@ namespace TestProject.iOS.Views
     [Register ("TodoItemListViewController")]
     partial class TodoItemListViewController
     {
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UITableView tbviewTodoItems { get; set; }
+
         void ReleaseDesignerOutlets ()
         {
+            if (tbviewTodoItems != null) {
+                tbviewTodoItems.Dispose ();
+                tbviewTodoItems = null;
+            }
         }
     }
 }
