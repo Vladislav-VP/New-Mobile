@@ -55,6 +55,8 @@ namespace TestProject.Services.Repositories
         public async Task<IEnumerable<T>> GetAllObjects()
         {
             var connection = new SQLiteAsyncConnection(_path);
+            var table = connection.Table<T>();
+            var listTable = await table.ToListAsync();
             return await connection.Table<T>().ToListAsync();
         }
 

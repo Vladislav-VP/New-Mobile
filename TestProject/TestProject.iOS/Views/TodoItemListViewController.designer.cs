@@ -15,13 +15,13 @@ namespace TestProject.iOS.Views
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITableView tbviewTodoItems { get; set; }
+        UIKit.UITableView tvTodoList { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
-            if (tbviewTodoItems != null) {
-                tbviewTodoItems.Dispose ();
-                tbviewTodoItems = null;
+            if (tvTodoList != null) {
+                tvTodoList.Dispose ();
+                tvTodoList = null;
             }
         }
     }

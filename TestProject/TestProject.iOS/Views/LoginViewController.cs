@@ -9,6 +9,7 @@ using MvvmCross.Platforms.Ios.Presenters.Attributes;
 
 namespace TestProject.iOS.Views
 {
+    //[MvxTabPresentation(WrapInNavigationController = true)]
     public partial class LoginViewController : MvxViewController<LoginViewModel>, IControlsSettingHelper
     {
         public LoginViewController() : base(nameof(LoginViewController), null)
@@ -38,6 +39,11 @@ namespace TestProject.iOS.Views
 
         public void InitializeAllControls()
         {
+            if (TabBarController != null)
+            {
+                TabBarController.TabBar.Hidden = true;
+            }
+
             lbUsername.Text = Strings.UsernameTextViewLabel;
             lbPassword.Text = Strings.PasswordTextViewLabel;
             btLogin.SetTitle(Strings.LoginButtonLabel, UIControlState.Normal);

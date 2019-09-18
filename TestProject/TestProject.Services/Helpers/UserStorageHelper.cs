@@ -27,7 +27,8 @@ namespace TestProject.Services.Helpers
 
             int id = int.Parse(key);
             IUserRepository userRepository = Mvx.IoCProvider.Resolve<IUserRepository>();
-            return await userRepository.Find(id);
+            User user = await userRepository.Find(id);
+            return user;
         }
 
         public void Clear()

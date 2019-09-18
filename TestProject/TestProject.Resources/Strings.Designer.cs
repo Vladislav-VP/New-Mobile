@@ -241,6 +241,15 @@ namespace TestProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Menu.
+        /// </summary>
+        public static string MenuLabel {
+            get {
+                return ResourceManager.GetString("MenuLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New task.
         /// </summary>
         public static string NewTask {

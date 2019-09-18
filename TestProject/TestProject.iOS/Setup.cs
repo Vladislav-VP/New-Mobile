@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using MvvmCross.Platforms.Ios.Core;
-using Foundation;
+﻿using MvvmCross.Platforms.Ios.Core;
 using MvvmCross;
-using UIKit;
 using TestProject.Core;
 using MvvmCross.Base;
 using MvvmCross.Plugin.Json;
-using MvvmCross.Binding.Bindings.Target.Construction;
 using MvvmCross.IoC;
 
 namespace TestProject.iOS
@@ -30,6 +23,5 @@ namespace TestProject.iOS
                 PropertyInjectorOptions = MvxPropertyInjectorOptions.MvxInject
             };
         }
-
     }
 }

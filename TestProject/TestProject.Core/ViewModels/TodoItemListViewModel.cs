@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
@@ -39,13 +40,17 @@ namespace TestProject.Core.ViewModels
             }
         }
 
+        public async Task StartTabViewModels()
+        {
+            await _navigationService.Navigate<MenuViewModel>();
+        }
+
         public async override Task Initialize()
         {
             await base.Initialize();
             User currentUser = await _storage.Get();
 
-            // TODO : Uncomment line below after view defined
-            //TodoItems = new MvxObservableCollection<TodoItem>(await _todoItemRepository.GetTodoItems(currentUser.Id));
+            TodoItems = new MvxObservableCollection<TodoItem>(await _todoItemRepository.GetTodoItems(currentUser.Id));
         }
 
         public IMvxAsyncCommand<TodoItem> AddTodoItemCommand { get; private set; }

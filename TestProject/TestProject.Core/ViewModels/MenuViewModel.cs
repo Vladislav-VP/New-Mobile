@@ -73,13 +73,13 @@ namespace TestProject.Core.ViewModels
             await base.Initialize();
 
             _currentUser = await _storage.Get();
-            //if (_currentUser == null)
-            //{
-            //    await _navigationService.Navigate<LoginViewModel>();
-            //    return;
-            //}
-            //UserName = _currentUser.Name;
-            //EncryptedProfilePhoto = _currentUser.EncryptedProfilePhoto;
+            if (_currentUser == null)
+            {
+                await _navigationService.Navigate<LoginViewModel>();
+                return;
+            }
+            UserName = _currentUser.Name;
+            EncryptedProfilePhoto = _currentUser.EncryptedProfilePhoto;
         }
 
         private async Task Logout()

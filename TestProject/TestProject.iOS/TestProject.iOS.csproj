@@ -18,13 +18,17 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
-    <DefineConstants>DEBUG</DefineConstants>
+    <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchArch>x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <DeviceSpecificBuild>true</DeviceSpecificBuild>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <MtouchFloat32>false</MtouchFloat32>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -61,14 +65,37 @@
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
+    <AppExtensionDebugBundleId />
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="CustomControls\BaseView.cs" />
+    <Compile Include="CustomControls\MenuOptionView.cs" />
     <Compile Include="Helpers\Interfaces\IControlsSettingHelper.cs" />
     <Compile Include="Sources\TableSource.cs" />
     <Compile Include="Views\CancelDialogViewController.cs" />
+    <Compile Include="Views\CancelDialogViewController.designer.cs">
+      <DependentUpon>CancelDialogViewController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditPasswordViewController.cs" />
+    <Compile Include="Views\EditPasswordViewController.designer.cs">
+      <DependentUpon>EditPasswordViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserSettingsViewController.cs" />
+    <Compile Include="Views\UserSettingsViewController.designer.cs">
+      <DependentUpon>UserSettingsViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditTodoItemViewController.cs" />
+    <Compile Include="Views\EditTodoItemViewController.designer.cs">
+      <DependentUpon>EditTodoItemViewController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Views\CreateTodoItemViewController.cs" />
+    <Compile Include="Views\CreateTodoItemViewController.designer.cs">
+      <DependentUpon>CreateTodoItemViewController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\MenuViewController.cs" />
     <Compile Include="Views\MenuViewController.designer.cs">
       <DependentUpon>MenuViewController.cs</DependentUpon>
@@ -83,13 +110,10 @@
     </Compile>
     <Compile Include="Views\MainViewController.cs" />
     <Compile Include="Setup.cs" />
-    <Compile Include="Views\CreateTodoItemViewController.cs" />
-    <Compile Include="Views\EditTodoItemViewController.cs" />
     <Compile Include="Views\LoginViewController.cs" />
     <Compile Include="Views\LoginViewController.designer.cs">
       <DependentUpon>LoginViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserSettingsViewController.cs" />
     <BundleResource Include="Resources\profile.png" />
     <BundleResource Include="Resources\car8.jpg" />
     <BundleResource Include="Resources\LaunchScreen.jpg" />
@@ -103,6 +127,11 @@
     <InterfaceDefinition Include="Views\RegistrationViewController.xib" />
     <InterfaceDefinition Include="Views\TodoItemListViewController.xib" />
     <InterfaceDefinition Include="Views\MenuViewController.xib" />
+    <InterfaceDefinition Include="Views\CreateTodoItemViewController.xib" />
+    <InterfaceDefinition Include="Views\EditTodoItemViewController.xib" />
+    <InterfaceDefinition Include="Views\UserSettingsViewController.xib" />
+    <InterfaceDefinition Include="Views\EditPasswordViewController.xib" />
+    <InterfaceDefinition Include="Views\CancelDialogViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -113,10 +142,16 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Cirrious.FluentLayout">
+      <Version>2.9.0</Version>
+    </PackageReference>
     <PackageReference Include="MvvmCross">
       <Version>6.3.1</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross.Plugin.Color">
+      <Version>6.3.1</Version>
+    </PackageReference>
+    <PackageReference Include="MvvmCross.Plugin.File">
       <Version>6.3.1</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross.Plugin.Json">
@@ -181,6 +216,10 @@
     <ProjectReference Include="..\TestProject.Resources\TestProject.Resources.csproj">
       <Project>{5FE8DD55-88D5-4091-B1AF-06294B995B2D}</Project>
       <Name>TestProject.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestProject.Services\TestProject.Services.csproj">
+      <Project>{3EE4AD2C-44C3-43B6-986D-513F8FE25D88}</Project>
+      <Name>TestProject.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

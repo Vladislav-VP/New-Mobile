@@ -3,7 +3,6 @@
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 
-using TestProject.Entities;
 using TestProject.Services.Helpers.Interfaces;
 
 namespace TestProject.Core.ViewModels
@@ -21,14 +20,15 @@ namespace TestProject.Core.ViewModels
                   await _navigationService.Navigate<MenuViewModel>());
         }
         
-        public Task<User> User
-        {
-            get => _storage.Get();
-        }
-
         public IMvxAsyncCommand ShowTodoItemListCommand { get; private set; }
 
         public IMvxAsyncCommand ShowMenuCommand { get; private set; }
+
+        public async Task StartTabViewModels()
+        {
+            await _navigationService.Navigate<MenuViewModel>();
+            await _navigationService.Navigate<TodoItemListViewModel>();
+        }
 
         public IMvxAsyncCommand GoToLoginCommand { get; private set; }
     }

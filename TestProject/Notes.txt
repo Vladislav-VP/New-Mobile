@@ -1,2 +1,5 @@
-1) Lead app to one style.
-2) Move button "Back" onto the top panel.
+/Users/andriidashkovets/Library/Developer/CoreSimulator/Devices/9777D177-A546-4D19-AB71-5878FCE44D53/data/Containers/Data/Application/
+9A086FDE-8DBC-4308-A54E-FAE63C4CACF7/Documents/.config
+
+/Users/andriidashkovets/Library/Developer/CoreSimulator/Devices/9777D177-A546-4D19-AB71-5878FCE44D53/data/Containers/Data/Application/
+2B28F2DC-E75A-4F26-90B8-80BB2539DF0B/Documents/.config

@@ -47,12 +47,7 @@ namespace TestProject.Core.ViewModels
         public IMvxAsyncCommand LoginCommand { get; private set; }
         
         public IMvxAsyncCommand GoToRegistrationCommand { get; private set; }
-
-        public override Task Initialize()
-        {
-            return base.Initialize();
-        }
-
+        
         protected override async Task<bool> IsDataValid()
         {
             _currentUser = await _userRepository.GetUser(UserName, Password);
@@ -69,8 +64,8 @@ namespace TestProject.Core.ViewModels
             }
 
             // TODO: Uncomment line below and change TodoItemListViewModel to MainViewModel after TodoItemListViewController UI completely defined
-            //await _storage.Save(_currentUser.Id);
-            await _navigationService.Navigate<TodoItemListViewModel>();
+            await _storage.Save(_currentUser.Id);
+            await _navigationService.Navigate<MainViewModel>();
         }
 
         private async Task GoToRegistration()

@@ -4,14 +4,13 @@ using MvvmCross.Platforms.Ios.Core;
 using MvvmCross.Plugin.Color.Platforms.Ios;
 using TestProject.Core;
 using TestProject.Resources;
-using MvvmCross.UI;
 
 namespace TestProject.iOS
 {
     [Register(nameof(AppDelegate))]
     public class AppDelegate : MvxApplicationDelegate<Setup, App>
     {
-
+        
         public override UIWindow Window { get; set; }
 
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
@@ -28,18 +27,21 @@ namespace TestProject.iOS
             UINavigationBar.Appearance.SetTitleTextAttributes(new UITextAttributes()
             {
                 TextColor = UIColor.White,
-                Font = UIFont.SystemFontOfSize(30f, UIFontWeight.Semibold)
+                Font = UIFont.SystemFontOfSize(Constants.MainFontSize, UIFontWeight.Semibold)
             });
             UINavigationBar.Appearance.Translucent = false;
             UINavigationBar.Appearance.TintColor = UIColor.White;
 
-            UITabBar.Appearance.BackgroundColor = AppColors.PrimaryColor.ToNativeColor();
+
+            UITabBar.Appearance.BackgroundColor = AppColors.MainInterfaceBlue.ToNativeColor();
             UITabBarItem.Appearance.SetTitleTextAttributes(new UITextAttributes()
             {
-                TextColor = AppColors.AccentColor.ToNativeColor()
+                TextColor = UIColor.White,
+                Font = UIFont.SystemFontOfSize(Constants.MainFontSize, UIFontWeight.Semibold)
             }, UIControlState.Selected);
 
-
+            UIStackView.Appearance.BackgroundColor = AppColors.MainInterfaceBlue.ToNativeColor();
+            UIStackView.Appearance.TintColor = AppColors.MainInterfaceBlue.ToNativeColor();
 
             UITextView.Appearance.TintColor = AppColors.AccentColor.ToNativeColor();
             UIButton.Appearance.SetTitleColor(AppColors.AccentColor.ToNativeColor(), UIControlState.Highlighted);

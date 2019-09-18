@@ -19,6 +19,14 @@ namespace TestProject.iOS.Views
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel lbUsername { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIStackView stviewMenuItems { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIView vHeader { get; set; }
 
         void ReleaseDesignerOutlets ()
@@ -26,6 +34,16 @@ namespace TestProject.iOS.Views
             if (imviewProfile != null) {
                 imviewProfile.Dispose ();
                 imviewProfile = null;
+            }
+
+            if (lbUsername != null) {
+                lbUsername.Dispose ();
+                lbUsername = null;
+            }
+
+            if (stviewMenuItems != null) {
+                stviewMenuItems.Dispose ();
+                stviewMenuItems = null;
             }
 
             if (vHeader != null) {

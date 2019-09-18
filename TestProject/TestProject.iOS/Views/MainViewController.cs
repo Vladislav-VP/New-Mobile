@@ -12,42 +12,42 @@ using MvvmCross.Platforms.Ios.Presenters.Attributes;
 
 namespace TestProject.iOS.Views
 {
-    //[MvxRootPresentation]
+    [MvxRootPresentation]
     public class MainViewController : MvxTabBarViewController<MainViewModel>
     {
-        private bool _firstTimePresented = true;
+        private bool IsStarted { get; set; } = false;
+        public MainViewController()
+        {
+
+        }
+
+        public void HideTabBar(bool needHidden = false)
+        {
+            if (TabBar != null)
+            {
+                TabBar.Hidden = needHidden;
+                TabBar.Translucent = needHidden;
+            }
+        }
 
         public override async void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            var set = this.CreateBindingSet<MainViewController, MainViewModel>();
-            
-            set.Apply();
-
-            //if (await ViewModel.User == null)
-            //{
-            //    ViewModel.GoToLoginCommand.Execute(null);
-            //    return;
-            //}
-
-            //ViewModel.ShowTodoItemListCommand.Execute(null);
-            //if(await ViewModel.User != null)
-            //{
-                
-            //}
         }
 
-        public override void ViewWillAppear(bool animated)
+        public override async void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-
-            if (_firstTimePresented)
+            if (!IsStarted)
             {
-                _firstTimePresented = false;
-                ViewModel.ShowTodoItemListCommand.Execute(null);
-                ViewModel.ShowMenuCommand.Execute(null);
+                await ViewModel.StartTabViewModels();
+                SelectedIndex = 1;
+                foreach (UITabBarItem tab in TabBar.Items)
+                {
+                    tab.ImageInsets = new UIEdgeInsets(5, -5, -5, -5);
+                }
             }
+            IsStarted = true;
         }
 
     }

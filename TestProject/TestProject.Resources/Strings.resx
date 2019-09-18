@@ -271,4 +271,7 @@ not shorter than</value>
   <data name="RegistrationTitle" xml:space="preserve">
     <value>Registration</value>
   </data>
+  <data name="MenuLabel" xml:space="preserve">
+    <value>Menu</value>
+  </data>
 </root>

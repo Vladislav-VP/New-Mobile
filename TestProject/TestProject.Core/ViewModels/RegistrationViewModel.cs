@@ -74,8 +74,8 @@ namespace TestProject.Core.ViewModels
             }
 
             // TODO: Uncomment line below and change TodoItemListViewModel to MainViewModel after TodoItemListViewController UI completely defined
-            //await AddUser();
-            await _navigationService.Navigate<TodoItemListViewModel>();
+            await AddUser();
+            await _navigationService.Navigate<MainViewModel>();
         }
 
         private async Task AddUser()
