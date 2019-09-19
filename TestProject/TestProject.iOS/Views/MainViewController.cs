@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Foundation;
-using MvvmCross.Platforms.Ios.Views;
-using UIKit;
-using TestProject.Core.ViewModels;
-using MvvmCross.Binding.BindingContext;
+﻿using MvvmCross.Platforms.Ios.Views;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
+using UIKit;
+
+using TestProject.Core.ViewModels;
 
 namespace TestProject.iOS.Views
 {
@@ -16,10 +10,6 @@ namespace TestProject.iOS.Views
     public class MainViewController : MvxTabBarViewController<MainViewModel>
     {
         private bool IsStarted { get; set; } = false;
-        public MainViewController()
-        {
-
-        }
 
         public void HideTabBar(bool needHidden = false)
         {
@@ -28,11 +18,6 @@ namespace TestProject.iOS.Views
                 TabBar.Hidden = needHidden;
                 TabBar.Translucent = needHidden;
             }
-        }
-
-        public override async void ViewDidLoad()
-        {
-            base.ViewDidLoad();
         }
 
         public override async void ViewWillAppear(bool animated)

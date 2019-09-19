@@ -18,8 +18,7 @@ namespace TestProject.iOS.Views
             InitializeAllControls();
 
             CreateBindings();
-        }        
-
+        }
 
         public override void ViewWillDisappear(bool animated)
         {
@@ -28,6 +27,7 @@ namespace TestProject.iOS.Views
             ViewModel.GoBackCommand.Execute(null);
         }
 
+        // TODO: Try to change StatusBar text color to white. If success, remove method PrefersStatusBarHidden()
         public override bool PrefersStatusBarHidden()
         {
             return true;

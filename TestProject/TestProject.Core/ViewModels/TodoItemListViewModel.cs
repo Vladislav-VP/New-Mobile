@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
@@ -73,7 +72,6 @@ namespace TestProject.Core.ViewModels
         private async Task AddTodoItem(TodoItem todoItem)
         {
             todoItem = new TodoItem();
-            await _navigationService.Navigate<CreateTodoItemViewModel>();
             CreationResult<TodoItem> creationResult = await _navigationService
                 .Navigate<CreateTodoItemViewModel, TodoItem, CreationResult<TodoItem>>(todoItem);
 

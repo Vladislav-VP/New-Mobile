@@ -127,7 +127,6 @@ namespace TestProject.Core.ViewModels
 
             _currentUser.EncryptedProfilePhoto = newEncryptedProfilePhoto;
             await _userRepository.Update(_currentUser);
-            await _navigationService.Navigate<MenuViewModel>();
         }
 
         private async Task ShowSettings(User user)

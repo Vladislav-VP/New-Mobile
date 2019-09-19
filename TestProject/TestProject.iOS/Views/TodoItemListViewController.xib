@@ -23,15 +23,18 @@
             <point key="canvasLocation" x="-501" y="-345"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="8006" translatesAutoresizingMaskIntoConstraints="NO">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                    <rect key="frame" x="0.0" y="0.0" width="365" height="812"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="sectionIndexColor" colorSpace="calibratedRGB" red="0.15294117647058825" green="0.803921568627451" blue="1" alpha="1"/>
+                    <color key="separatorColor" colorSpace="calibratedRGB" red="0.15294117647058825" green="0.803921568627451" blue="1" alpha="1"/>
+                    <color key="tintColor" colorSpace="calibratedRGB" red="0.15294117647058825" green="0.803921568627451" blue="1" alpha="1"/>
                 </tableView>
             </subviews>
             <constraints>
                 <constraint id="8007" firstItem="8006" firstAttribute="height" secondItem="2" secondAttribute="height"/>
-                <constraint id="8008" firstItem="8006" firstAttribute="width" secondItem="2" secondAttribute="width"/>
-                <constraint id="8009" firstAttribute="centerX" secondItem="8006" secondAttribute="centerX"/>
                 <constraint id="8010" firstAttribute="centerY" secondItem="8006" secondAttribute="centerY"/>
+                <constraint id="8750" firstAttribute="right" secondItem="8006" secondAttribute="right" constant="10"/>
+                <constraint id="8903" firstItem="8006" firstAttribute="left" secondItem="2" secondAttribute="left"/>
             </constraints>
         </view>
     </objects>

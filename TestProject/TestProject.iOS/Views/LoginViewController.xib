@@ -29,7 +29,7 @@
             <color key="backgroundColor" colorSpace="calibratedRGB" red="0.15294117647058825" green="0.803921568627451" blue="1" alpha="1"/>
             <subviews>
                 <view contentMode="scaleToFill" id="1125" translatesAutoresizingMaskIntoConstraints="NO">
-                    <rect key="frame" x="5" y="5" width="404" height="180"/>
+                    <rect key="frame" x="5" y="10" width="404" height="180"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1538" translatesAutoresizingMaskIntoConstraints="NO">
                             <rect key="frame" x="5" y="5" width="394" height="30"/>
@@ -97,7 +97,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3937" translatesAutoresizingMaskIntoConstraints="NO">
-                    <rect key="frame" x="10" y="190" width="394" height="40"/>
+                    <rect key="frame" x="10" y="195" width="394" height="40"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                     <state key="normal" title="Button">
@@ -141,8 +141,7 @@
             <constraints>
                 <constraint id="1126" firstAttribute="right" secondItem="1125" secondAttribute="right" constant="5"/>
                 <constraint id="1128" firstItem="1125" firstAttribute="left" secondItem="2" secondAttribute="left" constant="5"/>
-                <constraint id="1129" firstItem="1125" firstAttribute="top" secondItem="2" secondAttribute="top" constant="5"/>
-                <constraint id="2160" firstItem="1125" firstAttribute="top" secondItem="2" secondAttribute="top" constant="5"/>
+                <constraint id="1129" firstItem="1125" firstAttribute="top" secondItem="2" secondAttribute="top" constant="10"/>
                 <constraint id="3938" firstAttribute="right" secondItem="3937" secondAttribute="right" constant="10"/>
                 <constraint id="3939" firstItem="3937" firstAttribute="left" secondItem="2" secondAttribute="left" constant="10"/>
                 <constraint id="3941" firstItem="3937" firstAttribute="top" secondItem="1125" secondAttribute="bottom" constant="5"/>

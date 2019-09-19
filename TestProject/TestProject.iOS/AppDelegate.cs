@@ -1,7 +1,8 @@
 ﻿using Foundation;
-using UIKit;
 using MvvmCross.Platforms.Ios.Core;
 using MvvmCross.Plugin.Color.Platforms.Ios;
+using UIKit;
+
 using TestProject.Core;
 using TestProject.Resources;
 

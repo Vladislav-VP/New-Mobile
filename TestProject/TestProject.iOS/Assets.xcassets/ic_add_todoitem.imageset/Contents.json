@@ -1,0 +1,60 @@
+{
+  "images": [
+    {
+      "scale": "1x",
+      "idiom": "universal",
+      "filename": "ic_add_todoitem.png"
+    },
+    {
+      "scale": "2x",
+      "idiom": "universal",
+      "filename": "ic_add_todoitem@2x.png"
+    },
+    {
+      "scale": "3x",
+      "idiom": "universal",
+      "filename": "ic_add_todoitem@3x.png"
+    },
+    {
+      "idiom": "ipad"
+    },
+    {
+      "scale": "1x",
+      "idiom": "ipad",
+      "filename": "ic_add_todoitem1.png"
+    },
+    {
+      "scale": "2x",
+      "idiom": "ipad",
+      "filename": "ic_add_todoitem@2x1.png"
+    },
+    {
+      "scale": "3x",
+      "idiom": "ipad",
+      "filename": "ic_add_todoitem@3x1.png"
+    },
+    {
+      "idiom": "iphone"
+    },
+    {
+      "scale": "1x",
+      "idiom": "iphone",
+      "filename": "ic_add_todoitem2.png"
+    },
+    {
+      "scale": "2x",
+      "idiom": "iphone",
+      "filename": "ic_add_todoitem@2x2.png"
+    },
+    {
+      "scale": "3x",
+      "idiom": "iphone",
+      "filename": "ic_add_todoitem@3x2.png"
+    }
+  ],
+  "properties": {},
+  "info": {
+    "version": 1,
+    "author": ""
+  }
+}

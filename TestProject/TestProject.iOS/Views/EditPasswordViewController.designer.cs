@@ -16,6 +16,10 @@ namespace TestProject.iOS.Views
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton btCancel { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton btSaveChanges { get; set; }
 
         [Outlet]
@@ -48,6 +52,11 @@ namespace TestProject.iOS.Views
 
         void ReleaseDesignerOutlets ()
         {
+            if (btCancel != null) {
+                btCancel.Dispose ();
+                btCancel = null;
+            }
+
             if (btSaveChanges != null) {
                 btSaveChanges.Dispose ();
                 btSaveChanges = null;

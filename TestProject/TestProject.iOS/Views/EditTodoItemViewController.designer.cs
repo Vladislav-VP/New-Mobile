@@ -50,10 +50,6 @@ namespace TestProject.iOS.Views
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIView vTodoItem { get; set; }
 
-        [Action ("BtSave_TouchUpInside:")]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        partial void BtSave_TouchUpInside (UIKit.UIButton sender);
-
         void ReleaseDesignerOutlets ()
         {
             if (btDelete != null) {

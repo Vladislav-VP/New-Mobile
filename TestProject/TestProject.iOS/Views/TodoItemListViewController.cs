@@ -3,16 +3,12 @@
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
-using MvvmCross.Plugin.Color.Platforms.Ios;
-using MvvmCross.ViewModels;
 using UIKit;
 
 using TestProject.Core.ViewModels;
-using TestProject.Entities;
 using TestProject.iOS.Helpers.Interfaces;
 using TestProject.iOS.Sources;
 using TestProject.Resources;
-using MvvmCross;
 
 namespace TestProject.iOS.Views
 {
@@ -23,22 +19,46 @@ namespace TestProject.iOS.Views
         {
             base.ViewDidLoad();
 
-        }
+            InitializeAllControls();
 
-        public override void ViewWillAppear(bool animated)
-        {
-
-        }
-
-        public void CreateBindings()
-        {
-            throw new System.NotImplementedException();
+            CreateBindings();
         }
 
         public void InitializeAllControls()
         {
-            throw new System.NotImplementedException();
+            Title = Strings.TaskListLabel;
+
+            // TODO: Provide normal appearance for NavigationItem.RightBarButtonItem.
+            NavigationItem.RightBarButtonItem = new UIBarButtonItem();
+            NavigationItem.RightBarButtonItem.Image = UIImage.FromFile("ic_add_todoitem.png");
+            NavigationItem.RightBarButtonItem.Style = UIBarButtonItemStyle.Plain;
+            NavigationItem.RightBarButtonItem.TintColor = UIColor.Black;
+            NavigationItem.RightBarButtonItem.Clicked += AddTodoItemClicked;
         }
 
+        public void CreateBindings()
+        {
+            var source = new TableSource(tvTodoList, Constants.TodoListItemBindingText);
+            var bindingMap = new Dictionary<object, string>();
+            bindingMap.Add(source, Constants.TodoItemsBindingText);
+            this.AddBindings(bindingMap);
+            tvTodoList.Source = source;
+            tvTodoList.ReloadData();
+
+            var set = this.CreateBindingSet<TodoItemListViewController, TodoItemListViewModel>();
+
+            set.Bind(source).For(v => v.ItemsSource).To(vm => vm.TodoItems);
+            set.Bind(source).For(v => v.SelectionChangedCommand).To(vm => vm.SelectTodoItemCommand);
+
+            set.Apply();
+        }
+
+        private async void AddTodoItemClicked(object sender, System.EventArgs e)
+        {
+            if (ViewModel.AddTodoItemCommand != null)
+            {
+                await ViewModel.AddTodoItemCommand.ExecuteAsync(null);
+            }            
+        }
     }
 }

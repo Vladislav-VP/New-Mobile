@@ -5,24 +5,11 @@ using UIKit;
 using TestProject.Core.ViewModels;
 using TestProject.iOS.Helpers.Interfaces;
 using TestProject.Resources;
-using MvvmCross.Platforms.Ios.Presenters.Attributes;
 
 namespace TestProject.iOS.Views
 {
-    //[MvxTabPresentation(WrapInNavigationController = true)]
     public partial class LoginViewController : MvxViewController<LoginViewModel>, IControlsSettingHelper
     {
-        public LoginViewController() : base(nameof(LoginViewController), null)
-        {
-        }
-
-        public override void ViewWillAppear(bool animated)
-        {
-            base.ViewWillAppear(animated);
-
-            NavigationController.SetNavigationBarHidden(true, true);
-        }
-
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
@@ -32,9 +19,11 @@ namespace TestProject.iOS.Views
             CreateBindings();
         }
 
-        public override bool PrefersStatusBarHidden()
+        public override void ViewWillAppear(bool animated)
         {
-            return true;
+            base.ViewWillAppear(animated);
+
+            NavigationController.SetNavigationBarHidden(true, true);
         }
 
         public void InitializeAllControls()
@@ -46,9 +35,11 @@ namespace TestProject.iOS.Views
 
             lbUsername.Text = Strings.UsernameTextViewLabel;
             lbPassword.Text = Strings.PasswordTextViewLabel;
-            btLogin.SetTitle(Strings.LoginButtonLabel, UIControlState.Normal);
-            tfPassword.SecureTextEntry = true;
             lbWithoutAccount.Text = Strings.WithoutAccountPrompt;
+
+            tfPassword.SecureTextEntry = true;
+
+            btLogin.SetTitle(Strings.LoginButtonLabel, UIControlState.Normal);
             btRegistration.SetTitle(Strings.RegistrationButtonLabel, UIControlState.Normal);
         }
 

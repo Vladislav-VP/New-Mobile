@@ -70,6 +70,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Converters\ImageValueConverter.cs" />
     <Compile Include="CustomControls\BaseView.cs" />
     <Compile Include="CustomControls\MenuOptionView.cs" />
     <Compile Include="Helpers\Interfaces\IControlsSettingHelper.cs" />
@@ -119,6 +120,9 @@
     <BundleResource Include="Resources\LaunchScreen.jpg" />
     <BundleResource Include="Resources\LaunchScreen%402x.jpg" />
     <BundleResource Include="Resources\LaunchScreen%403x.jpg" />
+    <BundleResource Include="Resources\ic_add_todoitem.png" />
+    <BundleResource Include="Resources\ic_add_todoitem%402x.png" />
+    <BundleResource Include="Resources\ic_add_todoitem%403x.png" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Entitlements.plist" />
@@ -200,6 +204,36 @@
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon60.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_add_todoitem.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_add_todoitem.imageset\ic_add_todoitem.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_add_todoitem.imageset\ic_add_todoitem1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_add_todoitem.imageset\ic_add_todoitem2.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_add_todoitem.imageset\ic_add_todoitem@2x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_add_todoitem.imageset\ic_add_todoitem@2x1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_add_todoitem.imageset\ic_add_todoitem@2x2.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_add_todoitem.imageset\ic_add_todoitem@3x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_add_todoitem.imageset\ic_add_todoitem@3x1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_add_todoitem.imageset\ic_add_todoitem@3x2.png">
       <Visible>false</Visible>
     </ImageAsset>
   </ItemGroup>
