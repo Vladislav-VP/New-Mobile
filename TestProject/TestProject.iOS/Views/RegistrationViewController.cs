@@ -4,8 +4,8 @@ using MvvmCross.Plugin.Color.Platforms.Ios;
 using UIKit;
 
 using TestProject.Core.ViewModels;
-using TestProject.Resources;
 using TestProject.iOS.Helpers.Interfaces;
+using TestProject.Resources;
 
 namespace TestProject.iOS.Views
 {
@@ -27,16 +27,10 @@ namespace TestProject.iOS.Views
             ViewModel.GoBackCommand.Execute(null);
         }
 
-        // TODO: Try to change StatusBar text color to white. If success, remove method PrefersStatusBarHidden()
-        public override bool PrefersStatusBarHidden()
-        {
-            return true;
-        }
-
         public void InitializeAllControls()
         {
             Title = Strings.RegistrationTitle;
-
+            NavigationController.NavigationBar.BarStyle = UIBarStyle.Black;
             UINavigationBar.Appearance.BarTintColor = AppColors.DarkBlue.ToNativeColor();
             NavigationController.SetNavigationBarHidden(false, true);
 

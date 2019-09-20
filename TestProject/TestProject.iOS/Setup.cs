@@ -4,6 +4,8 @@ using TestProject.Core;
 using MvvmCross.Base;
 using MvvmCross.Plugin.Json;
 using MvvmCross.IoC;
+using MvvmCross.Converters;
+using TestProject.iOS.Converters;
 
 namespace TestProject.iOS
 {
@@ -22,6 +24,13 @@ namespace TestProject.iOS
             {
                 PropertyInjectorOptions = MvxPropertyInjectorOptions.MvxInject
             };
+        }
+
+        protected override void FillValueConverters(IMvxValueConverterRegistry registry)
+        {
+            base.FillValueConverters(registry);
+
+            registry.AddOrOverwrite("ImageValue", new ImageValueConverter());
         }
     }
 }

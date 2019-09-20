@@ -3,6 +3,7 @@ using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using UIKit;
 
 using TestProject.Core.ViewModels;
+using TestProject.iOS.Extensions;
 
 namespace TestProject.iOS.Views
 {

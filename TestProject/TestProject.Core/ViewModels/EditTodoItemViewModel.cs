@@ -14,7 +14,9 @@ using TestProject.Services.Repositories.Interfaces;
 namespace TestProject.Core.ViewModels
 {
     public class EditTodoItemViewModel : TodoItemViewModel, IMvxViewModel<TodoItem, DeletionResult<TodoItem>>
-    {        
+    {
+        private TodoItem _unmodifiedTodoItem;
+
         public EditTodoItemViewModel(IMvxNavigationService navigationService,  IDialogsHelper dialogsHelper,
             IValidationHelper validationHelper, ITodoItemRepository todoItemRepository)
             : base(navigationService, validationHelper, todoItemRepository, dialogsHelper)
@@ -48,6 +50,12 @@ namespace TestProject.Core.ViewModels
             _name = TodoItem.Name;
             _description = TodoItem.Description;
             _isDone = TodoItem.IsDone;
+
+            _unmodifiedTodoItem = new TodoItem
+            {
+                Description = Description,
+                IsDone = IsDone
+            };
         }
 
         protected override async Task GoBack()
@@ -59,6 +67,10 @@ namespace TestProject.Core.ViewModels
             }
 
             YesNoCancelDialogResult result = await _navigationService.Navigate<CancelDialogViewModel, YesNoCancelDialogResult>();
+
+            // TODO: Test on device line below
+            await Task.Delay(600);
+
 
             if (result == YesNoCancelDialogResult.Yes)
             {
@@ -75,6 +87,8 @@ namespace TestProject.Core.ViewModels
             bool isTodoItemValid = await IsDataValid();
             if (!isTodoItemValid)
             {
+                TodoItem.Description = _unmodifiedTodoItem.Description;
+                TodoItem.IsDone = _unmodifiedTodoItem.IsDone;
                 return;
             }
 

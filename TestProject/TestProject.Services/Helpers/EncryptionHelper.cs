@@ -7,6 +7,11 @@ namespace TestProject.Services.Helpers
 {
     public class EncryptionHelper : IEncryptionHelper
     {
+        public byte[] DecryptBase64String(string encrtyptedString)
+        {
+            return Convert.FromBase64String(encrtyptedString);
+        }
+
         public string GetEncryptedString(Stream stream)
         {
             string encryptedString = null;
@@ -20,5 +25,7 @@ namespace TestProject.Services.Helpers
 
             return encryptedString;
         }
+
+        
     }
 }

@@ -73,6 +73,7 @@
     <Compile Include="Converters\ImageValueConverter.cs" />
     <Compile Include="CustomControls\BaseView.cs" />
     <Compile Include="CustomControls\MenuOptionView.cs" />
+    <Compile Include="Extensions\MainViewModelExtensions.cs" />
     <Compile Include="Helpers\Interfaces\IControlsSettingHelper.cs" />
     <Compile Include="Sources\TableSource.cs" />
     <Compile Include="Views\CancelDialogViewController.cs" />
@@ -159,6 +160,9 @@
       <Version>6.3.1</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross.Plugin.Json">
+      <Version>6.3.1</Version>
+    </PackageReference>
+    <PackageReference Include="MvvmCross.Plugin.PictureChooser">
       <Version>6.3.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Essentials" Version="1.2.0" />

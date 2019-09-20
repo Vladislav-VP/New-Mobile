@@ -29,11 +29,21 @@ namespace TestProject.iOS.Views
             Title = Strings.TaskListLabel;
 
             // TODO: Provide normal appearance for NavigationItem.RightBarButtonItem.
-            NavigationItem.RightBarButtonItem = new UIBarButtonItem();
-            NavigationItem.RightBarButtonItem.Image = UIImage.FromFile("ic_add_todoitem.png");
-            NavigationItem.RightBarButtonItem.Style = UIBarButtonItemStyle.Plain;
-            NavigationItem.RightBarButtonItem.TintColor = UIColor.Black;
+            var btAddTodoItem = new UIBarButtonItem();
+            NavigationItem.RightBarButtonItem = btAddTodoItem;
+            btAddTodoItem.Title = "+";
+            btAddTodoItem.Style = UIBarButtonItemStyle.Plain;
+            btAddTodoItem.TintColor = UIColor.Black;
+            var addTodoItemFont = UIFont.SystemFontOfSize(Constants.MainFontSize, UIFontWeight.Semibold);
+            var titleAttributes = new UITextAttributes()
+            {
+                TextColor = UIColor.White,
+                Font = addTodoItemFont
+            };
+            btAddTodoItem.SetTitleTextAttributes(titleAttributes, UIControlState.Normal);
             NavigationItem.RightBarButtonItem.Clicked += AddTodoItemClicked;
+
+            NavigationController.Toolbar.Hidden = false;
         }
 
         public void CreateBindings()
@@ -58,7 +68,7 @@ namespace TestProject.iOS.Views
             if (ViewModel.AddTodoItemCommand != null)
             {
                 await ViewModel.AddTodoItemCommand.ExecuteAsync(null);
-            }            
+            }
         }
     }
 }

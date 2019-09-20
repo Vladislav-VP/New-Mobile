@@ -27,6 +27,13 @@ namespace TestProject.iOS.Views
             CreateBindings();
         }
 
+        public override async void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            await ViewModel.Initialize();
+        }
+
         public void CreateBindings()
         {
             var set = this.CreateBindingSet<MenuViewController, MenuViewModel>();
@@ -36,6 +43,11 @@ namespace TestProject.iOS.Views
             set.Bind(_logoutOption.Tap()).For(g => g.Command).To(vm => vm.LogoutCommand);
             set.Bind(_settingsOption.Tap()).For(g => g.Command).To(vm => vm.ShowSettingsCommand);
             set.Bind(imviewProfile.Tap()).For(g => g.Command).To(vm => vm.EditProfilePhotoCommand);
+
+            set.Bind(imviewProfile)
+                .For(v => v.Image)
+                .To(vm => vm.EncryptedProfilePhoto)
+                .WithConversion("ImageValue");
 
             set.Apply();
         }

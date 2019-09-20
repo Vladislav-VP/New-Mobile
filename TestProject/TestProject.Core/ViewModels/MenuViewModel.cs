@@ -126,6 +126,7 @@ namespace TestProject.Core.ViewModels
             }
 
             _currentUser.EncryptedProfilePhoto = newEncryptedProfilePhoto;
+            EncryptedProfilePhoto = newEncryptedProfilePhoto;
             await _userRepository.Update(_currentUser);
         }
 

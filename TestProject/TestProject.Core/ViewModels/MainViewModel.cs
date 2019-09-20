@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.Navigation;
 
 using TestProject.Services.Helpers.Interfaces;
@@ -23,12 +21,6 @@ namespace TestProject.Core.ViewModels
         public IMvxAsyncCommand ShowTodoItemListCommand { get; private set; }
 
         public IMvxAsyncCommand ShowMenuCommand { get; private set; }
-
-        public async Task StartTabViewModels()
-        {
-            await _navigationService.Navigate<MenuViewModel>();
-            await _navigationService.Navigate<TodoItemListViewModel>();
-        }
 
         public IMvxAsyncCommand GoToLoginCommand { get; private set; }
     }
