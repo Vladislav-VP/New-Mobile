@@ -4,7 +4,7 @@
     {
         public const string CellIdentifier = "CellIdentifier";
 
-        public const string TodoListItemBindingText = "TitleText Name;SelectedCommand SelectTodoItemCommand";
+        public const string TodoListItemBindingText = "Text Name";
 
         public const string TodoItemsBindingText = "ItemsSource TodoItems";
 
@@ -14,7 +14,7 @@
 
         public const float Padding = 15f;
 
-        public const float MenuFontSize = 15f;
+        public const float ListFontSize = 15f;
 
         public const float LineHeight = 0.5f;
     }

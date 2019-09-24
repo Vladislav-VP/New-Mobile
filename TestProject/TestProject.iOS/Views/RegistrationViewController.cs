@@ -6,6 +6,7 @@ using UIKit;
 using TestProject.Core.ViewModels;
 using TestProject.iOS.Helpers.Interfaces;
 using TestProject.Resources;
+using TestProject.iOS.Extensions;
 
 namespace TestProject.iOS.Views
 {
@@ -18,13 +19,6 @@ namespace TestProject.iOS.Views
             InitializeAllControls();
 
             CreateBindings();
-        }
-
-        public override void ViewWillDisappear(bool animated)
-        {
-            base.ViewWillDisappear(animated);
-
-            ViewModel.GoBackCommand.Execute(null);
         }
 
         public void InitializeAllControls()

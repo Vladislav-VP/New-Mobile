@@ -5,7 +5,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>TestProject.iOS</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.companyname.TestProject.iOS</string>
+	<string>com.companyname.TestProject</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
@@ -38,11 +38,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>XSAppIconAssets</key>
-	<string>Assets.xcassets/AppIcon.appiconset</string>
-  <key>NSCameraUsageDescription</key>
-  <string>This app needs access to the camera to take photos.</string>
-  <key>NSPhotoLibraryUsageDescription</key>
-  <string>This app needs access to photos.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs access to the camera to take photos.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs access to photos.</string>
+  <key>NSPhotoLibraryAddUsageDescription</key>
+  <string>This app needs access to the photo gallery.</string>
 </dict>
 </plist>

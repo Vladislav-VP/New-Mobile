@@ -38,7 +38,7 @@
                                 <constraint id="9304" firstAttribute="height" constant="30"/>
                             </constraints>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="9824" translatesAutoresizingMaskIntoConstraints="NO" image="profile.png">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="9824" translatesAutoresizingMaskIntoConstraints="NO">
                             <rect key="frame" x="129.5" y="5" width="155" height="155"/>
                             <constraints>
                                 <constraint id="9828" firstAttribute="width" secondItem="9824" secondAttribute="height"/>
@@ -69,9 +69,7 @@
                 <constraint id="13907" firstItem="13905" firstAttribute="top" secondItem="7755" secondAttribute="bottom"/>
                 <constraint id="13908" firstItem="13905" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="5"/>
             </constraints>
+            <color key="tintColor" colorSpace="calibratedRGB" red="0.0392156862745098" green="0.37647058823529411" blue="1" alpha="1"/>
         </view>
     </objects>
-    <resources>
-        <image name="profile.png" width="512" height="512"/>
-    </resources>
 </document>

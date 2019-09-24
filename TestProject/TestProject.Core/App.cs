@@ -15,8 +15,6 @@ namespace TestProject.Core
     {
         public override void Initialize()
         {
-            base.Initialize();
-
             CreatableTypes()
                 .EndingWith("Repository")
                 .AsInterfaces()

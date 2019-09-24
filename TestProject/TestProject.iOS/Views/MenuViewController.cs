@@ -1,18 +1,20 @@
 ﻿using CoreGraphics;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
+using MvvmCross.Plugin.Color.Platforms.Ios;
+using UIKit;
+
 using TestProject.Core.ViewModels;
 using TestProject.iOS.CustomControls;
 using TestProject.iOS.Helpers.Interfaces;
 using TestProject.Resources;
-using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
-using UIKit;
-using MvvmCross.Plugin.Color.Platforms.Ios;
+using TestProject.iOS.Extensions;
 
 namespace TestProject.iOS.Views
 {
-    [MvxTabPresentation(WrapInNavigationController = true, TabName = "Menu")]
+    [MvxTabPresentation(WrapInNavigationController = true, TabName = "Menu", TabIconName = "ic_menu")]
     public partial class MenuViewController : MvxViewController<MenuViewModel>, IControlsSettingHelper
     {
         private MenuOptionView _logoutOption;

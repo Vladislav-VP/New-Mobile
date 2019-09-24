@@ -6,7 +6,6 @@ using UIKit;
 using TestProject.Core.ViewModels;
 using TestProject.iOS.Helpers.Interfaces;
 using TestProject.Resources;
-using System.Threading.Tasks;
 
 namespace TestProject.iOS.Views
 {
@@ -20,17 +19,6 @@ namespace TestProject.iOS.Views
             InitializeAllControls();
 
             CreateBindings();
-        }
-
-        public override void ViewDidAppear(bool animated)
-        {
-            base.ViewDidAppear(animated);
-        }
-
-        public override async void ViewWillAppear(bool animated)
-        {
-            await Task.Delay(3000);
-            base.ViewWillAppear(animated);  
         }
 
         public void InitializeAllControls()

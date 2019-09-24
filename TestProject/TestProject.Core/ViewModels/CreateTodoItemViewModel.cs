@@ -46,8 +46,10 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            YesNoCancelDialogResult result = 
-                await _navigationService.Navigate<CancelDialogViewModel, YesNoCancelDialogResult>();
+            YesNoCancelDialogResult result = await _navigationService
+                .Navigate<CancelDialogViewModel, YesNoCancelDialogResult>();
+
+            await Task.Delay(600);
 
             if (result == YesNoCancelDialogResult.Yes)
             {

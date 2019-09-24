@@ -12,8 +12,7 @@ namespace TestProject.Core
 {
     public class AppStart : MvxAppStart
     {
-        public AppStart(IMvxApplication application, IMvxNavigationService navigationService) 
-            : base(application, navigationService)
+        public AppStart(IMvxApplication application, IMvxNavigationService navigationService) : base(application, navigationService)
         {
         }
 
@@ -30,7 +29,6 @@ namespace TestProject.Core
                 await NavigationService.Navigate<MainViewModel>();
             }
         }
-
 
         private bool IsAuthenticated()
         {

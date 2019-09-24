@@ -4,15 +4,14 @@ using MvvmCross.Plugin.Color.Platforms.Ios;
 using UIKit;
 
 using TestProject.Core;
+using TestProject.iOS.Extensions;
 using TestProject.Resources;
 
 namespace TestProject.iOS
 {
-    [Register(nameof(AppDelegate))]
+    [Register("AppDelegate")]
     public class AppDelegate : MvxApplicationDelegate<Setup, App>
-    {        
-        public override UIWindow Window { get; set; }
-
+    {
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
             var result = base.FinishedLaunching(application, launchOptions);
@@ -32,13 +31,11 @@ namespace TestProject.iOS
             UINavigationBar.Appearance.Translucent = false;
             UINavigationBar.Appearance.TintColor = UIColor.White;
 
-
-            UITabBar.Appearance.BackgroundColor = AppColors.MainInterfaceBlue.ToNativeColor();
+            UITabBar.Appearance.BackgroundColor = UIColor.Blue;
             UITabBarItem.Appearance.SetTitleTextAttributes(new UITextAttributes()
             {
-                TextColor = UIColor.White,
-                Font = UIFont.SystemFontOfSize(Constants.MainFontSize, UIFontWeight.Semibold)
-            }, UIControlState.Selected);
+                TextColor = UIColor.Black
+            }, UIControlState.Normal);
 
             UIStackView.Appearance.BackgroundColor = AppColors.MainInterfaceBlue.ToNativeColor();
             UIStackView.Appearance.TintColor = AppColors.MainInterfaceBlue.ToNativeColor();

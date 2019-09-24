@@ -18,7 +18,8 @@ namespace TestProject.Services.Helpers
                 MaxWidthHeight = maxPixelDimension
             };
 
-            return await CrossMedia.Current.PickPhotoAsync(options);
+            MediaFile photoFromGallery = await CrossMedia.Current.PickPhotoAsync(options);
+            return photoFromGallery;
         }
 
         public async Task<MediaFile> TakePhoto(int compressionQuality = 90, int maxPixelDimension = 200)
@@ -33,7 +34,8 @@ namespace TestProject.Services.Helpers
                 DefaultCamera = CameraDevice.Rear
             };
 
-            return await CrossMedia.Current.TakePhotoAsync(options);
+            MediaFile photoFromCamera = await CrossMedia.Current.TakePhotoAsync(options);
+            return photoFromCamera;
         }
     }
 }

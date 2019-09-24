@@ -6,12 +6,10 @@ using UIKit;
 using TestProject.Core.ViewModels;
 using TestProject.iOS.Helpers.Interfaces;
 using TestProject.Resources;
-using System.Threading.Tasks;
 
 namespace TestProject.iOS.Views
 {
     [MvxModalPresentation(ModalPresentationStyle = UIModalPresentationStyle.OverFullScreen)]
-    [MvxChildPresentation]
     public partial class CancelDialogViewController : MvxViewController<CancelDialogViewModel>, IControlsSettingHelper
     {
         public override void ViewDidLoad()

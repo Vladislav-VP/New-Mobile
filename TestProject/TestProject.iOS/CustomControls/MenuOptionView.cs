@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Cirrious.FluentLayouts.Touch;
-using Foundation;
+﻿using Cirrious.FluentLayouts.Touch;
 using UIKit;
 
 namespace TestProject.iOS.CustomControls
 {
     public class MenuOptionView : BaseView
     {
-
-
         public UILabel Label { get; set; }
 
         public UIView Line { get; set; }
@@ -26,7 +18,7 @@ namespace TestProject.iOS.CustomControls
             Label = new UILabel
             {
                 TextColor = UIColor.Black,
-                Font = UIFont.SystemFontOfSize(Constants.MenuFontSize, UIFontWeight.Bold)
+                Font = UIFont.SystemFontOfSize(Constants.ListFontSize, UIFontWeight.Bold)
             };
 
             Line = new UIView { BackgroundColor = UIColor.Black };
@@ -39,11 +31,11 @@ namespace TestProject.iOS.CustomControls
         {
             this.AddConstraints(
                 Label.AtTopOf(this, Constants.Padding),
-                Label.AtRightOf(this, Constants.Padding),
+                Label.AtLeftOf(this, Constants.Padding),
 
                 Line.Below(Label, Constants.Padding),
                 Line.AtLeftOf(this, Constants.Padding),
-                Line.AtRightOf(this),
+                Line.AtRightOf(this, Constants.Padding),
                 Line.AtBottomOf(this),
                 Line.Height().EqualTo(Constants.LineHeight)
             );

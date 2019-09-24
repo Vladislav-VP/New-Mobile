@@ -46,9 +46,9 @@ namespace TestProject.iOS.Views
         public void CreateBindings()
         {
             var set = this.CreateBindingSet<LoginViewController, LoginViewModel>();
-
-            set.Bind(tfUsername).To(vm => vm.UserName);
-            set.Bind(tfPassword).To(vm => vm.Password);
+            
+            set.Bind(tfUsername).For(tf=>tf.Text).To(vm => vm.UserName);
+            set.Bind(tfPassword).For(tf => tf.Text).To(vm => vm.Password);
             set.Bind(btLogin).To(vm => vm.LoginCommand);
             set.Bind(btRegistration).To(vm => vm.GoToRegistrationCommand);
 

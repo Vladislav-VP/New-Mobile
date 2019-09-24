@@ -1,10 +1,11 @@
-﻿using MvvmCross.Platforms.Ios.Core;
-using MvvmCross;
-using TestProject.Core;
+﻿using MvvmCross;
 using MvvmCross.Base;
-using MvvmCross.Plugin.Json;
-using MvvmCross.IoC;
 using MvvmCross.Converters;
+using MvvmCross.IoC;
+using MvvmCross.Platforms.Ios.Core;
+using MvvmCross.Plugin.Json;
+
+using TestProject.Core;
 using TestProject.iOS.Converters;
 
 namespace TestProject.iOS
@@ -20,10 +21,12 @@ namespace TestProject.iOS
 
         protected override IMvxIocOptions CreateIocOptions()
         {
-            return new MvxIocOptions
+            var options = new MvxIocOptions
             {
                 PropertyInjectorOptions = MvxPropertyInjectorOptions.MvxInject
             };
+
+            return options;
         }
 
         protected override void FillValueConverters(IMvxValueConverterRegistry registry)

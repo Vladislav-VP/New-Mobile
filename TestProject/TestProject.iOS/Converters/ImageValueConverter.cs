@@ -32,7 +32,7 @@ namespace TestProject.iOS.Converters
                 return image;
             }
 
-            return UIImage.FromFile("profile.png");
+            return UIImage.FromBundle("ic_profile");
         }
     }
 }

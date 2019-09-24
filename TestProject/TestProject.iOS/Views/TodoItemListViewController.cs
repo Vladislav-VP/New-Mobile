@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 
+using MvvmCross.Platforms.Ios.Binding.Views;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
@@ -7,12 +8,12 @@ using UIKit;
 
 using TestProject.Core.ViewModels;
 using TestProject.iOS.Helpers.Interfaces;
-using TestProject.iOS.Sources;
 using TestProject.Resources;
+using TestProject.iOS.Views.Cells;
 
 namespace TestProject.iOS.Views
 {
-    [MvxTabPresentation(WrapInNavigationController = true, TabName = "Tasks")]
+    [MvxTabPresentation(WrapInNavigationController = true, TabName = "Tasks", TabIconName = "ic_tasks")]
     public partial class TodoItemListViewController : MvxViewController<TodoItemListViewModel>, IControlsSettingHelper
     {
         public override void ViewDidLoad()
@@ -28,27 +29,17 @@ namespace TestProject.iOS.Views
         {
             Title = Strings.TaskListLabel;
 
-            // TODO: Provide normal appearance for NavigationItem.RightBarButtonItem.
-            var btAddTodoItem = new UIBarButtonItem();
+            var btAddTodoItem = new UIBarButtonItem(UIBarButtonSystemItem.Add);
+            btAddTodoItem.TintColor = UIColor.White;
+            btAddTodoItem.Clicked += AddTodoItemClicked;
             NavigationItem.RightBarButtonItem = btAddTodoItem;
-            btAddTodoItem.Title = "+";
-            btAddTodoItem.Style = UIBarButtonItemStyle.Plain;
-            btAddTodoItem.TintColor = UIColor.Black;
-            var addTodoItemFont = UIFont.SystemFontOfSize(Constants.MainFontSize, UIFontWeight.Semibold);
-            var titleAttributes = new UITextAttributes()
-            {
-                TextColor = UIColor.White,
-                Font = addTodoItemFont
-            };
-            btAddTodoItem.SetTitleTextAttributes(titleAttributes, UIControlState.Normal);
-            NavigationItem.RightBarButtonItem.Clicked += AddTodoItemClicked;
 
             NavigationController.Toolbar.Hidden = false;
         }
 
         public void CreateBindings()
         {
-            var source = new TableSource(tvTodoList, Constants.TodoListItemBindingText);
+            var source = new MvxSimpleTableViewSource(tvTodoList, typeof(BlueNameTableViewCell));
             var bindingMap = new Dictionary<object, string>();
             bindingMap.Add(source, Constants.TodoItemsBindingText);
             this.AddBindings(bindingMap);

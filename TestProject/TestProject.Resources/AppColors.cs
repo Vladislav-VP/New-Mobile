@@ -1,4 +1,5 @@
-﻿using MvvmCross.UI;
+﻿using MvvmCross.Platform.UI;
+using MvvmCross.UI;
 
 namespace TestProject.Resources
 {
@@ -12,6 +13,6 @@ namespace TestProject.Resources
 
         public static MvxColor MainInterfaceBlue => new MvxColor(39, 205, 255, 255);
 
-        public static MvxColor DarkBlue => new MvxColor(25, 36, 124, 255);
+        public static MvxColor DarkBlue => new MvxColor(51, 181, 229, 255);
     }
 }
