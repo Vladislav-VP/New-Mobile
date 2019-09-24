@@ -1,18 +1,13 @@
-﻿using MvvmCross.Platform.UI;
-using MvvmCross.UI;
+﻿using System.Drawing;
 
 namespace TestProject.Resources
 {
     public static class AppColors
     {
-        public static MvxColor PrimaryColor => new MvxColor(26, 26, 26);
+        public static Color AccentColor => Color.FromArgb(193, 39, 44);
 
-        public static MvxColor DarkPrimaryColor => MvxColors.Black;
+        public static Color MainInterfaceBlue => Color.FromArgb(39, 205, 255);
 
-        public static MvxColor AccentColor => new MvxColor(193, 39, 44);
-
-        public static MvxColor MainInterfaceBlue => new MvxColor(39, 205, 255, 255);
-
-        public static MvxColor DarkBlue => new MvxColor(51, 181, 229, 255);
+        public static Color DarkBlue => Color.FromArgb(51, 181, 229, 255);
     }
 }

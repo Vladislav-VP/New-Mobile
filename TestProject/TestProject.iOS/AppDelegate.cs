@@ -4,7 +4,6 @@ using MvvmCross.Plugin.Color.Platforms.Ios;
 using UIKit;
 
 using TestProject.Core;
-using TestProject.iOS.Extensions;
 using TestProject.Resources;
 
 namespace TestProject.iOS
@@ -39,9 +38,6 @@ namespace TestProject.iOS
 
             UIStackView.Appearance.BackgroundColor = AppColors.MainInterfaceBlue.ToNativeColor();
             UIStackView.Appearance.TintColor = AppColors.MainInterfaceBlue.ToNativeColor();
-
-            UITextView.Appearance.TintColor = AppColors.AccentColor.ToNativeColor();
-            UIButton.Appearance.SetTitleColor(AppColors.AccentColor.ToNativeColor(), UIControlState.Highlighted);
         }
     }
 }

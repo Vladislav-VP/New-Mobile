@@ -6,15 +6,15 @@ using MvvmCross.Plugin.Color.Platforms.Ios;
 using UIKit;
 
 using TestProject.Resources;
-using TestProject.iOS.Extensions;
 
 namespace TestProject.iOS.Views.Cells
 {
-    public class BlueNameTableViewCell : BaseTableViewCell
+    public class TodoItemTableViewCell : BaseTableViewCell
     {
         private UILabel _lblName;
+        private UISwitch _swIsDone;
 
-        public BlueNameTableViewCell(IntPtr handle) : base(handle)
+        public TodoItemTableViewCell(IntPtr handle) : base(handle)
         {
         }
 
@@ -30,14 +30,21 @@ namespace TestProject.iOS.Views.Cells
                 Font = UIFont.SystemFontOfSize(Constants.ListFontSize, UIFontWeight.Bold)
             };
 
+            _swIsDone = new UISwitch
+            {
+                Enabled = false
+            };
+
             BackgroundColor = UIColor.Clear;
             ContentView.AddSubview(_lblName);
+            ContentView.AddSubview(_swIsDone);
             ContentView.SubviewsDoNotTranslateAutoresizingMaskIntoConstraints();
 
             this.DelayBind(
                 () =>
                 {
-                    this.AddBindings(_lblName, Constants.TodoListItemBindingText);
+                    this.AddBindings(_lblName, Constants.TodoItemNameBindingText);
+                    this.AddBindings(_swIsDone, Constants.IsTodoItemDoneBindingText);
                 });
         }
 
@@ -48,8 +55,13 @@ namespace TestProject.iOS.Views.Cells
             ContentView.AddConstraints(
                 _lblName.AtLeftOf(ContentView, Constants.Padding),
                 _lblName.AtTopOf(ContentView, Constants.Padding),
-                _lblName.AtBottomOf(ContentView, Constants.Padding),
-                _lblName.AtRightOf(ContentView, Constants.Padding)
+                _lblName.AtBottomOf(ContentView, Constants.Padding)
+            );
+
+            ContentView.AddConstraints(
+                _swIsDone.AtRightOf(ContentView, Constants.Padding),
+                _swIsDone.AtTopOf(ContentView, Constants.Padding),
+                _lblName.AtBottomOf(ContentView, Constants.Padding)
             );
         }
     }   

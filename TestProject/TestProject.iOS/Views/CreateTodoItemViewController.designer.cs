@@ -36,11 +36,11 @@ namespace TestProject.iOS.Views
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextField tfDescription { get; set; }
+        UIKit.UITextField tfTaskName { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextField tfTaskName { get; set; }
+        UIKit.UITextView tvDescription { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -73,14 +73,14 @@ namespace TestProject.iOS.Views
                 swDone = null;
             }
 
-            if (tfDescription != null) {
-                tfDescription.Dispose ();
-                tfDescription = null;
-            }
-
             if (tfTaskName != null) {
                 tfTaskName.Dispose ();
                 tfTaskName = null;
+            }
+
+            if (tvDescription != null) {
+                tvDescription.Dispose ();
+                tvDescription = null;
             }
 
             if (vTodoItem != null) {

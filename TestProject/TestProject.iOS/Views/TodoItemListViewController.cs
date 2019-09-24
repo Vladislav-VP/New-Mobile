@@ -8,14 +8,16 @@ using UIKit;
 
 using TestProject.Core.ViewModels;
 using TestProject.iOS.Helpers.Interfaces;
-using TestProject.Resources;
 using TestProject.iOS.Views.Cells;
+using TestProject.Resources;
 
 namespace TestProject.iOS.Views
 {
     [MvxTabPresentation(WrapInNavigationController = true, TabName = "Tasks", TabIconName = "ic_tasks")]
     public partial class TodoItemListViewController : MvxViewController<TodoItemListViewModel>, IControlsSettingHelper
     {
+        private MvxUIRefreshControl _refreshControl;
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
@@ -35,11 +37,14 @@ namespace TestProject.iOS.Views
             NavigationItem.RightBarButtonItem = btAddTodoItem;
 
             NavigationController.Toolbar.Hidden = false;
+
+            _refreshControl = new MvxUIRefreshControl();
+            tvTodoList.AddSubview(_refreshControl);
         }
 
         public void CreateBindings()
         {
-            var source = new MvxSimpleTableViewSource(tvTodoList, typeof(BlueNameTableViewCell));
+            var source = new MvxSimpleTableViewSource(tvTodoList, typeof(TodoItemTableViewCell));
             var bindingMap = new Dictionary<object, string>();
             bindingMap.Add(source, Constants.TodoItemsBindingText);
             this.AddBindings(bindingMap);

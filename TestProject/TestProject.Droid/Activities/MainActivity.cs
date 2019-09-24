@@ -82,11 +82,6 @@ namespace TestProject.Droid.Activities
 
             _activityStorageHelper.ReplaceActivity(this);
 
-            if (await ViewModel.User == null)
-            {
-                ViewModel.GoToLoginCommand.Execute(null);
-                return;
-            }
 
             UserDialogs.Init(this);
                         

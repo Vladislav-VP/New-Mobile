@@ -58,6 +58,8 @@ namespace TestProject.Core.ViewModels
 
         public IMvxCommand<TodoItem> SelectTodoItemCommand { get; private set; }
 
+        public MvxNotifyTask LoadTodoItemsTask { get; private set; }
+
         private async Task SelectTodoItem(TodoItem selectedTodoItem)
         {
             DeletionResult<TodoItem> deletionResult = await _navigationService

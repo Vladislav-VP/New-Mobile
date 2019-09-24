@@ -4,7 +4,9 @@
     {
         public const string CellIdentifier = "CellIdentifier";
 
-        public const string TodoListItemBindingText = "Text Name";
+        public const string TodoItemNameBindingText = "Text Name";
+
+        public const string IsTodoItemDoneBindingText = "On IsDone";
 
         public const string TodoItemsBindingText = "ItemsSource TodoItems";
 

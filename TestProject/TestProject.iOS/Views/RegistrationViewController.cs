@@ -6,7 +6,6 @@ using UIKit;
 using TestProject.Core.ViewModels;
 using TestProject.iOS.Helpers.Interfaces;
 using TestProject.Resources;
-using TestProject.iOS.Extensions;
 
 namespace TestProject.iOS.Views
 {

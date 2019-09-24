@@ -56,7 +56,7 @@ namespace TestProject.iOS.Views
             var set = this.CreateBindingSet<CreateTodoItemViewController, CreateTodoItemViewModel>();
 
             set.Bind(tfTaskName).To(vm => vm.Name);
-            set.Bind(tfDescription).To(vm => vm.Description);
+            set.Bind(tvDescription).To(vm => vm.Description);
             set.Bind(swDone).To(vm => vm.IsDone);
             set.Bind(btSave).To(vm => vm.CreateTodoItemCommand);
 

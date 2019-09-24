@@ -9,6 +9,7 @@ using MvvmCross.Binding.Bindings.Target.Construction;
 using MvvmCross.Converters;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Droid.Support.V7.RecyclerView;
+using MvvmCross.IoC;
 using MvvmCross.Platforms.Android.Presenters;
 
 using TestProject.Core;
@@ -48,14 +49,15 @@ namespace TestProject.Droid
             return new MvxAppCompatViewPresenter(AndroidViewAssemblies);
         }
         
-        protected override void InitializeIoC()
+        protected override IMvxIoCProvider InitializeIoC()
         {
-            base.InitializeIoC();
+            IMvxIoCProvider provider = base.InitializeIoC();
 
             Mvx.IoCProvider.RegisterSingleton(typeof(IBitmapConvertionHelper), new BitmapConvertionHelper());
             Mvx.IoCProvider.RegisterSingleton(typeof(Helpers.Interfaces.IControlSigningHelper), new ControlSigningHelper());
             Mvx.IoCProvider.RegisterSingleton(typeof(IActivityStorageHelper), new ActivityStorageHelper());
 
+            return provider;
         }
     }
 }

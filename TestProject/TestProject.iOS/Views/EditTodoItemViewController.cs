@@ -57,7 +57,7 @@ namespace TestProject.iOS.Views
             var set = this.CreateBindingSet<EditTodoItemViewController, EditTodoItemViewModel>();
 
             set.Bind(tfTaskName).To(vm => vm.Name);
-            set.Bind(tfDescription).To(vm => vm.Description);
+            set.Bind(tvDescription).To(vm => vm.Description);
             set.Bind(swDone).To(vm => vm.IsDone);
             set.Bind(btSave).To(vm => vm.UpdateTodoItemCommand);
             set.Bind(btDelete).To(vm => vm.DeleteTodoItemCommand);

@@ -81,7 +81,6 @@
     <Compile Include="CustomControls\BaseView.cs" />
     <Compile Include="CustomControls\MenuOptionView.cs" />
     <Compile Include="Extensions\MainViewModelExtensions.cs" />
-    <Compile Include="Extensions\MvxExtensions.cs" />
     <Compile Include="Helpers\Interfaces\IControlsSettingHelper.cs" />
     <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="Views\CancelDialogViewController.cs" />
@@ -89,7 +88,7 @@
       <DependentUpon>CancelDialogViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Cells\BaseTableViewCell.cs" />
-    <Compile Include="Views\Cells\BlueNameTableViewCell.cs" />
+    <Compile Include="Views\Cells\TodoItemTableViewCell.cs" />
     <Compile Include="Views\EditPasswordViewController.cs" />
     <Compile Include="Views\EditPasswordViewController.designer.cs">
       <DependentUpon>EditPasswordViewController.cs</DependentUpon>
