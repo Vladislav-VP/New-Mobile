@@ -1,11 +1,6 @@
-﻿using TestProject.Core.ViewModelResults.Interfaces;
-
-namespace TestProject.Core.ViewModelResults
+﻿namespace TestProject.Core.ViewModelResults
 {
-    public class DeletionResult<TEntity> : IViewModelResult<TEntity>
+    public class DeletionResult<TEntity> : ViewModelResult<TEntity>
     {
-        public TEntity Entity { get; set; }
-
-        public bool IsDeleted { get; set; }
     }
 }

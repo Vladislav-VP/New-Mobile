@@ -21,14 +21,11 @@ namespace TestProject.Droid.Activities
         Name = "testProject.droid.activities.LoginActivity")]
     public class LoginActivity : MvxAppCompatActivity<LoginViewModel>
     {
-        private readonly IControlSigningHelper _controlInitializingHelper;
-
-        private readonly IActivityStorageHelper _activityStorageHelper;
+        private readonly IActivityReplaceHelper _activityStorageHelper;
 
         public LoginActivity()
         {
-            _controlInitializingHelper = Mvx.IoCProvider.Resolve<IControlSigningHelper>();
-            _activityStorageHelper = Mvx.IoCProvider.Resolve<IActivityStorageHelper>();
+            _activityStorageHelper = Mvx.IoCProvider.Resolve<IActivityReplaceHelper>();
         }
         
         protected override void OnCreate(Bundle bundle)
@@ -42,22 +39,17 @@ namespace TestProject.Droid.Activities
 
             _activityStorageHelper.ReplaceActivity(this);
 
-            InitializeAllControls();
-        }
-
-        private void InitializeAllControls()
-        {
             TextView tvUsername = FindViewById<TextView>(Resource.Id.tvUsername);
             TextView tvPassword = FindViewById<TextView>(Resource.Id.tvPassword);
             TextView tvWithoutAccount = FindViewById<TextView>(Resource.Id.tvWithoutAccount);
             Button btLogin = FindViewById<Button>(Resource.Id.btLogin);
             Button btGoToRegistration = FindViewById<Button>(Resource.Id.btGoToRegistration);
 
-            _controlInitializingHelper.SignControl(tvUsername, Strings.UsernameTextViewLabel);
-            _controlInitializingHelper.SignControl(tvPassword, Strings.PasswordTextViewLabel);
-            _controlInitializingHelper.SignControl(tvWithoutAccount, Strings.WithoutAccountPrompt);
-            _controlInitializingHelper.SignControl(btLogin, Strings.LoginButtonLabel);
-            _controlInitializingHelper.SignControl(btGoToRegistration, Strings.RegistrationButtonLabel);
+            tvUsername.Text = Strings.UsernameTextViewLabel;
+            tvPassword.Text = Strings.PasswordTextViewLabel;
+            tvWithoutAccount.Text = Strings.WithoutAccountPrompt;
+            btLogin.Text = Strings.LoginButtonLabel;
+            btGoToRegistration.Text = Strings.RegistrationButtonLabel;
         }
     }
 }

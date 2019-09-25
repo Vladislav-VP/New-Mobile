@@ -34,7 +34,7 @@ namespace TestProject.Core.ViewModels
             }
         }
 
-        protected string _name;
+        private string _name;
         public string Name
         {
             get => _name;
@@ -45,7 +45,7 @@ namespace TestProject.Core.ViewModels
             }
         }
 
-        protected string _description;
+        private string _description;
         public string Description
         {
             get => _description;
@@ -56,7 +56,7 @@ namespace TestProject.Core.ViewModels
             }
         }
 
-        protected bool _isDone;
+        private bool _isDone;
         public bool IsDone
         {
             get => _isDone;

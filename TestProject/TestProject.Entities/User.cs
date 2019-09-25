@@ -9,13 +9,12 @@ namespace TestProject.Entities
     public class User : BaseEntity
     {
         [Unique, NotNull]
-        [Required(AllowEmptyStrings = false, ErrorMessage = ErrorMessages.EmptyUserNameMessage)]
+        [Required(ErrorMessage = ErrorMessages.EmptyUserNameMessage)]
         public string Name { get; set; }
 
         [NotNull]
-        [Required(AllowEmptyStrings = false, ErrorMessage = ErrorMessages.EmptyPasswordMessage)]
-        [Password(nameof(Password), ValidationConstants.PasswordCharacterPattern,
-            ValidationConstants.MinPasswordLength)]
+        [Required(ErrorMessage = ErrorMessages.EmptyPasswordMessage)]
+        [Password(nameof(Password), ValidationConstants.PasswordCharacterPattern, ValidationConstants.MinPasswordLength)]
         public string Password { get; set; }
 
         public string EncryptedProfilePhoto { get; set; }

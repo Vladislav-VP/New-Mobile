@@ -13,7 +13,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			local:layout_behavior="@string/appbar_scrolling_view_behavior"
-			local:MvxBind="IsRefreshing LoadTodoItemsTask.IsNotCompleted; RefreshCommand RefreshTodoItemsCommand">
+			local:MvxBind="IsRefreshing LoadTodoItemsTask; RefreshCommand RefreshTodoItemsCommand">
 			<MvxRecyclerView
                 android:id="@+id/todoItemsRecyclerView"
                 style="@style/RecyclerViewStyle"

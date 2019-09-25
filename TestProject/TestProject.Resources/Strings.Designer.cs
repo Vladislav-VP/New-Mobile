@@ -323,6 +323,16 @@ namespace TestProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (can contain letters, digits and lower underlines,
+        ///not shorter than {ValidationConstants.MinPasswordLength} characters).
+        /// </summary>
+        public static string PasswordTipLabel {
+            get {
+                return ResourceManager.GetString("PasswordTipLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to characters).
         /// </summary>
         public static string PasswordTipSecond {

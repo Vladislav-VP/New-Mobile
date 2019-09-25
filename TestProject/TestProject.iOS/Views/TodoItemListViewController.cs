@@ -61,12 +61,9 @@ namespace TestProject.iOS.Views
             set.Apply();
         }
 
-        private async void AddTodoItemClicked(object sender, System.EventArgs e)
+        private  void AddTodoItemClicked(object sender, System.EventArgs e)
         {
-            if (ViewModel.AddTodoItemCommand != null)
-            {
-                await ViewModel.AddTodoItemCommand.ExecuteAsync(null);
-            }
+            ViewModel.AddTodoItemCommand?.Execute(null);
         }
     }
 }

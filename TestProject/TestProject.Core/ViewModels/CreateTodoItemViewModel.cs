@@ -18,7 +18,7 @@ namespace TestProject.Core.ViewModels
             IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
             : base(navigationService, storage, validationHelper, todoItemRepository, dialogsHelper)
         {
-            CreateTodoItemCommand = new MvxAsyncCommand(CreateTodoItem);
+            CreateTodoItemCommand = new MvxAsyncCommand(HandleEntity);
         }
         
         public IMvxAsyncCommand CreateTodoItemCommand { get; private set; }
@@ -46,32 +46,18 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            YesNoCancelDialogResult result = await _navigationService
-                .Navigate<CancelDialogViewModel, YesNoCancelDialogResult>();
+            DialogResult result = await _navigationService
+                .Navigate<CancelDialogViewModel, DialogResult>();
 
             await Task.Delay(600);
 
-            if (result == YesNoCancelDialogResult.Yes)
+            if (result == DialogResult.Yes)
             {
-                await CreateTodoItem();
+                await HandleEntity();
                 return;
             }
 
             await HandleDialogResult(result);
-        }
-
-        private async Task CreateTodoItem()
-        {
-            bool isTodoItemValid = await IsDataValid();
-            if (!isTodoItemValid)
-            {
-                return;
-            }
-
-            await AddTodoItem();
-
-            CreationResult<TodoItem> creationResult = GetCreationResult(TodoItem);
-            await _navigationService.Close(this, creationResult);
         }
 
         private async Task AddTodoItem()
@@ -83,6 +69,20 @@ namespace TestProject.Core.ViewModels
             TodoItem.UserId = currentUser.Id;
 
             await _todoItemRepository.Insert(TodoItem);
+        }
+
+        protected override async Task HandleEntity()
+        {
+            bool isTodoItemValid = await IsDataValid();
+            if (!isTodoItemValid)
+            {
+                return;
+            }
+
+            await AddTodoItem();
+
+            CreationResult<TodoItem> creationResult = GetCreationResult(TodoItem);
+            await _navigationService.Close(this, creationResult);
         }
     }
 }

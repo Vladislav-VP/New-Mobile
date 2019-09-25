@@ -2,7 +2,7 @@
 
 namespace TestProject.Droid.Helpers.Interfaces
 {
-    public interface IActivityStorageHelper
+    public interface IActivityReplaceHelper
     {
         void ReplaceActivity(Activity activity);
     }

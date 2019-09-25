@@ -29,11 +29,11 @@ namespace TestProject.Droid.Activities
         Name = "testProject.droid.activities.MainActivity")]
     public class MainActivity : MvxAppCompatActivity<MainViewModel>
     {
-        private readonly IActivityStorageHelper _activityStorageHelper;
+        private readonly IActivityReplaceHelper _activityStorageHelper;
 
         public MainActivity()
         {
-            _activityStorageHelper = Mvx.IoCProvider.Resolve<IActivityStorageHelper>();
+            _activityStorageHelper = Mvx.IoCProvider.Resolve<IActivityReplaceHelper>();
         }
 
         public DrawerLayout DrawerLayout { get; set; }
@@ -51,7 +51,8 @@ namespace TestProject.Droid.Activities
 
         public override void OnBackPressed()
         {
-            if (DrawerLayout != null && DrawerLayout.IsDrawerOpen(GravityCompat.RelativeHorizontalGravityMask))
+            bool isDrawerOpen = (bool)DrawerLayout?.IsDrawerOpen(GravityCompat.RelativeHorizontalGravityMask);
+            if (isDrawerOpen)
             {
                 DrawerLayout.CloseDrawers();
                 return;
@@ -88,13 +89,8 @@ namespace TestProject.Droid.Activities
             SetContentView(Resource.Layout.MainActivity);
             Window.AddFlags(WindowManagerFlags.Fullscreen);
 
-
-
-            if (bundle == null && ViewModel.ShowMenuCommand != null && ViewModel.ShowTodoItemListCommand != null)
-            {
-                ViewModel.ShowMenuCommand.Execute(null);
-                ViewModel.ShowTodoItemListCommand.Execute(null);
-            }
+            ViewModel.ShowMenuCommand?.Execute(null);
+            ViewModel.ShowTodoItemListCommand?.Execute(null);
 
             CrossCurrentActivity.Current.Init(this, bundle);
 
@@ -118,10 +114,7 @@ namespace TestProject.Droid.Activities
             }
 
             BaseViewModel viewModel = (BaseViewModel)currentFragment.ViewModel;
-            if (viewModel.GoBackCommand != null)
-            {                
-                viewModel.GoBackCommand.Execute(null);
-            }
+            viewModel.GoBackCommand?.Execute(null);
         }
     }
 }

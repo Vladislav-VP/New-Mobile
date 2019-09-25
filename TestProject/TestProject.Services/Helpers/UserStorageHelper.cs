@@ -3,7 +3,6 @@
 using MvvmCross;
 using Xamarin.Essentials;
 
-using TestProject.Configurations;
 using TestProject.Entities;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Repositories.Interfaces;
@@ -12,14 +11,16 @@ namespace TestProject.Services.Helpers
 {
     public class UserStorageHelper : IUserStorageHelper
     {
+        private static readonly string _credentialsKey = "current_user";
+
         public async Task Save(int id)
         {
-            await SecureStorage.SetAsync(Constants.CredentialsKey, id.ToString());
+            await SecureStorage.SetAsync(_credentialsKey, id.ToString());
         }
 
         public async Task<User> Get()
         {
-            string key = await SecureStorage.GetAsync(Constants.CredentialsKey);
+            string key = await SecureStorage.GetAsync(_credentialsKey);
             if (key == null)
             {
                 return null;

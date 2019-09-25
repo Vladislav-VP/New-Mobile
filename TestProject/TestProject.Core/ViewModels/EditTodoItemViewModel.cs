@@ -21,7 +21,7 @@ namespace TestProject.Core.ViewModels
             IValidationHelper validationHelper, ITodoItemRepository todoItemRepository)
             : base(navigationService, validationHelper, todoItemRepository, dialogsHelper)
         {
-            UpdateTodoItemCommand = new MvxAsyncCommand(UpdateTodoItem);
+            UpdateTodoItemCommand = new MvxAsyncCommand(HandleEntity);
             DeleteTodoItemCommand = new MvxAsyncCommand(DeleteTodoItem);
         }        
         
@@ -47,9 +47,9 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            _name = TodoItem.Name;
-            _description = TodoItem.Description;
-            _isDone = TodoItem.IsDone;
+            Name = TodoItem.Name;
+            Description = TodoItem.Description;
+            IsDone = TodoItem.IsDone;
 
             _unmodifiedTodoItem = new TodoItem
             {
@@ -66,33 +66,18 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            YesNoCancelDialogResult result = await _navigationService
-                .Navigate<CancelDialogViewModel, YesNoCancelDialogResult>();
+            DialogResult result = await _navigationService
+                .Navigate<CancelDialogViewModel, DialogResult>();
 
             await Task.Delay(600);
 
-            if (result == YesNoCancelDialogResult.Yes)
+            if (result == DialogResult.Yes)
             {
-                await UpdateTodoItem();
+                await HandleEntity();
                 return;
             }
 
             await HandleDialogResult(result);
-        }
-
-        private async Task UpdateTodoItem()
-        {
-            ChangeTodoItem();
-            bool isTodoItemValid = await IsDataValid();
-            if (!isTodoItemValid)
-            {
-                TodoItem.Description = _unmodifiedTodoItem.Description;
-                TodoItem.IsDone = _unmodifiedTodoItem.IsDone;
-                return;
-            }
-
-            await _todoItemRepository.Update(TodoItem);
-            await _navigationService.Close<DeletionResult<TodoItem>>(this, result:null);
         }
 
         private void ChangeTodoItem()
@@ -114,6 +99,21 @@ namespace TestProject.Core.ViewModels
 
             DeletionResult<TodoItem> deletionResult = GetDeletionResult(TodoItem);
             await _navigationService.Close(this, deletionResult);
+        }
+
+        protected override async Task HandleEntity()
+        {
+            ChangeTodoItem();
+            bool isTodoItemValid = await IsDataValid();
+            if (!isTodoItemValid)
+            {
+                TodoItem.Description = _unmodifiedTodoItem.Description;
+                TodoItem.IsDone = _unmodifiedTodoItem.IsDone;
+                return;
+            }
+
+            await _todoItemRepository.Update(TodoItem);
+            await _navigationService.Close<DeletionResult<TodoItem>>(this, result: null);
         }
     }
 }

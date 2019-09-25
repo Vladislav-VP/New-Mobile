@@ -15,25 +15,23 @@ namespace TestProject.Core.ViewModels
 {
     public class UserSettingsViewModel : UserViewModel, IMvxViewModel<User, UpdateResult<User>>
     {
-        protected string _oldUserName;
-        protected string _newUserName;
-
         public UserSettingsViewModel(IMvxNavigationService navigationService, IUserRepository userRepository, 
             IUserStorageHelper userStorage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
             : base(navigationService, userStorage, userRepository, validationHelper, dialogsHelper)
         {
-            UpdateUserCommand = new MvxAsyncCommand(UpdateUser);
+            UpdateUserCommand = new MvxAsyncCommand(HandleEntity);
             DeleteUserCommand = new MvxAsyncCommand(DeleteUser);
             EditPasswordCommand = new MvxAsyncCommand(EditPassword);
         }
 
-        public string NewUserName
+        private string _userName;
+        public string UserName
         {
-            get => _newUserName;
+            get => _userName;
             set
             {
-                _newUserName = value;
-                RaisePropertyChanged(() => NewUserName);
+                _userName = value;
+                RaisePropertyChanged(() => UserName);
             }
         }
 
@@ -56,15 +54,14 @@ namespace TestProject.Core.ViewModels
 
         protected override bool IsStateChanged
         {
-            get => _oldUserName != _newUserName;
+            get => _user.Name != UserName;
         }
 
         public async override Task Initialize()
         {
             await base.Initialize();
 
-            _oldUserName = _user.Name;
-            _newUserName = _user.Name;
+            UserName = _user.Name;
         }
 
         public void Prepare(User parameter)
@@ -80,14 +77,14 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            YesNoCancelDialogResult result = await _navigationService
-                .Navigate<CancelDialogViewModel, YesNoCancelDialogResult>();
+            DialogResult result = await _navigationService
+                .Navigate<CancelDialogViewModel, DialogResult>();
 
             await Task.Delay(600);
 
-            if (result == YesNoCancelDialogResult.Yes)
+            if (result == DialogResult.Yes)
             {
-                await UpdateUser();
+                await HandleEntity();
                 return;
             }
 
@@ -96,31 +93,30 @@ namespace TestProject.Core.ViewModels
 
         protected override async Task<bool> IsDataValid()
         {
-            string oldUserName = _user.Name;
-            NewUserName = NewUserName.Trim();
+            UserName = UserName.Trim();
 
-            _user.Name = NewUserName;
-            bool isUserNameValid = _validationHelper.IsObjectValid(_user);
+            var userForChecking = new User
+            {
+                Name = UserName,
+                Password = _user.Password
+            };
+
+            bool isUserNameValid = _validationHelper.IsObjectValid(userForChecking);
             if (!isUserNameValid)
-            {                
-                _user.Name = oldUserName;
-                NewUserName = oldUserName;
+            {
                 return false;
             }
 
-            User retrievedUser = await _userRepository.GetUser(NewUserName);
-            if (retrievedUser != null && retrievedUser.Id != _user.Id)
+            User retrievedUser = await _userRepository.GetUser(UserName);
+            if (retrievedUser != null && retrievedUser?.Id != _user.Id)
             {
                 _dialogsHelper.DisplayAlertMessage(Strings.UserAlreadyExistsMessage);
-                _user.Name = oldUserName;
-                NewUserName = oldUserName;
                 return false;
             }
-
+            
             return true;
         }
-
-        private async Task UpdateUser()
+        protected override async Task HandleEntity()
         {
             bool isUserValid = await IsDataValid();
             if (!isUserValid)
@@ -130,6 +126,7 @@ namespace TestProject.Core.ViewModels
 
             if (IsStateChanged)
             {
+                _user.Name = UserName;
                 await _userRepository.Update(_user);
                 _dialogsHelper.DisplayToastMessage(Strings.UserNameChangedMessage);
             }
@@ -137,7 +134,6 @@ namespace TestProject.Core.ViewModels
             UpdateResult<User> updateResult = GetUpdateResult(User);
             await _navigationService.Close(this, updateResult);
         }
-
         private async Task DeleteUser()
         {
             bool isToDelete = await _dialogsHelper.IsConfirmed(Strings.DeleteMessageDialog);
@@ -158,5 +154,7 @@ namespace TestProject.Core.ViewModels
         {
             await _navigationService.Navigate<EditPasswordViewModel>();
         }
+
+
     }
 }

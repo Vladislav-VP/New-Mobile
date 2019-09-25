@@ -10,12 +10,22 @@ using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
-    public class RegistrationViewModel : UserViewModel
+    public class RegistrationViewModel : BaseViewModel
     {
+        private readonly IUserRepository _userRepository;
+
+        private readonly IValidationHelper _validationHelper;
+
+        private readonly IDialogsHelper _dialogsHelper;
+
         public RegistrationViewModel(IMvxNavigationService navigationService, IUserRepository userRepository, 
             IUserStorageHelper storage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
-            : base(navigationService, storage, userRepository, validationHelper, dialogsHelper)
+            : base(navigationService, storage)
         {
+            _userRepository = userRepository;
+            _validationHelper = validationHelper;
+            _dialogsHelper = dialogsHelper;
+
             RegisterUserCommand = new MvxAsyncCommand(RegisterUser);
         }
 
@@ -43,7 +53,7 @@ namespace TestProject.Core.ViewModels
 
         public IMvxAsyncCommand RegisterUserCommand { get; private set; }
 
-        protected override async Task<bool> IsDataValid()
+        protected async Task<bool> IsDataValid()
         {
             User user = new User { Name = UserName, Password = Password };
 

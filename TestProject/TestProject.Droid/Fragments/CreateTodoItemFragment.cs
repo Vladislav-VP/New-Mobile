@@ -21,24 +21,19 @@ namespace TestProject.Droid.Fragments
         {
             View view = base.OnCreateView(inflater, container, savedInstanceState);
 
-            InitializeAllControls(view);
-
-            ((MainActivity)Activity).DrawerLayout.SetDrawerLockMode(DrawerLayout.LockModeLockedClosed);
-
-            return view;
-        }
-        
-        protected override void InitializeAllControls(View view)
-        {
             TextView tvTodoItemName = view.FindViewById<TextView>(Resource.Id.tvTodoItemName);
             TextView tvDescription = view.FindViewById<TextView>(Resource.Id.tvDescription);
             TextView tvDone = view.FindViewById<TextView>(Resource.Id.tvDone);
             Button btCreate = view.FindViewById<Button>(Resource.Id.btCreate);
 
-            _controlSigningHelper.SignControl(tvTodoItemName, Strings.TodoItemNameTextViewLabel);
-            _controlSigningHelper.SignControl(tvDescription, Strings.TodoItemDescriptionTextViewLabel);
-            _controlSigningHelper.SignControl(tvDone, Strings.TodoItemIsDoneTextViewLabel);
-            _controlSigningHelper.SignControl(btCreate, Strings.SaveButtonLabel);
+            tvTodoItemName.Text = Strings.TodoItemNameTextViewLabel;
+            tvDescription.Text = Strings.TodoItemDescriptionTextViewLabel;
+            tvDone.Text = Strings.TodoItemIsDoneTextViewLabel;
+            btCreate.Text = Strings.SaveButtonLabel;
+
+            ((MainActivity)Activity).DrawerLayout.SetDrawerLockMode(DrawerLayout.LockModeLockedClosed);
+
+            return view;
         }
     }
 }

@@ -2,13 +2,14 @@
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using MvvmCross.Platforms.Android.Binding.BindingContext;
+using MvvmCross.Platforms.Android.Presenters.Attributes;
 
 using TestProject.Core.ViewModels;
 using TestProject.Resources;
 
 namespace TestProject.Droid.Fragments
 {
+    [MvxDialogFragmentPresentation(Cancelable = false)]
     [Register("testProject.droid.fragments.CancelDialogFragment")]
     public class CancelDialogFragment : BaseDialogFragment<CancelDialogViewModel>
     {
@@ -16,27 +17,19 @@ namespace TestProject.Droid.Fragments
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            View ignore = base.OnCreateView(inflater, container, savedInstanceState);
+            View view = base.OnCreateView(inflater, container, savedInstanceState);
 
-            View view = this.BindingInflate(FragmentId, null);
-            Cancelable = false;
-
-            InitializeAllControls(view);
-
-            return view;
-        }
-
-        protected override void InitializeAllControls(View view)
-        {
             TextView tvSaveChanges = view.FindViewById<TextView>(Resource.Id.tvSaveChanges);
             Button btYes = view.FindViewById<Button>(Resource.Id.btYes);
             Button btNo = view.FindViewById<Button>(Resource.Id.btNo);
             Button btCancel = view.FindViewById<Button>(Resource.Id.btCancel);
 
-            _controlSigningHelper.SignControl(tvSaveChanges, Strings.SaveChangesPrompt);
-            _controlSigningHelper.SignControl(btYes, Strings.YesButtonLabel);
-            _controlSigningHelper.SignControl(btNo, Strings.NoButtonLabel);
-            _controlSigningHelper.SignControl(btCancel, Strings.CancelButtonLabel);
+            tvSaveChanges.Text = Strings.SaveChangesPrompt;
+            btYes.Text = Strings.YesButtonLabel;
+            btNo.Text = Strings.NoButtonLabel;
+            btCancel.Text = Strings.CancelButtonLabel;
+
+            return view;
         }
     }
 }

@@ -65,10 +65,7 @@ namespace TestProject.iOS.Views
 
         private void CancelClicked(object sender, System.EventArgs e)
         {
-            if (ViewModel.GoBackCommand != null)
-            {
-                ViewModel.GoBackCommand.Execute(null);
-            }
+            ViewModel.GoBackCommand?.Execute(null);
         }
     }
 }

@@ -26,28 +26,6 @@ namespace TestProject.Droid.Fragments
 
             View view = this.BindingInflate(Resource.Layout.MenuFragment, null);
 
-            InitializeAllControls(view);
-
-            return view;
-        }
-
-        public bool OnNavigationItemSelected(IMenuItem item)
-        {
-            if (_previousMenuItem != null)
-                _previousMenuItem.SetChecked(false);
-
-            item.SetCheckable(true);
-            item.SetChecked(true);
-
-            _previousMenuItem = item;
-
-            Task.Run(() => Navigate(item.ItemId));
-
-            return true;
-        }
-
-        private void InitializeAllControls(View view)
-        {
             NavigationView navigationView = view.FindViewById<NavigationView>(Resource.Id.navigation_view);
             navigationView.SetNavigationItemSelectedListener(this);
             
@@ -62,6 +40,22 @@ namespace TestProject.Droid.Fragments
 
             IMenuItem logoutMenuItem = navigationView.Menu.FindItem(Resource.Id.nav_logout);
             logoutMenuItem.SetCheckable(false);
+
+            return view;
+        }
+
+        public bool OnNavigationItemSelected(IMenuItem item)
+        {
+            _previousMenuItem?.SetChecked(false);
+
+            item.SetCheckable(true);
+            item.SetChecked(true);
+
+            _previousMenuItem = item;
+
+            Task.Run(() => Navigate(item.ItemId));
+
+            return true;
         }
 
         private async Task Navigate(int itemId)

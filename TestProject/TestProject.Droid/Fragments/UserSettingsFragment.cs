@@ -20,7 +20,17 @@ namespace TestProject.Droid.Fragments
         {
             View view = base.OnCreateView(inflater, container, savedInstanceState);
 
-            InitializeAllControls(view);
+            TextView tvUserNameSettings = view.FindViewById<TextView>(Resource.Id.tvUserNameSettings);
+            TextView tvSettings = view.FindViewById<TextView>(Resource.Id.tvSettings);
+            Button btSaveUserName = view.FindViewById<Button>(Resource.Id.btSaveUserName);
+            Button btChangePassword = view.FindViewById<Button>(Resource.Id.btChangePassword);
+            Button btDeleteAccount = view.FindViewById<Button>(Resource.Id.btDeleteAccount);
+
+            tvUserNameSettings.Text = Strings.UsernameTextViewLabel;
+            tvSettings.Text = Strings.SettingsLabel;
+            btSaveUserName.Text = Strings.SaveChangesButtonLabel;
+            btChangePassword.Text = Strings.ChangePasswordButtonLabel;
+            btDeleteAccount.Text = Strings.DeleteAccountButtonLabel;
 
             return view;
         }
@@ -34,27 +44,10 @@ namespace TestProject.Droid.Fragments
                 return;
             }
 
-            if (((MainActivity)Activity).ViewModel.ShowMenuCommand != null &&
-                ((MainActivity)Activity).ViewModel.ShowTodoItemListCommand != null)
-            {
-                ((MainActivity)Activity).ViewModel.ShowMenuCommand.Execute(null);
-                ((MainActivity)Activity).ViewModel.ShowTodoItemListCommand.Execute(null);
-            }
+            ((MainActivity)Activity).ViewModel.ShowMenuCommand?.Execute(null);
+            ((MainActivity)Activity).ViewModel.ShowTodoItemListCommand?.Execute(null);
         }
 
-        protected override void InitializeAllControls(View view)
-        {
-            TextView tvUserNameSettings = view.FindViewById<TextView>(Resource.Id.tvUserNameSettings);
-            TextView tvSettings = view.FindViewById<TextView>(Resource.Id.tvSettings);
-            Button btSaveUserName = view.FindViewById<Button>(Resource.Id.btSaveUserName);
-            Button btChangePassword = view.FindViewById<Button>(Resource.Id.btChangePassword);
-            Button btDeleteAccount = view.FindViewById<Button>(Resource.Id.btDeleteAccount);
 
-            _controlSigningHelper.SignControl(tvUserNameSettings, Strings.UsernameTextViewLabel);
-            _controlSigningHelper.SignControl(tvSettings, Strings.SettingsLabel);
-            _controlSigningHelper.SignControl(btSaveUserName, Strings.SaveChangesButtonLabel);
-            _controlSigningHelper.SignControl(btChangePassword, Strings.ChangePasswordButtonLabel);
-            _controlSigningHelper.SignControl(btDeleteAccount, Strings.DeleteAccountButtonLabel);
-        }
     }
 }

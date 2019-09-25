@@ -22,15 +22,6 @@ namespace TestProject.Droid.Fragments
         {
             View view = base.OnCreateView(inflater, container, savedInstanceState);
 
-            InitializeAllControls(view);
-
-            ((MainActivity)Activity).DrawerLayout.SetDrawerLockMode(DrawerLayout.LockModeLockedClosed);
-
-            return view;
-        }
-
-        protected override void InitializeAllControls(View view)
-        {
             TextView tvTodoItemName = view.FindViewById<TextView>(Resource.Id.tvTodoItemName);
             TextView tvDescription = view.FindViewById<TextView>(Resource.Id.tvDescription);
             TextView tvDone = view.FindViewById<TextView>(Resource.Id.tvDone);
@@ -38,13 +29,16 @@ namespace TestProject.Droid.Fragments
             Button btSaveTodoItem = view.FindViewById<Button>(Resource.Id.btSaveTodoItem);
             Button btDeleteTodoItem = view.FindViewById<Button>(Resource.Id.btDeleteTodoItem);
 
-            _controlSigningHelper.SignControl(tvTodoItemName, Strings.TodoItemNameTextViewLabel);
-            _controlSigningHelper.SignControl(tvDescription, Strings.TodoItemDescriptionTextViewLabel);
-            _controlSigningHelper.SignControl(tvDone, Strings.TodoItemIsDoneTextViewLabel);
-            _controlSigningHelper.SignControl(btSaveTodoItem, Strings.SaveButtonLabel);
-            _controlSigningHelper.SignControl(btDeleteTodoItem, Strings.DeleteTodoItemButtonLabel);
-
+            tvTodoItemName.Text = Strings.TodoItemNameTextViewLabel;
+            tvDescription.Text = Strings.TodoItemDescriptionTextViewLabel;
+            tvDone.Text = Strings.TodoItemIsDoneTextViewLabel;
+            btSaveTodoItem.Text = Strings.SaveButtonLabel;
+            btDeleteTodoItem.Text = Strings.DeleteTodoItemButtonLabel;
             etTodoItemName.Enabled = false;
+
+            ((MainActivity)Activity).DrawerLayout.SetDrawerLockMode(DrawerLayout.LockModeLockedClosed);
+
+            return view;
         }
     }
 }

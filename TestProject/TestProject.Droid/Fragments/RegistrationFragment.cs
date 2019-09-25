@@ -4,9 +4,9 @@ using Android.Views;
 using Android.Widget;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 
-using TestProject.Configurations;
 using TestProject.Core.ViewModels;
 using TestProject.Resources;
+using TestProject.ValidationConfigurations;
 
 namespace TestProject.Droid.Fragments
 {
@@ -20,27 +20,21 @@ namespace TestProject.Droid.Fragments
         {
             View view = base.OnCreateView(inflater, container, savedInstanceState);
 
-            InitializeAllControls(view);
-
-            return view;
-        }
-
-        protected override void InitializeAllControls(View view)
-        {
             TextView tvUsername = view.FindViewById<TextView>(Resource.Id.tvUsername);
             TextView tvPassword = view.FindViewById<TextView>(Resource.Id.tvPassword);
             TextView tvPasswordTip = view.FindViewById<TextView>(Resource.Id.tvPasswordTip);
             TextView tvRegistration = view.FindViewById<TextView>(Resource.Id.tvRegistration);
             Button btRegister = view.FindViewById<Button>(Resource.Id.btRegister);
 
-            _controlSigningHelper.SignControl(tvUsername, Strings.UsernameTextViewLabel);
-            _controlSigningHelper.SignControl(tvPassword, Strings.PasswordTextViewLabel);
-            _controlSigningHelper.SignControl(tvRegistration, Strings.RegistrationTitle);
-            _controlSigningHelper.SignControl(btRegister, Strings.RegistrationButtonLabel);
+            tvUsername.Text = Strings.UsernameTextViewLabel;
+            tvPassword.Text = Strings.PasswordTextViewLabel;
+            tvRegistration.Text = Strings.RegistrationTitle;
+            btRegister.Text = Strings.RegistrationButtonLabel;
 
-            string tvPasswordTipLabel =
-                $"{Strings.PasswordTipFirst} {Constants.MinPasswordLength} {Strings.PasswordTipSecond}";
-            _controlSigningHelper.SignControl(tvPasswordTip, tvPasswordTipLabel);
+            string tvPasswordTipLabel = Strings.PasswordTipLabel;
+            tvPasswordTip.Text = tvPasswordTipLabel;
+
+            return view;
         }
     }
 }

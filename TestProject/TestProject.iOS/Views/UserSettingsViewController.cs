@@ -40,7 +40,7 @@ namespace TestProject.iOS.Views
         {
             var set = this.CreateBindingSet<UserSettingsViewController, UserSettingsViewModel>();
 
-            set.Bind(tfUsername).To(vm => vm.NewUserName);
+            set.Bind(tfUsername).To(vm => vm.UserName);
             set.Bind(btSaveChanges).To(vm => vm.UpdateUserCommand);
             set.Bind(btChangePassword).To(vm => vm.EditPasswordCommand);
             set.Bind(btDeleteAccount).To(vm => vm.DeleteUserCommand);
@@ -50,10 +50,7 @@ namespace TestProject.iOS.Views
 
         private void CancelClicked(object sender, System.EventArgs e)
         {
-            if (ViewModel.GoBackCommand != null)
-            {
-                ViewModel.GoBackCommand.Execute(null);
-            }
+            ViewModel.GoBackCommand?.Execute(null);
         }
 
     }

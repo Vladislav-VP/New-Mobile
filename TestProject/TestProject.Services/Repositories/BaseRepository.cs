@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 
 using SQLite;
 
-using TestProject.Configurations;
 using TestProject.Entities;
 using TestProject.Services.Repositories.Interfaces;
 
@@ -14,10 +13,12 @@ namespace TestProject.Services.Repositories
     {
         private static readonly string _path;
 
+        private static readonly string _databaseName = "TestProjectDB.db";
+
         static BaseRepository()
         {
             string docsFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
-            _path = System.IO.Path.Combine(docsFolder, Constants.DatabaseName);
+            _path = System.IO.Path.Combine(docsFolder, _databaseName);
             CreateDatabase();
         }
 

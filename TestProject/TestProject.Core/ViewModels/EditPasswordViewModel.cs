@@ -10,14 +10,24 @@ using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
-    public class EditPasswordViewModel : UserViewModel
+    public class EditPasswordViewModel : BaseViewModel
     {
         private User _currentUser;
-    
+
+        private readonly IUserRepository _userRepository;
+
+        private readonly IValidationHelper _validationHelper;
+
+        private readonly IDialogsHelper _dialogsHelper;
+
         public EditPasswordViewModel(IMvxNavigationService navigationService, IUserRepository userRepository, 
             IUserStorageHelper storage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)             
-            : base(navigationService, storage, userRepository, validationHelper, dialogsHelper)
+            : base(navigationService, storage)
         {
+            _userRepository = userRepository;
+            _validationHelper = validationHelper;
+            _dialogsHelper = dialogsHelper;
+
             ChangePasswordCommand = new MvxAsyncCommand(ChangePassword);
         }
 
@@ -63,7 +73,7 @@ namespace TestProject.Core.ViewModels
             _currentUser = await _storage.Get();
         }
 
-        protected override async Task<bool> IsDataValid()
+        protected async Task<bool> IsDataValid()
         {
             if (OldPassword != _currentUser.Password)
             {
@@ -85,7 +95,6 @@ namespace TestProject.Core.ViewModels
                 return false;
             }
 
-            await _userRepository.Update(_currentUser);
             return true;
         }
 
@@ -97,6 +106,7 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
+            await _userRepository.Update(_currentUser);
             await _navigationService.Close(this);
             _dialogsHelper.DisplayToastMessage(Strings.PasswordChangedMessage);
         }

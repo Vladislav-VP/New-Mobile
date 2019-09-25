@@ -15,6 +15,6 @@
         android:id="@+id/etNewUsername"
         style="@style/UserNameStyle"
         android:imeOptions="actionDone"
-        local:MvxBind="Text NewUserName"/>
+        local:MvxBind="Text UserName"/>
 
 </LinearLayout>

@@ -75,11 +75,10 @@
     <Compile Include="Fragments\BaseDialogFragment.cs" />
     <Compile Include="Helpers\ActivityStorageHelper.cs" />
     <Compile Include="Helpers\BitmapConvertionHelper.cs" />
-    <Compile Include="Helpers\ControlSigningHelper.cs" />
-    <Compile Include="Helpers\Interfaces\ControlSigningHelper.cs" />
     <Compile Include="Helpers\Interfaces\IActivityStorageHelper.cs" />
     <Compile Include="Helpers\Interfaces\IBitmapConvertionHelper.cs" />
     <Compile Include="MainApplication.cs" />
+    <Compile Include="MvxBinds\SwipeRefreshLayoutIsRefreshingTargetBinding.cs" />
     <Compile Include="Providers\ContextProvider.cs" />
     <Compile Include="Providers\Interfaces\IContextProvider.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -188,10 +187,6 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TestProject.Configurations\TestProject.Configurations.csproj">
-      <Project>{a5359bc6-a59b-4727-9522-44ffb70df1c7}</Project>
-      <Name>TestProject.Configurations</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TestProject.Core\TestProject.Core.csproj">
       <Project>{14e2f76c-3e0a-45ba-a18c-ea6cca174451}</Project>
       <Name>TestProject.Core</Name>
@@ -313,21 +308,6 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\profile.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\screen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\screen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\screen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\screen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\screen.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\mipmap-hdpi\ic_back_blue_light.png" />
   </ItemGroup>
   <ItemGroup>
@@ -374,6 +354,21 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_back_blue_dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\screen.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-mdpi\screen.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xhdpi\screen.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xxhdpi\screen.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\screen.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

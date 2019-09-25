@@ -17,6 +17,7 @@ using TestProject.Core;
 using TestProject.Droid.Converters;
 using TestProject.Droid.Helpers;
 using TestProject.Droid.Helpers.Interfaces;
+using TestProject.Droid.MvxBinds;
 
 namespace TestProject.Droid
 {
@@ -44,6 +45,10 @@ namespace TestProject.Droid
         {
             MvxAppCompatSetupHelper.FillTargetFactories(registry);
             base.FillTargetFactories(registry);
+
+            var factory = new MvxCustomBindingFactory<SwipeRefreshLayout>("IsRefreshing", (swipeRefreshLayout)
+                => new SwipeRefreshLayoutIsRefreshingTargetBinding(swipeRefreshLayout));
+            registry.RegisterFactory(factory);
         }
 
         protected override IMvxAndroidViewPresenter CreateViewPresenter()
@@ -56,8 +61,7 @@ namespace TestProject.Droid
             IMvxIoCProvider provider = base.InitializeIoC();
 
             Mvx.IoCProvider.RegisterSingleton(typeof(IBitmapConvertionHelper), new BitmapConvertionHelper());
-            Mvx.IoCProvider.RegisterSingleton(typeof(Helpers.Interfaces.IControlSigningHelper), new ControlSigningHelper());
-            Mvx.IoCProvider.RegisterSingleton(typeof(IActivityStorageHelper), new ActivityStorageHelper());
+            Mvx.IoCProvider.RegisterSingleton(typeof(IActivityReplaceHelper), new ActivityReplaceHelper());
 
             return provider;
         }

@@ -5,13 +5,12 @@ using MvvmCross.ViewModels;
 
 using TestProject.Core.Enums;
 using TestProject.Core.ViewModelResults;
-using TestProject.Core.ViewModelResults.Interfaces;
 using TestProject.Entities;
 using TestProject.Services.Helpers.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
-    public abstract class BaseEntityViewModel : BaseViewModel, IMvxViewModelResult<IViewModelResult<BaseEntity>>
+    public abstract class BaseEntityViewModel : BaseViewModel, IMvxViewModelResult<ViewModelResult<BaseEntity>>
     {
         protected readonly IValidationHelper _validationHelper;
         
@@ -27,32 +26,32 @@ namespace TestProject.Core.ViewModels
         
         public TaskCompletionSource<object> CloseCompletionSource { get; set; }
 
-        protected virtual bool IsStateChanged
-        {
-            get => false;
-        }
+        protected abstract bool IsStateChanged { get; }
 
         protected abstract Task<bool> IsDataValid();
 
-        protected virtual async Task HandleDialogResult(YesNoCancelDialogResult result)
+        protected async Task HandleDialogResult(DialogResult result)
         {
-            if (result == YesNoCancelDialogResult.Cancel)
+            if (result == DialogResult.Cancel)
             {
                 return;
             }
-            if (result == YesNoCancelDialogResult.No)
+            if (result == DialogResult.No)
             {
                 await _navigationService.Close(this, result: null);
                 return;
             }
         }
 
+        // TODO: Think about better name.
+        protected abstract Task HandleEntity();
+
         protected virtual CreationResult<TEntity> GetCreationResult<TEntity>(TEntity entity)
         {
             var creationResult = new CreationResult<TEntity>
             {
                 Entity = entity,
-                IsCreated = true
+                IsSucceded = true
             };
 
             return creationResult;
@@ -63,7 +62,7 @@ namespace TestProject.Core.ViewModels
             var updateResult = new UpdateResult<TEntity>
             {
                 Entity = entity,
-                IsUpdated = true
+                IsSucceded = true
             };
 
             return updateResult;
@@ -74,7 +73,7 @@ namespace TestProject.Core.ViewModels
             var deletionResult = new DeletionResult<TEntity>
             {
                 Entity = entity,
-                IsDeleted = true
+                IsSucceded = true
             };
 
             return deletionResult;

@@ -64,7 +64,7 @@ namespace TestProject.Core.ViewModels
             DeletionResult<TodoItem> deletionResult = await _navigationService
                 .Navigate<EditTodoItemViewModel, TodoItem, DeletionResult<TodoItem>>(selectedTodoItem);
 
-            if (deletionResult != null && deletionResult.IsDeleted)
+            if (deletionResult != null && deletionResult.IsSucceded)
             {
                 TodoItems.Remove(selectedTodoItem);
             }
@@ -76,7 +76,7 @@ namespace TestProject.Core.ViewModels
             CreationResult<TodoItem> creationResult = await _navigationService
                 .Navigate<CreateTodoItemViewModel, TodoItem, CreationResult<TodoItem>>(todoItem);
             
-            if (creationResult != null && creationResult.IsCreated)
+            if (creationResult != null && creationResult.IsSucceded)
             {
                 TodoItems.Add(todoItem);
             }

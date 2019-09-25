@@ -1,6 +1,6 @@
 ﻿namespace TestProject.ValidationConfigurations
 {
-    static class ValidationConstants
+    public static class ValidationConstants
     {
         public const string PasswordCharacterPattern = @"\w";
 

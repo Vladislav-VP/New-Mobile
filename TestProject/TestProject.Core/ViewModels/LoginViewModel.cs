@@ -10,14 +10,21 @@ using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
-    public class LoginViewModel : UserViewModel
+    public class LoginViewModel : BaseViewModel
     {
+        private readonly IUserRepository _userRepository;
+
+        private readonly IDialogsHelper _dialogsHelper;
+
         private User _currentUser;
 
         public LoginViewModel(IMvxNavigationService navigationService, IUserRepository userRepository,
-            IUserStorageHelper storage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
-            : base(navigationService, storage, userRepository, validationHelper, dialogsHelper)
+            IUserStorageHelper storage, IDialogsHelper dialogsHelper)
+            : base(navigationService, storage)
         {
+            _userRepository = userRepository;
+            _dialogsHelper = dialogsHelper;
+
             LoginCommand = new MvxAsyncCommand(Login);
             GoToRegistrationCommand = new MvxAsyncCommand(GoToRegistration);
         }
@@ -48,7 +55,7 @@ namespace TestProject.Core.ViewModels
         
         public IMvxAsyncCommand GoToRegistrationCommand { get; private set; }
         
-        protected override async Task<bool> IsDataValid()
+        protected async Task<bool> IsDataValid()
         {
             _currentUser = await _userRepository.GetUser(UserName, Password);
             return _currentUser != null;

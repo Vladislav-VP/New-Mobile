@@ -9,11 +9,11 @@ namespace TestProject.Entities
     public class TodoItem : BaseEntity
     {
         [NotNull]
-        [Required(AllowEmptyStrings = false, ErrorMessage = ErrorMessages.EmptyTodoItemNameMessage)]
+        [Required(ErrorMessage = ErrorMessages.EmptyTodoItemNameMessage)]
         public string Name { get; set; }
 
         [NotNull]
-        [Required(AllowEmptyStrings = false, ErrorMessage = ErrorMessages.EmptyTodoItemDescriptionMessage)]
+        [Required(ErrorMessage = ErrorMessages.EmptyTodoItemDescriptionMessage)]
         public string Description { get; set; }
 
         public bool IsDone { get; set; }

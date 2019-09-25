@@ -22,18 +22,13 @@ namespace TestProject.Droid.Fragments
         {
             View view = base.OnCreateView(inflater, container, savedInstanceState);
 
-            InitializeAllControls(view);
-
-            return view;
-        }
-
-        protected override void InitializeAllControls(View view)
-        {
             TextView tvTaskListTitle = view.FindViewById<TextView>(Resource.Id.tvTaskListTitle);
 
-            _controlSigningHelper.SignControl(tvTaskListTitle, Strings.TaskListLabel);
+            tvTaskListTitle.Text = Strings.TaskListLabel;
             ParentActivity.SupportActionBar.Title = string.Empty;
             ((MainActivity)Activity).DrawerLayout.SetDrawerLockMode(DrawerLayout.LockModeUnlocked);
+
+            return view;
         }
     }
 }

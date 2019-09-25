@@ -1,6 +1,6 @@
 ﻿namespace TestProject.Core.Enums
 {
-    public enum YesNoCancelDialogResult
+    public enum DialogResult
     {
         Yes = 1,
         No = 2,
