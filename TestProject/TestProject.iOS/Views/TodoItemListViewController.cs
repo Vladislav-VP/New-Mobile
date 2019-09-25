@@ -55,6 +55,8 @@ namespace TestProject.iOS.Views
 
             set.Bind(source).For(v => v.ItemsSource).To(vm => vm.TodoItems);
             set.Bind(source).For(v => v.SelectionChangedCommand).To(vm => vm.SelectTodoItemCommand);
+            set.Bind(_refreshControl).For(r => r.IsRefreshing).To(vm => vm.LoadTodoItemsTask.IsNotCompleted).WithFallback(false);
+            set.Bind(_refreshControl).For(r => r.RefreshCommand).To(vm => vm.RefreshTodoItemsCommand);
 
             set.Apply();
         }

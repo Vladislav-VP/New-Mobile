@@ -7,6 +7,7 @@ using Android.Widget;
 using MvvmCross;
 using MvvmCross.Binding.Bindings.Target.Construction;
 using MvvmCross.Converters;
+using MvvmCross.Droid.Support.V4;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.IoC;
@@ -29,7 +30,8 @@ namespace TestProject.Droid
             typeof(Toolbar).Assembly,
             typeof(CoordinatorLayout).Assembly,
             typeof(NavigationView).Assembly,
-            typeof(BottomNavigationView).Assembly
+            typeof(BottomNavigationView).Assembly,
+            typeof(MvxSwipeRefreshLayout).Assembly
         };
 
         protected override void FillValueConverters(IMvxValueConverterRegistry registry)

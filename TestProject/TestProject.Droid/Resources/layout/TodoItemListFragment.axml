@@ -9,10 +9,18 @@
     <include
 		layout="@layout/toolbar_actionbar" />
 
-    <MvxRecyclerView
-        android:id="@+id/todoItemsRecyclerView"
-        style="@style/RecyclerViewStyle"
-        local:MvxItemTemplate="@layout/item_name"
-        local:MvxBind="ItemsSource TodoItems; ItemClick SelectTodoItemCommand" />
+    <MvxSwipeRefreshLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			local:layout_behavior="@string/appbar_scrolling_view_behavior"
+			local:MvxBind="IsRefreshing LoadTodoItemsTask.IsNotCompleted; RefreshCommand RefreshTodoItemsCommand">
+			<MvxRecyclerView
+                android:id="@+id/todoItemsRecyclerView"
+                style="@style/RecyclerViewStyle"
+                local:MvxItemTemplate="@layout/item_name"
+                local:MvxBind="ItemsSource TodoItems; ItemClick SelectTodoItemCommand" />
+	</MvxSwipeRefreshLayout>
+
+
 
 </LinearLayout>
