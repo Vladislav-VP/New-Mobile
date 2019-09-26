@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 
-using MvvmCross;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 
@@ -12,8 +11,12 @@ namespace TestProject.Core
 {
     public class AppStart : MvxAppStart
     {
-        public AppStart(IMvxApplication application, IMvxNavigationService navigationService) : base(application, navigationService)
+        private readonly IUserStorageHelper _storage;
+
+        public AppStart(IMvxApplication application, IMvxNavigationService navigationService, IUserStorageHelper storage)
+            : base(application, navigationService)
         {
+            _storage = storage;
         }
 
         protected override async Task NavigateToFirstViewModel(object hint = null)
@@ -36,9 +39,7 @@ namespace TestProject.Core
 
             Task.Run(async () =>
             {
-                IUserStorageHelper storage = Mvx.IoCProvider.Resolve<IUserStorageHelper>();
-
-                User user = await storage.Get();
+                User user = await _storage.Get();
 
                 source.SetResult(user != null);
             });

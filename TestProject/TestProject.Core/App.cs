@@ -20,17 +20,25 @@ namespace TestProject.Core
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
+            Mvx.IoCProvider.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
             Mvx.IoCProvider.RegisterSingleton(typeof(IUserRepository), new UserRepository());
             Mvx.IoCProvider.RegisterSingleton(typeof(ITodoItemRepository), new TodoItemRepository());
             Mvx.IoCProvider.RegisterSingleton(typeof(IDialogsHelper), new DialogsHelper());
-            Mvx.IoCProvider.RegisterSingleton(typeof(IValidationHelper), new ValidationHelper());
-            Mvx.IoCProvider.RegisterSingleton(typeof(IUserStorageHelper), new UserStorageHelper());
             Mvx.IoCProvider.RegisterSingleton(typeof(IPermissionsHelper), new PermissionsHelper());
             Mvx.IoCProvider.RegisterSingleton(typeof(IEncryptionHelper), new EncryptionHelper());
             Mvx.IoCProvider.RegisterSingleton(typeof(IPhotoCaptureHelper), new PhotoCaptureHelper());
-            Mvx.IoCProvider.RegisterSingleton(typeof(IPhotoEditHelper), new PhotoEditHelper());
 
-            Mvx.IoCProvider.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
+            IDialogsHelper dialogsHelper = Mvx.IoCProvider.Resolve<IDialogsHelper>();
+            Mvx.IoCProvider.RegisterSingleton(typeof(IValidationHelper), new ValidationHelper(dialogsHelper));
+
+            IUserRepository userRepository = Mvx.IoCProvider.Resolve<IUserRepository>();
+            Mvx.IoCProvider.RegisterSingleton(typeof(IUserStorageHelper), new UserStorageHelper(userRepository));
+
+            IPermissionsHelper permissionsHelper = Mvx.IoCProvider.Resolve<IPermissionsHelper>();
+            IPhotoCaptureHelper photoCaptureHelper = Mvx.IoCProvider.Resolve<IPhotoCaptureHelper>();
+            IEncryptionHelper encryptionHelper = Mvx.IoCProvider.Resolve<IEncryptionHelper>();
+            var photoEditHelper = new PhotoEditHelper(permissionsHelper, photoCaptureHelper, encryptionHelper);
+            Mvx.IoCProvider.RegisterSingleton(typeof(IPhotoEditHelper), photoEditHelper);
 
             RegisterCustomAppStart<AppStart>();
         }

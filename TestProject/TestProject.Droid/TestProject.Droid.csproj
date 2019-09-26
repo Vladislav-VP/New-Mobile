@@ -79,8 +79,6 @@
     <Compile Include="Helpers\Interfaces\IBitmapConvertionHelper.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="MvxBinds\SwipeRefreshLayoutIsRefreshingTargetBinding.cs" />
-    <Compile Include="Providers\ContextProvider.cs" />
-    <Compile Include="Providers\Interfaces\IContextProvider.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setup.cs" />

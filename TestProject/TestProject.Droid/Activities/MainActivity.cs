@@ -29,11 +29,11 @@ namespace TestProject.Droid.Activities
         Name = "testProject.droid.activities.MainActivity")]
     public class MainActivity : MvxAppCompatActivity<MainViewModel>
     {
-        private readonly IActivityReplaceHelper _activityStorageHelper;
+        private readonly IActivityReplaceHelper _activityReplaceHelper;
 
         public MainActivity()
         {
-            _activityStorageHelper = Mvx.IoCProvider.Resolve<IActivityReplaceHelper>();
+            _activityReplaceHelper = Mvx.IoCProvider.Resolve<IActivityReplaceHelper>();
         }
 
         public DrawerLayout DrawerLayout { get; set; }
@@ -81,7 +81,7 @@ namespace TestProject.Droid.Activities
         {
             base.OnCreate(bundle);
 
-            _activityStorageHelper.ReplaceActivity(this);
+            _activityReplaceHelper.ReplaceActivity(this);
 
 
             UserDialogs.Init(this);

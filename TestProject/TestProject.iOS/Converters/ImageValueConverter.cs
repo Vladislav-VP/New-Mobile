@@ -14,18 +14,23 @@ namespace TestProject.iOS.Converters
     {
         private static readonly MvxInMemoryImageValueConverter _converter;
 
+        private readonly IEncryptionHelper _encryptionHelper;
+
         static ImageValueConverter()
         {
             _converter = new MvxInMemoryImageValueConverter();
+        }
+
+        public ImageValueConverter(IEncryptionHelper encryptionHelper)
+        {
+            _encryptionHelper = encryptionHelper;
         }
 
         protected override UIImage Convert(string encryptedImage, Type targetType, object parameter, CultureInfo culture)
         {
             if (encryptedImage != null)
             {
-                IEncryptionHelper encryptionHelper = Mvx.IoCProvider.Resolve<IEncryptionHelper>();
-
-                byte[] decryptedBytes = encryptionHelper.DecryptBase64String(encryptedImage);
+                byte[] decryptedBytes = _encryptionHelper.DecryptBase64String(encryptedImage);
 
                 UIImage image = (UIImage)_converter.Convert(decryptedBytes, targetType, parameter, culture);
 

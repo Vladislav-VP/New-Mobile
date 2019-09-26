@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs" Version="7.0.4" />
-    <PackageReference Include="MvvmCross" Version="6.4.0" />
     <PackageReference Include="sqlite-net-pcl" Version="1.5.231" />
     <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
     <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.5" />

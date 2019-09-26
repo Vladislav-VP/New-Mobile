@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 
-using MvvmCross;
 using Plugin.Media.Abstractions;
 using Plugin.Permissions.Abstractions;
 
@@ -18,11 +17,12 @@ namespace TestProject.Services.Helpers
 
         private readonly IEncryptionHelper _encryptionHelper;
 
-        public PhotoEditHelper()
+        public PhotoEditHelper(IPermissionsHelper permissionsHelper, 
+            IPhotoCaptureHelper photoCaptureHelper, IEncryptionHelper encryptionHelper)
         {
-            _permissionsHelper = Mvx.IoCProvider.Resolve<IPermissionsHelper>();
-            _photoCaptureHelper = Mvx.IoCProvider.Resolve<IPhotoCaptureHelper>();
-            _encryptionHelper = Mvx.IoCProvider.Resolve<IEncryptionHelper>();
+            _permissionsHelper = permissionsHelper;
+            _photoCaptureHelper = photoCaptureHelper;
+            _encryptionHelper = encryptionHelper;
         }
 
         public async Task<string> ReplacePhoto(EditPhotoDialogResult result)

@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 
-using MvvmCross;
 using Xamarin.Essentials;
 
 using TestProject.Entities;
@@ -12,6 +11,13 @@ namespace TestProject.Services.Helpers
     public class UserStorageHelper : IUserStorageHelper
     {
         private static readonly string _credentialsKey = "current_user";
+
+        private readonly IUserRepository _userRepository;
+
+        public UserStorageHelper(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
 
         public async Task Save(int id)
         {
@@ -27,8 +33,7 @@ namespace TestProject.Services.Helpers
             }
 
             int id = int.Parse(key);
-            IUserRepository userRepository = Mvx.IoCProvider.Resolve<IUserRepository>();
-            User user = await userRepository.Find(id);
+            User user = await _userRepository.Find(id);
             return user;
         }
 

@@ -7,6 +7,7 @@ using MvvmCross.Plugin.Json;
 
 using TestProject.Core;
 using TestProject.iOS.Converters;
+using TestProject.Services.Helpers.Interfaces;
 
 namespace TestProject.iOS
 {
@@ -33,7 +34,8 @@ namespace TestProject.iOS
         {
             base.FillValueConverters(registry);
 
-            registry.AddOrOverwrite("ImageValue", new ImageValueConverter());
+            IEncryptionHelper encryptionHelper = Mvx.IoCProvider.Resolve<IEncryptionHelper>();
+            registry.AddOrOverwrite("ImageValue", new ImageValueConverter(encryptionHelper));
         }
     }
 }

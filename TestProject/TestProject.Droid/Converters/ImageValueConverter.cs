@@ -1,33 +1,38 @@
 ﻿using System;
 using System.Globalization;
 
-using Android.Content;
 using Android.Graphics;
-using MvvmCross;
 using MvvmCross.Converters;
+using Plugin.CurrentActivity;
 
 using TestProject.Droid.Helpers.Interfaces;
-using TestProject.Droid.Providers.Interfaces;
 
 namespace TestProject.Droid.Converters
 {
     public class ImageValueConverter : MvxValueConverter<string, Bitmap>
     {
+        private readonly IBitmapConvertionHelper _bitmapConvertionHelper;
+
+        public ImageValueConverter(IBitmapConvertionHelper bitmapConvertionHelper)
+        {
+            _bitmapConvertionHelper = bitmapConvertionHelper;
+        }
+
         protected override Bitmap Convert(string encodedImage, Type targetType, object parameter, CultureInfo culture)
         {
             if (!string.IsNullOrEmpty(encodedImage))
             {
-                IBitmapConvertionHelper bitmapConvertionHelper = Mvx.IoCProvider.Resolve<IBitmapConvertionHelper>();
-
-                Bitmap bitmap = bitmapConvertionHelper.DecryptBitmap(encodedImage);
+                Bitmap bitmap = _bitmapConvertionHelper.DecryptBitmap(encodedImage);
 
                 return bitmap;
             }
 
-            IContextProvider contextProvider = Mvx.IoCProvider.Resolve<IContextProvider>();
-            Context context = contextProvider.Context;
+            Android.Content.Res.Resources resources = CrossCurrentActivity
+                .Current
+                .Activity
+                .Resources;
 
-            Bitmap placeholder = BitmapFactory.DecodeResource(context.Resources, Resource.Mipmap.profile);
+            Bitmap placeholder = BitmapFactory.DecodeResource(resources, Resource.Mipmap.profile);
 
             return placeholder;
         }

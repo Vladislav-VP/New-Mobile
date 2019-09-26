@@ -1,2 +1,4 @@
-1) Corrected profile photo changing.
-2) Moved error messages to resources.
+1) Injected objects into constructors where possible.
+2) Removed MvvmCross package form TestProject.Services.
+3) Modifyied ImageValueConverter, after removed ContextProvider from TestProject.Droid.
+4) Changed validation attributes for user password, removed PasswordAttribute.

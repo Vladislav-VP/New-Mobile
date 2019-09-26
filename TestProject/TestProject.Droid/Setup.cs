@@ -38,7 +38,9 @@ namespace TestProject.Droid
         protected override void FillValueConverters(IMvxValueConverterRegistry registry)
         {
             base.FillValueConverters(registry);
-            registry.AddOrOverwrite("ImageValue", new ImageValueConverter());
+
+            IBitmapConvertionHelper bitmapConvertionHelper = Mvx.IoCProvider.Resolve<IBitmapConvertionHelper>();
+            registry.AddOrOverwrite("ImageValue", new ImageValueConverter(bitmapConvertionHelper));
         }
 
         protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)

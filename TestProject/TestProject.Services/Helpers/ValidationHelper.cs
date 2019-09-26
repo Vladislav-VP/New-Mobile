@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-using MvvmCross;
-
 using TestProject.Services.Helpers.Interfaces;
 
 namespace TestProject.Services.Helpers
@@ -13,9 +11,9 @@ namespace TestProject.Services.Helpers
     {
         private readonly IDialogsHelper _dialogsHelper;
 
-        public ValidationHelper()
+        public ValidationHelper(IDialogsHelper dialogsHelper)
         {
-            _dialogsHelper = Mvx.IoCProvider.Resolve<IDialogsHelper>();
+            _dialogsHelper = dialogsHelper;
         }
 
         public bool IsObjectValid<T>(T obj, string propertyName = null)
