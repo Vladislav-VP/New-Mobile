@@ -49,13 +49,12 @@ namespace TestProject.Core.ViewModels
             }
         }
 
-        private string _encryptedProfilePhoto;
         public string EncryptedProfilePhoto
         {
-            get => _encryptedProfilePhoto;
+            get => _currentUser.EncryptedProfilePhoto;
             set
             {
-                _encryptedProfilePhoto = value;
+                _currentUser.EncryptedProfilePhoto = value;
                 RaisePropertyChanged(() => EncryptedProfilePhoto);
             }
         }
@@ -119,14 +118,12 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            string newEncryptedProfilePhoto = await _photoEditHelper.ReplacePhoto(result);
-            if (newEncryptedProfilePhoto == null && result != EditPhotoDialogResult.DeletePicture)
+            EncryptedProfilePhoto = await _photoEditHelper.ReplacePhoto(result);
+            if (EncryptedProfilePhoto == null && result != EditPhotoDialogResult.DeletePicture)
             {
                 return;
             }
 
-            _currentUser.EncryptedProfilePhoto = newEncryptedProfilePhoto;
-            EncryptedProfilePhoto = newEncryptedProfilePhoto;
             await _userRepository.Update(_currentUser);
         }
 

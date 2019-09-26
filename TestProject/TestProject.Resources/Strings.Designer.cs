@@ -160,11 +160,38 @@ namespace TestProject.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name can not be empty!.
+        ///   Looks up a localized string similar to Password can not be empty!.
+        /// </summary>
+        public static string EmptyPasswordMessage {
+            get {
+                return ResourceManager.GetString("EmptyPasswordMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task description can not be empty!.
+        /// </summary>
+        public static string EmptyTodoItemDescriptionMessage {
+            get {
+                return ResourceManager.GetString("EmptyTodoItemDescriptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task name can not be empty!.
         /// </summary>
         public static string EmptyTodoItemNameMessage {
             get {
                 return ResourceManager.GetString("EmptyTodoItemNameMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username can not be empty!.
+        /// </summary>
+        public static string EmptyUserNameMessage {
+            get {
+                return ResourceManager.GetString("EmptyUserNameMessage", resourceCulture);
             }
         }
         

@@ -133,7 +133,7 @@
     <value>Delete</value>
   </data>
   <data name="EmptyTodoItemNameMessage" xml:space="preserve">
-    <value>Name can not be empty!</value>
+    <value>Task name can not be empty!</value>
   </data>
   <data name="IncorrectCurrentPasswordMessage" xml:space="preserve">
     <value>Incorrect current password!</value>
@@ -277,5 +277,14 @@ not shorter than</value>
   <data name="PasswordTipLabel" xml:space="preserve">
     <value>(can contain letters, digits and lower underlines,
 not shorter than {ValidationConstants.MinPasswordLength} characters)</value>
+  </data>
+  <data name="EmptyPasswordMessage" xml:space="preserve">
+    <value>Password can not be empty!</value>
+  </data>
+  <data name="EmptyTodoItemDescriptionMessage" xml:space="preserve">
+    <value>Task description can not be empty!</value>
+  </data>
+  <data name="EmptyUserNameMessage" xml:space="preserve">
+    <value>Username can not be empty!</value>
   </data>
 </root>
