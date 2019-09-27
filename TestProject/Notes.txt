@@ -1,4 +1,3 @@
-1) Injected objects into constructors where possible.
-2) Removed MvvmCross package form TestProject.Services.
-3) Modifyied ImageValueConverter, after removed ContextProvider from TestProject.Droid.
-4) Changed validation attributes for user password, removed PasswordAttribute.
+1) Cleaned TestProject.Entities, removed odd classes.
+2) Moved registration, login and editing password logic to separate services.
+3) Removed GoBack method duplication from viewmodels.

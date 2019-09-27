@@ -3,8 +3,10 @@ using MvvmCross;
 using MvvmCross.IoC;
 using MvvmCross.ViewModels;
 
+using TestProject.Services;
 using TestProject.Services.Helpers;
 using TestProject.Services.Helpers.Interfaces;
+using TestProject.Services.Interfaces;
 using TestProject.Services.Repositories;
 using TestProject.Services.Repositories.Interfaces;
 
@@ -39,6 +41,17 @@ namespace TestProject.Core
             IEncryptionHelper encryptionHelper = Mvx.IoCProvider.Resolve<IEncryptionHelper>();
             var photoEditHelper = new PhotoEditHelper(permissionsHelper, photoCaptureHelper, encryptionHelper);
             Mvx.IoCProvider.RegisterSingleton(typeof(IPhotoEditHelper), photoEditHelper);
+
+            IValidationHelper validationHelper = Mvx.IoCProvider.Resolve<IValidationHelper>();
+            IUserStorageHelper storage = Mvx.IoCProvider.Resolve<IUserStorageHelper>();
+            var registrationService = new RegistrationService(validationHelper, dialogsHelper, userRepository, storage);
+            Mvx.IoCProvider.RegisterSingleton(typeof(IRegistrationService), registrationService);
+
+            var loginService = new LoginService(userRepository, storage, dialogsHelper);
+            Mvx.IoCProvider.RegisterSingleton(typeof(ILoginService), loginService);
+
+            var editPasswordService = new EditPasswordService(userRepository, validationHelper);
+            Mvx.IoCProvider.RegisterSingleton(typeof(IEditPasswordService), editPasswordService);
 
             RegisterCustomAppStart<AppStart>();
         }

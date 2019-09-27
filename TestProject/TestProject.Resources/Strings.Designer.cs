@@ -214,11 +214,11 @@ namespace TestProject.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Incorrect current password!.
+        ///   Looks up a localized string similar to Incorrect old password!.
         /// </summary>
-        public static string IncorrectCurrentPasswordMessage {
+        public static string IncorrectOldPasswordMessage {
             get {
-                return ResourceManager.GetString("IncorrectCurrentPasswordMessage", resourceCulture);
+                return ResourceManager.GetString("IncorrectOldPasswordMessage", resourceCulture);
             }
         }
         

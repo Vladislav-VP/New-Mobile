@@ -4,28 +4,19 @@ using MvvmCross.Commands;
 using MvvmCross.Navigation;
 
 using TestProject.Entities;
-using TestProject.Resources;
-using TestProject.Services.Helpers.Interfaces;
-using TestProject.Services.Repositories.Interfaces;
+using TestProject.Services.DataHandleResults;
+using TestProject.Services.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
     public class RegistrationViewModel : BaseViewModel
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRegistrationService _registrationService;
 
-        private readonly IValidationHelper _validationHelper;
-
-        private readonly IDialogsHelper _dialogsHelper;
-
-        public RegistrationViewModel(IMvxNavigationService navigationService, IUserRepository userRepository, 
-            IUserStorageHelper storage, IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
-            : base(navigationService, storage)
+        public RegistrationViewModel(IMvxNavigationService navigationService, IRegistrationService registrationService)
+            : base(navigationService)
         {
-            _userRepository = userRepository;
-            _validationHelper = validationHelper;
-            _dialogsHelper = dialogsHelper;
-
+            _registrationService = registrationService;
             RegisterUserCommand = new MvxAsyncCommand(RegisterUser);
         }
 
@@ -53,45 +44,17 @@ namespace TestProject.Core.ViewModels
 
         public IMvxAsyncCommand RegisterUserCommand { get; private set; }
 
-        protected async Task<bool> IsDataValid()
-        {
-            User user = new User { Name = UserName, Password = Password };
-
-            bool isUserDataValid = _validationHelper.IsObjectValid(user, nameof(user.Name))
-                && _validationHelper.IsObjectValid(user, nameof(user.Password));
-            if (!isUserDataValid)
-            {
-                return false;
-            }
-
-            user.Name = user.Name.Trim();
-            User retrievedUser = await _userRepository.GetUser(user.Name);
-            if (retrievedUser != null)
-            {
-                _dialogsHelper.DisplayAlertMessage(Strings.UserAlreadyExistsMessage);
-                return false;
-            }
-
-            return true;
-        }
-
         private async Task RegisterUser()
         {
-            bool isUserValid = await IsDataValid();
-            if (!isUserValid)
+            var user = new User { Name = UserName, Password = Password };
+            var result = new RegistrationResult { Data = user };
+            await _registrationService.RegisterUser(result);
+
+            if (result.IsSucceded)
             {
-                return;
-            }
-
-            await AddUser();
-            await _navigationService.Navigate<MainViewModel>();
+                await _navigationService.Navigate<MainViewModel>();
+            }            
         }
 
-        private async Task AddUser()
-        {
-            User user = new User { Name = UserName, Password = Password };
-            await _userRepository.Insert(user);
-            await _storage.Save(user.Id);
-        }
     }
 }

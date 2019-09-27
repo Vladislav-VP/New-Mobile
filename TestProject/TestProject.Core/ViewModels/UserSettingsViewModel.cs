@@ -4,7 +4,6 @@ using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 
-using TestProject.Core.Enums;
 using TestProject.Core.ViewModelResults;
 using TestProject.Entities;
 using TestProject.Resources;
@@ -67,28 +66,6 @@ namespace TestProject.Core.ViewModels
         public void Prepare(User parameter)
         {
             User = parameter;
-        }
-
-        protected override async Task GoBack()
-        {
-            if (!IsStateChanged)
-            {
-                await _navigationService.Close<UpdateResult<User>>(this, result: null);
-                return;
-            }
-
-            DialogResult result = await _navigationService
-                .Navigate<CancelDialogViewModel, DialogResult>();
-
-            await Task.Delay(600);
-
-            if (result == DialogResult.Yes)
-            {
-                await HandleEntity();
-                return;
-            }
-
-            await HandleDialogResult(result);
         }
 
         protected override async Task<bool> IsDataValid()

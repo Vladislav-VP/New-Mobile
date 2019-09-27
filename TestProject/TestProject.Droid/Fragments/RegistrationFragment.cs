@@ -6,7 +6,6 @@ using MvvmCross.Platforms.Android.Presenters.Attributes;
 
 using TestProject.Core.ViewModels;
 using TestProject.Resources;
-using TestProject.ValidationConfigurations;
 
 namespace TestProject.Droid.Fragments
 {

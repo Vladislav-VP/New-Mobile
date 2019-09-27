@@ -46,6 +46,29 @@ namespace TestProject.Core.ViewModels
         // TODO: Think about better name.
         protected abstract Task HandleEntity();
 
+        protected async override Task GoBack()
+        {
+            if (!IsStateChanged)
+            {
+                await _navigationService.Close(this, result: null);
+                return;
+            }
+
+            DialogResult result = await _navigationService
+                .Navigate<CancelDialogViewModel, DialogResult>();
+            // TODO: Replace magic number 600 with the constant?
+            await Task.Delay(600);
+
+            if (result == DialogResult.Yes)
+            {
+                await HandleEntity();
+                return;
+            }
+
+            await HandleDialogResult(result);
+        }
+
+
         protected virtual CreationResult<TEntity> GetCreationResult<TEntity>(TEntity entity)
         {
             var creationResult = new CreationResult<TEntity>

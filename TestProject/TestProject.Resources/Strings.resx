@@ -135,8 +135,8 @@
   <data name="EmptyTodoItemNameMessage" xml:space="preserve">
     <value>Task name can not be empty!</value>
   </data>
-  <data name="IncorrectCurrentPasswordMessage" xml:space="preserve">
-    <value>Incorrect current password!</value>
+  <data name="IncorrectOldPasswordMessage" xml:space="preserve">
+    <value>Incorrect old password!</value>
   </data>
   <data name="InvalidPasswordFormatMessage" xml:space="preserve">
     <value>Invalid format of password!</value>

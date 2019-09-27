@@ -4,26 +4,19 @@ using MvvmCross.Commands;
 using MvvmCross.Navigation;
 
 using TestProject.Entities;
-using TestProject.Resources;
-using TestProject.Services.Helpers.Interfaces;
-using TestProject.Services.Repositories.Interfaces;
+using TestProject.Services.DataHandleResults;
+using TestProject.Services.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-        private readonly IUserRepository _userRepository;
-
-        private readonly IDialogsHelper _dialogsHelper;
-
-        private User _currentUser;
-
-        public LoginViewModel(IMvxNavigationService navigationService, IUserRepository userRepository,
-            IUserStorageHelper storage, IDialogsHelper dialogsHelper)
-            : base(navigationService, storage)
+        private readonly ILoginService _loginService;
+        
+        public LoginViewModel(IMvxNavigationService navigationService, ILoginService loginService)
+            : base(navigationService)
         {
-            _userRepository = userRepository;
-            _dialogsHelper = dialogsHelper;
+            _loginService = loginService;
 
             LoginCommand = new MvxAsyncCommand(Login);
             GoToRegistrationCommand = new MvxAsyncCommand(GoToRegistration);
@@ -53,25 +46,18 @@ namespace TestProject.Core.ViewModels
 
         public IMvxAsyncCommand LoginCommand { get; private set; }
         
-        public IMvxAsyncCommand GoToRegistrationCommand { get; private set; }
-        
-        protected async Task<bool> IsDataValid()
-        {
-            _currentUser = await _userRepository.GetUser(UserName, Password);
-            return _currentUser != null;
-        }
+        public IMvxAsyncCommand GoToRegistrationCommand { get; private set; }        
 
         private async Task Login()
         {
-            bool isUserDataValid = await IsDataValid();
-            if (!isUserDataValid)
-            {
-                _dialogsHelper.DisplayAlertMessage(Strings.LoginErrorMessage);
-                return;
-            }
+            var user = new User { Name = UserName, Password = Password };
+            var result = new LoginResult { Data = user };
+            await _loginService.Login(result);
 
-            await _storage.Save(_currentUser.Id);
-            await _navigationService.Navigate<MainViewModel>();
+            if (result.IsSucceded)
+            {
+                await _navigationService.Navigate<MainViewModel>();
+            }            
         }
 
         private async Task GoToRegistration()
