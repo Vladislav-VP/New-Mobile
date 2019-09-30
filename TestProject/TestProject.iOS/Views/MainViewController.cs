@@ -3,7 +3,6 @@ using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using UIKit;
 
 using TestProject.Core.ViewModels;
-using TestProject.iOS.Extensions;
 
 namespace TestProject.iOS.Views
 {
@@ -21,12 +20,13 @@ namespace TestProject.iOS.Views
             }
         }
 
-        public override async void ViewWillAppear(bool animated)
+        public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
             if (!IsStarted)
             {
-                await ViewModel.StartTabViewModels();
+                ViewModel.ShowMenuCommand?.Execute(null);
+                ViewModel.ShowTodoItemListCommand?.Execute(null);
                 SelectedIndex = 1;
                 foreach (UITabBarItem tab in TabBar.Items)
                 {

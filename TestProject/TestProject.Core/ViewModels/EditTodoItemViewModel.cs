@@ -12,9 +12,11 @@ using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
-    public class EditTodoItemViewModel : TodoItemViewModel, IMvxViewModel<TodoItem, DeletionResult<TodoItem>>
+    public class EditTodoItemViewModel : TodoItemViewModel, IMvxViewModel<TodoItem, ViewModelResult<TodoItem>>,
+        IMvxViewModel<TodoItem, DeletionResult<TodoItem>>, IMvxViewModel<TodoItem, UpdateResult<TodoItem>>
     {
-        private TodoItem _unmodifiedTodoItem;
+        private int _todoItemId;
+        private int _userId;
 
         public EditTodoItemViewModel(IMvxNavigationService navigationService,  IDialogsHelper dialogsHelper,
             IValidationHelper validationHelper, ITodoItemRepository todoItemRepository)
@@ -28,41 +30,15 @@ namespace TestProject.Core.ViewModels
 
         public IMvxAsyncCommand DeleteTodoItemCommand { get; private set; }
 
-        protected override bool IsStateChanged
-        {
-            get
-            {
-                return Description != TodoItem.Description 
-                    || IsDone != TodoItem.IsDone;
-            }
-        }
-
         public void Prepare(TodoItem parameter)
         {
-            TodoItem = parameter;
+            _todoItemId = parameter.Id;
+            Name = parameter.Name;
+            Description = parameter.Description;
+            IsDone = parameter.IsDone;
+            _userId = parameter.UserId;
         }
-
-        public async override Task Initialize()
-        {
-            await base.Initialize();
-
-            Name = TodoItem.Name;
-            Description = TodoItem.Description;
-            IsDone = TodoItem.IsDone;
-
-            _unmodifiedTodoItem = new TodoItem
-            {
-                Description = Description,
-                IsDone = IsDone
-            };
-        }
-
-        private void ChangeTodoItem()
-        {
-            TodoItem.Description = Description;
-            TodoItem.IsDone = IsDone;
-        }
-
+        
         private async Task DeleteTodoItem()
         {
             bool isToDelete = await _dialogsHelper.IsConfirmed(Strings.DeleteMessageDialog);
@@ -72,25 +48,35 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            await _todoItemRepository.Delete(TodoItem);
+            TodoItem todoItem = await _todoItemRepository.Find(_todoItemId);
 
-            DeletionResult<TodoItem> deletionResult = GetDeletionResult(TodoItem);
+            await _todoItemRepository.Delete<TodoItem>(_todoItemId);
+
+            DeletionResult<TodoItem> deletionResult = GetDeletionResult(todoItem);
+
             await _navigationService.Close(this, deletionResult);
         }
 
         protected override async Task HandleEntity()
         {
-            ChangeTodoItem();
-            bool isTodoItemValid = await IsDataValid();
+            var todoItem = new TodoItem
+            {
+                Id = _todoItemId,
+                Name = Name,
+                Description = Description,
+                IsDone = IsDone,
+                UserId = _userId
+            };
+
+            bool isTodoItemValid = _validationHelper.IsObjectValid(todoItem);
             if (!isTodoItemValid)
             {
-                TodoItem.Description = _unmodifiedTodoItem.Description;
-                TodoItem.IsDone = _unmodifiedTodoItem.IsDone;
                 return;
             }
 
-            await _todoItemRepository.Update(TodoItem);
-            await _navigationService.Close<DeletionResult<TodoItem>>(this, result: null);
+            await _todoItemRepository.Update(todoItem);
+            UpdateResult<TodoItem> updateResult = GetUpdateResult(todoItem);
+            await _navigationService.Close(this, updateResult);
         }
     }
 }

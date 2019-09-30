@@ -29,6 +29,7 @@ namespace TestProject.iOS
             });
             UINavigationBar.Appearance.Translucent = false;
             UINavigationBar.Appearance.TintColor = UIColor.White;
+            UINavigationBar.Appearance.BarTintColor = AppColors.MainInterfaceBlue.ToNativeColor();
 
             UITabBar.Appearance.BackgroundColor = UIColor.Blue;
             UITabBarItem.Appearance.SetTitleTextAttributes(new UITextAttributes()

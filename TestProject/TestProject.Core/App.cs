@@ -53,6 +53,9 @@ namespace TestProject.Core
             var editPasswordService = new EditPasswordService(userRepository, validationHelper);
             Mvx.IoCProvider.RegisterSingleton(typeof(IEditPasswordService), editPasswordService);
 
+            var editUsernameService = new EditUsernameService(validationHelper, userRepository, dialogsHelper);
+            Mvx.IoCProvider.RegisterSingleton(typeof(IEditUsernameService), editUsernameService);
+
             RegisterCustomAppStart<AppStart>();
         }
     }

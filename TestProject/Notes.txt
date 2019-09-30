@@ -1,3 +1,4 @@
-1) Cleaned TestProject.Entities, removed odd classes.
-2) Moved registration, login and editing password logic to separate services.
-3) Removed GoBack method duplication from viewmodels.
+1) Removed extensions from TestProject.iOS.
+2) Removed global objects from TodoItemViewModel and UserSettingsViewModel.
+3) Removed method IsDataValid from viewmodels.
+4) Fixed UI bugs in iOS applications (navigation bar backcolor).

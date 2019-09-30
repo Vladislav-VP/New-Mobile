@@ -1,8 +1,6 @@
 ﻿using System.Threading.Tasks;
-
 using MvvmCross.Navigation;
 
-using TestProject.Entities;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Repositories.Interfaces;
 
@@ -12,26 +10,18 @@ namespace TestProject.Core.ViewModels
     {
         protected readonly ITodoItemRepository _todoItemRepository;
 
+        protected readonly IValidationHelper _validationHelper;
+
         public TodoItemViewModel(IMvxNavigationService navigationService, IValidationHelper validationHelper,
             ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
             : this(navigationService, null, validationHelper, todoItemRepository, dialogsHelper) { }
 
         public TodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage,
             IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
-            : base(navigationService, storage, dialogsHelper, validationHelper)
+            : base(navigationService, storage, dialogsHelper)
         {
+            _validationHelper = validationHelper;
             _todoItemRepository = todoItemRepository;
-        }
-
-        protected TodoItem _todoItem;
-        public TodoItem TodoItem
-        {
-            get => _todoItem;
-            set
-            {
-                _todoItem = value;
-                RaisePropertyChanged(() => TodoItem);
-            }
         }
 
         private string _name;
@@ -42,6 +32,7 @@ namespace TestProject.Core.ViewModels
             {
                 _name = value;
                 RaisePropertyChanged(() => Name);
+                IsStateChanged = true;
             }
         }
 
@@ -53,6 +44,7 @@ namespace TestProject.Core.ViewModels
             {
                 _description = value;
                 RaisePropertyChanged(() => Description);
+                IsStateChanged = true;
             }
         }
 
@@ -64,19 +56,15 @@ namespace TestProject.Core.ViewModels
             {
                 _isDone = value;
                 RaisePropertyChanged(() => IsDone);
+                IsStateChanged = true;
             }
         }
 
-        protected override async Task<bool> IsDataValid()
+        public override Task Initialize()
         {
-            var todoItem = new TodoItem { Name = Name, Description = Description, IsDone = IsDone };
-            bool isTodoItemValid = _validationHelper.IsObjectValid(todoItem);
-            if (!isTodoItemValid)
-            {
-                return false;
-            }
+            IsStateChanged = false;
 
-            return true;
+            return base.Initialize();
         }
     }
 }

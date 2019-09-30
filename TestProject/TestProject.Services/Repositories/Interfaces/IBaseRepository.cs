@@ -11,7 +11,7 @@ namespace TestProject.Services.Repositories.Interfaces
 
         Task Update(T obj);
 
-        Task Delete(T obj);
+        Task Delete<T>(object pk);
 
         Task<T> Find(object pk);
 

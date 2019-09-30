@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 
-using TestProject.Core.ViewModelResults;
 using TestProject.Entities;
 using TestProject.Resources;
 using TestProject.Services.Enums;
@@ -32,7 +31,7 @@ namespace TestProject.Core.ViewModels
             _photoEditHelper = photoEditHelper;
 
             LogoutCommand = new MvxAsyncCommand(Logout);
-            ShowSettingsCommand = new MvxAsyncCommand<User>(ShowSettings);
+            ShowSettingsCommand = new MvxAsyncCommand(ShowSettings);
             ShowTodoItemListCommand = 
                 new MvxAsyncCommand(async () => await _navigationService.Navigate<TodoItemListViewModel>());
             EditProfilePhotoCommand = new MvxAsyncCommand(EditProfilePhoto);
@@ -61,7 +60,7 @@ namespace TestProject.Core.ViewModels
 
         public IMvxAsyncCommand LogoutCommand { get; private set; }
 
-        public IMvxAsyncCommand<User> ShowSettingsCommand { get; private set; }
+        public IMvxAsyncCommand ShowSettingsCommand { get; private set; }
 
         public IMvxAsyncCommand ShowTodoItemListCommand { get; private set; }
 
@@ -118,20 +117,20 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            EncryptedProfilePhoto = await _photoEditHelper.ReplacePhoto(result);
-            if (EncryptedProfilePhoto == null && result != EditPhotoDialogResult.DeletePicture)
+            if(result == EditPhotoDialogResult.DeletePicture)
             {
+                EncryptedProfilePhoto = null;
                 return;
             }
+
+            EncryptedProfilePhoto = await _photoEditHelper.ReplacePhoto(result);
 
             await _userRepository.Update(_currentUser);
         }
 
-        private async Task ShowSettings(User user)
+        private async Task ShowSettings()
         {
-            user = _currentUser;
-            UpdateResult<User> updateResult = await _navigationService
-                .Navigate<UserSettingsViewModel, User, UpdateResult<User>>(user);
+            await _navigationService.Navigate<UserSettingsViewModel>();
         }
     }
 }

@@ -11,24 +11,19 @@ using TestProject.Services.Helpers.Interfaces;
 namespace TestProject.Core.ViewModels
 {
     public abstract class BaseEntityViewModel : BaseViewModel, IMvxViewModelResult<ViewModelResult<BaseEntity>>
-    {
-        protected readonly IValidationHelper _validationHelper;
-        
+    {        
         protected readonly IDialogsHelper _dialogsHelper;
 
-        public BaseEntityViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage,
-            IDialogsHelper dialogsHelper, IValidationHelper validationHelper)
+        public BaseEntityViewModel(IMvxNavigationService navigationService,
+            IUserStorageHelper storage, IDialogsHelper dialogsHelper)
             : base(navigationService, storage)
         {
             _dialogsHelper = dialogsHelper;
-            _validationHelper = validationHelper;
         }
         
         public TaskCompletionSource<object> CloseCompletionSource { get; set; }
 
-        protected abstract bool IsStateChanged { get; }
-
-        protected abstract Task<bool> IsDataValid();
+        protected bool IsStateChanged { get; set; }
 
         protected async Task HandleDialogResult(DialogResult result)
         {

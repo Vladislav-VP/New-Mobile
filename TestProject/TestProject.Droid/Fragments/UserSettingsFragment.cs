@@ -39,11 +39,6 @@ namespace TestProject.Droid.Fragments
         {
             base.OnPause();
 
-            if (ViewModel.User == null)
-            {
-                return;
-            }
-
             ((MainActivity)Activity).ViewModel.ShowMenuCommand?.Execute(null);
             ((MainActivity)Activity).ViewModel.ShowTodoItemListCommand?.Execute(null);
         }

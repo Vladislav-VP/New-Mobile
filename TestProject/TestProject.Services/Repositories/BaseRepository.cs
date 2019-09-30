@@ -61,12 +61,12 @@ namespace TestProject.Services.Repositories
             return await connection.Table<T>().ToListAsync();
         }
 
-        public async Task Delete(T obj)
+        public async Task Delete<T>(object pk)
         {
             var connection = new SQLiteAsyncConnection(_path);
             try
             {
-                await connection.DeleteAsync(obj);
+                await connection.DeleteAsync<T>(pk);
             }
             finally
             {

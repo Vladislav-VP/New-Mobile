@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using MvvmCross.Commands;
@@ -61,24 +62,34 @@ namespace TestProject.Core.ViewModels
 
         private async Task SelectTodoItem(TodoItem selectedTodoItem)
         {
-            DeletionResult<TodoItem> deletionResult = await _navigationService
-                .Navigate<EditTodoItemViewModel, TodoItem, DeletionResult<TodoItem>>(selectedTodoItem);
+            Func<TodoItem, Task<ViewModelResult<TodoItem>>> todoItemHandleResult;
+            todoItemHandleResult = async (todoItem) => await _navigationService
+                 .Navigate<EditTodoItemViewModel, TodoItem, ViewModelResult<TodoItem>>(todoItem);
 
-            if (deletionResult != null && deletionResult.IsSucceded)
+            ViewModelResult<TodoItem> result = await todoItemHandleResult(selectedTodoItem);
+            
+            if (result is DeletionResult<TodoItem> && result.IsSucceded)
             {
+                TodoItems.Remove(selectedTodoItem);
+                return;
+            }
+
+            if(result is UpdateResult<TodoItem> && result.IsSucceded)
+            {
+                int index = TodoItems.IndexOf(selectedTodoItem);
+                TodoItems.Insert(index, result.Entity);
                 TodoItems.Remove(selectedTodoItem);
             }
         }
 
         private async Task AddTodoItem(TodoItem todoItem)
         {
-            todoItem = new TodoItem();
-            CreationResult<TodoItem> creationResult = await _navigationService
-                .Navigate<CreateTodoItemViewModel, TodoItem, CreationResult<TodoItem>>(todoItem);
+            ViewModelResult<TodoItem> creationResult = await _navigationService
+                .Navigate<CreateTodoItemViewModel, CreationResult<TodoItem>>();
             
             if (creationResult != null && creationResult.IsSucceded)
             {
-                TodoItems.Add(todoItem);
+                TodoItems.Add(creationResult.Entity);
             }
         }
 

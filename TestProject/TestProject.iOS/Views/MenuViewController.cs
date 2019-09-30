@@ -3,8 +3,6 @@ using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
-using MvvmCross.Plugin.Color.Platforms.Ios;
-using UIKit;
 
 using TestProject.Core.ViewModels;
 using TestProject.iOS.CustomControls;
@@ -56,7 +54,6 @@ namespace TestProject.iOS.Views
         public void InitializeAllControls()
         {
             Title = Strings.MenuLabel;
-            UINavigationBar.Appearance.BarTintColor = AppColors.MainInterfaceBlue.ToNativeColor();
             NavigationItem.SetHidesBackButton(false, false);
 
             _logoutOption = new MenuOptionView();

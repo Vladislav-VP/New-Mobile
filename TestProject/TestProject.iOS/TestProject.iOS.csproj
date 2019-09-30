@@ -80,7 +80,6 @@
     <Compile Include="Converters\ImageValueConverter.cs" />
     <Compile Include="CustomControls\BaseView.cs" />
     <Compile Include="CustomControls\MenuOptionView.cs" />
-    <Compile Include="Extensions\MainViewModelExtensions.cs" />
     <Compile Include="Helpers\Interfaces\IControlsSettingHelper.cs" />
     <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="Views\CancelDialogViewController.cs" />
@@ -141,11 +140,11 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Cirrious.FluentLayout">

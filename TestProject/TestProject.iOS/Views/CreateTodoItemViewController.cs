@@ -40,7 +40,7 @@ namespace TestProject.iOS.Views
             Title = Strings.NewTask;
 
             NavigationItem.LeftBarButtonItem = new UIBarButtonItem();
-            NavigationItem.LeftBarButtonItem.Title = Strings.TaskListLabel;
+            NavigationItem.LeftBarButtonItem.Title = Strings.BackLabel;
             NavigationItem.LeftBarButtonItem.TintColor = UIColor.White;
             NavigationItem.LeftBarButtonItem.Clicked += CancelClicked;
 
