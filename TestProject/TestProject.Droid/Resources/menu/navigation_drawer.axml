@@ -5,14 +5,10 @@
   <group
     android:id="@+id/nav_items">
     <item 
-      android:id="@+id/nav_settings"
-      android:textSize="30dp"
-      android:title="@string/label_settings"/>
+      android:id="@+id/nav_settings"/>
     <item
-    android:id="@+id/nav_todoItems"
-    android:title="@string/label_task_list"/>
+    android:id="@+id/nav_todoItems"/>
     <item
-      android:id="@+id/nav_logout"
-      android:title="@string/label_logout"/>
+      android:id="@+id/nav_logout"/>
   </group>
 </menu>

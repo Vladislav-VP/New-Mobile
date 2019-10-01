@@ -2,11 +2,14 @@
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using MvvmCross;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 
 using TestProject.Core.ViewModels;
 using TestProject.Droid.Activities;
+using TestProject.Entities;
 using TestProject.Resources;
+using TestProject.Services.Helpers.Interfaces;
 
 namespace TestProject.Droid.Fragments
 {
@@ -35,12 +38,17 @@ namespace TestProject.Droid.Fragments
             return view;
         }
 
-        public override void OnPause()
+        public override async void OnPause()
         {
             base.OnPause();
 
-            ((MainActivity)Activity).ViewModel.ShowMenuCommand?.Execute(null);
-            ((MainActivity)Activity).ViewModel.ShowTodoItemListCommand?.Execute(null);
+            IUserStorageHelper storage = Mvx.IoCProvider.Resolve<IUserStorageHelper>();
+            User user = await storage.Get();
+            if (user != null)
+            {
+                ((MainActivity)Activity)?.ViewModel.ShowMenuCommand?.Execute(null);
+                ((MainActivity)Activity)?.ViewModel.ShowTodoItemListCommand?.Execute(null);
+            }            
         }
 
 

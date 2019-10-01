@@ -1,4 +1,3 @@
-1) Removed extensions from TestProject.iOS.
-2) Removed global objects from TodoItemViewModel and UserSettingsViewModel.
-3) Removed method IsDataValid from viewmodels.
-4) Fixed UI bugs in iOS applications (navigation bar backcolor).
+1) Replaced enum EditPhotoDialogResult in photo editing logic with delegates.
+2) Cleaned up resource dictionary.
+3) Fixed bugs in Android application.

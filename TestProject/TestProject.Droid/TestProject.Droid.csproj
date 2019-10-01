@@ -185,6 +185,10 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TestProject.Configurations\TestProject.Configurations.csproj">
+      <Project>{8FFCC028-D0C9-49CB-A1AB-B67BA8EBB93B}</Project>
+      <Name>TestProject.Configurations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestProject.Core\TestProject.Core.csproj">
       <Project>{14e2f76c-3e0a-45ba-a18c-ea6cca174451}</Project>
       <Name>TestProject.Core</Name>
@@ -196,6 +200,10 @@
     <ProjectReference Include="..\TestProject.Resources\TestProject.Resources.csproj">
       <Project>{5fe8dd55-88d5-4091-b1af-06294b995b2d}</Project>
       <Name>TestProject.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestProject.Services\TestProject.Services.csproj">
+      <Project>{3ee4ad2c-44c3-43b6-986d-513f8fe25d88}</Project>
+      <Name>TestProject.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

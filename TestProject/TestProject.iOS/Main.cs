@@ -6,7 +6,17 @@ namespace TestProject.iOS
     {
         static void Main(string[] args)
         {
-            UIApplication.Main(args, null, nameof(AppDelegate));
+            try
+            {
+                UIApplication.Main(args, null, nameof(AppDelegate));
+            }
+            catch (System.Exception ex)
+            {
+
+                throw;
+            }
+
+            
         }
     }
 }

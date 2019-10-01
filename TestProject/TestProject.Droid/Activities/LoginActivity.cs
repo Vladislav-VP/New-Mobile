@@ -21,11 +21,11 @@ namespace TestProject.Droid.Activities
         Name = "testProject.droid.activities.LoginActivity")]
     public class LoginActivity : MvxAppCompatActivity<LoginViewModel>
     {
-        private readonly IActivityReplaceHelper _activityStorageHelper;
+        private readonly IActivityReplaceHelper _activityReplaceHelper;
 
-        public LoginActivity()
+        public LoginActivity() : base()
         {
-            _activityStorageHelper = Mvx.IoCProvider.Resolve<IActivityReplaceHelper>();
+            _activityReplaceHelper = Mvx.IoCProvider.Resolve<IActivityReplaceHelper>();
         }
         
         protected override void OnCreate(Bundle bundle)
@@ -37,7 +37,7 @@ namespace TestProject.Droid.Activities
             SetContentView(Resource.Layout.LoginActivity);
             Window.AddFlags(WindowManagerFlags.Fullscreen);
 
-            _activityStorageHelper.ReplaceActivity(this);
+            _activityReplaceHelper.ReplaceActivity(this);
 
             TextView tvUsername = FindViewById<TextView>(Resource.Id.tvUsername);
             TextView tvPassword = FindViewById<TextView>(Resource.Id.tvPassword);

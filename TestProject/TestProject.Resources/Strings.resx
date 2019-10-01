@@ -162,13 +162,6 @@
   <data name="PasswordsNotCorrespondMessage" xml:space="preserve">
     <value>Passwords do not correspond!</value>
   </data>
-  <data name="PasswordTipFirst" xml:space="preserve">
-    <value>(can contain letters, digits and lower underlines,
-not shorter than</value>
-  </data>
-  <data name="PasswordTipSecond" xml:space="preserve">
-    <value>characters)</value>
-  </data>
   <data name="ProfilePhotoTitle" xml:space="preserve">
     <value>Profile photo</value>
   </data>
@@ -276,7 +269,7 @@ not shorter than</value>
   </data>
   <data name="PasswordTipLabel" xml:space="preserve">
     <value>(can contain letters, digits and lower underlines,
-not shorter than {ValidationConstants.MinPasswordLength} characters)</value>
+not shorter than {0} characters)</value>
   </data>
   <data name="EmptyPasswordMessage" xml:space="preserve">
     <value>Password can not be empty!</value>

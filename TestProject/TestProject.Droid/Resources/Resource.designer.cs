@@ -8530,6 +8530,9 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f090100
 			public const int list_separator_thickness = 2131296512;
 			
+			// aapt resource value: 0x7f090110
+			public const int listitem_textView_width = 2131296528;
+			
 			// aapt resource value: 0x7f0900f3
 			public const int main_button_text_size = 2131296499;
 			
@@ -8796,6 +8799,9 @@ namespace TestProject.Droid
 			
 			// aapt resource value: 0x7f0900f0
 			public const int title_text_size = 2131296496;
+			
+			// aapt resource value: 0x7f09010f
+			public const int todo_item_checkBox_size = 2131296527;
 			
 			// aapt resource value: 0x7f0900f7
 			public const int todo_item_description_edit_text_max_height = 2131296503;
@@ -11352,11 +11358,11 @@ namespace TestProject.Droid
 			// aapt resource value: 0x7f0b0043
 			public const int character_counter_pattern = 2131427395;
 			
-			// aapt resource value: 0x7f0b0056
-			public const int drawer_close = 2131427414;
+			// aapt resource value: 0x7f0b0053
+			public const int drawer_close = 2131427411;
 			
-			// aapt resource value: 0x7f0b0055
-			public const int drawer_open = 2131427413;
+			// aapt resource value: 0x7f0b0052
+			public const int drawer_open = 2131427410;
 			
 			// aapt resource value: 0x7f0b004e
 			public const int fab_scroll_shrink_grow_autohide_behavior = 2131427406;
@@ -11369,15 +11375,6 @@ namespace TestProject.Droid
 			
 			// aapt resource value: 0x7f0b0046
 			public const int hide_bottom_view_on_scroll_behavior = 2131427398;
-			
-			// aapt resource value: 0x7f0b0054
-			public const int label_logout = 2131427412;
-			
-			// aapt resource value: 0x7f0b0053
-			public const int label_settings = 2131427411;
-			
-			// aapt resource value: 0x7f0b0052
-			public const int label_task_list = 2131427410;
 			
 			// aapt resource value: 0x7f0b0050
 			public const int library_name = 2131427408;

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Plugin.Media.Abstractions;
 using Plugin.Permissions.Abstractions;
 
-using TestProject.Services.Enums;
 using TestProject.Services.Helpers.Interfaces;
 
 namespace TestProject.Services.Helpers
@@ -25,15 +24,36 @@ namespace TestProject.Services.Helpers
             _encryptionHelper = encryptionHelper;
         }
 
-        public async Task<string> ReplacePhoto(EditPhotoDialogResult result)
+        public async Task<string> PickPhoto()
         {
-            MediaFile file = await GetMediaFile(result);
+            MediaFile file = await _photoCaptureHelper.PickPhoto();
+            string encryptedImageString = EncryptImage(file);
 
-            if (file == null)
+            return encryptedImageString;
+        }
+
+        public async Task<string> TakePhoto()
+        {
+            string encryptedImageString = null;
+
+            bool isCameraPermitted = await _permissionsHelper.IsPermissionGranted(Permission.Camera);
+            bool isStoragePermitted = await _permissionsHelper.IsPermissionGranted(Permission.Storage);
+            if (isCameraPermitted && isStoragePermitted)
             {
-                return null;
+                MediaFile file = await _photoCaptureHelper.TakePhoto();
+                encryptedImageString = EncryptImage(file);
             }
 
+            return encryptedImageString;
+        }
+
+        public async Task<string> DeletePhoto()
+        {
+            return null;
+        }
+
+        private string EncryptImage(MediaFile file)
+        {
             string encryptedImageString = null;
             using (Stream imageStream = file.GetStream())
             {
@@ -42,30 +62,5 @@ namespace TestProject.Services.Helpers
 
             return encryptedImageString;
         }
-        
-        private async Task<MediaFile> GetMediaFile(EditPhotoDialogResult result)
-        {
-            MediaFile file = null;
-
-            switch (result)
-            {
-                case EditPhotoDialogResult.ChooseFromGallery:
-                    file = await _photoCaptureHelper.PickPhoto();
-                    break;
-                case EditPhotoDialogResult.TakePicture:                    
-                    bool isCameraPermitted = await _permissionsHelper.IsPermissionGranted(Permission.Camera);
-                    bool isStoragePermitted = await _permissionsHelper.IsPermissionGranted(Permission.Storage);
-                    if (isCameraPermitted && isStoragePermitted)
-                    {
-                        file = await _photoCaptureHelper.TakePhoto();
-                    }
-                    break;
-                default:
-                    break;
-            }
-
-            return file;
-        }
-
     }
 }

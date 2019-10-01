@@ -5,12 +5,14 @@ using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Views;
+using Android.Widget;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 
 using TestProject.Core.ViewModels;
 using TestProject.Droid.Activities;
+using TestProject.Resources;
 
 namespace TestProject.Droid.Fragments
 {
@@ -40,6 +42,10 @@ namespace TestProject.Droid.Fragments
 
             IMenuItem logoutMenuItem = navigationView.Menu.FindItem(Resource.Id.nav_logout);
             logoutMenuItem.SetCheckable(false);
+
+            SignMenuItem(settingsMenuItem, Strings.SettingsLabel);
+            SignMenuItem(todoItemsMenuItem, Strings.TaskListLabel);
+            SignMenuItem(logoutMenuItem, Strings.LogoutLabel);
 
             return view;
         }
@@ -75,6 +81,22 @@ namespace TestProject.Droid.Fragments
                     ViewModel.LogoutCommand.Execute(null);
                     break;
             }
+        }
+
+        private void SignMenuItem(IMenuItem menuItem, string title)
+        {
+            menuItem.SetActionView(new TextView(Context));
+            ((TextView)menuItem.ActionView).Text = title;
+
+            int textSize = 20;
+            ((TextView)menuItem.ActionView).TextSize = textSize;
+
+            int left = 0;
+            int top = 20;
+            int right = 0;
+            int bottom = 0;
+
+            menuItem.ActionView.SetPadding(left, top, right, bottom);
         }
     }
 }

@@ -4,6 +4,7 @@ using Android.Views;
 using Android.Widget;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 
+using TestProject.Configurations;
 using TestProject.Core.ViewModels;
 using TestProject.Resources;
 
@@ -29,9 +30,7 @@ namespace TestProject.Droid.Fragments
             tvPassword.Text = Strings.PasswordTextViewLabel;
             tvRegistration.Text = Strings.RegistrationTitle;
             btRegister.Text = Strings.RegistrationButtonLabel;
-
-            string tvPasswordTipLabel = Strings.PasswordTipLabel;
-            tvPasswordTip.Text = tvPasswordTipLabel;
+            tvPasswordTip.Text = string.Format(Strings.PasswordTipLabel, Constants.MinPasswordLength);
 
             return view;
         }
