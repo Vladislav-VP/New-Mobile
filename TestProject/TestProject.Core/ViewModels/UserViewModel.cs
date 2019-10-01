@@ -2,6 +2,7 @@
 
 using TestProject.Entities;
 using TestProject.Services.Helpers.Interfaces;
+using TestProject.Services.Interfaces;
 using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
@@ -13,8 +14,8 @@ namespace TestProject.Core.ViewModels
         protected readonly IStorageHelper<User> _userStorage;        
 
         public UserViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage,
-            IUserRepository userRepository, IDialogsHelper dialogsHelper)
-            : base(navigationService, storage, dialogsHelper)
+            ICancelDialogService cancelDialogService, IUserRepository userRepository, IDialogsHelper dialogsHelper)
+            : base(navigationService, storage, dialogsHelper, cancelDialogService)
         {
             _userRepository = userRepository;
         }

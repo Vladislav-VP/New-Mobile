@@ -3,10 +3,11 @@
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 
-using TestProject.Core.Enums;
 using TestProject.Core.ViewModelResults;
 using TestProject.Entities;
+using TestProject.Services.Enums;
 using TestProject.Services.Helpers.Interfaces;
+using TestProject.Services.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
@@ -14,31 +15,20 @@ namespace TestProject.Core.ViewModels
     {        
         protected readonly IDialogsHelper _dialogsHelper;
 
+        protected readonly ICancelDialogService _cancelDialogService;
+
         public BaseEntityViewModel(IMvxNavigationService navigationService,
-            IUserStorageHelper storage, IDialogsHelper dialogsHelper)
+            IUserStorageHelper storage, IDialogsHelper dialogsHelper, ICancelDialogService cancelDialogService)
             : base(navigationService, storage)
         {
             _dialogsHelper = dialogsHelper;
+            _cancelDialogService = cancelDialogService;
         }
         
         public TaskCompletionSource<object> CloseCompletionSource { get; set; }
 
-        protected bool IsStateChanged { get; set; }
+        protected abstract bool IsStateChanged { get; }
 
-        protected async Task HandleDialogResult(DialogResult result)
-        {
-            if (result == DialogResult.Cancel)
-            {
-                return;
-            }
-            if (result == DialogResult.No)
-            {
-                await _navigationService.Close(this, result: null);
-                return;
-            }
-        }
-
-        // TODO: Think about better name.
         protected abstract Task HandleEntity();
 
         protected async override Task GoBack()
@@ -51,8 +41,7 @@ namespace TestProject.Core.ViewModels
 
             DialogResult result = await _navigationService
                 .Navigate<CancelDialogViewModel, DialogResult>();
-            // TODO: Replace magic number 600 with the constant?
-            await Task.Delay(600);
+            await _cancelDialogService.GoBack();
 
             if (result == DialogResult.Yes)
             {
@@ -63,38 +52,17 @@ namespace TestProject.Core.ViewModels
             await HandleDialogResult(result);
         }
 
-
-        protected virtual CreationResult<TEntity> GetCreationResult<TEntity>(TEntity entity)
+        private async Task HandleDialogResult(DialogResult result)
         {
-            var creationResult = new CreationResult<TEntity>
+            if (result == DialogResult.Cancel)
             {
-                Entity = entity,
-                IsSucceded = true
-            };
-
-            return creationResult;
-        }
-
-        protected virtual UpdateResult<TEntity> GetUpdateResult<TEntity>(TEntity entity)
-        {
-            var updateResult = new UpdateResult<TEntity>
+                return;
+            }
+            if (result == DialogResult.No)
             {
-                Entity = entity,
-                IsSucceded = true
-            };
-
-            return updateResult;
-        }
-
-        protected virtual DeletionResult<TEntity> GetDeletionResult<TEntity>(TEntity entity)
-        {
-            var deletionResult = new DeletionResult<TEntity>
-            {
-                Entity = entity,
-                IsSucceded = true
-            };
-
-            return deletionResult;
+                await _navigationService.Close(this, result: null);
+                return;
+            }
         }
     }
 }

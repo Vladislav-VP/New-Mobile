@@ -16,17 +16,25 @@ namespace TestProject.Core.ViewModels
     {
         private User _user;
 
-        private readonly IEditUsernameService _editUsernameService;
+        private readonly IUserService _userService;
 
         public UserSettingsViewModel(IMvxNavigationService navigationService, IUserRepository userRepository,
-            IEditUsernameService editUsernameService, IUserStorageHelper userStorage, IDialogsHelper dialogsHelper)
-            : base(navigationService, userStorage, userRepository, dialogsHelper)
+            ICancelDialogService cancelDialogService, IUserService userService, IUserStorageHelper storage, IDialogsHelper dialogsHelper)
+            : base(navigationService, storage, cancelDialogService, userRepository, dialogsHelper)
         {
-            _editUsernameService = editUsernameService;
+            _userService = userService;
 
             UpdateUserCommand = new MvxAsyncCommand(HandleEntity);
             DeleteUserCommand = new MvxAsyncCommand(DeleteUser);
             EditPasswordCommand = new MvxAsyncCommand(EditPassword);
+        }
+
+        protected override bool IsStateChanged
+        {
+            get
+            {
+                return _user.Name != UserName;
+            }
         }
 
         public string UserName
@@ -36,7 +44,6 @@ namespace TestProject.Core.ViewModels
             {
                 _user.Name = value;
                 RaisePropertyChanged(() => UserName);
-                IsStateChanged = true;
             }
         }
 
@@ -52,14 +59,13 @@ namespace TestProject.Core.ViewModels
 
             _user = await _storage.Get();
             UserName = _user.Name;
-            IsStateChanged = false;
         }
 
         protected override async Task HandleEntity()
         {
-            var result = new EditUsernameResult { Data = _user };
-            await _editUsernameService.EditUsername(result);
 
+            EditUsernameResult result = await _userService.EditUsername(_user, UserName);
+            
             if (result.IsSucceded)
             {
                 _dialogsHelper.DisplayToastMessage(Strings.UserNameChangedMessage);
@@ -69,9 +75,9 @@ namespace TestProject.Core.ViewModels
 
         private async Task DeleteUser()
         {
-            bool isToDelete = await _dialogsHelper.IsConfirmed(Strings.DeleteMessageDialog);
+            bool isConfirmedToDelete = await _dialogsHelper.IsConfirmed(Strings.DeleteMessageDialog);
 
-            if (!isToDelete)
+            if (!isConfirmedToDelete)
             {
                 return;
             }

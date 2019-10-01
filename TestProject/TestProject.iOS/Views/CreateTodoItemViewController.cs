@@ -1,24 +1,19 @@
 ﻿using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
-using MvvmCross.Platforms.Ios.Views;
 using UIKit;
 
 using TestProject.Core.ViewModels;
-using TestProject.iOS.Helpers.Interfaces;
 using TestProject.Resources;
 
 namespace TestProject.iOS.Views
 {
     [MvxChildPresentation]
-    public partial class CreateTodoItemViewController : MvxViewController<CreateTodoItemViewModel>, IControlsSettingHelper
+    public partial class CreateTodoItemViewController : BaseEntityViewController
     {
-        public override void ViewDidLoad()
+        public new CreateTodoItemViewModel ViewModel
         {
-            base.ViewDidLoad();
-
-            InitializeAllControls();
-
-            CreateBindings();
+            get => (CreateTodoItemViewModel)base.ViewModel;
+            set => base.ViewModel = value;
         }
 
         public override void ViewWillAppear(bool animated)
@@ -35,14 +30,11 @@ namespace TestProject.iOS.Views
             ParentViewController.TabBarItem.Enabled = true;
         }
 
-        public void InitializeAllControls()
+        public override void InitializeAllControls()
         {
-            Title = Strings.NewTask;
+            base.InitializeAllControls();
 
-            NavigationItem.LeftBarButtonItem = new UIBarButtonItem();
-            NavigationItem.LeftBarButtonItem.Title = Strings.BackLabel;
-            NavigationItem.LeftBarButtonItem.TintColor = UIColor.White;
-            NavigationItem.LeftBarButtonItem.Clicked += CancelClicked;
+            Title = Strings.NewTask;
 
             lbTaskName.Text = Strings.TodoItemNameTextViewLabel;
             lbDescription.Text = Strings.TodoItemDescriptionTextViewLabel;
@@ -51,7 +43,7 @@ namespace TestProject.iOS.Views
             btSave.SetTitle(Strings.SaveButtonLabel, UIControlState.Normal);
         }
 
-        public void CreateBindings()
+        public override void CreateBindings()
         {
             var set = this.CreateBindingSet<CreateTodoItemViewController, CreateTodoItemViewModel>();
 
@@ -61,11 +53,6 @@ namespace TestProject.iOS.Views
             set.Bind(btSave).To(vm => vm.CreateTodoItemCommand);
 
             set.Apply();
-        }
-
-        private void CancelClicked(object sender, System.EventArgs e)
-        {
-            ViewModel.GoBackCommand?.Execute(null);
         }
     }
 }

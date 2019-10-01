@@ -44,17 +44,9 @@ namespace TestProject.Core
 
             IValidationHelper validationHelper = Mvx.IoCProvider.Resolve<IValidationHelper>();
             IUserStorageHelper storage = Mvx.IoCProvider.Resolve<IUserStorageHelper>();
-            var registrationService = new RegistrationService(validationHelper, dialogsHelper, userRepository, storage);
-            Mvx.IoCProvider.RegisterSingleton(typeof(IRegistrationService), registrationService);
 
-            var loginService = new LoginService(userRepository, storage, dialogsHelper);
-            Mvx.IoCProvider.RegisterSingleton(typeof(ILoginService), loginService);
-
-            var editPasswordService = new EditPasswordService(userRepository, validationHelper);
-            Mvx.IoCProvider.RegisterSingleton(typeof(IEditPasswordService), editPasswordService);
-
-            var editUsernameService = new EditUsernameService(validationHelper, userRepository, dialogsHelper);
-            Mvx.IoCProvider.RegisterSingleton(typeof(IEditUsernameService), editUsernameService);
+            var userService = new UserService(validationHelper, dialogsHelper, userRepository, storage);
+            Mvx.IoCProvider.RegisterSingleton(typeof(IUserService), userService);
 
             RegisterCustomAppStart<AppStart>();
         }

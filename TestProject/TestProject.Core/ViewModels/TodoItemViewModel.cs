@@ -2,27 +2,41 @@
 
 using MvvmCross.Navigation;
 
+using TestProject.Entities;
 using TestProject.Services.Helpers.Interfaces;
+using TestProject.Services.Interfaces;
 using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
     public abstract class TodoItemViewModel : BaseEntityViewModel
     {
+        private TodoItem _unmodifiedTodoItem;
+
         protected readonly ITodoItemRepository _todoItemRepository;
 
         protected readonly IValidationHelper _validationHelper;
 
         public TodoItemViewModel(IMvxNavigationService navigationService, IValidationHelper validationHelper,
-            ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
-            : this(navigationService, null, validationHelper, todoItemRepository, dialogsHelper) { }
+            ICancelDialogService cancelDialogService, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
+            : this(navigationService, null, cancelDialogService, validationHelper, todoItemRepository, dialogsHelper) { }
 
-        public TodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage,
+        public TodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, ICancelDialogService cancelDialogService,
             IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
-            : base(navigationService, storage, dialogsHelper)
+            : base(navigationService, storage, dialogsHelper, cancelDialogService)
         {
             _validationHelper = validationHelper;
             _todoItemRepository = todoItemRepository;
+        }
+
+        protected override bool IsStateChanged
+        {
+            get
+            {
+                return Name != _unmodifiedTodoItem.Name
+                    || Description != _unmodifiedTodoItem.Description
+                    || IsDone != _unmodifiedTodoItem.IsDone;
+            }
         }
 
         private string _name;
@@ -33,7 +47,6 @@ namespace TestProject.Core.ViewModels
             {
                 _name = value;
                 RaisePropertyChanged(() => Name);
-                IsStateChanged = true;
             }
         }
 
@@ -45,7 +58,6 @@ namespace TestProject.Core.ViewModels
             {
                 _description = value;
                 RaisePropertyChanged(() => Description);
-                IsStateChanged = true;
             }
         }
 
@@ -57,13 +69,17 @@ namespace TestProject.Core.ViewModels
             {
                 _isDone = value;
                 RaisePropertyChanged(() => IsDone);
-                IsStateChanged = true;
             }
         }
 
         public override Task Initialize()
         {
-            IsStateChanged = false;
+            _unmodifiedTodoItem = new TodoItem
+            {
+                Name = Name,
+                Description = Description,
+                IsDone = IsDone
+            };
 
             return base.Initialize();
         }

@@ -47,11 +47,6 @@ namespace TestProject.Services.Helpers
             return encryptedImageString;
         }
 
-        public async Task<string> DeletePhoto()
-        {
-            return null;
-        }
-
         private string EncryptImage(MediaFile file)
         {
             string encryptedImageString = null;

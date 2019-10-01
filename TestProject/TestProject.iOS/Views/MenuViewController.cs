@@ -2,29 +2,18 @@
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
-using MvvmCross.Platforms.Ios.Views;
 
 using TestProject.Core.ViewModels;
 using TestProject.iOS.CustomControls;
-using TestProject.iOS.Helpers.Interfaces;
 using TestProject.Resources;
 
 namespace TestProject.iOS.Views
 {
     [MvxTabPresentation(WrapInNavigationController = true, TabName = "Menu", TabIconName = "ic_menu")]
-    public partial class MenuViewController : MvxViewController<MenuViewModel>, IControlsSettingHelper
+    public partial class MenuViewController : BaseViewController<MenuViewModel>
     {
         private MenuOptionView _logoutOption;
         private MenuOptionView _settingsOption;
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            InitializeAllControls();
-
-            CreateBindings();
-        }
 
         public override async void ViewWillAppear(bool animated)
         {
@@ -33,7 +22,7 @@ namespace TestProject.iOS.Views
             await ViewModel.Initialize();
         }
 
-        public void CreateBindings()
+        public override void CreateBindings()
         {
             var set = this.CreateBindingSet<MenuViewController, MenuViewModel>();
 
@@ -51,7 +40,7 @@ namespace TestProject.iOS.Views
             set.Apply();
         }
 
-        public void InitializeAllControls()
+        public override void InitializeAllControls()
         {
             Title = Strings.MenuLabel;
             NavigationItem.SetHidesBackButton(false, false);

@@ -11,12 +11,12 @@ namespace TestProject.Core.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-        private readonly ILoginService _loginService;
+        private readonly IUserService _userService;
         
-        public LoginViewModel(IMvxNavigationService navigationService, ILoginService loginService)
+        public LoginViewModel(IMvxNavigationService navigationService, IUserService userService)
             : base(navigationService)
         {
-            _loginService = loginService;
+            _userService = userService;
 
             LoginCommand = new MvxAsyncCommand(Login);
             GoToRegistrationCommand = new MvxAsyncCommand(GoToRegistration);
@@ -51,8 +51,8 @@ namespace TestProject.Core.ViewModels
         private async Task Login()
         {
             var user = new User { Name = UserName, Password = Password };
-            var result = new LoginResult { Data = user };
-            await _loginService.Login(result);
+
+            LoginResult result = await _userService.Login(user);
 
             if (result.IsSucceded)
             {

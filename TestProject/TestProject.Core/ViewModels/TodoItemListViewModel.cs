@@ -44,9 +44,8 @@ namespace TestProject.Core.ViewModels
         public async override Task Initialize()
         {
             await base.Initialize();
-            User currentUser = await _storage.Get();
 
-            TodoItems = new MvxObservableCollection<TodoItem>(await _todoItemRepository.GetTodoItems(currentUser.Id));
+            TodoItems = new MvxObservableCollection<TodoItem>();
             LoadTodoItemsTask = MvxNotifyTask.Create(LoadTodoItems);
         }
 
@@ -62,12 +61,9 @@ namespace TestProject.Core.ViewModels
 
         private async Task SelectTodoItem(TodoItem selectedTodoItem)
         {
-            Func<TodoItem, Task<ViewModelResult<TodoItem>>> todoItemHandleResult;
-            todoItemHandleResult = async (todoItem) => await _navigationService
-                 .Navigate<EditTodoItemViewModel, TodoItem, ViewModelResult<TodoItem>>(todoItem);
+            ViewModelResult<TodoItem> result = await _navigationService
+                 .Navigate<EditTodoItemViewModel, TodoItem, ViewModelResult<TodoItem>>(selectedTodoItem);
 
-            ViewModelResult<TodoItem> result = await todoItemHandleResult(selectedTodoItem);
-            
             if (result is DeletionResult<TodoItem> && result.IsSucceded)
             {
                 TodoItems.Remove(selectedTodoItem);
@@ -95,12 +91,13 @@ namespace TestProject.Core.ViewModels
 
         private async Task LoadTodoItems()
         {
-            var mockedTodoItems = new List<TodoItem>();
-            mockedTodoItems.AddRange(TodoItems);
             TodoItems.Clear();
-            
-            int delayTime = 500;
-            foreach (TodoItem todoItem in mockedTodoItems)
+
+            User currentUser = await _storage.Get();
+            IEnumerable<TodoItem> retrievedTodoItems = await _todoItemRepository.GetTodoItems(currentUser.Id);
+
+            int delayTime = 300;
+            foreach (TodoItem todoItem in retrievedTodoItems)
             {
                 await Task.Delay(delayTime);
                 TodoItems.Add(todoItem);

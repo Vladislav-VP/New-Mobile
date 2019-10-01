@@ -7,7 +7,5 @@ namespace TestProject.Services.Helpers.Interfaces
         Task<string> PickPhoto();
 
         Task<string> TakePhoto();
-
-        Task<string> DeletePhoto();
     }
 }

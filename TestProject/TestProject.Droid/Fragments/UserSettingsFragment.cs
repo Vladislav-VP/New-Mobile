@@ -44,11 +44,13 @@ namespace TestProject.Droid.Fragments
 
             IUserStorageHelper storage = Mvx.IoCProvider.Resolve<IUserStorageHelper>();
             User user = await storage.Get();
-            if (user != null)
+            if (user == null)
             {
-                ((MainActivity)Activity)?.ViewModel.ShowMenuCommand?.Execute(null);
-                ((MainActivity)Activity)?.ViewModel.ShowTodoItemListCommand?.Execute(null);
-            }            
+                return;                
+            }
+
+            ((MainActivity)Activity)?.ViewModel.ShowMenuCommand?.Execute(null);
+            ((MainActivity)Activity)?.ViewModel.ShowTodoItemListCommand?.Execute(null);
         }
 
 

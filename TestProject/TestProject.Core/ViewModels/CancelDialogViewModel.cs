@@ -4,14 +4,12 @@ using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 
-using TestProject.Core.Enums;
+using TestProject.Services.Enums;
 
 namespace TestProject.Core.ViewModels
 {
     public class CancelDialogViewModel : BaseViewModel, IMvxViewModelResult<DialogResult>
     {
-        private DialogResult _dialogResult = DialogResult.Cancel;
-
         public CancelDialogViewModel(IMvxNavigationService navigationService)
             : base(navigationService)
         {
@@ -30,20 +28,20 @@ namespace TestProject.Core.ViewModels
 
         private async Task Save()
         {
-            _dialogResult = DialogResult.Yes;
-            await _navigationService.Close(this, _dialogResult);
+            DialogResult result = DialogResult.Yes;
+            await _navigationService.Close(this, result);
         }
 
         private async Task DoNotSave()
         {
-            _dialogResult = DialogResult.No;
-            await _navigationService.Close(this, _dialogResult);
+            DialogResult result = DialogResult.No;
+            await _navigationService.Close(this, result);
         }
 
         private async Task Cancel()
         {
-            _dialogResult = DialogResult.Cancel;
-            await _navigationService.Close(this, _dialogResult);
+            DialogResult result = DialogResult.Cancel;
+            await _navigationService.Close(this, result);
         }
     }
 }

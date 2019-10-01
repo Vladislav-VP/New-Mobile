@@ -96,15 +96,22 @@ namespace TestProject.Core.ViewModels
             optionResultPairs.Add(Strings.CancelText, null);
             optionResultPairs.Add(Strings.ChoosePicture, _photoEditHelper.PickPhoto);
             optionResultPairs.Add(Strings.TakePicture, _photoEditHelper.TakePhoto);
-            optionResultPairs.Add(Strings.DeletePicture, _photoEditHelper.DeletePhoto);
+            optionResultPairs.Add(Strings.DeletePicture, null);
 
             string option = await _dialogsHelper.ChooseOption(Strings.ProfilePhotoTitle,
                 Strings.CancelText, Strings.DeletePicture, buttons: buttons);
 
-            if (option != Strings.CancelText)
+            if (option == Strings.CancelText)
             {
-                EncryptedProfilePhoto = await optionResultPairs[option]();
+                return;
             }
+            if (option == Strings.DeletePicture)
+            {
+                EncryptedProfilePhoto = null;
+                return;
+            }
+
+            EncryptedProfilePhoto = await optionResultPairs[option]();
         }
 
         private async Task EditProfilePhoto()

@@ -77,7 +77,7 @@ namespace TestProject.Droid.Activities
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
-        protected override async void OnCreate(Bundle bundle)
+        protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 

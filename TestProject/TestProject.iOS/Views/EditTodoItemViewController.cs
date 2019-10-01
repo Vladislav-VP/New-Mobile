@@ -1,24 +1,19 @@
 ﻿using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
-using MvvmCross.Platforms.Ios.Views;
 using UIKit;
 
 using TestProject.Core.ViewModels;
-using TestProject.iOS.Helpers.Interfaces;
 using TestProject.Resources;
 
 namespace TestProject.iOS.Views
 {
     [MvxChildPresentation]
-    public partial class EditTodoItemViewController : MvxViewController<EditTodoItemViewModel>, IControlsSettingHelper
+    public partial class EditTodoItemViewController : BaseEntityViewController
     {
-        public override void ViewDidLoad()
+        public new EditTodoItemViewModel ViewModel
         {
-            base.ViewDidLoad();
-
-            InitializeAllControls();
-
-            CreateBindings();
+            get => (EditTodoItemViewModel)base.ViewModel;
+            set => base.ViewModel = value;
         }
 
         public override void ViewWillAppear(bool animated)
@@ -35,14 +30,11 @@ namespace TestProject.iOS.Views
             ParentViewController.TabBarItem.Enabled = true;
         }
 
-        public void InitializeAllControls()
+        public override void InitializeAllControls()
         {
-            Title = ViewModel.Name;
+            base.InitializeAllControls();
 
-            NavigationItem.LeftBarButtonItem = new UIBarButtonItem();
-            NavigationItem.LeftBarButtonItem.Title = Strings.BackLabel;
-            NavigationItem.LeftBarButtonItem.TintColor = UIColor.White;
-            NavigationItem.LeftBarButtonItem.Clicked += CancelClicked;
+            Title = ViewModel.Name;
 
             lbTaskName.Text = Strings.TodoItemNameTextViewLabel;
             lbDescription.Text = Strings.TodoItemDescriptionTextViewLabel;
@@ -52,7 +44,7 @@ namespace TestProject.iOS.Views
             btDelete.SetTitle(Strings.DeleteTodoItemButtonLabel, UIControlState.Normal);
         }
 
-        public void CreateBindings()
+        public override void CreateBindings()
         {
             var set = this.CreateBindingSet<EditTodoItemViewController, EditTodoItemViewModel>();
 
@@ -63,11 +55,6 @@ namespace TestProject.iOS.Views
             set.Bind(btDelete).To(vm => vm.DeleteTodoItemCommand);
 
             set.Apply();
-        }
-
-        private void CancelClicked(object sender, System.EventArgs e)
-        {
-            ViewModel.GoBackCommand?.Execute(null);
         }
     }
 }

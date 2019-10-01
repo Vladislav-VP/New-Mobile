@@ -1,24 +1,13 @@
 ﻿using MvvmCross.Binding.BindingContext;
-using MvvmCross.Platforms.Ios.Views;
 using UIKit;
 
 using TestProject.Core.ViewModels;
-using TestProject.iOS.Helpers.Interfaces;
 using TestProject.Resources;
 
 namespace TestProject.iOS.Views
 {
-    public partial class LoginViewController : MvxViewController<LoginViewModel>, IControlsSettingHelper
+    public partial class LoginViewController : BaseViewController<LoginViewModel>
     {
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            InitializeAllControls();
-
-            CreateBindings();
-        }
-
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
@@ -26,7 +15,7 @@ namespace TestProject.iOS.Views
             NavigationController.SetNavigationBarHidden(true, true);
         }
 
-        public void InitializeAllControls()
+        public override void InitializeAllControls()
         {
             if (TabBarController != null)
             {
@@ -43,7 +32,7 @@ namespace TestProject.iOS.Views
             btRegistration.SetTitle(Strings.RegistrationButtonLabel, UIControlState.Normal);
         }
 
-        public void CreateBindings()
+        public override void CreateBindings()
         {
             var set = this.CreateBindingSet<LoginViewController, LoginViewModel>();
             

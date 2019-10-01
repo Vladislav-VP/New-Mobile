@@ -11,12 +11,12 @@ namespace TestProject.Core.ViewModels
 {
     public class RegistrationViewModel : BaseViewModel
     {
-        private readonly IRegistrationService _registrationService;
+        private readonly IUserService _userService;
 
-        public RegistrationViewModel(IMvxNavigationService navigationService, IRegistrationService registrationService)
+        public RegistrationViewModel(IMvxNavigationService navigationService, IUserService userService)
             : base(navigationService)
         {
-            _registrationService = registrationService;
+            _userService = userService;
             RegisterUserCommand = new MvxAsyncCommand(RegisterUser);
         }
 
@@ -47,8 +47,7 @@ namespace TestProject.Core.ViewModels
         private async Task RegisterUser()
         {
             var user = new User { Name = UserName, Password = Password };
-            var result = new RegistrationResult { Data = user };
-            await _registrationService.RegisterUser(result);
+            RegistrationResult result = await _userService.RegisterUser(user);
 
             if (result.IsSucceded)
             {

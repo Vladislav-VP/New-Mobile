@@ -7,7 +7,9 @@ using MvvmCross.Plugin.Json;
 
 using TestProject.Core;
 using TestProject.iOS.Converters;
+using TestProject.iOS.Services;
 using TestProject.Services.Helpers.Interfaces;
+using TestProject.Services.Interfaces;
 
 namespace TestProject.iOS
 {
@@ -18,6 +20,7 @@ namespace TestProject.iOS
             base.InitializeFirstChance();
 
             Mvx.IoCProvider.RegisterType<IMvxJsonConverter, MvxJsonConverter>();
+            Mvx.IoCProvider.RegisterSingleton(typeof(ICancelDialogService), new CancelDialogService());
         }
 
         protected override IMvxIocOptions CreateIocOptions()

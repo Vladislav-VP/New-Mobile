@@ -8,6 +8,7 @@ using TestProject.Core.ViewModelResults;
 using TestProject.Entities;
 using TestProject.Resources;
 using TestProject.Services.Helpers.Interfaces;
+using TestProject.Services.Interfaces;
 using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
@@ -19,8 +20,8 @@ namespace TestProject.Core.ViewModels
         private int _userId;
 
         public EditTodoItemViewModel(IMvxNavigationService navigationService,  IDialogsHelper dialogsHelper,
-            IValidationHelper validationHelper, ITodoItemRepository todoItemRepository)
-            : base(navigationService, validationHelper, todoItemRepository, dialogsHelper)
+            ICancelDialogService cancelDialogService, IValidationHelper validationHelper, ITodoItemRepository todoItemRepository)
+            : base(navigationService, validationHelper, cancelDialogService, todoItemRepository, dialogsHelper)
         {
             UpdateTodoItemCommand = new MvxAsyncCommand(HandleEntity);
             DeleteTodoItemCommand = new MvxAsyncCommand(DeleteTodoItem);
@@ -41,18 +42,19 @@ namespace TestProject.Core.ViewModels
         
         private async Task DeleteTodoItem()
         {
-            bool isToDelete = await _dialogsHelper.IsConfirmed(Strings.DeleteMessageDialog);
+            bool isConfirmedToDelete = await _dialogsHelper.IsConfirmed(Strings.DeleteMessageDialog);
 
-            if (!isToDelete)
+            if (!isConfirmedToDelete)
             {
                 return;
             }
 
-            TodoItem todoItem = await _todoItemRepository.Find(_todoItemId);
-
             await _todoItemRepository.Delete<TodoItem>(_todoItemId);
 
-            DeletionResult<TodoItem> deletionResult = GetDeletionResult(todoItem);
+            var deletionResult = new DeletionResult<TodoItem>
+            {
+                IsSucceded = true
+            };
 
             await _navigationService.Close(this, deletionResult);
         }
@@ -75,7 +77,11 @@ namespace TestProject.Core.ViewModels
             }
 
             await _todoItemRepository.Update(todoItem);
-            UpdateResult<TodoItem> updateResult = GetUpdateResult(todoItem);
+            var updateResult = new UpdateResult<TodoItem>
+            {
+                Entity = todoItem,
+                IsSucceded = true
+            };
             await _navigationService.Close(this, updateResult);
         }
     }

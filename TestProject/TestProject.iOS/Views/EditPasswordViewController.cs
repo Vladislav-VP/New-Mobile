@@ -1,27 +1,16 @@
 ﻿using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
-using MvvmCross.Platforms.Ios.Views;
 using UIKit;
 
 using TestProject.Core.ViewModels;
-using TestProject.iOS.Helpers.Interfaces;
 using TestProject.Resources;
 
 namespace TestProject.iOS.Views
 {
     [MvxModalPresentation(ModalPresentationStyle = UIModalPresentationStyle.OverFullScreen)]
-    public partial class EditPasswordViewController : MvxViewController<EditPasswordViewModel>, IControlsSettingHelper
+    public partial class EditPasswordViewController : BaseViewController<EditPasswordViewModel>
     {        
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            InitializeAllControls();
-
-            CreateBindings();
-        }
-
-        public void InitializeAllControls()
+        public override void InitializeAllControls()
         {
             lbOldPassword.Text = Strings.EnterOldPasswordTipLabel;
             lbNewPassword.Text = Strings.EnterNewPasswordTipLabel;
@@ -35,7 +24,7 @@ namespace TestProject.iOS.Views
             btCancel.SetTitle(Strings.CancelText, UIControlState.Normal);
         }
 
-        public void CreateBindings()
+        public override void CreateBindings()
         {
             var set = this.CreateBindingSet<EditPasswordViewController, EditPasswordViewModel>();
 

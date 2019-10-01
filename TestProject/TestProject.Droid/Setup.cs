@@ -18,6 +18,8 @@ using TestProject.Droid.Converters;
 using TestProject.Droid.Helpers;
 using TestProject.Droid.Helpers.Interfaces;
 using TestProject.Droid.MvxBinds;
+using TestProject.Droid.Services;
+using TestProject.Services.Interfaces;
 
 namespace TestProject.Droid
 {
@@ -64,6 +66,7 @@ namespace TestProject.Droid
 
             Mvx.IoCProvider.RegisterSingleton(typeof(IBitmapConvertionHelper), new BitmapConvertionHelper());
             Mvx.IoCProvider.RegisterSingleton(typeof(IActivityReplaceHelper), new ActivityReplaceHelper());
+            Mvx.IoCProvider.RegisterSingleton(typeof(ICancelDialogService), new CancelDialogService());
 
             return provider;
         }

@@ -80,8 +80,10 @@
     <Compile Include="Converters\ImageValueConverter.cs" />
     <Compile Include="CustomControls\BaseView.cs" />
     <Compile Include="CustomControls\MenuOptionView.cs" />
-    <Compile Include="Helpers\Interfaces\IControlsSettingHelper.cs" />
     <Compile Include="LinkerPleaseInclude.cs" />
+    <Compile Include="Services\CancelDialogService.cs" />
+    <Compile Include="Views\BaseEntityViewController.cs" />
+    <Compile Include="Views\BaseViewController.cs" />
     <Compile Include="Views\CancelDialogViewController.cs" />
     <Compile Include="Views\CancelDialogViewController.designer.cs">
       <DependentUpon>CancelDialogViewController.cs</DependentUpon>

@@ -1,4 +1,4 @@
-﻿namespace TestProject.Core.Enums
+﻿namespace TestProject.Services.Enums
 {
     public enum DialogResult
     {

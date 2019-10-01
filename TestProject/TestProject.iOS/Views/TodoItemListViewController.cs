@@ -7,27 +7,17 @@ using MvvmCross.Platforms.Ios.Views;
 using UIKit;
 
 using TestProject.Core.ViewModels;
-using TestProject.iOS.Helpers.Interfaces;
 using TestProject.iOS.Views.Cells;
 using TestProject.Resources;
 
 namespace TestProject.iOS.Views
 {
     [MvxTabPresentation(WrapInNavigationController = true, TabName = "Tasks", TabIconName = "ic_tasks")]
-    public partial class TodoItemListViewController : MvxViewController<TodoItemListViewModel>, IControlsSettingHelper
+    public partial class TodoItemListViewController : BaseViewController<TodoItemListViewModel>
     {
         private MvxUIRefreshControl _refreshControl;
 
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            InitializeAllControls();
-
-            CreateBindings();
-        }
-
-        public void InitializeAllControls()
+        public override void InitializeAllControls()
         {
             Title = Strings.TaskListLabel;
 
@@ -42,7 +32,7 @@ namespace TestProject.iOS.Views
             tvTodoList.AddSubview(_refreshControl);
         }
 
-        public void CreateBindings()
+        public override void CreateBindings()
         {
             var source = new MvxSimpleTableViewSource(tvTodoList, typeof(TodoItemTableViewCell));
             var bindingMap = new Dictionary<object, string>();

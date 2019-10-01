@@ -1,34 +1,26 @@
 ﻿using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
-using MvvmCross.Platforms.Ios.Views;
 using UIKit;
 
 using TestProject.Core.ViewModels;
-using TestProject.iOS.Helpers.Interfaces;
 using TestProject.Resources;
 
 namespace TestProject.iOS.Views
 {
     [MvxModalPresentation(WrapInNavigationController = true, ModalTransitionStyle = UIModalTransitionStyle.CrossDissolve)]
-    public partial class UserSettingsViewController : MvxViewController<UserSettingsViewModel>, IControlsSettingHelper
+    public partial class UserSettingsViewController : BaseEntityViewController
     {
-        public override void ViewDidLoad()
+        public new UserSettingsViewModel ViewModel
         {
-            base.ViewDidLoad();
-
-            InitializeAllControls();
-
-            CreateBindings();
+            get => (UserSettingsViewModel)base.ViewModel;
+            set => base.ViewModel = value;
         }
 
-        public void InitializeAllControls()
+        public override void InitializeAllControls()
         {
-            Title = Strings.SettingsLabel;
+            base.InitializeAllControls();
 
-            NavigationItem.LeftBarButtonItem = new UIBarButtonItem();
-            NavigationItem.LeftBarButtonItem.Title = Strings.BackLabel;
-            NavigationItem.LeftBarButtonItem.TintColor = UIColor.White;
-            NavigationItem.LeftBarButtonItem.Clicked += CancelClicked;
+            Title = Strings.SettingsLabel;
 
             lbUsername.Text = Strings.UsernameTextViewLabel;
             btChangePassword.SetTitle(Strings.ChangePasswordButtonLabel, UIControlState.Normal);
@@ -36,7 +28,7 @@ namespace TestProject.iOS.Views
             btSaveChanges.SetTitle(Strings.SaveChangesButtonLabel, UIControlState.Normal);
         }
 
-        public void CreateBindings()
+        public override void CreateBindings()
         {
             var set = this.CreateBindingSet<UserSettingsViewController, UserSettingsViewModel>();
 
@@ -47,11 +39,5 @@ namespace TestProject.iOS.Views
 
             set.Apply();
         }
-
-        private void CancelClicked(object sender, System.EventArgs e)
-        {
-            ViewModel.GoBackCommand?.Execute(null);
-        }
-
     }
 }

@@ -13,16 +13,16 @@ namespace TestProject.Core.ViewModels
 {
     public class EditPasswordViewModel : BaseViewModel
     {
-        private readonly IEditPasswordService _editPasswordService;
+        private readonly IUserService _userService;
 
         private readonly IDialogsHelper _dialogsHelper;
 
-        public EditPasswordViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, 
-            IDialogsHelper dialogsHelper, IEditPasswordService editPasswordService)
+        public EditPasswordViewModel(IMvxNavigationService navigationService, 
+            IUserStorageHelper storage, IDialogsHelper dialogsHelper, IUserService userService)
             : base(navigationService, storage)
         {
             _dialogsHelper = dialogsHelper;
-            _editPasswordService = editPasswordService;
+            _userService = userService;
 
             ChangePasswordCommand = new MvxAsyncCommand(ChangePassword);
         }
@@ -62,18 +62,21 @@ namespace TestProject.Core.ViewModels
 
         public IMvxAsyncCommand ChangePasswordCommand { get; private set; }
 
+        public override Task Initialize()
+        {
+            NewPassword = string.Empty;
+            NewPasswordConfirmation = string.Empty;
+
+            return base.Initialize();
+        }
+
         private async Task ChangePassword()
         {
             User currentUser = await _storage.Get();
-            var result = new EditPasswordResult
-            {
-                Data = currentUser,
-                OldPasswordConfirmation = OldPassword,
-                NewPassword = NewPassword,
-                NewPasswordConfirmation = NewPasswordConfirmation
-            };
 
-            await _editPasswordService.ChangePassword(result);
+            EditPasswordResult result = await _userService
+                .ChangePassword(currentUser, OldPassword, NewPassword, NewPasswordConfirmation);
+
             if (result.IsSucceded)
             {
                 await _navigationService.Close(this);

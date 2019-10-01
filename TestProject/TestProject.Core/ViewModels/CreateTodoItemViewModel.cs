@@ -7,25 +7,28 @@ using MvvmCross.ViewModels;
 using TestProject.Core.ViewModelResults;
 using TestProject.Entities;
 using TestProject.Services.Helpers.Interfaces;
+using TestProject.Services.Interfaces;
 using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
     public class CreateTodoItemViewModel : TodoItemViewModel, IMvxViewModelResult<CreationResult<TodoItem>>
     {
-        public CreateTodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, 
+        public CreateTodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, ICancelDialogService cancelDialogService,
             IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
-            : base(navigationService, storage, validationHelper, todoItemRepository, dialogsHelper)
+            : base(navigationService, storage,cancelDialogService, validationHelper, todoItemRepository, dialogsHelper)
         {
             CreateTodoItemCommand = new MvxAsyncCommand(HandleEntity);
         }
         
         public IMvxAsyncCommand CreateTodoItemCommand { get; private set; }
-        public void Prepare(TodoItem parameter)
+
+        public override Task Initialize()
         {
-            Name = parameter.Name;
-            Description = parameter.Description;
-            IsDone = parameter.IsDone;
+            Name = string.Empty;
+            Description = string.Empty;
+
+            return base.Initialize();
         }
 
         protected override async Task HandleEntity()
@@ -46,7 +49,11 @@ namespace TestProject.Core.ViewModels
             }
 
             await _todoItemRepository.Insert(todoItem);
-            CreationResult<TodoItem> creationResult = GetCreationResult(todoItem);
+            var creationResult = new CreationResult<TodoItem>
+            {
+                Entity = todoItem,
+                IsSucceded = true
+            };
             await _navigationService.Close(this, result: creationResult);
         }
     }

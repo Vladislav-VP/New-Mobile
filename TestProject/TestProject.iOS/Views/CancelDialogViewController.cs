@@ -1,27 +1,16 @@
 ﻿using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
-using MvvmCross.Platforms.Ios.Views;
 using UIKit;
 
 using TestProject.Core.ViewModels;
-using TestProject.iOS.Helpers.Interfaces;
 using TestProject.Resources;
 
 namespace TestProject.iOS.Views
 {
     [MvxModalPresentation(ModalPresentationStyle = UIModalPresentationStyle.OverFullScreen)]
-    public partial class CancelDialogViewController : MvxViewController<CancelDialogViewModel>, IControlsSettingHelper
+    public partial class CancelDialogViewController : BaseViewController<CancelDialogViewModel>
     {
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            InitializeAllControls();
-
-            CreateBindings();
-        }
-
-        public void InitializeAllControls()
+        public override void InitializeAllControls()
         {
             lbSaveChanges.Text = Strings.SaveChangesPrompt;
             btYes.SetTitle(Strings.YesButtonLabel, UIControlState.Normal);
@@ -29,7 +18,7 @@ namespace TestProject.iOS.Views
             btCancel.SetTitle(Strings.CancelButtonLabel, UIControlState.Normal);
         }
 
-        public void CreateBindings()
+        public override void CreateBindings()
         {
             var set = this.CreateBindingSet<CancelDialogViewController, CancelDialogViewModel>();
 
