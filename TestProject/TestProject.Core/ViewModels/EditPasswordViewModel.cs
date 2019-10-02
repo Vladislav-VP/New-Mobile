@@ -6,6 +6,7 @@ using MvvmCross.Navigation;
 using TestProject.Entities;
 using TestProject.Resources;
 using TestProject.Services.DataHandleResults;
+using TestProject.Services.Helpers;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Interfaces;
 
@@ -62,19 +63,11 @@ namespace TestProject.Core.ViewModels
 
         public IMvxAsyncCommand ChangePasswordCommand { get; private set; }
 
-        public override Task Initialize()
-        {
-            NewPassword = string.Empty;
-            NewPasswordConfirmation = string.Empty;
-
-            return base.Initialize();
-        }
-
         private async Task ChangePassword()
         {
             User currentUser = await _storage.Get();
 
-            EditPasswordResult result = await _userService
+            DataHandleResult<EditPasswordHelper> result = await _userService
                 .ChangePassword(currentUser, OldPassword, NewPassword, NewPasswordConfirmation);
 
             if (result.IsSucceded)

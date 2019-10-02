@@ -1,6 +1,6 @@
 ﻿namespace TestProject.Services.DataHandleResults
 {
-    public abstract class BaseHandleResult<T>
+    public class DataHandleResult<T>
     {
         public T Data { get; set; }
 

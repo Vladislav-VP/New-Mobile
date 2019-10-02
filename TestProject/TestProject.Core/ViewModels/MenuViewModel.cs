@@ -21,7 +21,7 @@ namespace TestProject.Core.ViewModels
         private readonly IDialogsHelper _dialogsHelper;
 
         private readonly IPhotoEditHelper _photoEditHelper;
-        
+
         public MenuViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage,
             IUserRepository userRepository, IDialogsHelper dialogsHelper, IPhotoEditHelper photoEditHelper)
             : base(navigationService, storage)
@@ -32,7 +32,7 @@ namespace TestProject.Core.ViewModels
 
             LogoutCommand = new MvxAsyncCommand(Logout);
             ShowSettingsCommand = new MvxAsyncCommand(ShowSettings);
-            ShowTodoItemListCommand = 
+            ShowTodoItemListCommand =
                 new MvxAsyncCommand(async () => await _navigationService.Navigate<TodoItemListViewModel>());
             EditProfilePhotoCommand = new MvxAsyncCommand(EditProfilePhoto);
         }
@@ -96,22 +96,15 @@ namespace TestProject.Core.ViewModels
             optionResultPairs.Add(Strings.CancelText, null);
             optionResultPairs.Add(Strings.ChoosePicture, _photoEditHelper.PickPhoto);
             optionResultPairs.Add(Strings.TakePicture, _photoEditHelper.TakePhoto);
-            optionResultPairs.Add(Strings.DeletePicture, null);
+            optionResultPairs.Add(Strings.DeletePicture, _photoEditHelper.DeletePhoto);
 
             string option = await _dialogsHelper.ChooseOption(Strings.ProfilePhotoTitle,
                 Strings.CancelText, Strings.DeletePicture, buttons: buttons);
 
-            if (option == Strings.CancelText)
+            if (option != Strings.CancelText)
             {
-                return;
+                EncryptedProfilePhoto = await optionResultPairs[option]();
             }
-            if (option == Strings.DeletePicture)
-            {
-                EncryptedProfilePhoto = null;
-                return;
-            }
-
-            EncryptedProfilePhoto = await optionResultPairs[option]();
         }
 
         private async Task EditProfilePhoto()

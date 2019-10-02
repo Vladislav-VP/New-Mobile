@@ -96,12 +96,7 @@ namespace TestProject.Core.ViewModels
             User currentUser = await _storage.Get();
             IEnumerable<TodoItem> retrievedTodoItems = await _todoItemRepository.GetTodoItems(currentUser.Id);
 
-            int delayTime = 300;
-            foreach (TodoItem todoItem in retrievedTodoItems)
-            {
-                await Task.Delay(delayTime);
-                TodoItems.Add(todoItem);
-            }
+            TodoItems.AddRange(retrievedTodoItems);
         }
 
         private void RefreshTodoItems()

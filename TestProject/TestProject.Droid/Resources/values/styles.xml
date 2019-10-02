@@ -31,8 +31,10 @@
   <style name="MainButtonStyle">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
-    <item name="android:layout_marginHorizontal">@dimen/compat_button_padding_horizontal_material</item>
-    <item name="android:layout_marginVertical">@dimen/compat_button_padding_horizontal_material</item>
+    <item name="android:layout_marginLeft">@dimen/compat_button_padding_horizontal_material</item>
+    <item name="android:layout_marginRight">@dimen/compat_button_padding_horizontal_material</item>
+    <item name="android:layout_marginTop">@dimen/compat_button_padding_horizontal_material</item>
+    <item name="android:layout_marginBottom">@dimen/compat_button_padding_horizontal_material</item>
     <item name="android:textSize">@dimen/main_button_text_size</item>
     <item name="android:textColor">@android:color/background_dark</item>
     <item name="android:background">@drawable/main_button_shape</item>
@@ -41,7 +43,10 @@
   <style name="LabelStyle">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
-    <item name="android:layout_margin">@dimen/compat_button_padding_vertical_material</item>
+    <item name="android:layout_marginTop">@dimen/compat_button_padding_vertical_material</item>
+    <item name="android:layout_marginBottom">@dimen/compat_button_padding_vertical_material</item>
+    <item name="android:layout_marginLeft">@dimen/compat_button_padding_vertical_material</item>
+    <item name="android:layout_marginRight">@dimen/compat_button_padding_vertical_material</item>
     <item name="android:textSize">@dimen/label_text_size</item>
     <item name="android:textAlignment">viewStart</item>
   </style>
@@ -64,13 +69,18 @@
   <style name="DialogTextStyle">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
-    <item name="android:layout_margin">@dimen/dialog_text_margin</item>
+    <item name="android:layout_marginLeft">@dimen/dialog_text_margin</item>
+    <item name="android:layout_marginRight">@dimen/dialog_text_margin</item>
+    <item name="android:layout_marginTop">@dimen/dialog_text_margin</item>
+    <item name="android:layout_marginBottom">@dimen/dialog_text_margin</item>
     <item name="android:textSize">@dimen/dialog_window_text_size</item>
   </style>
 
   <style name="DialogButtonStyle">
-    <item name="android:layout_marginHorizontal">@dimen/compat_button_padding_horizontal_material</item>
-    <item name="android:layout_marginVertical">@dimen/compat_button_padding_horizontal_material</item>
+    <item name="android:layout_marginLeft">@dimen/compat_button_padding_horizontal_material</item>
+    <item name="android:layout_marginRight">@dimen/compat_button_padding_horizontal_material</item>
+    <item name="android:layout_marginTop">@dimen/compat_button_padding_horizontal_material</item>
+    <item name="android:layout_marginBottom">@dimen/compat_button_padding_horizontal_material</item>
     <item name="android:layout_width">@dimen/dialog_button_width</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:textSize">@dimen/dialog_window_text_size</item>
@@ -81,7 +91,10 @@
     <item name="android:layout_width">@dimen/todoitem_button_width</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_alignParentLeft">true</item>
-    <item name="android:layout_margin">@dimen/todoitem_button_margin</item>
+    <item name="android:layout_marginTop">@dimen/todoitem_button_margin</item>
+    <item name="android:layout_marginBottom">@dimen/todoitem_button_margin</item>
+    <item name="android:layout_marginLeft">@dimen/todoitem_button_margin</item>
+    <item name="android:layout_marginRight">@dimen/todoitem_button_margin</item>
     <item name="android:background">@drawable/main_button_shape</item>
   </style>
 
@@ -95,8 +108,10 @@
 
   <style name="TitleStyle">
     <item name="android:textAlignment">center</item>
-    <item name="android:layout_marginVertical">@dimen/title_margin_vertical</item>
-    <item name="android:layout_marginHorizontal">@dimen/title_margin_horizontal</item>
+    <item name="android:layout_marginTop">@dimen/title_margin_vertical</item>
+    <item name="android:layout_marginBottom">@dimen/title_margin_vertical</item>
+    <item name="android:layout_marginLeft">@dimen/title_margin_horizontal</item>
+    <item name="android:layout_marginRight">@dimen/title_margin_horizontal</item>
     <item name="android:textColor">@android:color/background_light</item>
     <item name="android:textSize">@dimen/title_text_size</item>
     <item name="android:layout_width">match_parent</item>
@@ -105,7 +120,8 @@
 
   <style name="TaskListTitleStyle">
     <item name="android:textAlignment">center</item>
-    <item name="android:layout_marginVertical">@dimen/title_margin_vertical</item>
+    <item name="android:layout_marginTop">@dimen/title_margin_vertical</item>
+    <item name="android:layout_marginBottom">@dimen/title_margin_vertical</item>
     <item name="android:layout_marginLeft">@dimen/task_list_title_margin_left</item>
     <item name="android:textColor">@android:color/background_light</item>
     <item name="android:textSize">@dimen/title_text_size</item>
@@ -119,14 +135,19 @@
     <item name="android:layout_height">wrap_content</item>
     <item name="android:minHeight">@dimen/todo_item_edit_text_min_height</item>
     <item name="android:background">#fffd</item>
-    <item name="android:layout_margin">@dimen/todo_item_edit_text_margin</item>
+    <item name="android:layout_marginTop">@dimen/todo_item_edit_text_margin</item>
+    <item name="android:layout_marginBottom">@dimen/todo_item_edit_text_margin</item>
+    <item name="android:layout_marginLeft">@dimen/todo_item_edit_text_margin</item>
+    <item name="android:layout_marginRight">@dimen/todo_item_edit_text_margin</item>
   </style>
 
   <style name="TopPanelCircleImageViewStyle">    
     <item name="android:layout_width">@dimen/top_panel_circle_image_view_height</item>
     <item name="android:layout_height">@dimen/top_panel_circle_image_view_width</item>
-    <item name="android:layout_marginVertical">@dimen/top_panel_circle_image_view_margin_vertical</item>
-    <item name="android:layout_marginHorizontal">@dimen/top_panel_circle_image_view_margin_horizontal</item>
+    <item name="android:layout_marginTop">@dimen/top_panel_circle_image_view_margin_vertical</item>
+    <item name="android:layout_marginBottom">@dimen/top_panel_circle_image_view_margin_vertical</item>
+    <item name="android:layout_marginLeft">@dimen/top_panel_circle_image_view_margin_horizontal</item>
+    <item name="android:layout_marginRight">@dimen/top_panel_circle_image_view_margin_horizontal</item>
     <item name="android:textAlignment">center</item>
   </style>
 

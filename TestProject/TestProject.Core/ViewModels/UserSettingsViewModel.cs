@@ -64,7 +64,7 @@ namespace TestProject.Core.ViewModels
         protected override async Task HandleEntity()
         {
 
-            EditUsernameResult result = await _userService.EditUsername(_user, UserName);
+            DataHandleResult<User> result = await _userService.EditUsername(_user, UserName);
             
             if (result.IsSucceded)
             {

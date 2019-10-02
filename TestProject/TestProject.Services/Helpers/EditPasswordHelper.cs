@@ -1,16 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
 using TestProject.Configurations;
-using TestProject.Entities;
 using TestProject.Resources;
 
-namespace TestProject.Services.DataHandleResults
+namespace TestProject.Services.Helpers
 {
-    public class EditPasswordResult : BaseHandleResult<User>
+    public class EditPasswordHelper
     {
-        public string OldPassword
-        {
-            get => Data.Password;
-        }
+        public string OldPassword { get; set; }
 
         [Compare(nameof(OldPassword),
             ErrorMessageResourceType = typeof(Strings),
@@ -27,7 +24,7 @@ namespace TestProject.Services.DataHandleResults
             ErrorMessageResourceName = nameof(Strings.InvalidPasswordFormatMessage))]
         public string NewPassword { get; set; }
 
-        [Compare(nameof(NewPassword), 
+        [Compare(nameof(NewPassword),
             ErrorMessageResourceType = typeof(Strings),
             ErrorMessageResourceName = nameof(Strings.PasswordsNotCorrespondMessage))]
         public string NewPasswordConfirmation { get; set; }

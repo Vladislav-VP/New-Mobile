@@ -52,7 +52,7 @@ namespace TestProject.Core.ViewModels
         {
             var user = new User { Name = UserName, Password = Password };
 
-            LoginResult result = await _userService.Login(user);
+            DataHandleResult<User> result = await _userService.Login(user);
 
             if (result.IsSucceded)
             {

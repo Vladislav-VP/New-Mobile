@@ -2,18 +2,19 @@
 
 using TestProject.Entities;
 using TestProject.Services.DataHandleResults;
+using TestProject.Services.Helpers;
 
 namespace TestProject.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<LoginResult> Login(User user);
+        Task<DataHandleResult<User>> Login(User user);
 
-        Task<RegistrationResult> RegisterUser(User user);
+        Task<DataHandleResult<User>> RegisterUser(User user);
 
-        Task<EditUsernameResult> EditUsername(User user, string newUserName);
+        Task<DataHandleResult<User>> EditUsername(User user, string newUserName);
 
-        Task<EditPasswordResult> ChangePassword(User user, string oldPassword,
+        Task<DataHandleResult<EditPasswordHelper>> ChangePassword(User user, string oldPassword,
             string newPassword, string newPasswordConfirmation);
     }
 }

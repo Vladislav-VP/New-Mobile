@@ -3,6 +3,7 @@
 using TestProject.Entities;
 using TestProject.Resources;
 using TestProject.Services.DataHandleResults;
+using TestProject.Services.Helpers;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Interfaces;
 using TestProject.Services.Repositories.Interfaces;
@@ -28,33 +29,38 @@ namespace TestProject.Services
             _dialogsHelper = dialogsHelper;
         }
 
-        public async Task<EditPasswordResult> ChangePassword(User user,
+        public async Task<DataHandleResult<EditPasswordHelper>> ChangePassword(User user,
             string oldPassword, string newPassword, string newPasswordConfirmation)
         {
-            var result = new EditPasswordResult
+            var editPasswordHelper = new EditPasswordHelper
             {
-                Data = user,
+                OldPassword = user.Password,
                 OldPasswordConfirmation = oldPassword,
                 NewPassword = newPassword,
                 NewPasswordConfirmation = newPasswordConfirmation
             };
 
-            result.IsSucceded = _validationHelper.IsObjectValid(result, nameof(result.OldPasswordConfirmation))
-                && _validationHelper.IsObjectValid(result, nameof(result.NewPassword))
-                && _validationHelper.IsObjectValid(result, nameof(result.NewPasswordConfirmation));
+            var result = new DataHandleResult<EditPasswordHelper>
+            {
+                Data = editPasswordHelper
+            };
+
+            result.IsSucceded = _validationHelper.IsObjectValid(result.Data, nameof(result.Data.OldPasswordConfirmation))
+                && _validationHelper.IsObjectValid(result.Data, nameof(result.Data.NewPassword))
+                && _validationHelper.IsObjectValid(result.Data, nameof(result.Data.NewPasswordConfirmation));
 
             if (result.IsSucceded)
             {
-                result.Data.Password = result.NewPassword;
-                await _userRepository.Update(result.Data);
+                user.Password = newPassword;
+                await _userRepository.Update(user);
             }
 
             return result;
         }
 
-        public async Task<EditUsernameResult> EditUsername(User user, string newUserName)
+        public async Task<DataHandleResult<User>> EditUsername(User user, string newUserName)
         {
-            var result = new EditUsernameResult { Data = user };
+            var result = new DataHandleResult<User> { Data = user };
 
             var userToCheck = new User
             {
@@ -82,12 +88,11 @@ namespace TestProject.Services
             return result;
         }
 
-        public async Task<LoginResult> Login(User user)
+        public async Task<DataHandleResult<User>> Login(User user)
         {
-            var result = new LoginResult { Data = user };
-            User enteredUser = result.Data;
+            var result = new DataHandleResult<User> { Data = user };
 
-            User currentUser = await _userRepository.GetUser(enteredUser.Name, enteredUser.Password);
+            User currentUser = await _userRepository.GetUser(user.Name, user.Password);
             if (currentUser == null)
             {
                 _dialogsHelper.DisplayAlertMessage(Strings.LoginErrorMessage);
@@ -100,9 +105,9 @@ namespace TestProject.Services
             return result;
         }
 
-        public async Task<RegistrationResult> RegisterUser(User user)
+        public async Task<DataHandleResult<User>> RegisterUser(User user)
         {
-            var result = new RegistrationResult { Data = user };
+            var result = new DataHandleResult<User> { Data = user };
 
             bool isUserDataValid = _validationHelper.IsObjectValid(result.Data, nameof(result.Data.Name))
                 && _validationHelper.IsObjectValid(result.Data, nameof(result.Data.Password));

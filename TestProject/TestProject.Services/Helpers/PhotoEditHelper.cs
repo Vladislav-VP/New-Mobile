@@ -16,7 +16,7 @@ namespace TestProject.Services.Helpers
 
         private readonly IEncryptionHelper _encryptionHelper;
 
-        public PhotoEditHelper(IPermissionsHelper permissionsHelper, 
+        public PhotoEditHelper(IPermissionsHelper permissionsHelper,
             IPhotoCaptureHelper photoCaptureHelper, IEncryptionHelper encryptionHelper)
         {
             _permissionsHelper = permissionsHelper;
@@ -45,6 +45,11 @@ namespace TestProject.Services.Helpers
             }
 
             return encryptedImageString;
+        }
+
+        public Task<string> DeletePhoto()
+        {
+            return Task.FromResult<string>(null);
         }
 
         private string EncryptImage(MediaFile file)

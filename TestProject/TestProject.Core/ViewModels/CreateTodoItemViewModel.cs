@@ -23,14 +23,6 @@ namespace TestProject.Core.ViewModels
         
         public IMvxAsyncCommand CreateTodoItemCommand { get; private set; }
 
-        public override Task Initialize()
-        {
-            Name = string.Empty;
-            Description = string.Empty;
-
-            return base.Initialize();
-        }
-
         protected override async Task HandleEntity()
         {
             User currerntUser = await _storage.Get();
