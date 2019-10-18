@@ -15,8 +15,8 @@ namespace TestProject.Core.ViewModels
     public class CreateTodoItemViewModel : TodoItemViewModel, IMvxViewModelResult<CreationResult<TodoItem>>
     {
         public CreateTodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, ICancelDialogService cancelDialogService,
-            IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
-            : base(navigationService, storage,cancelDialogService, validationHelper, todoItemRepository, dialogsHelper)
+            IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper, IWebService webService)
+            : base(navigationService, storage,cancelDialogService, validationHelper, todoItemRepository, dialogsHelper, webService)
         {
             CreateTodoItemCommand = new MvxAsyncCommand(HandleEntity);
         }
@@ -40,12 +40,14 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
+            await _webService.Add(todoItem);
             await _todoItemRepository.Insert(todoItem);
             var creationResult = new CreationResult<TodoItem>
             {
                 Entity = todoItem,
                 IsSucceded = true
             };
+
             await _navigationService.Close(this, result: creationResult);
         }
     }

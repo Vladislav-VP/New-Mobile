@@ -135,7 +135,7 @@ namespace TestProject.Core.ViewModels
         bool initialized = false;   // была ли начальная инициализация
         private bool isBusy;    // идет ли загрузка с сервера
 
-        WebService webService = new WebService();
+        WebService _webService = new WebService();
 
         public ICommand CreateFriendCommand { protected set; get; }
         public ICommand DeleteFriendCommand { protected set; get; }
@@ -199,7 +199,7 @@ namespace TestProject.Core.ViewModels
         {
             if (initialized == true) return;
             IsBusy = true;
-            IEnumerable<TodoItem> mockedTodoItems = await webService.Get();
+            IEnumerable<TodoItem> mockedTodoItems = await _webService.Get();
 
             // очищаем список
             //Friends.Clear();

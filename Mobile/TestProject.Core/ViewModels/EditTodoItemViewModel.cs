@@ -20,8 +20,8 @@ namespace TestProject.Core.ViewModels
         private int _userId;
 
         public EditTodoItemViewModel(IMvxNavigationService navigationService,  IDialogsHelper dialogsHelper,
-            ICancelDialogService cancelDialogService, IValidationHelper validationHelper, ITodoItemRepository todoItemRepository)
-            : base(navigationService, validationHelper, cancelDialogService, todoItemRepository, dialogsHelper)
+            ICancelDialogService cancelDialogService, IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IWebService webService)
+            : base(navigationService, validationHelper, cancelDialogService, todoItemRepository, dialogsHelper, webService)
         {
             UpdateTodoItemCommand = new MvxAsyncCommand(HandleEntity);
             DeleteTodoItemCommand = new MvxAsyncCommand(DeleteTodoItem);
@@ -76,7 +76,8 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            await _todoItemRepository.Update(todoItem);
+            await _webService.Update(todoItem);
+            //await _todoItemRepository.Update(todoItem);
             var updateResult = new UpdateResult<TodoItem>
             {
                 Entity = todoItem,

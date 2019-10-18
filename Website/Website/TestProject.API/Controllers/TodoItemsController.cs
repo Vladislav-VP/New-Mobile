@@ -14,16 +14,17 @@ using TestProject.API.Repositories.Interfaces;
 namespace TestProject.API.Controllers
 {
     [Route("api/[controller]")]
-    public class TodoListController : Controller
+    public class TodoItemsController : Controller
     {
         private readonly TodoListContext _context;
         private readonly TodoItemRepository _todoItemRepository;
 
-        public TodoListController(TodoListContext context)
+        public TodoItemsController(TodoListContext context)
         {
             _context = context;
             _todoItemRepository = new TodoItemRepository(_context);
 
+            // TODO: Remove block below.
             if (_context.TodoItems.Count() == 0)
             {
                 InsertMockedTodoItems();
@@ -51,7 +52,6 @@ namespace TestProject.API.Controllers
             {
                 return NotFound();
             }
-
             return new ObjectResult(todoItem);
         }
 

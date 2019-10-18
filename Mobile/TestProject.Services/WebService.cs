@@ -13,7 +13,7 @@ namespace TestProject.Services
     public class WebService : IWebService
     {
         //const string Url = "https://localhost:44366/api/todolist";
-        const string Url = "http://10.10.3.215:3000/api/todolist";
+        const string Url = "http://10.10.3.215:3000/api/todoitems";
         //const string Url = "https://10.10.3.215:44366/api/todolist";
         public HttpClient GetClient()
         {
@@ -37,6 +37,23 @@ namespace TestProject.Services
             }
             
             return JsonConvert.DeserializeObject<IEnumerable<TodoItem>>(result);
+        }
+
+        public async Task<TodoItem> Get(int id)
+        {
+            HttpClient client = GetClient();
+            string result = null;
+            try
+            {
+                result = await client.GetStringAsync($"{Url}/{id}");
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+            return JsonConvert.DeserializeObject<TodoItem>(result);
         }
 
         public async Task<TodoItem> Add(TodoItem todoItem)

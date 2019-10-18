@@ -17,16 +17,19 @@ namespace TestProject.Core.ViewModels
 
         protected readonly IValidationHelper _validationHelper;
 
+        protected readonly IWebService _webService;
+
         public TodoItemViewModel(IMvxNavigationService navigationService, IValidationHelper validationHelper,
-            ICancelDialogService cancelDialogService, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
-            : this(navigationService, null, cancelDialogService, validationHelper, todoItemRepository, dialogsHelper) { }
+            ICancelDialogService cancelDialogService, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper, IWebService webService)
+            : this(navigationService, null, cancelDialogService, validationHelper, todoItemRepository, dialogsHelper, webService) { }
 
         public TodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, ICancelDialogService cancelDialogService,
-            IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper)
+            IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper, IWebService webService)
             : base(navigationService, storage, dialogsHelper, cancelDialogService)
         {
             _validationHelper = validationHelper;
             _todoItemRepository = todoItemRepository;
+            _webService = webService;
         }
 
         protected override bool IsStateChanged

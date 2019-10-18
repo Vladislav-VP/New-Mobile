@@ -28,7 +28,16 @@ namespace TestProject.API.Repositories
 
         public void Update(TEntity entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            try
+            {
+                _context.Entry(entity).State = EntityState.Modified;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            
             _context.SaveChanges();
         }
 
