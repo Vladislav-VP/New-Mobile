@@ -1,0 +1,40 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/llLogin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@android:color/holo_blue_bright">
+    
+    <include
+        layout="@layout/user_info_layout"/>    
+
+    <Button
+        style="@style/MainButtonStyle"
+        android:id="@+id/btLogin"
+        local:MvxBind="Click LoginCommand"/>
+
+    <LinearLayout
+        android:id="@+id/registrationLayout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/registration_layout_margin_vertical">
+        <TextView
+            android:id="@+id/tvWithoutAccount"
+            android:layout_marginLeft="@dimen/text_view_padding_horizontal"
+            android:layout_marginRight="@dimen/text_view_padding_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textSize="@dimen/label_text_size"/>
+        <Button
+            android:id="@+id/btGoToRegistration"
+            style="@style/MainButtonStyle"      
+            local:MvxBind="Click GoToRegistrationCommand"/>
+    </LinearLayout>
+
+</LinearLayout>
