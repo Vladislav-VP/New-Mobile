@@ -7,7 +7,7 @@ using TestProject.Resources;
 
 namespace TestProject.Entities
 {
-    public class TodoItem : BaseEntity
+    public class TEntity : BaseEntity
     {
         [NotNull]
         [Required(ErrorMessageResourceType = typeof(Strings), ErrorMessageResourceName = nameof(Strings.EmptyTodoItemNameMessage))]

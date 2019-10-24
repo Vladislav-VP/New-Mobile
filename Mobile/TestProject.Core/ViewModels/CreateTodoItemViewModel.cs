@@ -12,10 +12,10 @@ using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
-    public class CreateTodoItemViewModel : TodoItemViewModel, IMvxViewModelResult<CreationResult<TodoItem>>
+    public class CreateTodoItemViewModel : TodoItemViewModel, IMvxViewModelResult<CreationResult<TEntity>>
     {
         public CreateTodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, ICancelDialogService cancelDialogService,
-            IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper, IWebService webService)
+            IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper, ITodoItemService webService)
             : base(navigationService, storage,cancelDialogService, validationHelper, todoItemRepository, dialogsHelper, webService)
         {
             CreateTodoItemCommand = new MvxAsyncCommand(HandleEntity);
@@ -26,7 +26,7 @@ namespace TestProject.Core.ViewModels
         protected override async Task HandleEntity()
         {
             User currerntUser = await _storage.Get();
-            var todoItem = new TodoItem
+            var todoItem = new TEntity
             {
                 Name = Name,
                 Description = Description,
@@ -42,7 +42,7 @@ namespace TestProject.Core.ViewModels
 
             await _webService.Add(todoItem);
             await _todoItemRepository.Insert(todoItem);
-            var creationResult = new CreationResult<TodoItem>
+            var creationResult = new CreationResult<TEntity>
             {
                 Entity = todoItem,
                 IsSucceded = true

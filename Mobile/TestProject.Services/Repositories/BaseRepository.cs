@@ -105,7 +105,7 @@ namespace TestProject.Services.Repositories
             var connection = new SQLiteAsyncConnection(_path);
             try
             {
-                connection.CreateTablesAsync<User, TodoItem>();
+                connection.CreateTablesAsync<User, TEntity>();
             }
             finally
             {

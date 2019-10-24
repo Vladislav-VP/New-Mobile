@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-using TestProject.API.Entities;
+using Entities;
 
-namespace TestProject.API.Context
+namespace DataAccess.Context
 {
     public class TodoListContext : DbContext
     {
@@ -13,5 +13,10 @@ namespace TestProject.API.Context
         public DbSet<TodoItem> TodoItems { get; set; }
 
         public DbSet<User> Users { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasIndex(u => u.Name).IsUnique();
+        }
     }
 }

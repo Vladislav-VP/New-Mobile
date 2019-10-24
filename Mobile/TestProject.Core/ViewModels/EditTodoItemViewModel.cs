@@ -13,14 +13,14 @@ using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
-    public class EditTodoItemViewModel : TodoItemViewModel, IMvxViewModel<TodoItem, ViewModelResult<TodoItem>>,
-        IMvxViewModel<TodoItem, DeletionResult<TodoItem>>, IMvxViewModel<TodoItem, UpdateResult<TodoItem>>
+    public class EditTodoItemViewModel : TodoItemViewModel, IMvxViewModel<TEntity, ViewModelResult<TEntity>>,
+        IMvxViewModel<TEntity, DeletionResult<TEntity>>, IMvxViewModel<TEntity, UpdateResult<TEntity>>
     {
         private int _todoItemId;
         private int _userId;
 
         public EditTodoItemViewModel(IMvxNavigationService navigationService,  IDialogsHelper dialogsHelper,
-            ICancelDialogService cancelDialogService, IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IWebService webService)
+            ICancelDialogService cancelDialogService, IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, ITodoItemService webService)
             : base(navigationService, validationHelper, cancelDialogService, todoItemRepository, dialogsHelper, webService)
         {
             UpdateTodoItemCommand = new MvxAsyncCommand(HandleEntity);
@@ -31,7 +31,7 @@ namespace TestProject.Core.ViewModels
 
         public IMvxAsyncCommand DeleteTodoItemCommand { get; private set; }
 
-        public void Prepare(TodoItem parameter)
+        public void Prepare(TEntity parameter)
         {
             _todoItemId = parameter.Id;
             Name = parameter.Name;
@@ -49,9 +49,10 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            await _todoItemRepository.Delete<TodoItem>(_todoItemId);
+            //await _todoItemRepository.Delete<TodoItem>(_todoItemId);
+            await _webService.Delete(_todoItemId);
 
-            var deletionResult = new DeletionResult<TodoItem>
+            var deletionResult = new DeletionResult<TEntity>
             {
                 IsSucceded = true
             };
@@ -61,14 +62,18 @@ namespace TestProject.Core.ViewModels
 
         protected override async Task HandleEntity()
         {
-            var todoItem = new TodoItem
-            {
-                Id = _todoItemId,
-                Name = Name,
-                Description = Description,
-                IsDone = IsDone,
-                UserId = _userId
-            };
+            //var todoItem = new TodoItem
+            //{
+            //    Id = _todoItemId,
+            //    Name = Name,
+            //    Description = Description,
+            //    IsDone = IsDone,
+            //    UserId = _userId
+            //};
+
+            TEntity todoItem = await _webService.Get(_todoItemId);
+            todoItem.Description = Description;
+            todoItem.IsDone = IsDone;
 
             bool isTodoItemValid = _validationHelper.IsObjectValid(todoItem);
             if (!isTodoItemValid)
@@ -78,7 +83,7 @@ namespace TestProject.Core.ViewModels
 
             await _webService.Update(todoItem);
             //await _todoItemRepository.Update(todoItem);
-            var updateResult = new UpdateResult<TodoItem>
+            var updateResult = new UpdateResult<TEntity>
             {
                 Entity = todoItem,
                 IsSucceded = true

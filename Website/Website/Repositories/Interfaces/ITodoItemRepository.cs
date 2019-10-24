@@ -1,6 +1,6 @@
-﻿using TestProject.API.Entities;
+﻿using Entities;
 
-namespace TestProject.API.Repositories.Interfaces
+namespace Repositories.Interfaces
 {
     public interface ITodoItemRepository : IBaseRepository<TodoItem>
     {

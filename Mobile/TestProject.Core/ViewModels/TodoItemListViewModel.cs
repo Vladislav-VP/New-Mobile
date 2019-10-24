@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Windows.Input;
+
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 
 using TestProject.Core.ViewModelResults;
 using TestProject.Entities;
-using TestProject.Services;
 using TestProject.Services.Helpers.Interfaces;
+using TestProject.Services.Interfaces;
 using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
@@ -17,22 +16,24 @@ namespace TestProject.Core.ViewModels
     public class TodoItemListViewModel : BaseViewModel
     {
         private readonly ITodoItemRepository _todoItemRepository;
+        private readonly ITodoItemService _todoItemService;
 
-        public TodoItemListViewModel(IMvxNavigationService navigationService,
+        public TodoItemListViewModel(IMvxNavigationService navigationService, ITodoItemService todoItemService,
             IUserStorageHelper storage, ITodoItemRepository todoItemRepository)
             : base(navigationService, storage)
         {
             _todoItemRepository = todoItemRepository;
+            _todoItemService = todoItemService;
 
             ShowMenuCommand = new MvxAsyncCommand(async ()
                   => await _navigationService.Navigate<MenuViewModel>());
-            AddTodoItemCommand = new MvxAsyncCommand<TodoItem>(AddTodoItem);
-            SelectTodoItemCommand = new MvxAsyncCommand<TodoItem>(SelectTodoItem);
+            AddTodoItemCommand = new MvxAsyncCommand<TEntity>(AddTodoItem);
+            SelectTodoItemCommand = new MvxAsyncCommand<TEntity>(SelectTodoItem);
             RefreshTodoItemsCommand = new MvxCommand(RefreshTodoItems);
         }
         
-        private MvxObservableCollection<TodoItem> _todoItems;
-        public MvxObservableCollection<TodoItem> TodoItems
+        private MvxObservableCollection<TEntity> _todoItems;
+        public MvxObservableCollection<TEntity> TodoItems
         {
             get => _todoItems;
             set
@@ -46,33 +47,32 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            TodoItems = new MvxObservableCollection<TodoItem>();
+            TodoItems = new MvxObservableCollection<TEntity>();
             LoadTodoItemsTask = MvxNotifyTask.Create(LoadTodoItems);
-            await GetTodoItems();
         }
 
-        public IMvxAsyncCommand<TodoItem> AddTodoItemCommand { get; private set; }
+        public IMvxAsyncCommand<TEntity> AddTodoItemCommand { get; private set; }
 
         public IMvxAsyncCommand ShowMenuCommand { get; private set; }
 
         public IMvxCommand RefreshTodoItemsCommand { get; private set; }
 
-        public IMvxCommand<TodoItem> SelectTodoItemCommand { get; private set; }
+        public IMvxCommand<TEntity> SelectTodoItemCommand { get; private set; }
 
         public MvxNotifyTask LoadTodoItemsTask { get; private set; }
 
-        private async Task SelectTodoItem(TodoItem selectedTodoItem)
+        private async Task SelectTodoItem(TEntity selectedTodoItem)
         {
-            ViewModelResult<TodoItem> result = await _navigationService
-                 .Navigate<EditTodoItemViewModel, TodoItem, ViewModelResult<TodoItem>>(selectedTodoItem);
+            ViewModelResult<TEntity> result = await _navigationService
+                 .Navigate<EditTodoItemViewModel, TEntity, ViewModelResult<TEntity>>(selectedTodoItem);
 
-            if (result is DeletionResult<TodoItem> && result.IsSucceded)
+            if (result is DeletionResult<TEntity> && result.IsSucceded)
             {
                 TodoItems.Remove(selectedTodoItem);
                 return;
             }
 
-            if(result is UpdateResult<TodoItem> && result.IsSucceded)
+            if(result is UpdateResult<TEntity> && result.IsSucceded)
             {
                 int index = TodoItems.IndexOf(selectedTodoItem);
                 TodoItems.Insert(index, result.Entity);
@@ -80,10 +80,10 @@ namespace TestProject.Core.ViewModels
             }
         }
 
-        private async Task AddTodoItem(TodoItem todoItem)
+        private async Task AddTodoItem(TEntity todoItem)
         {
-            ViewModelResult<TodoItem> creationResult = await _navigationService
-                .Navigate<CreateTodoItemViewModel, CreationResult<TodoItem>>();
+            ViewModelResult<TEntity> creationResult = await _navigationService
+                .Navigate<CreateTodoItemViewModel, CreationResult<TEntity>>();
             
             if (creationResult != null && creationResult.IsSucceded)
             {
@@ -96,8 +96,7 @@ namespace TestProject.Core.ViewModels
             TodoItems.Clear();
 
             User currentUser = await _storage.Get();
-            IEnumerable<TodoItem> retrievedTodoItems = await _todoItemRepository.GetTodoItems(currentUser.Id);
-
+            IEnumerable<TEntity> retrievedTodoItems = await _todoItemService.Get();
             TodoItems.AddRange(retrievedTodoItems);
         }
 
@@ -106,109 +105,5 @@ namespace TestProject.Core.ViewModels
             LoadTodoItemsTask = MvxNotifyTask.Create(LoadTodoItems);
             RaisePropertyChanged(() => LoadTodoItemsTask);
         }
-
-
-
-
-
-
-
-
-
-
-        // TODO: Refactor code below.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        bool initialized = false;   // была ли начальная инициализация
-        private bool isBusy;    // идет ли загрузка с сервера
-
-        WebService _webService = new WebService();
-
-        public ICommand CreateFriendCommand { protected set; get; }
-        public ICommand DeleteFriendCommand { protected set; get; }
-        public ICommand SaveFriendCommand { protected set; get; }
-        public ICommand BackCommand { protected set; get; }
-
-
-        public bool IsBusy
-        {
-            get { return isBusy; }
-            set
-            {
-                isBusy = value;
-                OnPropertyChanged("IsBusy");
-                OnPropertyChanged("IsLoaded");
-            }
-        }
-        public bool IsLoaded
-        {
-            get { return !isBusy; }
-        }
-
-        //public ApplicationViewModel()
-        //{
-        //    IsBusy = false;
-        //    CreateFriendCommand = new Command(CreateFriend);
-        //    DeleteFriendCommand = new Command(DeleteFriend);
-        //    SaveFriendCommand = new Command(SaveFriend);
-        //    BackCommand = new Command(Back);
-        //}
-
-
-        private TodoItem _todoItem;
-        public TodoItem TodoItem
-        {
-            get { return _todoItem; }
-            set
-            {
-
-            }
-        }
-        protected void OnPropertyChanged(string propName)
-        {
-            
-
-        }
-
-        private async void CreateFriend()
-        {
-
-        }
-        private void Back()
-        {
-
-        }
-
-
-
-
-        public async Task GetTodoItems()
-        {
-            if (initialized == true) return;
-            IsBusy = true;
-            IEnumerable<TodoItem> mockedTodoItems = await _webService.Get();
-
-            // очищаем список
-            //Friends.Clear();
-
-            // добавляем загруженные данные
-            IsBusy = false;
-            TodoItems.AddRange(mockedTodoItems);
-            initialized = true;
-        }
-
     }
 }

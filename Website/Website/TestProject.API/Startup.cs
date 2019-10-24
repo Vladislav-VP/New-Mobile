@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using DataAccess.Context;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TestProject.API.Configurations;
-using TestProject.API.Context;
 
 namespace TestProject.API
 {
@@ -21,6 +21,7 @@ namespace TestProject.API
         {
             services.AddDbContext<TodoListContext>(options => options.UseSqlServer(Constants.ConnectionString));
             services.AddMvc();
+            //services.AddScoped<TodoItemRepository>();
         }
         
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

@@ -7,11 +7,11 @@ using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Services.Repositories
 {
-    public class TodoItemRepository : BaseRepository<TodoItem>, ITodoItemRepository
+    public class TodoItemRepository : BaseRepository<TEntity>, ITodoItemRepository
     {
-        public async Task<IEnumerable<TodoItem>> GetTodoItems(int userId)
+        public async Task<IEnumerable<TEntity>> GetTodoItems(int userId)
         {
-            IEnumerable<TodoItem> todoItems = await GetAllObjects();
+            IEnumerable<TEntity> todoItems = await GetAllObjects();
             return todoItems.Where(todoItem => todoItem.UserId == userId);
         }
     }

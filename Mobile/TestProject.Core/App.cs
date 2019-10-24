@@ -23,7 +23,7 @@ namespace TestProject.Core
                 .RegisterAsLazySingleton();
 
             Mvx.IoCProvider.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
-            Mvx.IoCProvider.RegisterSingleton(typeof(IWebService), new WebService());
+            Mvx.IoCProvider.RegisterSingleton(typeof(ITodoItemService), new TodoItemService());
             Mvx.IoCProvider.RegisterSingleton(typeof(IUserRepository), new UserRepository());
             Mvx.IoCProvider.RegisterSingleton(typeof(ITodoItemRepository), new TodoItemRepository());
             Mvx.IoCProvider.RegisterSingleton(typeof(IDialogsHelper), new DialogsHelper());

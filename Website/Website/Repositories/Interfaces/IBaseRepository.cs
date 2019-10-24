@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 
-using TestProject.API.Entities;
+using Entities;
 
-namespace TestProject.API.Repositories.Interfaces
+namespace Repositories.Interfaces
 {
     public interface IBaseRepository<TEntity> where TEntity : BaseEntity
     {

@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq;
 
-using TestProject.API.Context;
-using TestProject.API.Entities;
-using TestProject.API.Repositories.Interfaces;
+using DataAccess.Context;
+using Entities;
+using Repositories.Interfaces;
 
-namespace TestProject.API.Repositories
+namespace Repositories
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity>  where TEntity : BaseEntity
     {
@@ -28,16 +28,20 @@ namespace TestProject.API.Repositories
 
         public void Update(TEntity entity)
         {
-            try
-            {
-                _context.Entry(entity).State = EntityState.Modified;
-            }
-            catch (Exception ex)
-            {
+            //try
+            //{
+                
+            //    //_context.Entry(entity).State = EntityState.Detached;
+            //}
+            //catch (Exception ex)
+            //{
 
-                throw;
-            }
-            
+            //    throw;
+            //}
+            TEntity entityToBeModified = Find(entity.Id);
+
+            EntityEntry<TEntity> entry = _context.Entry(entity);
+            entry.State = EntityState.Modified;
             _context.SaveChanges();
         }
 

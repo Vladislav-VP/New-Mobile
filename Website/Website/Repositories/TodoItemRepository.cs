@@ -1,8 +1,8 @@
-﻿using TestProject.API.Context;
-using TestProject.API.Entities;
-using TestProject.API.Repositories.Interfaces;
+﻿using DataAccess.Context;
+using Entities;
+using Repositories.Interfaces;
 
-namespace TestProject.API.Repositories
+namespace Repositories
 {
     public class TodoItemRepository : BaseRepository<TodoItem>, ITodoItemRepository
     {

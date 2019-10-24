@@ -11,20 +11,20 @@ namespace TestProject.Core.ViewModels
 {
     public abstract class TodoItemViewModel : BaseEntityViewModel
     {
-        private TodoItem _unmodifiedTodoItem;
+        private TEntity _unmodifiedTodoItem;
 
         protected readonly ITodoItemRepository _todoItemRepository;
 
         protected readonly IValidationHelper _validationHelper;
 
-        protected readonly IWebService _webService;
+        protected readonly ITodoItemService _webService;
 
         public TodoItemViewModel(IMvxNavigationService navigationService, IValidationHelper validationHelper,
-            ICancelDialogService cancelDialogService, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper, IWebService webService)
+            ICancelDialogService cancelDialogService, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper, ITodoItemService webService)
             : this(navigationService, null, cancelDialogService, validationHelper, todoItemRepository, dialogsHelper, webService) { }
 
         public TodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, ICancelDialogService cancelDialogService,
-            IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper, IWebService webService)
+            IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper, ITodoItemService webService)
             : base(navigationService, storage, dialogsHelper, cancelDialogService)
         {
             _validationHelper = validationHelper;
@@ -77,7 +77,7 @@ namespace TestProject.Core.ViewModels
 
         public override Task Initialize()
         {
-            _unmodifiedTodoItem = new TodoItem
+            _unmodifiedTodoItem = new TEntity
             {
                 Name = Name,
                 Description = Description,
