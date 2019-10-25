@@ -40,7 +40,7 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            await _webService.Add(todoItem);
+            await _webService.AddToApi(todoItem);
             await _todoItemRepository.Insert(todoItem);
             var creationResult = new CreationResult<TEntity>
             {

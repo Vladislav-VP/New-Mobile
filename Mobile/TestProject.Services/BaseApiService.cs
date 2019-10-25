@@ -30,7 +30,7 @@ namespace TestProject.Services
             return entity;
         }
 
-        public async Task<TEntity> Add(TEntity entity)
+        public async Task<TEntity> AddToApi(TEntity entity)
         {
             HttpClient client = GetClient();
             string content = JsonConvert.SerializeObject(entity);
@@ -74,7 +74,7 @@ namespace TestProject.Services
             return JsonConvert.DeserializeObject<TEntity>(serializedObject);
         }
 
-        private HttpClient GetClient()
+        protected HttpClient GetClient()
         {
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("Accept", "application/json");

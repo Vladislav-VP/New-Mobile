@@ -6,7 +6,7 @@ using TestProject.Services.Helpers;
 
 namespace TestProject.Services.Interfaces
 {
-    public interface IUserService
+    public interface IUserService : IBaseApiService<User>
     {
         Task<DataHandleResult<User>> Login(User user);
 
@@ -16,5 +16,7 @@ namespace TestProject.Services.Interfaces
 
         Task<DataHandleResult<EditPasswordHelper>> ChangePassword(User user, string oldPassword,
             string newPassword, string newPasswordConfirmation);
+
+        Task<User> FindByName(string name);
     }
 }

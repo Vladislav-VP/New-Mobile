@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 using TestProject.Entities;
 using TestProject.Resources;
@@ -10,7 +12,7 @@ using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Services
 {
-    public class UserService : IUserService
+    public class UserService : BaseApiService<User>, IUserService
     {
         private readonly IValidationHelper _validationHelper;
 
@@ -23,6 +25,7 @@ namespace TestProject.Services
         public UserService(IValidationHelper validationHelper, IDialogsHelper dialogsHelper,
             IUserRepository userRepository, IUserStorageHelper storage)
         {
+            _url = "http://10.10.3.215:3000/api/users";
             _validationHelper = validationHelper;
             _userRepository = userRepository;
             _storage = storage;
@@ -88,11 +91,18 @@ namespace TestProject.Services
             return result;
         }
 
+        public Task<User> FindByName(string name)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public async Task<DataHandleResult<User>> Login(User user)
         {
             var result = new DataHandleResult<User> { Data = user };
 
-            User currentUser = await _userRepository.GetUser(user.Name, user.Password);
+            //User currentUser = await _userRepository.GetUser(user.Name, user.Password);
+            //User currentUser = await Update(user);
+            User currentUser = await Get(user.Name, user.Password);
             if (currentUser == null)
             {
                 _dialogsHelper.DisplayAlertMessage(Strings.LoginErrorMessage);
@@ -124,6 +134,7 @@ namespace TestProject.Services
                 return result;
             }
 
+            await AddToApi(result.Data);
             await AddUser(result.Data);
             result.IsSucceded = true;
             return result;
@@ -133,6 +144,25 @@ namespace TestProject.Services
         {
             await _userRepository.Insert(user);
             await _storage.Save(user.Id);
+        }
+
+        public async Task<User> Get(string username, string password)
+        {
+            HttpClient client = GetClient();
+            string requestUri = $"{_url}/?username={username}&password={password}";
+            try
+            {
+                string result = await client.GetStringAsync(requestUri);
+                User user = JsonConvert.DeserializeObject<User>(result);
+                return user;
+            }
+            catch (System.Exception ex)
+            {
+
+                throw;
+            }
+            
+            
         }
     }
 }

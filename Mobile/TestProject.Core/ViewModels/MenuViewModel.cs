@@ -50,10 +50,10 @@ namespace TestProject.Core.ViewModels
 
         public string EncryptedProfilePhoto
         {
-            get => _currentUser.EncryptedProfilePhoto;
+            get => _currentUser.ImageUrl;
             set
             {
-                _currentUser.EncryptedProfilePhoto = value;
+                _currentUser.ImageUrl = value;
                 RaisePropertyChanged(() => EncryptedProfilePhoto);
             }
         }
@@ -73,7 +73,7 @@ namespace TestProject.Core.ViewModels
             _currentUser = await _storage.Get();
 
             UserName = _currentUser.Name;
-            EncryptedProfilePhoto = _currentUser.EncryptedProfilePhoto;
+            EncryptedProfilePhoto = _currentUser.ImageUrl;
         }
 
         private async Task Logout()
