@@ -84,8 +84,7 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            await _userRepository.Delete<User>(_user.Id);
-            _storage.Clear();
+            await _userService.Delete(_user.Id);
 
             await _navigationService.Navigate<LoginViewModel>();
         }

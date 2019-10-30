@@ -123,7 +123,7 @@ namespace TestProject.Services
         }
 
         public async Task<DataHandleResult<User>> RegisterUser(User user)
-        {
+        {//TODO : Fix registration (user is added to DB but HttpRequestException thrown (404))
             var result = new DataHandleResult<User> { Data = user };
 
             bool isUserDataValid = _validationHelper.IsObjectValid(result.Data, nameof(result.Data.Name))
@@ -140,8 +140,16 @@ namespace TestProject.Services
                 _dialogsHelper.DisplayAlertMessage(Strings.UserAlreadyExistsMessage);
                 return result;
             }
+            try
+            {
+                await AddToApi(result.Data);
+            }
+            catch (System.Exception ex)
+            {
 
-            await AddToApi(result.Data);
+                throw;
+            }
+            
             await AddUser(result.Data);
             result.IsSucceded = true;
             return result;
@@ -149,7 +157,7 @@ namespace TestProject.Services
 
         private async Task AddUser(User user)
         {
-            await _userRepository.Insert(user);
+            //await _userRepository.Insert(user);
             await _storage.Save(user.Id);
         }
 
@@ -160,6 +168,12 @@ namespace TestProject.Services
             string result = await client.GetStringAsync(requestUri);
             User user = JsonConvert.DeserializeObject<User>(result);
             return user;
+        }
+
+        public new async Task<User> Delete(int id)
+        {
+            _storage.Clear();
+            return await base.Delete(id);
         }
     }
 }

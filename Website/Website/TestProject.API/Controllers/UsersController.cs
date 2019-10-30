@@ -132,6 +132,16 @@ namespace TestProject.API.Controllers
             _usersService.Register(user.Name, user.Password);
         }
 
-        
+        [HttpDelete("{id}")]
+        public IActionResult DeleteAccount(int id)
+        {
+            User user = _usersService.FindById(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            _usersService.Delete(id);
+            return Ok();
+        }
     }
 }
