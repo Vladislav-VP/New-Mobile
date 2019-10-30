@@ -24,17 +24,16 @@ namespace TestProject.Services.Helpers
             await SecureStorage.SetAsync(_credentialsKey, id.ToString());
         }
 
-        public async Task<User> Get()
+        public async Task<int> Get()
         {
             string userIdValue = await SecureStorage.GetAsync(_credentialsKey);
             if (userIdValue == null)
             {
-                return null;
+                return 0;
             }
 
             int id = int.Parse(userIdValue);
-            User user = await _userRepository.Find(id);
-            return user;
+            return id;
         }
 
         public void Clear()

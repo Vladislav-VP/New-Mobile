@@ -50,7 +50,7 @@ namespace TestProject.Core.ViewModels
             }
 
             //await _todoItemRepository.Delete<TodoItem>(_todoItemId);
-            await _webService.Delete(_todoItemId);
+            await _todoItemService.Delete(_todoItemId);
 
             var deletionResult = new DeletionResult<TEntity>
             {
@@ -71,7 +71,7 @@ namespace TestProject.Core.ViewModels
             //    UserId = _userId
             //};
 
-            TEntity todoItem = await _webService.Get(_todoItemId);
+            TEntity todoItem = await _todoItemService.Get(_todoItemId);
             todoItem.Description = Description;
             todoItem.IsDone = IsDone;
 
@@ -81,7 +81,7 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            await _webService.Update(todoItem);
+            await _todoItemService.Update(todoItem);
             //await _todoItemRepository.Update(todoItem);
             var updateResult = new UpdateResult<TEntity>
             {
