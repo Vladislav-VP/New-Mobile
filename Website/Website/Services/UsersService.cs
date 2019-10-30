@@ -28,9 +28,10 @@ namespace Services
 
         }
 
-        public void Login(string username, string password)
+        public User Find(string username, string password)
         {
             User user = _userRepository.Find(username, password);
+            return user;
         }
 
         public void Register(string username, string password)

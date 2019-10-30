@@ -81,6 +81,18 @@ namespace TestProject.API.Controllers
             return Ok(user);
         }
 
+        [HttpGet("{username}/{password}")]
+        public IActionResult Login(string username, string password)
+        {
+            User user = _usersService.Find(username, password);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var result = new ObjectResult(user);
+            return result;
+        }
+
         // TODO: Remove this method later.
         private void AddMockedUser()
         {
@@ -91,5 +103,7 @@ namespace TestProject.API.Controllers
             };
             _usersService.Register(user.Name, user.Password);
         }
+
+        
     }
 }

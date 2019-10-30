@@ -149,7 +149,7 @@ namespace TestProject.Services
         public async Task<User> Get(string username, string password)
         {
             HttpClient client = GetClient();
-            string requestUri = $"{_url}/?username={username}&password={password}";
+            string requestUri = $"{_url}/{username}/{password}";
             try
             {
                 string result = await client.GetStringAsync(requestUri);
