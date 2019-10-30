@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -78,7 +79,7 @@ namespace TestProject.Services
             }
 
             //User retrievedUser = await _userRepository.GetUser(newUserName);
-            User retrievedUser = await Get(result.Data.Name);
+            User retrievedUser = await Get(newUserName);
             if (retrievedUser != null && retrievedUser.Id != result.Data.Id)
             {
                 _dialogsHelper.DisplayAlertMessage(Strings.UserAlreadyExistsMessage);
@@ -109,7 +110,8 @@ namespace TestProject.Services
 
             //User currentUser = await _userRepository.GetUser(user.Name, user.Password);
             //User currentUser = await Update(user);
-            User currentUser = await Get(user.Name, user.Password);
+            User currentUser = await AddToApi(user);
+            //User currentUser = await Get(user.Name, user.Password);
             if (currentUser == null)
             {
                 _dialogsHelper.DisplayAlertMessage(Strings.LoginErrorMessage);
@@ -141,7 +143,17 @@ namespace TestProject.Services
                 return result;
             }
 
-            await AddToApi(result.Data);
+            try
+            {
+                await AddToApi(result.Data);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+            
             await AddUser(result.Data);
             result.IsSucceded = true;
             return result;
@@ -149,7 +161,7 @@ namespace TestProject.Services
 
         private async Task AddUser(User user)
         {
-            await _userRepository.Insert(user);
+            //await _userRepository.Insert(user);
             await _storage.Save(user.Id);
         }
 

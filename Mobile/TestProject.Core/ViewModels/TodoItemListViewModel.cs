@@ -95,7 +95,7 @@ namespace TestProject.Core.ViewModels
         {
             TodoItems.Clear();
 
-            //User currentUser = await _storage.Get();
+            User currentUser = await _storage.Get();
             IEnumerable<TEntity> retrievedTodoItems = await _todoItemService.Get();
             TodoItems.AddRange(retrievedTodoItems);
         }
