@@ -37,12 +37,13 @@ namespace TestProject.Core.ViewModels
             }
         }
 
+        private string _userName;
         public string UserName
         {
-            get => _user.Name;
+            get => _userName;
             set
             {
-                _user.Name = value;
+                _userName = value;
                 RaisePropertyChanged(() => UserName);
             }
         }
@@ -57,7 +58,8 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            _user = await _storage.Get();
+            int userId = await _storage.Get();
+            _user = await _userService.Get(userId);
             UserName = _user.Name;
         }
 

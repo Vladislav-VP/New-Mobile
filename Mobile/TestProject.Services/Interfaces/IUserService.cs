@@ -17,6 +17,6 @@ namespace TestProject.Services.Interfaces
         Task<DataHandleResult<EditPasswordHelper>> ChangePassword(User user, string oldPassword,
             string newPassword, string newPasswordConfirmation);
 
-        Task<User> FindByName(string name);
+        Task<User> Get(string name);
     }
 }

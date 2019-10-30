@@ -17,7 +17,7 @@ namespace TestProject.API.Controllers
         private readonly TodoListContext _context;
         private readonly UsersService _usersService;
 
-        public UsersController(TodoListContext context)        
+        public UsersController(TodoListContext context)
         {
             _context = context;
             _usersService = new UsersService(_context);
@@ -56,6 +56,34 @@ namespace TestProject.API.Controllers
             }
             var result = new ObjectResult(user);
             return result;
+        }
+
+        [HttpGet("username={username}")]
+        public IActionResult GetUser(string username)
+        {
+            User user = _usersService.Find(username);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var result = new ObjectResult(user);
+            return result;
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult ChangeUsername([FromBody]  User user)
+        {
+            if (user == null)
+            {
+                return BadRequest();
+            }
+            User userToModify = _usersService.FindById(user.Id);
+            if (userToModify == null)
+            {
+                return NotFound();
+            }
+            _usersService.ChangeUsername(user);
+            return Ok(user);
         }
 
         [HttpPost]

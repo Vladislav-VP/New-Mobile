@@ -77,23 +77,30 @@ namespace TestProject.Services
                 return result;
             }
 
-            User retrievedUser = await _userRepository.GetUser(newUserName);
+            //User retrievedUser = await _userRepository.GetUser(newUserName);
+            User retrievedUser = await Get(result.Data.Name);
             if (retrievedUser != null && retrievedUser.Id != result.Data.Id)
             {
                 _dialogsHelper.DisplayAlertMessage(Strings.UserAlreadyExistsMessage);
                 return result;
             }
 
-            result.Data.Name = newUserName;
-            await _userRepository.Update(result.Data);
+            //result.Data.Name = newUserName;
+            //await _userRepository.Update(result.Data);
+            retrievedUser.Name = newUserName;
+            await Update(retrievedUser);
             result.IsSucceded = true;
 
             return result;
         }
 
-        public Task<User> FindByName(string name)
+        public async Task<User> Get(string username)
         {
-            throw new System.NotImplementedException();
+            HttpClient client = GetClient();
+            string requestUri = $"{_url}/username={username}";
+            string result = await client.GetStringAsync(requestUri);
+            User user = JsonConvert.DeserializeObject<User>(result);
+            return user;
         }
 
         public async Task<DataHandleResult<User>> Login(User user)
@@ -150,19 +157,9 @@ namespace TestProject.Services
         {
             HttpClient client = GetClient();
             string requestUri = $"{_url}/{username}/{password}";
-            try
-            {
-                string result = await client.GetStringAsync(requestUri);
-                User user = JsonConvert.DeserializeObject<User>(result);
-                return user;
-            }
-            catch (System.Exception ex)
-            {
-
-                throw;
-            }
-            
-            
+            string result = await client.GetStringAsync(requestUri);
+            User user = JsonConvert.DeserializeObject<User>(result);
+            return user;
         }
     }
 }

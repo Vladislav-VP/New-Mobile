@@ -43,8 +43,8 @@ namespace TestProject.Droid.Fragments
             base.OnPause();
 
             IUserStorageHelper storage = Mvx.IoCProvider.Resolve<IUserStorageHelper>();
-            User user = await storage.Get();
-            if (user == null)
+            int userId = await storage.Get();
+            if (userId == 0)
             {
                 return;                
             }
