@@ -14,9 +14,9 @@ namespace TestProject.Core.ViewModels
 {
     public class CreateTodoItemViewModel : TodoItemViewModel, IMvxViewModelResult<CreationResult<TEntity>>
     {
-        public CreateTodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, ICancelDialogService cancelDialogService, IUserService userService,
+        public CreateTodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, ICancelDialogService cancelDialogService,
             IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper, ITodoItemService webService)
-            : base(navigationService, storage, cancelDialogService, userService, validationHelper, todoItemRepository, dialogsHelper, webService)
+            : base(navigationService, storage,cancelDialogService, validationHelper, todoItemRepository, dialogsHelper, webService)
         {
             CreateTodoItemCommand = new MvxAsyncCommand(HandleEntity);
         }
@@ -25,8 +25,7 @@ namespace TestProject.Core.ViewModels
 
         protected override async Task HandleEntity()
         {
-            int userId = await _storage.Get();
-            User currerntUser = await _userService.Get(userId);
+            User currerntUser = await _storage.Get();
             var todoItem = new TEntity
             {
                 Name = Name,
@@ -41,7 +40,7 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            await _todoItemService.AddToApi(todoItem);
+            await _webService.AddToApi(todoItem);
             await _todoItemRepository.Insert(todoItem);
             var creationResult = new CreationResult<TEntity>
             {

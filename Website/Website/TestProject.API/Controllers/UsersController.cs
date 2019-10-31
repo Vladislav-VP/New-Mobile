@@ -30,12 +30,6 @@ namespace TestProject.API.Controllers
         [HttpGet]
         public IActionResult GetAllUsers()
         {
-            var user = new User
-            {
-                Name = string.Empty,
-                Password = string.Empty
-            };
-            Register(user);
             IEnumerable<User> users = _usersService.GetAllObjects();
             if (users == null)
             {
@@ -109,21 +103,22 @@ namespace TestProject.API.Controllers
             return Ok(user);
         }
 
-        [HttpGet("{username}/{password}")]
-        public IActionResult Login(string username, string password)
-        {
-            User user = _usersService.Find(username, password);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            var result = new ObjectResult(user);
-            return result;
-        }
-
-        // TODO: Remove this method later.
+        //[HttpGet("{username}/{password}")]
+        //[HttpPost]
+        //public IActionResult Login([FromBody] User user)
+        //{
+        //    User retrievedUser = _usersService.Find(user.Name, user.Password);
+        //    if (retrievedUser == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(user);
+        //    //var result = new ObjectResult(user);
+        //    //return result;
+        //}
+        
         private void AddMockedUser()
-        {
+        {// TODO: Remove this method later.
             var user = new User
             {
                 Name = "vp",

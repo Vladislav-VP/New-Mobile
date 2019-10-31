@@ -65,8 +65,7 @@ namespace TestProject.Core.ViewModels
 
         private async Task ChangePassword()
         {
-            int userId = await _storage.Get();
-            User currentUser = await _userService.Get(userId);
+            User currentUser = await _storage.Get();
 
             DataHandleResult<EditPasswordHelper> result = await _userService
                 .ChangePassword(currentUser, OldPassword, NewPassword, NewPasswordConfirmation);
