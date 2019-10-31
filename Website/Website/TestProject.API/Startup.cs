@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TestProject.API.Configurations;
 
 namespace TestProject.API
 {
@@ -19,9 +18,9 @@ namespace TestProject.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<TodoListContext>(options => options.UseSqlServer(Constants.ConnectionString));
+            string connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<TodoListContext>(options => options.UseSqlServer(connection));
             services.AddMvc();
-            //services.AddScoped<TodoItemRepository>();
         }
         
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

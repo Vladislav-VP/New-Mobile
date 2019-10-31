@@ -15,23 +15,22 @@ namespace Services
             _todoItemRepository = new TodoItemRepository(_context);
         }
 
-        //TODO: Refactor method below.
         public override void Update(TodoItem todoItem)
         {            
+            _todoItemRepository.Update(todoItem);
+        }
+
+        public void EditTodoItem(TodoItem todoItem)
+        {
             TodoItem todoItemToModify = _todoItemRepository.Find(todoItem.Id);
             if (todoItemToModify == null)
             {
                 return;
             }
 
-            ModifyTodoItem(todoItemToModify, todoItem);
-            _todoItemRepository.Update(todoItemToModify);
-        }
-
-        private void ModifyTodoItem(TodoItem oldTodoItem, TodoItem newTodoItem)
-        {
-            oldTodoItem.Description = newTodoItem.Description;
-            oldTodoItem.IsDone = newTodoItem.IsDone;
+            todoItemToModify.Description = todoItem.Description;
+            todoItemToModify.IsDone = todoItem.IsDone;
+            Update(todoItemToModify);
         }
 
         public IEnumerable<TodoItem> GetUsersTodoItems(int userId)

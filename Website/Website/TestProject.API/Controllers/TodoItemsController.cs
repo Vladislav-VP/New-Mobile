@@ -60,7 +60,7 @@ namespace TestProject.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody]TodoItem todoItem)
+        public IActionResult AddTodoItem([FromBody]TodoItem todoItem)
         {
             if (todoItem == null)
             {
@@ -72,29 +72,23 @@ namespace TestProject.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put([FromBody]TodoItem todoItem)
-        { // TODO : Refactor this method.
+        public IActionResult EditTodoItem([FromBody]TodoItem todoItem)
+        {
             if (todoItem == null)
             {
                 return BadRequest();
             }
-
-            IEnumerable<TodoItem> todoItems = _todoItemService.GetAllObjects();
-            bool isFound = todoItems.Any(t => t.Id == todoItem.Id);
-            if (!isFound)
+            TodoItem todoItemToModify = _todoItemService.FindById(todoItem.Id);
+            if (todoItemToModify == null)
             {
                 return NotFound();
             }
-
-            TodoItem todoItemToBeModified = _todoItemService.FindById(todoItem.Id);
-            todoItemToBeModified.Description = todoItem.Description;
-
-            _todoItemService.Update(todoItem);
+            _todoItemService.EditTodoItem(todoItem);
             return Ok(todoItem);
         }
         
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult DeleteTodoItem(int id)
         {
             TodoItem todoItem = _todoItemService.FindById(id);
             if (todoItem == null)
