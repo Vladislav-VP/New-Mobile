@@ -8,6 +8,7 @@ using MvvmCross.Navigation;
 using TestProject.Entities;
 using TestProject.Resources;
 using TestProject.Services.Helpers.Interfaces;
+using TestProject.Services.Interfaces;
 using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
@@ -22,10 +23,13 @@ namespace TestProject.Core.ViewModels
 
         private readonly IPhotoEditHelper _photoEditHelper;
 
-        public MenuViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage,
+        private readonly IUserService _userService;
+
+        public MenuViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, IUserService userService,
             IUserRepository userRepository, IDialogsHelper dialogsHelper, IPhotoEditHelper photoEditHelper)
             : base(navigationService, storage)
         {
+            _userService = userService;
             _userRepository = userRepository;
             _dialogsHelper = dialogsHelper;
             _photoEditHelper = photoEditHelper;
@@ -70,7 +74,8 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            _currentUser = await _storage.Get();
+            int userId = await _storage.Get();
+            _currentUser = await _userService.Get(userId);
 
             UserName = _currentUser.Name;
             EncryptedProfilePhoto = _currentUser.ImageUrl;
