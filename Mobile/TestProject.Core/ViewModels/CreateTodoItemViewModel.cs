@@ -15,8 +15,8 @@ namespace TestProject.Core.ViewModels
     public class CreateTodoItemViewModel : TodoItemViewModel, IMvxViewModelResult<CreationResult<TEntity>>
     {
         public CreateTodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, ICancelDialogService cancelDialogService, IUserService userService,
-            IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper, ITodoItemService webService)
-            : base(navigationService, storage, cancelDialogService, userService, validationHelper, todoItemRepository, dialogsHelper, webService)
+            IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper, ITodoItemService todoItemService)
+            : base(navigationService, storage, cancelDialogService, validationHelper, todoItemRepository, dialogsHelper, todoItemService)
         {
             CreateTodoItemCommand = new MvxAsyncCommand(HandleEntity);
         }
@@ -26,13 +26,13 @@ namespace TestProject.Core.ViewModels
         protected override async Task HandleEntity()
         {
             int userId = await _storage.Get();
-            User currerntUser = await _userService.Get(userId);
+            //User currerntUser = await _userService.Get(userId);
             var todoItem = new TEntity
             {
                 Name = Name,
                 Description = Description,
                 IsDone = IsDone,
-                UserId = currerntUser.Id
+                UserId = userId
             };
 
             bool isTodoItemValid = _validationHelper.IsObjectValid(todoItem);
