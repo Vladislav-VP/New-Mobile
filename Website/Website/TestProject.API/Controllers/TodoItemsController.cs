@@ -24,8 +24,8 @@ namespace TestProject.API.Controllers
         }
         
         [HttpGet]
-        public IEnumerable<TodoItem> Get()
-        {
+        public IEnumerable<TodoItem> GetAllTodoItems()
+        {// TODO: Remove this method later?
             IEnumerable<TodoItem> todoItems = null;
 
             todoItems = _todoItemService.GetAllObjects();

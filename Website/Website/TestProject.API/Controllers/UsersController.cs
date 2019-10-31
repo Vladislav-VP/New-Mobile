@@ -21,21 +21,11 @@ namespace TestProject.API.Controllers
         {
             _context = context;
             _usersService = new UsersService(_context);
-            if (_context.Users.Count() == 0)
-            {
-                AddMockedUser();
-            }
         }
 
         [HttpGet]
         public IActionResult GetAllUsers()
         {
-            var user = new User
-            {
-                Name = string.Empty,
-                Password = string.Empty
-            };
-            Register(user);
             IEnumerable<User> users = _usersService.GetAllObjects();
             if (users == null)
             {
@@ -71,7 +61,7 @@ namespace TestProject.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult ChangeUsername([FromBody]  User user)
+        public IActionResult EditUser([FromBody]  User user)
         {
             if (user == null)
             {
@@ -82,7 +72,7 @@ namespace TestProject.API.Controllers
             {
                 return NotFound();
             }
-            _usersService.ChangeUsername(user);
+            _usersService.EditUser(user);
             return Ok(user);
         }
 
@@ -109,27 +99,15 @@ namespace TestProject.API.Controllers
             return Ok(user);
         }
 
-        [HttpGet("{username}/{password}")]
+        [HttpPost("username={username}/password={password}")]
         public IActionResult Login(string username, string password)
         {
-            User user = _usersService.Find(username, password);
-            if (user == null)
+            User retrievedUser = _usersService.Find(username, password);
+            if (retrievedUser == null)
             {
                 return NotFound();
             }
-            var result = new ObjectResult(user);
-            return result;
-        }
-
-        // TODO: Remove this method later.
-        private void AddMockedUser()
-        {
-            var user = new User
-            {
-                Name = "vp",
-                Password = "qwerty"
-            };
-            _usersService.Register(user.Name, user.Password);
+            return Ok(retrievedUser);
         }
 
         [HttpDelete("{id}")]

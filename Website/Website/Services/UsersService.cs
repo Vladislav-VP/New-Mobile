@@ -18,16 +18,12 @@ namespace Services
             _userRepository = new UserRepository(_context);
         }
 
-        public void ChangeUsername(User user)
+        public void EditUser(User user)
         {
             User userToModify = _userRepository.Find(user.Id);
             userToModify.Name = user.Name;
+            userToModify.Password = user.Password;
             _userRepository.Update(userToModify);
-        }
-
-        public void ChangePassword(int id, string password)
-        {
-
         }
 
         public User Find(string username, string password)

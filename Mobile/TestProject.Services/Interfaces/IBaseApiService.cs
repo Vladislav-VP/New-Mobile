@@ -9,7 +9,7 @@ namespace TestProject.Services.Interfaces
 
         Task<TEntity> Get(int id);
 
-        Task<TEntity> AddToApi(TEntity entity);
+        Task<TEntity> Post(TEntity entity, string requestUri);
 
         Task<TEntity> Update(TEntity entity);
 

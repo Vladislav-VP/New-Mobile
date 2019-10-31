@@ -51,7 +51,7 @@ namespace TestProject.Core.ViewModels
 
             if (result.IsSucceded)
             {
-                await _navigationService.Navigate<MainViewModel>();
+                await _navigationService.Close(this);
             }            
         }
 

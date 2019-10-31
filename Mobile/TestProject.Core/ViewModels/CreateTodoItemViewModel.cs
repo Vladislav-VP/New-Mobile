@@ -41,7 +41,8 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            await _todoItemService.AddToApi(todoItem);
+            // TODO : Fix creating todoitems, move logic to service.
+            //await _todoItemService.Post(todoItem, _url);
             await _todoItemRepository.Insert(todoItem);
             var creationResult = new CreationResult<TEntity>
             {

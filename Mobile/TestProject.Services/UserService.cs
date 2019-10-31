@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
+using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 using TestProject.Entities;
@@ -32,9 +34,10 @@ namespace TestProject.Services
             _dialogsHelper = dialogsHelper;
         }
 
-        public async Task<DataHandleResult<EditPasswordHelper>> ChangePassword(User user,
+        public async Task<DataHandleResult<EditPasswordHelper>> ChangePassword(int userId,
             string oldPassword, string newPassword, string newPasswordConfirmation)
         {
+            User user = await Get(userId);
             var editPasswordHelper = new EditPasswordHelper
             {
                 OldPassword = user.Password,
@@ -53,9 +56,10 @@ namespace TestProject.Services
                 && _validationHelper.IsObjectValid(result.Data, nameof(result.Data.NewPasswordConfirmation));
 
             if (result.IsSucceded)
-            {
+            {                
                 user.Password = newPassword;
-                await _userRepository.Update(user);
+                await Update(user);
+                //await _userRepository.Update(user);
             }
 
             return result;
@@ -108,8 +112,7 @@ namespace TestProject.Services
             var result = new DataHandleResult<User> { Data = user };
 
             //User currentUser = await _userRepository.GetUser(user.Name, user.Password);
-            //User currentUser = await Update(user);
-            User currentUser = await Get(user.Name, user.Password);
+            User currentUser = await Post(user, $"{_url}/username={user.Name}/password={user.Password}");
             if (currentUser == null)
             {
                 _dialogsHelper.DisplayAlertMessage(Strings.LoginErrorMessage);
@@ -123,7 +126,7 @@ namespace TestProject.Services
         }
 
         public async Task<DataHandleResult<User>> RegisterUser(User user)
-        {//TODO : Fix registration (user is added to DB but HttpRequestException thrown (404))
+        {
             var result = new DataHandleResult<User> { Data = user };
 
             bool isUserDataValid = _validationHelper.IsObjectValid(result.Data, nameof(result.Data.Name))
@@ -140,34 +143,10 @@ namespace TestProject.Services
                 _dialogsHelper.DisplayAlertMessage(Strings.UserAlreadyExistsMessage);
                 return result;
             }
-            try
-            {
-                await AddToApi(result.Data);
-            }
-            catch (System.Exception ex)
-            {
-
-                throw;
-            }
+            await Post(result.Data, _url);
             
-            await AddUser(result.Data);
             result.IsSucceded = true;
             return result;
-        }
-
-        private async Task AddUser(User user)
-        {
-            //await _userRepository.Insert(user);
-            await _storage.Save(user.Id);
-        }
-
-        public async Task<User> Get(string username, string password)
-        {
-            HttpClient client = GetClient();
-            string requestUri = $"{_url}/{username}/{password}";
-            string result = await client.GetStringAsync(requestUri);
-            User user = JsonConvert.DeserializeObject<User>(result);
-            return user;
         }
 
         public new async Task<User> Delete(int id)

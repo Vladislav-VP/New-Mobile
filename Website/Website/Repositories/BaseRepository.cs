@@ -28,18 +28,6 @@ namespace Repositories
 
         public void Update(TEntity entity)
         {
-            //try
-            //{
-                
-            //    //_context.Entry(entity).State = EntityState.Detached;
-            //}
-            //catch (Exception ex)
-            //{
-
-            //    throw;
-            //}
-            TEntity entityToBeModified = Find(entity.Id);
-
             EntityEntry<TEntity> entry = _context.Entry(entity);
             entry.State = EntityState.Modified;
             _context.SaveChanges();

@@ -30,12 +30,12 @@ namespace TestProject.Services
             return entity;
         }
 
-        public async Task<TEntity> AddToApi(TEntity entity)
+        public async Task<TEntity> Post(TEntity entity, string requestUri)
         {
             HttpClient client = GetClient();
             string content = JsonConvert.SerializeObject(entity);
             var stringContent = new StringContent(content, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PostAsync(_url, stringContent);
+            HttpResponseMessage response = await client.PostAsync(requestUri, stringContent);
             if (response.StatusCode != HttpStatusCode.OK)
             {
                 return null;
