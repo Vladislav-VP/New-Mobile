@@ -17,22 +17,19 @@ namespace TestProject.Core.ViewModels
 
         protected readonly IValidationHelper _validationHelper;
 
-        protected readonly ITodoItemService _todoItemService;
-
-        protected readonly IUserService _userService;
+        protected readonly ITodoItemService _webService;
 
         public TodoItemViewModel(IMvxNavigationService navigationService, IValidationHelper validationHelper,
-            ICancelDialogService cancelDialogService, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper, ITodoItemService todoItemService)
-            : this(navigationService, null, cancelDialogService, null, validationHelper, todoItemRepository, dialogsHelper, todoItemService) { }
+            ICancelDialogService cancelDialogService, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper, ITodoItemService webService)
+            : this(navigationService, null, cancelDialogService, validationHelper, todoItemRepository, dialogsHelper, webService) { }
 
-        public TodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, ICancelDialogService cancelDialogService, IUserService userService,
-            IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper, ITodoItemService todoItemService)
+        public TodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, ICancelDialogService cancelDialogService,
+            IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper, ITodoItemService webService)
             : base(navigationService, storage, dialogsHelper, cancelDialogService)
         {
             _validationHelper = validationHelper;
             _todoItemRepository = todoItemRepository;
-            _todoItemService = todoItemService;
-            _userService = userService;
+            _webService = webService;
         }
 
         protected override bool IsStateChanged

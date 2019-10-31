@@ -39,9 +39,9 @@ namespace TestProject.Core
 
             Task.Run(async () =>
             {
-                int userId = await _storage.Get();
+                User user = await _storage.Get();
 
-                source.SetResult(userId != 0);
+                source.SetResult(user != null);
             });
 
             var isAuthenticated = source.Task.Result;
