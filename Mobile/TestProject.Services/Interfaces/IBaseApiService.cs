@@ -5,7 +5,7 @@ namespace TestProject.Services.Interfaces
 {
     public interface IBaseApiService<TEntity>
     {
-        Task<IEnumerable<TEntity>> Get();
+        Task<IEnumerable<TEntity>> GetObjectsList(string requestUri = null);
 
         Task<TEntity> Get(int id);
 

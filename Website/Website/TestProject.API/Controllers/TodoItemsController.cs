@@ -23,6 +23,20 @@ namespace TestProject.API.Controllers
             _todoItemService = new TodoItemService(_context);            
         }
         
+        [HttpGet("userId={userId}")]
+        public IActionResult GetUsersTodoItems(int userId)
+        {
+            UsersService usersService = new UsersService(_context);
+            User user = usersService.FindById(userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            IEnumerable<TodoItem> todoItems = _todoItemService.GetUsersTodoItems(userId);
+            var result = new ObjectResult(todoItems);
+            return result;
+        }
+
         [HttpGet]
         public IEnumerable<TodoItem> GetAllTodoItems()
         {// TODO: Remove this method later?

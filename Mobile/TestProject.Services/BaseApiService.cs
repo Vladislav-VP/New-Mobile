@@ -13,10 +13,14 @@ namespace TestProject.Services
     {
         protected string _url;
 
-        public async Task<IEnumerable<TEntity>> Get()
+        public async Task<IEnumerable<TEntity>> GetObjectsList(string requestUri = null)
         {
             HttpClient client = GetClient();
-            string result = await client.GetStringAsync(_url);
+            if (requestUri == null)
+            {
+                requestUri = _url;
+            }
+            string result = await client.GetStringAsync(requestUri);
             IEnumerable<TEntity> entities = JsonConvert.DeserializeObject<IEnumerable<TEntity>>(result);
             return entities;
         }

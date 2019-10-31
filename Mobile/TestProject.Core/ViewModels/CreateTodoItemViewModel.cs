@@ -6,13 +6,14 @@ using MvvmCross.ViewModels;
 
 using TestProject.Core.ViewModelResults;
 using TestProject.Entities;
+using TestProject.Services.DataHandleResults;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Interfaces;
 using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
-    public class CreateTodoItemViewModel : TodoItemViewModel, IMvxViewModelResult<CreationResult<TEntity>>
+    public class CreateTodoItemViewModel : TodoItemViewModel, IMvxViewModelResult<CreationResult<TodoItem>>
     {
         public CreateTodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, ICancelDialogService cancelDialogService, IUserService userService,
             IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper, ITodoItemService todoItemService)
@@ -26,25 +27,17 @@ namespace TestProject.Core.ViewModels
         protected override async Task HandleEntity()
         {
             int userId = await _storage.Get();
-            //User currerntUser = await _userService.Get(userId);
-            var todoItem = new TEntity
+            var todoItem = new TodoItem
             {
                 Name = Name,
                 Description = Description,
                 IsDone = IsDone,
                 UserId = userId
             };
+            DataHandleResult<TodoItem> result = await _todoItemService.CreateTodoItem(todoItem);
 
-            bool isTodoItemValid = _validationHelper.IsObjectValid(todoItem);
-            if (!isTodoItemValid)
-            {
-                return;
-            }
-
-            // TODO : Fix creating todoitems, move logic to service.
-            //await _todoItemService.Post(todoItem, _url);
-            await _todoItemRepository.Insert(todoItem);
-            var creationResult = new CreationResult<TEntity>
+            // TODO : Refactor result.
+            var creationResult = new CreationResult<TodoItem>
             {
                 Entity = todoItem,
                 IsSucceded = true

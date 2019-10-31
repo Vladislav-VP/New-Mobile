@@ -11,25 +11,25 @@ namespace TestProject.Core.ViewModels
 {
     public abstract class TodoItemViewModel : BaseEntityViewModel
     {
-        private TEntity _unmodifiedTodoItem;
+        private TodoItem _unmodifiedTodoItem;
 
         protected readonly ITodoItemRepository _todoItemRepository;
 
         protected readonly IValidationHelper _validationHelper;
 
-        protected readonly ITodoItemService _webService;
+        protected readonly ITodoItemService _todoItemService;
 
         public TodoItemViewModel(IMvxNavigationService navigationService, IValidationHelper validationHelper,
-            ICancelDialogService cancelDialogService, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper, ITodoItemService webService)
-            : this(navigationService, null, cancelDialogService, validationHelper, todoItemRepository, dialogsHelper, webService) { }
+            ICancelDialogService cancelDialogService, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper, ITodoItemService todoItemService)
+            : this(navigationService, null, cancelDialogService, validationHelper, todoItemRepository, dialogsHelper, todoItemService) { }
 
         public TodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, ICancelDialogService cancelDialogService,
-            IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper, ITodoItemService webService)
+            IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper, ITodoItemService todoItemService)
             : base(navigationService, storage, dialogsHelper, cancelDialogService)
         {
             _validationHelper = validationHelper;
             _todoItemRepository = todoItemRepository;
-            _webService = webService;
+            _todoItemService = todoItemService;
         }
 
         protected override bool IsStateChanged
@@ -77,7 +77,7 @@ namespace TestProject.Core.ViewModels
 
         public override Task Initialize()
         {
-            _unmodifiedTodoItem = new TEntity
+            _unmodifiedTodoItem = new TodoItem
             {
                 Name = Name,
                 Description = Description,

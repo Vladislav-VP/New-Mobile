@@ -5,8 +5,8 @@ using TestProject.Entities;
 
 namespace TestProject.Services.Repositories.Interfaces
 {
-    public interface ITodoItemRepository : IBaseRepository<TEntity>
+    public interface ITodoItemRepository : IBaseRepository<TodoItem>
     {
-        Task<IEnumerable<TEntity>> GetTodoItems(int userId);
+        Task<IEnumerable<TodoItem>> GetTodoItems(int userId);
     }
 }

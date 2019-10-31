@@ -1,6 +1,7 @@
 ﻿using DataAccess.Context;
 using Entities;
 using Repositories;
+using System.Collections.Generic;
 
 namespace Services
 {
@@ -31,6 +32,11 @@ namespace Services
         {
             oldTodoItem.Description = newTodoItem.Description;
             oldTodoItem.IsDone = newTodoItem.IsDone;
+        }
+
+        public IEnumerable<TodoItem> GetUsersTodoItems(int userId)
+        {
+            return _todoItemRepository.GetUsersTodoItems(userId);
         }
     }
 }

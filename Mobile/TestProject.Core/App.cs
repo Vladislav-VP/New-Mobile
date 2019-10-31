@@ -23,7 +23,6 @@ namespace TestProject.Core
                 .RegisterAsLazySingleton();
 
             Mvx.IoCProvider.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
-            Mvx.IoCProvider.RegisterSingleton(typeof(ITodoItemService), new TodoItemService());
             Mvx.IoCProvider.RegisterSingleton(typeof(IUserRepository), new UserRepository());
             Mvx.IoCProvider.RegisterSingleton(typeof(ITodoItemRepository), new TodoItemRepository());
             Mvx.IoCProvider.RegisterSingleton(typeof(IDialogsHelper), new DialogsHelper());
@@ -48,6 +47,8 @@ namespace TestProject.Core
 
             var userService = new UserService(validationHelper, dialogsHelper, userRepository, storage);
             Mvx.IoCProvider.RegisterSingleton(typeof(IUserService), userService);
+
+            Mvx.IoCProvider.RegisterSingleton(typeof(ITodoItemService), new TodoItemService(validationHelper));
 
             RegisterCustomAppStart<AppStart>();
         }

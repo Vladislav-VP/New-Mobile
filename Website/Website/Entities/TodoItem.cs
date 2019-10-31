@@ -16,6 +16,8 @@ namespace Entities
         [Display(Name = "Done")]
         public bool IsDone { get; set; }
 
+        public int UserId { get; set; }
+
         [ForeignKey("UserId")]
         public User User { get; set; }
 

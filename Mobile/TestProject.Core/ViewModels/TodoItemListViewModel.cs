@@ -27,13 +27,13 @@ namespace TestProject.Core.ViewModels
 
             ShowMenuCommand = new MvxAsyncCommand(async ()
                   => await _navigationService.Navigate<MenuViewModel>());
-            AddTodoItemCommand = new MvxAsyncCommand<TEntity>(AddTodoItem);
-            SelectTodoItemCommand = new MvxAsyncCommand<TEntity>(SelectTodoItem);
+            AddTodoItemCommand = new MvxAsyncCommand<TodoItem>(AddTodoItem);
+            SelectTodoItemCommand = new MvxAsyncCommand<TodoItem>(SelectTodoItem);
             RefreshTodoItemsCommand = new MvxCommand(RefreshTodoItems);
         }
         
-        private MvxObservableCollection<TEntity> _todoItems;
-        public MvxObservableCollection<TEntity> TodoItems
+        private MvxObservableCollection<TodoItem> _todoItems;
+        public MvxObservableCollection<TodoItem> TodoItems
         {
             get => _todoItems;
             set
@@ -47,32 +47,32 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            TodoItems = new MvxObservableCollection<TEntity>();
+            TodoItems = new MvxObservableCollection<TodoItem>();
             LoadTodoItemsTask = MvxNotifyTask.Create(LoadTodoItems);
         }
 
-        public IMvxAsyncCommand<TEntity> AddTodoItemCommand { get; private set; }
+        public IMvxAsyncCommand<TodoItem> AddTodoItemCommand { get; private set; }
 
         public IMvxAsyncCommand ShowMenuCommand { get; private set; }
 
         public IMvxCommand RefreshTodoItemsCommand { get; private set; }
 
-        public IMvxCommand<TEntity> SelectTodoItemCommand { get; private set; }
+        public IMvxCommand<TodoItem> SelectTodoItemCommand { get; private set; }
 
         public MvxNotifyTask LoadTodoItemsTask { get; private set; }
 
-        private async Task SelectTodoItem(TEntity selectedTodoItem)
+        private async Task SelectTodoItem(TodoItem selectedTodoItem)
         {
-            ViewModelResult<TEntity> result = await _navigationService
-                 .Navigate<EditTodoItemViewModel, TEntity, ViewModelResult<TEntity>>(selectedTodoItem);
+            ViewModelResult<TodoItem> result = await _navigationService
+                 .Navigate<EditTodoItemViewModel, TodoItem, ViewModelResult<TodoItem>>(selectedTodoItem);
 
-            if (result is DeletionResult<TEntity> && result.IsSucceded)
+            if (result is DeletionResult<TodoItem> && result.IsSucceded)
             {
                 TodoItems.Remove(selectedTodoItem);
                 return;
             }
 
-            if(result is UpdateResult<TEntity> && result.IsSucceded)
+            if(result is UpdateResult<TodoItem> && result.IsSucceded)
             {
                 int index = TodoItems.IndexOf(selectedTodoItem);
                 TodoItems.Insert(index, result.Entity);
@@ -80,10 +80,10 @@ namespace TestProject.Core.ViewModels
             }
         }
 
-        private async Task AddTodoItem(TEntity todoItem)
+        private async Task AddTodoItem(TodoItem todoItem)
         {
-            ViewModelResult<TEntity> creationResult = await _navigationService
-                .Navigate<CreateTodoItemViewModel, CreationResult<TEntity>>();
+            ViewModelResult<TodoItem> creationResult = await _navigationService
+                .Navigate<CreateTodoItemViewModel, CreationResult<TodoItem>>();
             
             if (creationResult != null && creationResult.IsSucceded)
             {
@@ -95,7 +95,8 @@ namespace TestProject.Core.ViewModels
         {
             TodoItems.Clear();
 
-            IEnumerable<TEntity> retrievedTodoItems = await _todoItemService.Get();
+            int userId = await _storage.Get();
+            IEnumerable<TodoItem> retrievedTodoItems = await _todoItemService.GetUsersTodoItems(userId);
             TodoItems.AddRange(retrievedTodoItems);
         }
 
