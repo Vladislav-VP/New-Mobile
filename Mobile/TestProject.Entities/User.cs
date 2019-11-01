@@ -25,8 +25,6 @@ namespace TestProject.Entities
             ErrorMessageResourceName = nameof(Strings.InvalidPasswordFormatMessage))]
         public string Password { get; set; }
 
-        public string EncryptedProfilePhoto { get; set; }
-
         public string ImageUrl { get; set; }
 
         public byte[] ImageBytes { get; set; }

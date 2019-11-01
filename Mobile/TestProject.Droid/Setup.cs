@@ -41,8 +41,7 @@ namespace TestProject.Droid
         {
             base.FillValueConverters(registry);
 
-            IBitmapConvertionHelper bitmapConvertionHelper = Mvx.IoCProvider.Resolve<IBitmapConvertionHelper>();
-            registry.AddOrOverwrite("ImageValue", new ImageValueConverter(bitmapConvertionHelper));
+            registry.AddOrOverwrite("ImageValue", new ImageValueConverter());
         }
 
         protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)
@@ -64,7 +63,6 @@ namespace TestProject.Droid
         {
             IMvxIoCProvider provider = base.InitializeIoC();
 
-            Mvx.IoCProvider.RegisterSingleton(typeof(IBitmapConvertionHelper), new BitmapConvertionHelper());
             Mvx.IoCProvider.RegisterSingleton(typeof(IActivityReplaceHelper), new ActivityReplaceHelper());
             Mvx.IoCProvider.RegisterSingleton(typeof(ICancelDialogService), new CancelDialogService());
 

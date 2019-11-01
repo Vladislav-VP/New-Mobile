@@ -168,8 +168,8 @@ namespace TestProject.Services
                     Strings.TakePicture
                 };
 
-            Dictionary<string, Func<Task<string>>> optionResultPairs =
-                new Dictionary<string, Func<Task<string>>>();
+            Dictionary<string, Func<Task<byte[]>>> optionResultPairs =
+                new Dictionary<string, Func<Task<byte[]>>>();
             optionResultPairs.Add(Strings.CancelText, null);
             optionResultPairs.Add(Strings.ChoosePicture, _photoEditHelper.PickPhoto);
             optionResultPairs.Add(Strings.TakePicture, _photoEditHelper.TakePhoto);
@@ -180,11 +180,10 @@ namespace TestProject.Services
 
             if (option != Strings.CancelText)
             {
-                user.EncryptedProfilePhoto = await optionResultPairs[option]();
+                user.ImageBytes = await optionResultPairs[option]();
             }
-            if (user.EncryptedProfilePhoto != null)
+            if (user.ImageBytes != null)
             {
-                user.ImageBytes = Convert.FromBase64String(user.EncryptedProfilePhoto);
                 await Post(user, $"{_url}/EditProfileImage");
             }
         }

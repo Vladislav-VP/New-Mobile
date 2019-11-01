@@ -9,20 +9,14 @@ using TestProject.Droid.Helpers.Interfaces;
 
 namespace TestProject.Droid.Converters
 {
-    public class ImageValueConverter : MvxValueConverter<string, Bitmap>
+    public class ImageValueConverter : MvxValueConverter<byte[], Bitmap>
     {
-        private readonly IBitmapConvertionHelper _bitmapConvertionHelper;
 
-        public ImageValueConverter(IBitmapConvertionHelper bitmapConvertionHelper)
+        protected override Bitmap Convert(byte[] imageBytes, Type targetType, object parameter, CultureInfo culture)
         {
-            _bitmapConvertionHelper = bitmapConvertionHelper;
-        }
-
-        protected override Bitmap Convert(string encodedImage, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (!string.IsNullOrEmpty(encodedImage))
+            if (imageBytes != null)
             {
-                Bitmap bitmap = _bitmapConvertionHelper.DecryptBitmap(encodedImage);
+                Bitmap bitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
 
                 return bitmap;
             }

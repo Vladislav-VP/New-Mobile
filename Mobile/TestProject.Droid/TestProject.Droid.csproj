@@ -77,9 +77,7 @@
     <Compile Include="Converters\ImageValueConverter.cs" />
     <Compile Include="Fragments\BaseDialogFragment.cs" />
     <Compile Include="Helpers\ActivityStorageHelper.cs" />
-    <Compile Include="Helpers\BitmapConvertionHelper.cs" />
     <Compile Include="Helpers\Interfaces\IActivityStorageHelper.cs" />
-    <Compile Include="Helpers\Interfaces\IBitmapConvertionHelper.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="MvxBinds\SwipeRefreshLayoutIsRefreshingTargetBinding.cs" />
     <Compile Include="Resources\Resource.designer.cs" />

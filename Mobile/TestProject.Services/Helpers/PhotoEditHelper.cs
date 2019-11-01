@@ -24,47 +24,46 @@ namespace TestProject.Services.Helpers
             _encryptionHelper = encryptionHelper;
         }
 
-        public async Task<string> PickPhoto()
+        public async Task<byte[]> PickPhoto()
         {
             MediaFile file = await _photoCaptureHelper.PickPhoto();
-            string encryptedImageString = EncryptImage(file);
+            byte[] imageBytes = GetImage(file);
 
-            return encryptedImageString;
+            return imageBytes;
         }
 
-        public async Task<string> TakePhoto()
+        public async Task<byte[]> TakePhoto()
         {
-            string encryptedImageString = null;
+            byte[] imageBytes = null;
 
             bool isCameraPermitted = await _permissionsHelper.IsPermissionGranted(Permission.Camera);
             bool isStoragePermitted = await _permissionsHelper.IsPermissionGranted(Permission.Storage);
             if (isCameraPermitted && isStoragePermitted)
             {
                 MediaFile file = await _photoCaptureHelper.TakePhoto();
-                encryptedImageString = EncryptImage(file);
             }
 
-            return encryptedImageString;
+            return imageBytes;
         }
 
-        public Task<string> DeletePhoto()
+        public Task<byte[]> DeletePhoto()
         {
-            return Task.FromResult<string>(null);
+            return Task.FromResult<byte[]>(null);
         }
 
-        private string EncryptImage(MediaFile file)
+        private byte[] GetImage(MediaFile file)
         {
             if (file == null)
             {
                 return null;
-            }                
-            string encryptedImageString = null;
+            }
+            byte[] imageBytes = null;
             using (Stream imageStream = file.GetStream())
             {
-                encryptedImageString = _encryptionHelper.GetEncryptedString(imageStream);
+                imageBytes = _encryptionHelper.GetBytes(imageStream);
             }
 
-            return encryptedImageString;
+            return imageBytes;
         }
     }
 }

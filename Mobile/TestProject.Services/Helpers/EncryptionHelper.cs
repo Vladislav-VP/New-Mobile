@@ -9,23 +9,20 @@ namespace TestProject.Services.Helpers
     {
         public byte[] DecryptBase64String(string encrtyptedString)
         {
+            // TODO : Remove this method after refactoring conversion on iOS
             return Convert.FromBase64String(encrtyptedString);
         }
 
-        public string GetEncryptedString(Stream stream)
+        public byte[] GetBytes(Stream stream)
         {
-            string encryptedString = null;
-
+            byte[] bytes = null;
             using (var memoryStream = new MemoryStream())
             {
                 stream.CopyTo(memoryStream);
                 byte[] decryptedImageString = memoryStream.ToArray();
-                encryptedString = Convert.ToBase64String(decryptedImageString);
             }
 
-            return encryptedString;
-        }
-
-        
+            return bytes;
+        }        
     }
 }

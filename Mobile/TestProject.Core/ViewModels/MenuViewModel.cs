@@ -53,13 +53,13 @@ namespace TestProject.Core.ViewModels
             }
         }
 
-        public string EncryptedProfilePhoto
+        public byte[] ImageBytes
         {
-            get => _currentUser.EncryptedProfilePhoto;
+            get => _currentUser.ImageBytes;
             set
             {
-                _currentUser.EncryptedProfilePhoto = value;
-                RaisePropertyChanged(() => EncryptedProfilePhoto);
+                _currentUser.ImageBytes = value;
+                RaisePropertyChanged(() => ImageBytes);
             }
         }
 
@@ -75,14 +75,9 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            int userId = await _storage.Get();
             _currentUser = await _userService.GetUserWithImage();
-
+            ImageBytes = _currentUser.ImageBytes;
             UserName = _currentUser.Name;
-            IEncryptionHelper encryptionHelper = Mvx.IoCProvider.Resolve<IEncryptionHelper>();
-            //EncryptedProfilePhoto = _currentUser.EncryptedProfilePhoto;
-            var stream = new MemoryStream(_currentUser.ImageBytes);
-            EncryptedProfilePhoto = encryptionHelper.GetEncryptedString(stream);
         }
 
         private async Task Logout()
@@ -96,7 +91,7 @@ namespace TestProject.Core.ViewModels
         {
             await _userService.EditProfilePhoto(_currentUser);
 
-            EncryptedProfilePhoto = _currentUser.EncryptedProfilePhoto;
+            ImageBytes = _currentUser.ImageBytes;
             //await _userRepository.Update(_currentUser);
         }
 

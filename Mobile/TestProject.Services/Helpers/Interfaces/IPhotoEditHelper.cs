@@ -4,10 +4,10 @@ namespace TestProject.Services.Helpers.Interfaces
 {
     public interface IPhotoEditHelper
     {
-        Task<string> PickPhoto();
+        Task<byte[]> PickPhoto();
 
-        Task<string> TakePhoto();
+        Task<byte[]> TakePhoto();
 
-        Task<string> DeletePhoto();
+        Task<byte[]> DeletePhoto();
     }
 }

@@ -14,7 +14,7 @@
         android:layout_width="@dimen/profile_image_view_width"
         android:layout_height="@dimen/profile_image_view_height"
         android:src="@mipmap/profile"
-        local:MvxBind="Click EditProfilePhotoCommand; Bitmap ImageValue(EncryptedProfilePhoto)"
+        local:MvxBind="Click EditProfilePhotoCommand; Bitmap ImageValue(ImageBytes)"
     />
 	<TextView
 		android:id="@+id/username"
