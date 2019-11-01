@@ -39,7 +39,7 @@ namespace Services
 
         public virtual void Update(TEntity entity)
         {
-
+            _baseRepository.Update(entity);
         }
 
         public virtual void Delete(int id)

@@ -7,7 +7,7 @@ namespace TestProject.Services.Interfaces
     {
         Task<IEnumerable<TEntity>> GetObjectsList(string requestUri = null);
 
-        Task<TEntity> Get(int id);
+        Task<TEntity> Get(int id, string requestUri = null);
 
         Task<TEntity> Post(TEntity entity, string requestUri);
 

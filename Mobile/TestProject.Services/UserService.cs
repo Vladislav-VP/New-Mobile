@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -24,14 +26,17 @@ namespace TestProject.Services
 
         private readonly IDialogsHelper _dialogsHelper;
 
+        private readonly IPhotoEditHelper _photoEditHelper;
+
         public UserService(IValidationHelper validationHelper, IDialogsHelper dialogsHelper,
-            IUserRepository userRepository, IUserStorageHelper storage)
+            IUserRepository userRepository, IUserStorageHelper storage, IPhotoEditHelper photoEditHelper)
         {
             _url = "http://10.10.3.215:3000/api/users";
             _validationHelper = validationHelper;
             _userRepository = userRepository;
             _storage = storage;
             _dialogsHelper = dialogsHelper;
+            _photoEditHelper = photoEditHelper;
         }
 
         public async Task<DataHandleResult<EditPasswordHelper>> ChangePassword(int userId,
@@ -153,6 +158,42 @@ namespace TestProject.Services
         {
             _storage.Clear();
             return await base.Delete(id);
+        }
+
+        public async Task EditProfilePhoto(User user)
+        {
+            string[] buttons =
+                {
+                    Strings.ChoosePicture,
+                    Strings.TakePicture
+                };
+
+            Dictionary<string, Func<Task<string>>> optionResultPairs =
+                new Dictionary<string, Func<Task<string>>>();
+            optionResultPairs.Add(Strings.CancelText, null);
+            optionResultPairs.Add(Strings.ChoosePicture, _photoEditHelper.PickPhoto);
+            optionResultPairs.Add(Strings.TakePicture, _photoEditHelper.TakePhoto);
+            optionResultPairs.Add(Strings.DeletePicture, _photoEditHelper.DeletePhoto);
+
+            string option = await _dialogsHelper.ChooseOption(Strings.ProfilePhotoTitle,
+                Strings.CancelText, Strings.DeletePicture, buttons: buttons);
+
+            if (option != Strings.CancelText)
+            {
+                user.EncryptedProfilePhoto = await optionResultPairs[option]();
+            }
+            if (user.EncryptedProfilePhoto != null)
+            {
+                user.ImageBytes = Convert.FromBase64String(user.EncryptedProfilePhoto);
+                await Post(user, $"{_url}/EditProfileImage");
+            }
+        }
+
+        public async Task<User> GetUserWithImage()
+        {
+            int id = await _storage.Get();
+            User user = await Get(id, $"{_url}/GetProfileImage/{id}");
+            return user;
         }
     }
 }

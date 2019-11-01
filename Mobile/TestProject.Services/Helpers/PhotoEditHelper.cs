@@ -54,6 +54,10 @@ namespace TestProject.Services.Helpers
 
         private string EncryptImage(MediaFile file)
         {
+            if (file == null)
+            {
+                return null;
+            }                
             string encryptedImageString = null;
             using (Stream imageStream = file.GetStream())
             {

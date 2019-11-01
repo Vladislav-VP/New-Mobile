@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
-
+using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 
@@ -54,10 +55,10 @@ namespace TestProject.Core.ViewModels
 
         public string EncryptedProfilePhoto
         {
-            get => _currentUser.ImageUrl;
+            get => _currentUser.EncryptedProfilePhoto;
             set
             {
-                _currentUser.ImageUrl = value;
+                _currentUser.EncryptedProfilePhoto = value;
                 RaisePropertyChanged(() => EncryptedProfilePhoto);
             }
         }
@@ -75,10 +76,13 @@ namespace TestProject.Core.ViewModels
             await base.Initialize();
 
             int userId = await _storage.Get();
-            _currentUser = await _userService.Get(userId);
+            _currentUser = await _userService.GetUserWithImage();
 
             UserName = _currentUser.Name;
-            EncryptedProfilePhoto = _currentUser.ImageUrl;
+            IEncryptionHelper encryptionHelper = Mvx.IoCProvider.Resolve<IEncryptionHelper>();
+            //EncryptedProfilePhoto = _currentUser.EncryptedProfilePhoto;
+            var stream = new MemoryStream(_currentUser.ImageBytes);
+            EncryptedProfilePhoto = encryptionHelper.GetEncryptedString(stream);
         }
 
         private async Task Logout()
@@ -88,35 +92,12 @@ namespace TestProject.Core.ViewModels
             await _navigationService.Navigate<LoginViewModel>();
         }
 
-        private async Task ChangeProfilePhoto()
-        {
-            string[] buttons =
-                {
-                    Strings.ChoosePicture,
-                    Strings.TakePicture
-                };
-
-            Dictionary<string, Func<Task<string>>> optionResultPairs =
-                new Dictionary<string, Func<Task<string>>>();
-            optionResultPairs.Add(Strings.CancelText, null);
-            optionResultPairs.Add(Strings.ChoosePicture, _photoEditHelper.PickPhoto);
-            optionResultPairs.Add(Strings.TakePicture, _photoEditHelper.TakePhoto);
-            optionResultPairs.Add(Strings.DeletePicture, _photoEditHelper.DeletePhoto);
-
-            string option = await _dialogsHelper.ChooseOption(Strings.ProfilePhotoTitle,
-                Strings.CancelText, Strings.DeletePicture, buttons: buttons);
-
-            if (option != Strings.CancelText)
-            {
-                EncryptedProfilePhoto = await optionResultPairs[option]();
-            }
-        }
-
         private async Task EditProfilePhoto()
         {
-            await ChangeProfilePhoto();
+            await _userService.EditProfilePhoto(_currentUser);
 
-            await _userRepository.Update(_currentUser);
+            EncryptedProfilePhoto = _currentUser.EncryptedProfilePhoto;
+            //await _userRepository.Update(_currentUser);
         }
 
         private async Task ShowSettings()

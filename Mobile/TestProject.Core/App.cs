@@ -45,7 +45,7 @@ namespace TestProject.Core
             IValidationHelper validationHelper = Mvx.IoCProvider.Resolve<IValidationHelper>();
             IUserStorageHelper storage = Mvx.IoCProvider.Resolve<IUserStorageHelper>();
 
-            var userService = new UserService(validationHelper, dialogsHelper, userRepository, storage);
+            var userService = new UserService(validationHelper, dialogsHelper, userRepository, storage, photoEditHelper);
             Mvx.IoCProvider.RegisterSingleton(typeof(IUserService), userService);
 
             Mvx.IoCProvider.RegisterSingleton(typeof(ITodoItemService), new TodoItemService(validationHelper));

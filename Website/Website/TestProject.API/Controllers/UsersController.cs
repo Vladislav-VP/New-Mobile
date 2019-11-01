@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using DataAccess.Context;
 using Entities;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Repositories;
 using Services;
+using TestProject.API.Helpers;
 
 namespace TestProject.API.Controllers
 {
@@ -16,17 +19,21 @@ namespace TestProject.API.Controllers
     {
         private readonly TodoListContext _context;
         private readonly UsersService _usersService;
+        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly UserEditHelper _userEditHelper;
 
-        public UsersController(TodoListContext context)
+        public UsersController(TodoListContext context, IHostingEnvironment hostingEnvironment)
         {
             _context = context;
             _usersService = new UsersService(_context);
+            _hostingEnvironment = hostingEnvironment;
+            _userEditHelper = new UserEditHelper(_usersService);
         }
 
         [HttpGet]
         public IActionResult GetAllUsers()
         {
-            IEnumerable<User> users = _usersService.GetAllObjects();
+            IEnumerable<User> users = _usersService.GetAllObjects();            
             if (users == null)
             {
                 return NotFound();
@@ -120,6 +127,28 @@ namespace TestProject.API.Controllers
             }
             _usersService.Delete(id);
             return Ok();
+        }
+
+        [HttpPost("EditProfileImage")]
+        public IActionResult EditProfileImage([FromBody] User user)
+        {
+            _userEditHelper.UploadProfilePhoto(_hostingEnvironment, user);
+            return Ok();            
+        }
+
+        [HttpGet("GetProfileImage/{id}")]
+        public IActionResult GetProfileImage(int id)
+        {
+            User user = _usersService.FindById(id);
+            if (user == null || string.IsNullOrEmpty(user.ImageUrl))
+            {
+                return NotFound();
+            }
+
+            user = _userEditHelper.GetUserWithPhoto(id);
+
+            var result = new ObjectResult(user);
+            return result;
         }
     }
 }

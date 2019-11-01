@@ -16,5 +16,8 @@ namespace Entities
         public string Password { get; set; }
 
         public string ImageUrl { get; set; }
+
+        [NotMapped]
+        public byte[] ImageBytes { get; set; }
     }
 }

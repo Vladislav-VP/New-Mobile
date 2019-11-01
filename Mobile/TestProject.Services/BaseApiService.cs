@@ -25,10 +25,13 @@ namespace TestProject.Services
             return entities;
         }
 
-        public async Task<TEntity> Get(int id)
+        public async Task<TEntity> Get(int id, string requestUri = null)
         {
             HttpClient client = GetClient();
-            string requestUri = $"{_url}/{id}";
+            if (string.IsNullOrEmpty(requestUri))
+            {
+                requestUri = $"{_url}/{id}";
+            }
             string result = await client.GetStringAsync(requestUri);
             TEntity entity = JsonConvert.DeserializeObject<TEntity>(result);
             return entity;
