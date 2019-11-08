@@ -19,6 +19,17 @@ namespace TestProject.API.Helpers
             _usersService = usersService;
         }
 
+        public void ReplaceProfilePhoto(IHostingEnvironment hostingEnvironment, User user)
+        {
+            if (user.ImageBytes != null)
+            {
+                UploadProfilePhoto(hostingEnvironment, user);
+            }
+            User userToModify = _usersService.FindById(user.Id);
+            userToModify.ImageUrl = user.ImageUrl;
+            _usersService.Update(userToModify);
+        }
+
         public void UploadProfilePhoto(IHostingEnvironment hostingEnvironment, User user)
         {
             using (var imageStream = new MemoryStream(user.ImageBytes))
@@ -28,10 +39,8 @@ namespace TestProject.API.Helpers
                 {
                     imageStream.CopyTo(imageFileStream);
                 }
-                User userToModify = _usersService.FindById(user.Id);
-                userToModify.ImageUrl = imageUrl;
-                _usersService.Update(userToModify);
-            }
+                user.ImageUrl = imageUrl;
+            }            
         }
 
         public User GetUserWithPhoto(int id)
