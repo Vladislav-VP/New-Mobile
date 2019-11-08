@@ -6,17 +6,18 @@ using Services;
 using System.Collections.Generic;
 using TestProject.API.Helpers;
 
-namespace TestProject.API.Controllers
+namespace TestProject.API.ApiControllers
 {
     [Route("api/[controller]")]
-    public class UsersController : ControllerBase
+    [ApiController]
+    public class UsersApiController : Controller
     {
         private readonly TodoListContext _context;
         private readonly UsersService _usersService;
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly UserEditHelper _userEditHelper;
 
-        public UsersController(TodoListContext context, IHostingEnvironment hostingEnvironment)
+        public UsersApiController(TodoListContext context, IHostingEnvironment hostingEnvironment)
         {
             _context = context;
             _usersService = new UsersService(_context);
@@ -100,7 +101,8 @@ namespace TestProject.API.Controllers
             return Ok(user);
         }
 
-        [HttpPost("username={username}/password={password}")]
+        [Route("username={username}/password={password}")]
+        [HttpPost]
         public IActionResult Login(string username, string password)
         {
             User retrievedUser = _usersService.Find(username, password);
@@ -111,7 +113,8 @@ namespace TestProject.API.Controllers
             return Ok(retrievedUser);
         }
 
-        [HttpDelete("{id}")]
+        [Route("{id}")]
+        [HttpDelete]
         public IActionResult DeleteAccount(int id)
         {
             User user = _usersService.FindById(id);
@@ -123,14 +126,16 @@ namespace TestProject.API.Controllers
             return Ok();
         }
 
-        [HttpPost("EditProfileImage")]
+        [Route("EditProfileImage")]
+        [HttpPost]
         public IActionResult EditProfileImage([FromBody] User user)
         {
             _userEditHelper.ReplaceProfilePhoto(_hostingEnvironment, user);
             return Ok();            
         }
 
-        [HttpGet("GetProfileImage/{id}")]
+        [Route("GetProfileImage/{id}")]
+        [HttpGet]
         public IActionResult GetProfileImage(int id)
         {
             User user = _usersService.FindById(id);
@@ -147,7 +152,8 @@ namespace TestProject.API.Controllers
             return result;
         }
 
-        [HttpPut("RemoveProfileImage/{id}")]
+        [Route("RemoveProfileImage/{id}")]
+        [HttpPut]
         public IActionResult RemoveProfileImage(int id)
         {
             User user = _usersService.FindById(id);

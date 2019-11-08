@@ -2,28 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+//using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Entities;
 using Repositories;
 using DataAccess.Context;
 using Services;
 
-namespace TestProject.API.Controllers
+namespace TestProject.API.ApiControllers
 {
     [Route("api/[controller]")]
-    public class TodoItemsController : Controller
+    [ApiController]
+    public class TodoItemsApiController : Controller
     {
         private readonly TodoListContext _context;
         private readonly TodoItemService _todoItemService;
 
-        public TodoItemsController(TodoListContext context)
+        public TodoItemsApiController(TodoListContext context)
         {
             _context = context;
             _todoItemService = new TodoItemService(_context);            
         }
         
-        [HttpGet("userId={userId}")]
+        [Route("GetUsersTodoItems/userId={userId}")]
+        [HttpGet]
         public IActionResult GetUsersTodoItems(int userId)
         {
             UsersService usersService = new UsersService(_context);
@@ -47,7 +49,8 @@ namespace TestProject.API.Controllers
             return todoItems;
         }
 
-        [HttpGet("{id}")]
+        [Route("{id}")]
+        [HttpGet]
         public IActionResult Get(int id)
         {
             TodoItem todoItem = _todoItemService.FindById(id);
@@ -71,7 +74,8 @@ namespace TestProject.API.Controllers
             return Ok(todoItem);
         }
 
-        [HttpPut("{id}")]
+        [Route("{id}")]
+        [HttpPut]
         public IActionResult EditTodoItem([FromBody]TodoItem todoItem)
         {
             if (todoItem == null)
@@ -87,7 +91,8 @@ namespace TestProject.API.Controllers
             return Ok(todoItem);
         }
         
-        [HttpDelete("{id}")]
+        [Route("{id}")]
+        [HttpDelete]
         public IActionResult DeleteTodoItem(int id)
         {
             TodoItem todoItem = _todoItemService.FindById(id);
