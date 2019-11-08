@@ -19,9 +19,8 @@ namespace TestProject.Services.Helpers
             using (var memoryStream = new MemoryStream())
             {
                 stream.CopyTo(memoryStream);
-                byte[] decryptedImageString = memoryStream.ToArray();
+                bytes = memoryStream.ToArray();                
             }
-
             return bytes;
         }        
     }

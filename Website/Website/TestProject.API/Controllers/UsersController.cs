@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using DataAccess.Context;
+﻿using DataAccess.Context;
 using Entities;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Repositories;
 using Services;
+using System.Collections.Generic;
 using TestProject.API.Helpers;
 
 namespace TestProject.API.Controllers
@@ -132,7 +126,7 @@ namespace TestProject.API.Controllers
         [HttpPost("EditProfileImage")]
         public IActionResult EditProfileImage([FromBody] User user)
         {
-            _userEditHelper.UploadProfilePhoto(_hostingEnvironment, user);
+            _userEditHelper.ReplaceProfilePhoto(_hostingEnvironment, user);
             return Ok();            
         }
 
@@ -140,15 +134,24 @@ namespace TestProject.API.Controllers
         public IActionResult GetProfileImage(int id)
         {
             User user = _usersService.FindById(id);
-            if (user == null || string.IsNullOrEmpty(user.ImageUrl))
+            if (user == null)
             {
                 return NotFound();
             }
-
-            user = _userEditHelper.GetUserWithPhoto(id);
+            if (!string.IsNullOrEmpty(user.ImageUrl))
+            {
+                user = _userEditHelper.GetUserWithPhoto(id);
+            }            
 
             var result = new ObjectResult(user);
             return result;
+        }
+
+        [HttpPut("RemoveProfileImage/{id}")]
+        public IActionResult RemoveProfileImage(int id)
+        {
+            User user = _usersService.FindById(id);
+            return Ok();
         }
     }
 }

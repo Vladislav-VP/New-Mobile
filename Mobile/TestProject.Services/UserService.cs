@@ -178,14 +178,16 @@ namespace TestProject.Services
             string option = await _dialogsHelper.ChooseOption(Strings.ProfilePhotoTitle,
                 Strings.CancelText, Strings.DeletePicture, buttons: buttons);
 
-            if (option != Strings.CancelText)
+            if (option == Strings.CancelText)
             {
-                user.ImageBytes = await optionResultPairs[option]();
+                return;
             }
-            if (user.ImageBytes != null)
+            user.ImageBytes = await optionResultPairs[option]();
+            if (user.ImageBytes == null)
             {
-                await Post(user, $"{_url}/EditProfileImage");
+                user.ImageUrl = null;
             }
+            await Post(user, $"{_url}/EditProfileImage");
         }
 
         public async Task<User> GetUserWithImage()

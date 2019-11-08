@@ -41,6 +41,7 @@ namespace TestProject.Services.Helpers
             if (isCameraPermitted && isStoragePermitted)
             {
                 MediaFile file = await _photoCaptureHelper.TakePhoto();
+                imageBytes = GetImage(file);
             }
 
             return imageBytes;
