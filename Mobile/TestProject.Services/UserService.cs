@@ -31,7 +31,7 @@ namespace TestProject.Services
         public UserService(IValidationHelper validationHelper, IDialogsHelper dialogsHelper,
             IUserRepository userRepository, IUserStorageHelper storage, IPhotoEditHelper photoEditHelper)
         {
-            _url = "http://10.10.3.215:3000/api/usersapi";
+            _url = "http://10.10.3.215:3000/api/userapi";
             _validationHelper = validationHelper;
             _userRepository = userRepository;
             _storage = storage;
