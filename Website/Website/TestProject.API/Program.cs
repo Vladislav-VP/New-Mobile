@@ -21,7 +21,16 @@ namespace TestProject.API
             //    .UseIISIntegration()
             //    .UseStartup<Startup>()
             //    .Build();
-            CreateWebHostBuilder(args).Build().Run();
+            try
+            {
+                CreateWebHostBuilder(args).Build().Run();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
