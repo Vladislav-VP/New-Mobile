@@ -6,7 +6,7 @@ using TestProject.Services.DataHandleResults;
 
 namespace TestProject.Services.Interfaces
 {
-    public interface ITodoItemService : IBaseApiService<TodoItem>
+    public interface ITodoItemService : IBaseApiService
     {
         Task<IEnumerable<TodoItem>> GetUsersTodoItems(int userId);
 

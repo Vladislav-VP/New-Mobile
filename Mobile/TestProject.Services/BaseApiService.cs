@@ -9,11 +9,11 @@ using TestProject.Services.Interfaces;
 
 namespace TestProject.Services
 {
-    public class BaseApiService<TEntity> : IBaseApiService<TEntity> where TEntity : BaseEntity
+    public class BaseApiService : IBaseApiService
     {
         protected string _url;
 
-        public async Task<IEnumerable<TEntity>> GetObjectsList(string requestUri = null)
+        public async Task<IEnumerable<T>> GetObjectsList<T>(string requestUri = null) where T : class
         {
             HttpClient client = GetClient();
             if (requestUri == null)
@@ -21,11 +21,11 @@ namespace TestProject.Services
                 requestUri = _url;
             }
             string result = await client.GetStringAsync(requestUri);
-            IEnumerable<TEntity> entities = JsonConvert.DeserializeObject<IEnumerable<TEntity>>(result);
+            IEnumerable<T> entities = JsonConvert.DeserializeObject<IEnumerable<T>>(result);
             return entities;
         }
 
-        public async Task<TEntity> Get(int id, string requestUri = null)
+        public async Task<T> Get<T>(int id, string requestUri = null) where T : class
         {
             HttpClient client = GetClient();
             if (string.IsNullOrEmpty(requestUri))
@@ -33,11 +33,11 @@ namespace TestProject.Services
                 requestUri = $"{_url}/{id}";
             }
             string result = await client.GetStringAsync(requestUri);
-            TEntity entity = JsonConvert.DeserializeObject<TEntity>(result);
+            T entity = JsonConvert.DeserializeObject<T>(result);
             return entity;
         }
 
-        public async Task<TEntity> Post(TEntity entity, string requestUri)
+        public async Task<TResponse> Post<TRequest, TResponse>(TRequest entity, string requestUri) where TResponse : class
         {
             HttpClient client = GetClient();
             string content = JsonConvert.SerializeObject(entity);
@@ -48,14 +48,14 @@ namespace TestProject.Services
                 return null;
             }
             string serializedObject = await response.Content.ReadAsStringAsync();
-            TEntity deserializedObject = JsonConvert.DeserializeObject<TEntity>(serializedObject);
+            TResponse deserializedObject = JsonConvert.DeserializeObject<TResponse>(serializedObject);
             return deserializedObject;
         }
 
-        public async Task<TEntity> Update(TEntity entity)
+        public async Task<T> Update<T>(T entity) where T : class
         {
             HttpClient client = GetClient();
-            string contentUri = $"{_url}/{entity.Id}";
+            string contentUri = $"{_url}/";
             string content = JsonConvert.SerializeObject(entity);
             var stringContent = new StringContent(content, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PutAsync(contentUri, stringContent);
@@ -64,11 +64,11 @@ namespace TestProject.Services
                 return null;
             }
             string serializedObject = await response.Content.ReadAsStringAsync();
-            TEntity updatedEntity = JsonConvert.DeserializeObject<TEntity>(serializedObject);
+            T updatedEntity = JsonConvert.DeserializeObject<T>(serializedObject);
             return updatedEntity;
         }
 
-        public async Task<TEntity> Delete(int id)
+        public async Task<T> Delete<T>(int id) where T : class
         {
             HttpClient client = GetClient();
             string requestUri = $"{_url}/{id}";
@@ -78,7 +78,7 @@ namespace TestProject.Services
                 return null;
             }
             string serializedObject = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<TEntity>(serializedObject);
+            return JsonConvert.DeserializeObject<T>(serializedObject);
         }
 
         protected HttpClient GetClient()
@@ -87,5 +87,10 @@ namespace TestProject.Services
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             return client;
         }
+
+        //public Task<TResponse> Post<TResponse, TRequest>(TResponse entity, string requestUri) where TResponse : class
+        //{
+        //    throw new System.NotImplementedException();
+        //}
     }
 }

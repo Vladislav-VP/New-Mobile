@@ -1,26 +1,26 @@
 ﻿using System.Threading.Tasks;
-
+using TestProject.ApiModels.User;
 using TestProject.Entities;
 using TestProject.Services.DataHandleResults;
 using TestProject.Services.Helpers;
 
 namespace TestProject.Services.Interfaces
 {
-    public interface IUserService : IBaseApiService<User>
+    public interface IUserService : IBaseApiService
     {
-        Task<DataHandleResult<User>> Login(User user);
+        Task<ResponseLoginUserApiModel> Login(RequestLoginUserApiModel user);
 
-        Task<DataHandleResult<User>> RegisterUser(User user);
+        Task<TResponse> RegisterUser<TRequest, TResponse>(TRequest user);
 
-        Task<DataHandleResult<User>> EditUsername(User user, string newUserName);
+        Task<TResponse> EditUsername<TRequest, TResponse>(TRequest user, string newUserName);
 
         Task<DataHandleResult<EditPasswordHelper>> ChangePassword(int userId, string oldPassword,
             string newPassword, string newPasswordConfirmation);
 
-        Task EditProfilePhoto(User user);
+        Task EditProfilePhoto(TodoItem user);
 
-        Task<User> Get(string name);
+        Task<TodoItem> Get(string name);
 
-        Task<User> GetUserWithImage();
+        Task<TodoItem> GetUserWithImage();
     }
 }

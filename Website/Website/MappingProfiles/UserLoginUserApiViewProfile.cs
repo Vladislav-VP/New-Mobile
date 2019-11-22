@@ -11,10 +11,10 @@ namespace MappingProfiles
     {
         public UserLoginUserApiViewProfile()
         {
-            CreateMap<User, LoginUserApiView>()
-                    .ForMember(vm => vm.Id, map => map.MapFrom(entity => entity.Id))
-                    .ForMember(vm => vm.Name, map => map.MapFrom(entity => entity.Name))
-                    .ForMember(vm => vm.Password, map => map.MapFrom(entity => entity.Password));
+            //CreateMap<User, ResponseLoginUserApiView>()
+            //        .ForMember(vm => vm.Id, map => map.MapFrom(entity => entity.Id))
+            //        .ForMember(vm => vm.Name, map => map.MapFrom(entity => entity.Name))
+            //        .ForMember(vm => vm.Password, map => map.MapFrom(entity => entity.Password));
         }
     }
 }

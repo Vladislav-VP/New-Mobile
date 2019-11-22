@@ -83,11 +83,18 @@ namespace Services
             return response;
         }
 
-        public LoginUserApiView Login(string username, string password)
+        public ResponseLoginUserApiView Login(RequestLoginUserApiView userRequest)
         {
-            User user = _userRepository.Find(username, password);
-            LoginUserApiView userForLogin = Mapper.Map<LoginUserApiView>(user);
-            return userForLogin;
+            User retrievedUser = _userRepository.Find(userRequest.Name, userRequest.Password);
+            var response = new ResponseLoginUserApiView();
+            if (retrievedUser == null)
+            {
+                response.Message = "Incorrect username or password";
+                return response;
+            }
+            response.IsSuccess = true;
+            response.Message = "User succesfully logged in";
+            return response;
         }
     }
 }

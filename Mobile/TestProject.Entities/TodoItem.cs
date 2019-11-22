@@ -19,7 +19,7 @@ namespace TestProject.Entities
 
         public bool IsDone { get; set; }
 
-        [ForeignKey(typeof(User)), NotNull]
+        [ForeignKey(typeof(TodoItem)), NotNull]
         public int UserId { get; set; }
         
         public override string ToString()

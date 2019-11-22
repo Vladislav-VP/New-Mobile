@@ -4,10 +4,10 @@ using TestProject.Entities;
 
 namespace TestProject.Services.Repositories.Interfaces
 {
-    public interface IUserRepository : IBaseRepository<User>
+    public interface IUserRepository : IBaseRepository<TodoItem>
     {
-        Task<User> GetUser(string userName);
+        Task<TodoItem> GetUser(string userName);
 
-        Task<User> GetUser(string userName, string password);
+        Task<TodoItem> GetUser(string userName, string password);
     }
 }

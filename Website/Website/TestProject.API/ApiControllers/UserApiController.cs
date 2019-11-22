@@ -88,9 +88,9 @@ namespace TestProject.API.ApiControllers
 
         [Route("username={username}/password={password}")]
         [HttpPost]
-        public LoginUserApiView Login(string username, string password)
+        public ResponseLoginUserApiView Login(RequestLoginUserApiView user)
         {
-            LoginUserApiView userForLogin = _usersService.Login(username, password);
+            ResponseLoginUserApiView userForLogin = _usersService.Login(user);
             return userForLogin;
         }
 

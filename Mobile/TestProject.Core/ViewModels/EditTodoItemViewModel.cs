@@ -43,29 +43,29 @@ namespace TestProject.Core.ViewModels
         
         private async Task DeleteTodoItem()
         {
-            bool isConfirmedToDelete = await _dialogsHelper.IsConfirmed(Strings.DeleteMessageDialog);
+            //bool isConfirmedToDelete = await _dialogsHelper.IsConfirmed(Strings.DeleteMessageDialog);
 
-            if (!isConfirmedToDelete)
-            {
-                return;
-            }
+            //if (!isConfirmedToDelete)
+            //{
+            //    return;
+            //}
 
-            //await _todoItemRepository.Delete<TodoItem>(_todoItemId);
-            await _todoItemService.Delete(_todoItemId);
+            ////await _todoItemRepository.Delete<TodoItem>(_todoItemId);
+            //await _todoItemService.Delete(_todoItemId);
 
-            // TODO : Refactor result.
-            var deletionResult = new DeletionResult<TodoItem>
-            {
-                IsSucceded = true
-            };
+            //// TODO : Refactor result.
+            //var deletionResult = new DeletionResult<TodoItem>
+            //{
+            //    IsSucceded = true
+            //};
 
-            await _navigationService.Close(this, deletionResult);
+            //await _navigationService.Close(this, deletionResult);
         }
 
         protected override async Task HandleEntity()
         {
 
-            TodoItem todoItem = await _todoItemService.Get(_todoItemId);
+            TodoItem todoItem = await _todoItemService.Get<TodoItem>(_todoItemId);
 
             DataHandleResult<TodoItem> result = await _todoItemService.EditTodoItem(todoItem, Description, IsDone);
             if (!result.IsSucceded)

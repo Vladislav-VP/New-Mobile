@@ -2,7 +2,7 @@
 
 namespace TestProject.Services.Helpers.Interfaces
 {
-    public interface IUserStorageHelper : IStorageHelper<User>
+    public interface IUserStorageHelper : IStorageHelper<TodoItem>
     {
     }
 }

@@ -14,7 +14,7 @@ namespace TestProject.Core.ViewModels
 {
     public class UserSettingsViewModel : UserViewModel
     {
-        private User _user;
+        private TodoItem _user;
 
         private readonly IUserService _userService;
 
@@ -58,21 +58,21 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            int userId = await _storage.Get();
-            _user = await _userService.Get(userId);
-            UserName = _user.Name;
+            //int userId = await _storage.Get();
+            //_user = await _userService.Get(userId);
+            //UserName = _user.Name;
         }
 
         protected override async Task HandleEntity()
         {
 
-            DataHandleResult<User> result = await _userService.EditUsername(_user, UserName);
+            //DataHandleResult<TodoItem> result = await _userService.EditUsername(_user, UserName);
             
-            if (result.IsSucceded)
-            {
-                _dialogsHelper.DisplayToastMessage(Strings.UserNameChangedMessage);
-                await _navigationService.Close(this);
-            }            
+            //if (result.IsSucceded)
+            //{
+            //    _dialogsHelper.DisplayToastMessage(Strings.UserNameChangedMessage);
+            //    await _navigationService.Close(this);
+            //}            
         }
 
         private async Task DeleteUser()
@@ -84,7 +84,7 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            await _userService.Delete(_user.Id);
+            //await _userService.Delete(_user.Id);
 
             await _navigationService.Navigate<LoginViewModel>();
         }

@@ -75,7 +75,7 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            _currentUser = await _userService.GetUserWithImage();
+            //_currentUser = await _userService.GetUserWithImage();
             ImageBytes = _currentUser.ImageBytes;
             UserName = _currentUser.Name;
         }
@@ -89,7 +89,7 @@ namespace TestProject.Core.ViewModels
 
         private async Task EditProfilePhoto()
         {
-            await _userService.EditProfilePhoto(_currentUser);
+            //await _userService.EditProfilePhoto(_currentUser);
 
             ImageBytes = _currentUser.ImageBytes;
             //await _userRepository.Update(_currentUser);

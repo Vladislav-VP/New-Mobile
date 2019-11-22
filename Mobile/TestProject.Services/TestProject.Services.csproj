@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TestProject.ApiModels\TestProject.ApiModels.csproj" />
     <ProjectReference Include="..\TestProject.Entities\TestProject.Entities.csproj" />
     <ProjectReference Include="..\TestProject.Resources\TestProject.Resources.csproj" />
   </ItemGroup>

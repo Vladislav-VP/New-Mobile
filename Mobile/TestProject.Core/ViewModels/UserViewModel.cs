@@ -11,7 +11,7 @@ namespace TestProject.Core.ViewModels
     {
         protected readonly IUserRepository _userRepository;
 
-        protected readonly IStorageHelper<User> _userStorage;        
+        protected readonly IStorageHelper<TodoItem> _userStorage;        
 
         public UserViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage,
             ICancelDialogService cancelDialogService, IUserRepository userRepository, IDialogsHelper dialogsHelper)

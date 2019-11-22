@@ -4,7 +4,7 @@ using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using Plugin.Connectivity;
 using Plugin.Connectivity.Abstractions;
-
+using TestProject.ApiModels.User;
 using TestProject.Entities;
 using TestProject.Services.DataHandleResults;
 using TestProject.Services.Interfaces;
@@ -52,11 +52,11 @@ namespace TestProject.Core.ViewModels
 
         private async Task Login()
         {
-            var user = new User { Name = UserName, Password = Password };
+            var user = new RequestLoginUserApiModel { Name = UserName, Password = Password };
 
-            DataHandleResult<User> result = await _userService.Login(user);
+            ResponseLoginUserApiModel response = await _userService.Login(user);
 
-            if (result.IsSucceded)
+            if (response.IsSuccess)
             {
                 await _navigationService.Navigate<MainViewModel>();
             }            

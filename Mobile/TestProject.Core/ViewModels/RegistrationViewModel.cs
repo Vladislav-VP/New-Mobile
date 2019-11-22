@@ -46,13 +46,13 @@ namespace TestProject.Core.ViewModels
 
         private async Task RegisterUser()
         {
-            var user = new User { Name = UserName, Password = Password };
-            DataHandleResult<User> result = await _userService.RegisterUser(user);
+            //var user = new TodoItem { Name = UserName, Password = Password };
+            //DataHandleResult<TodoItem> result = await _userService.RegisterUser(user);
 
-            if (result.IsSucceded)
-            {
-                await _navigationService.Close(this);
-            }            
+            //if (result.IsSucceded)
+            //{
+            //    await _navigationService.Close(this);
+            //}            
         }
 
     }
