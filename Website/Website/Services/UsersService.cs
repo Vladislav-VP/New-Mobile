@@ -1,4 +1,5 @@
-﻿using DataAccess.Context;
+﻿using AutoMapper;
+using DataAccess.Context;
 using Entities;
 using Repositories;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ViewModels.Api;
 
 namespace Services
 {
@@ -47,6 +49,13 @@ namespace Services
             };
             // TODO: Add logic for validation.
             Insert(user);
+        }
+
+        public LoginUserApiView Login(string username, string password)
+        {
+            User user = _userRepository.Find(username, password);
+            LoginUserApiView userForLogin = Mapper.Map<LoginUserApiView>(user);
+            return userForLogin;
         }
     }
 }

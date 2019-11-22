@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Services;
 using System.Collections.Generic;
 using TestProject.API.Helpers;
+using ViewModels.Api;
 
 namespace TestProject.API.ApiControllers
 {
@@ -98,14 +99,10 @@ namespace TestProject.API.ApiControllers
 
         [Route("username={username}/password={password}")]
         [HttpPost]
-        public IActionResult Login(string username, string password)
+        public LoginUserApiView Login(string username, string password)
         {
-            User retrievedUser = _usersService.Find(username, password);
-            if (retrievedUser == null)
-            {
-                return NotFound();
-            }
-            return Ok(retrievedUser);
+            LoginUserApiView userForLogin = _usersService.Login(username, password);
+            return userForLogin;
         }
 
         [Route("{id}")]
