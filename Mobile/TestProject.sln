@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject.Forms.UI", "Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject.Forms.Droid", "TestProject.Forms\TestProject.Forms.Droid\TestProject.Forms.Droid.csproj", "{2220295C-EE1C-46A0-AD2D-E8BA25A50A3A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject.ApiModels", "TestProject.ApiModels\TestProject.ApiModels.csproj", "{2BB064F0-B9EA-4F58-9713-C604FCB3DAE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -153,6 +155,18 @@ Global
 		{2220295C-EE1C-46A0-AD2D-E8BA25A50A3A}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{2220295C-EE1C-46A0-AD2D-E8BA25A50A3A}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{2220295C-EE1C-46A0-AD2D-E8BA25A50A3A}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
+		{2BB064F0-B9EA-4F58-9713-C604FCB3DAE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BB064F0-B9EA-4F58-9713-C604FCB3DAE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BB064F0-B9EA-4F58-9713-C604FCB3DAE9}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{2BB064F0-B9EA-4F58-9713-C604FCB3DAE9}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{2BB064F0-B9EA-4F58-9713-C604FCB3DAE9}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{2BB064F0-B9EA-4F58-9713-C604FCB3DAE9}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{2BB064F0-B9EA-4F58-9713-C604FCB3DAE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BB064F0-B9EA-4F58-9713-C604FCB3DAE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BB064F0-B9EA-4F58-9713-C604FCB3DAE9}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{2BB064F0-B9EA-4F58-9713-C604FCB3DAE9}.Release|iPhone.Build.0 = Release|Any CPU
+		{2BB064F0-B9EA-4F58-9713-C604FCB3DAE9}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{2BB064F0-B9EA-4F58-9713-C604FCB3DAE9}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

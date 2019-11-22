@@ -3,8 +3,10 @@ using Entities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Services;
+using System;
 using System.Collections.Generic;
 using TestProject.API.Helpers;
+using ViewModels.Api;
 
 namespace TestProject.API.ApiControllers
 {
@@ -46,19 +48,15 @@ namespace TestProject.API.ApiControllers
         }
 
         [HttpGet("username={username}")]
-        public IActionResult GetUser(string username)
+        public GetByNameUserApiView GetByName(string username)
         {
-            User user = _usersService.Find(username);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            var result = new ObjectResult(user);
-            return result;
+            // TODO: Refactor this method
+            GetByNameUserApiView user = _usersService.Find(username);
+            return user;
         }
 
         [HttpPut("{id}")]
-        public IActionResult EditUser([FromBody]  User user)
+        public IActionResult EditData([FromBody] User user)
         {
             if (user == null)
             {
@@ -71,41 +69,29 @@ namespace TestProject.API.ApiControllers
             }
             _usersService.EditUser(user);
             return Ok(user);
+            //ResponseEditDataUserApiView response = _usersService.EditUser(user);
+            //if (!response.IsSuccess)
+            //{
+            //    response = null;
+            //}
+            //return response;
+            //throw new NotImplementedException();
         }
 
+        [Route("Register")]
         [HttpPost]
-        public IActionResult Register([FromBody]User user)
+        public ResponseRegisterUserApiView Register([FromBody] RequestRegisterUserApiView user)
         {
-            if (user == null)
-            {
-                return BadRequest();
-            }
-            if (string.IsNullOrEmpty(user.Name))
-            {
-                ModelState.AddModelError(nameof(user.Name), "Username can not be empty");
-            }
-            if (string.IsNullOrEmpty(user.Password))
-            {
-                ModelState.AddModelError(nameof(user.Password), "Password can not be empty");
-            }
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            _usersService.Register(user.Name, user.Password);
-            return Ok(user);
+            ResponseRegisterUserApiView response = _usersService.Register(user);
+            return response;
         }
 
         [Route("username={username}/password={password}")]
         [HttpPost]
-        public IActionResult Login(string username, string password)
+        public LoginUserApiView Login(string username, string password)
         {
-            User retrievedUser = _usersService.Find(username, password);
-            if (retrievedUser == null)
-            {
-                return NotFound();
-            }
-            return Ok(retrievedUser);
+            LoginUserApiView userForLogin = _usersService.Login(username, password);
+            return userForLogin;
         }
 
         [Route("{id}")]

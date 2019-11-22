@@ -87,8 +87,8 @@ namespace TestProject.Services
             }
 
             //User retrievedUser = await _userRepository.GetUser(newUserName);
-            User retrievedUser = await Get(result.Data.Name);
-            if (retrievedUser != null && retrievedUser.Id != result.Data.Id)
+            User retrievedUser = await Get(user.Name);
+            if (retrievedUser != null && retrievedUser.Id != user.Id)
             {
                 _dialogsHelper.DisplayAlertMessage(Strings.UserAlreadyExistsMessage);
                 return result;
@@ -142,13 +142,15 @@ namespace TestProject.Services
             }
 
             result.Data.Name = result.Data.Name.Trim();
-            User retrievedUser = await _userRepository.GetUser(result.Data.Name);
+            //User retrievedUser = await _userRepository.GetUser(result.Data.Name);
+            User retrievedUser = await Get(result.Data.Name);
             if (retrievedUser != null)
             {
                 _dialogsHelper.DisplayAlertMessage(Strings.UserAlreadyExistsMessage);
                 return result;
             }
-            await Post(result.Data, _url);
+            string requestUri = $"{_url}/Register";
+            await Post(result.Data, requestUri);
             
             result.IsSucceded = true;
             return result;
