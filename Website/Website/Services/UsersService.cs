@@ -40,15 +40,39 @@ namespace Services
             return user;
         }
 
-        public void Register(string username, string password)
+        public ResponseViewModel Register(RegisterUserApiView userToRegister)
         {
+            var response = new ResponseViewModel();
+            if (userToRegister == null)
+            {
+                response.Message = "Something went wrong";
+                return response;
+            }
+            if (string.IsNullOrEmpty(userToRegister.Name))
+            {
+                response.Message = "Username can not be emnpty";
+                return response;
+            }
+            if (string.IsNullOrEmpty(userToRegister.Password))
+            {
+                response.Message = "Password can not be empty";
+                return response;
+            }
+            User retrievedUser = Find(userToRegister.Name);
+            if (retrievedUser != null)
+            {
+                response.Message = "User with this name already exists";
+                return response;
+            }
             var user = new User
             {
-                Name = username,
-                Password = password
+                Name = userToRegister.Name,
+                Password = userToRegister.Password
             };
-            // TODO: Add logic for validation.
             Insert(user);
+            response.IsSuccess = true;
+            response.Message = "User was succesfully registered";
+            return response;
         }
 
         public LoginUserApiView Login(string username, string password)

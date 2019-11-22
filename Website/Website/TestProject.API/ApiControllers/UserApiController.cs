@@ -3,6 +3,7 @@ using Entities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Services;
+using System;
 using System.Collections.Generic;
 using TestProject.API.Helpers;
 using ViewModels.Api;
@@ -47,15 +48,10 @@ namespace TestProject.API.ApiControllers
         }
 
         [HttpGet("username={username}")]
-        public IActionResult GetUser(string username)
+        public User GetUser(string username)
         {
             User user = _usersService.Find(username);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            var result = new ObjectResult(user);
-            return result;
+            return user;
         }
 
         [HttpPut("{id}")]
@@ -74,27 +70,12 @@ namespace TestProject.API.ApiControllers
             return Ok(user);
         }
 
+        [Route("Register")]
         [HttpPost]
-        public IActionResult Register([FromBody]User user)
+        public ResponseViewModel Register([FromBody] RegisterUserApiView user)
         {
-            if (user == null)
-            {
-                return BadRequest();
-            }
-            if (string.IsNullOrEmpty(user.Name))
-            {
-                ModelState.AddModelError(nameof(user.Name), "Username can not be empty");
-            }
-            if (string.IsNullOrEmpty(user.Password))
-            {
-                ModelState.AddModelError(nameof(user.Password), "Password can not be empty");
-            }
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            _usersService.Register(user.Name, user.Password);
-            return Ok(user);
+            ResponseViewModel response = _usersService.Register(user);
+            return response;
         }
 
         [Route("username={username}/password={password}")]
