@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ViewModels.Api
 {
-    public class ResponseViewModel
+    public class ResponseRegisterUserApiView
     {
         public bool IsSuccess { get; set; }
 

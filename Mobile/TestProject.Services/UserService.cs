@@ -87,8 +87,8 @@ namespace TestProject.Services
             }
 
             //User retrievedUser = await _userRepository.GetUser(newUserName);
-            User retrievedUser = await Get(result.Data.Name);
-            if (retrievedUser != null && retrievedUser.Id != result.Data.Id)
+            User retrievedUser = await Get(user.Name);
+            if (retrievedUser != null && retrievedUser.Id != user.Id)
             {
                 _dialogsHelper.DisplayAlertMessage(Strings.UserAlreadyExistsMessage);
                 return result;

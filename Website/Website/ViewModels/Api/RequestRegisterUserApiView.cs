@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ViewModels.Api
 {
-    public class RegisterUserApiView
+    public class RequestRegisterUserApiView
     {
         public int Id { get; set; }
 

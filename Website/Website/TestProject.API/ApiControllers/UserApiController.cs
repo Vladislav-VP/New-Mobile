@@ -48,14 +48,15 @@ namespace TestProject.API.ApiControllers
         }
 
         [HttpGet("username={username}")]
-        public User GetUser(string username)
+        public GetByNameUserApiView GetByName(string username)
         {
-            User user = _usersService.Find(username);
+            // TODO: Refactor this method
+            GetByNameUserApiView user = _usersService.Find(username);
             return user;
         }
 
         [HttpPut("{id}")]
-        public IActionResult EditUser([FromBody]  User user)
+        public IActionResult EditData([FromBody] User user)
         {
             if (user == null)
             {
@@ -68,13 +69,20 @@ namespace TestProject.API.ApiControllers
             }
             _usersService.EditUser(user);
             return Ok(user);
+            //ResponseEditDataUserApiView response = _usersService.EditUser(user);
+            //if (!response.IsSuccess)
+            //{
+            //    response = null;
+            //}
+            //return response;
+            //throw new NotImplementedException();
         }
 
         [Route("Register")]
         [HttpPost]
-        public ResponseViewModel Register([FromBody] RegisterUserApiView user)
+        public ResponseRegisterUserApiView Register([FromBody] RequestRegisterUserApiView user)
         {
-            ResponseViewModel response = _usersService.Register(user);
+            ResponseRegisterUserApiView response = _usersService.Register(user);
             return response;
         }
 

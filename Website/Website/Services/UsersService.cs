@@ -34,15 +34,23 @@ namespace Services
             return user;
         }
 
-        public User Find(string username)
+        public GetByNameUserApiView Find(string username)
         {
+            var response = new GetByNameUserApiView();
             User user = _userRepository.Find(username);
-            return user;
+            if (user == null)
+            {
+                response.Message = "User with this name already exists";
+                return null;
+            }
+            response.IsSuccess = true;
+            response.Message = "User found";
+            return response;
         }
 
-        public ResponseViewModel Register(RegisterUserApiView userToRegister)
+        public ResponseRegisterUserApiView Register(RequestRegisterUserApiView userToRegister)
         {
-            var response = new ResponseViewModel();
+            var response = new ResponseRegisterUserApiView();
             if (userToRegister == null)
             {
                 response.Message = "Something went wrong";
@@ -58,7 +66,7 @@ namespace Services
                 response.Message = "Password can not be empty";
                 return response;
             }
-            User retrievedUser = Find(userToRegister.Name);
+            GetByNameUserApiView retrievedUser = Find(userToRegister.Name);
             if (retrievedUser != null)
             {
                 response.Message = "User with this name already exists";
