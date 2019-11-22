@@ -80,9 +80,20 @@ namespace TestProject.Services
             return response;
         }
 
-        public Task<TResponse> RegisterUser<TRequest, TResponse>(TRequest user)
+        public async Task<ResponseRegisterUserApiModel> RegisterUser(RequestRegisterUserApiModel user)
         {
-            throw new NotImplementedException();
+            // TODO: Define logic for saving to database.
+            var response = new ResponseRegisterUserApiModel();
+            bool isUserNameValid = _validationHelper.IsObjectValid(user, nameof(user.Name));
+            bool isPasswordValid = _validationHelper.IsObjectValid(user, nameof(user.Password));
+            if (!isUserNameValid || !isPasswordValid)
+            {
+                response.Message = "Invalid format of credentials";
+                return response;
+            }
+            response.IsSuccess = true;
+            response.Message = "User successfully registered";
+            return response;
         }
 
 

@@ -2,7 +2,7 @@
 
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
-
+using TestProject.ApiModels.User;
 using TestProject.Entities;
 using TestProject.Services.DataHandleResults;
 using TestProject.Services.Interfaces;
@@ -46,13 +46,14 @@ namespace TestProject.Core.ViewModels
 
         private async Task RegisterUser()
         {
-            //var user = new TodoItem { Name = UserName, Password = Password };
-            //DataHandleResult<TodoItem> result = await _userService.RegisterUser(user);
+            var user = new RequestRegisterUserApiModel { Name = UserName, Password = Password };
 
-            //if (result.IsSucceded)
-            //{
-            //    await _navigationService.Close(this);
-            //}            
+            ResponseRegisterUserApiModel response = await _userService.RegisterUser(user);
+
+            if (response.IsSuccess)
+            {
+                await _navigationService.Close(this);
+            }
         }
 
     }

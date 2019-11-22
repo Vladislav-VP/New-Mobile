@@ -4,4 +4,13 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TestProject.Configurations\TestProject.Configurations.csproj" />
+    <ProjectReference Include="..\TestProject.Resources\TestProject.Resources.csproj" />
+  </ItemGroup>
+
 </Project>

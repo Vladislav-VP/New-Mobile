@@ -10,7 +10,7 @@ namespace TestProject.Services.Interfaces
     {
         Task<ResponseLoginUserApiModel> Login(RequestLoginUserApiModel user);
 
-        Task<TResponse> RegisterUser<TRequest, TResponse>(TRequest user);
+        Task<ResponseRegisterUserApiModel> RegisterUser(RequestRegisterUserApiModel user);
 
         Task<TResponse> EditUsername<TRequest, TResponse>(TRequest user, string newUserName);
 
