@@ -120,8 +120,40 @@ namespace Services
                     user.ImageBytes = imageMemoryStream.ToArray();
                 }
             }
-            user.ImageBytes = user.ImageBytes;
+            userWithPhoto.ImageBytes = user.ImageBytes;
             return userWithPhoto;
+        }
+
+        public ResponseEditProfileImageUserApiView ReplaceProfilePhoto(RequestEditProfileImageUserApiView user, string imageUrl)
+        {
+            if (user.ImageBytes != null)
+            {
+                UploadProfilePhoto(imageUrl, user);
+                user.ImageUrl = imageUrl;
+            }
+            User userToModify = FindById(user.Id);
+            if (File.Exists(userToModify.ImageUrl))
+            {
+                File.Delete(userToModify.ImageUrl);
+            }
+            userToModify.ImageUrl = user.ImageUrl;
+            Update(userToModify);
+            var response = new ResponseEditProfileImageUserApiView
+            {
+                ImageBytes = user.ImageBytes
+            };
+            return response;
+        }
+
+        private void UploadProfilePhoto(string imageUrl, RequestEditProfileImageUserApiView user)
+        {
+            using (var imageStream = new MemoryStream(user.ImageBytes))
+            {
+                using (var imageFileStream = new FileStream(imageUrl, FileMode.Create))
+                {
+                    imageStream.CopyTo(imageFileStream);
+                }
+            }
         }
     }
 }

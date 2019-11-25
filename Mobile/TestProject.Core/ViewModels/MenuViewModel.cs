@@ -91,8 +91,14 @@ namespace TestProject.Core.ViewModels
         private async Task EditProfilePhoto()
         {
             //await _userService.EditProfilePhoto(_currentUser);
-
-            ImageBytes = _currentUser.ImageBytes;
+            int userId = await _storage.Get();
+            var user = new RequestEditProfileImageUserApiModel
+            {
+                Id = userId,
+                ImageBytes = ImageBytes
+            };
+            ResponseEditProfileImageUserApiModel response = await _userService.EditProfilePhoto(user);
+            ImageBytes = response.ImageBytes;
             //await _userRepository.Update(_currentUser);
         }
 

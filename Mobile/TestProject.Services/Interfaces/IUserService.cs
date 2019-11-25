@@ -17,7 +17,7 @@ namespace TestProject.Services.Interfaces
         Task<DataHandleResult<EditPasswordHelper>> ChangePassword(int userId, string oldPassword,
             string newPassword, string newPasswordConfirmation);
 
-        Task EditProfilePhoto(TodoItem user);
+        Task<ResponseEditProfileImageUserApiModel> EditProfilePhoto(RequestEditProfileImageUserApiModel user);
 
         Task<TodoItem> Get(string name);
 

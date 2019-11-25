@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ViewModels.Api
+namespace ViewModels.Api.User
 {
     public class RequestEditDataUserApiView
     {

@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Services;
 using System;
 using System.Collections.Generic;
-using TestProject.API.Helpers;
 using ViewModels.Api;
 using ViewModels.Api.User;
 
@@ -18,14 +17,12 @@ namespace TestProject.API.ApiControllers
         private readonly TodoListContext _context;
         private readonly UsersService _usersService;
         private readonly IWebHostEnvironment _hostEnvironment;
-        private readonly UserEditHelper _userEditHelper;
 
-        public UserApiController(TodoListContext context, IWebHostEnvironment hostingEnvironment)
+        public UserApiController(TodoListContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
             _usersService = new UsersService(_context);
-            _hostEnvironment = hostingEnvironment;
-            _userEditHelper = new UserEditHelper(_usersService);
+            _hostEnvironment = hostEnvironment;
         }
 
         [HttpGet]
@@ -110,10 +107,11 @@ namespace TestProject.API.ApiControllers
 
         [Route("EditProfileImage")]
         [HttpPost]
-        public IActionResult EditProfileImage([FromBody] User user)
+        public ResponseEditProfileImageUserApiView EditProfileImage([FromBody] RequestEditProfileImageUserApiView user)
         {
-            _userEditHelper.ReplaceProfilePhoto(_hostEnvironment, user);
-            return Ok();            
+            string imageUrl = $"{_hostEnvironment.WebRootPath}\\ProfileImages\\{Guid.NewGuid()}.png";
+            ResponseEditProfileImageUserApiView response = _usersService.ReplaceProfilePhoto(user, imageUrl);
+            return response;            
         }
 
         [Route("GetProfileImage/{id}")]

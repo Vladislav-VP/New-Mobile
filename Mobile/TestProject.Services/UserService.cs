@@ -39,14 +39,42 @@ namespace TestProject.Services
             _photoEditHelper = photoEditHelper;
         }
 
-        public Task<DataHandleResult<EditPasswordHelper>> ChangePassword(int userId, string oldPassword, string newPassword, string newPasswordConfirmation)
+        public Task<DataHandleResult<EditPasswordHelper>> ChangePassword
+            (int userId, string oldPassword, string newPassword, string newPasswordConfirmation)
         {
             throw new NotImplementedException();
         }
 
-        public Task EditProfilePhoto(TodoItem user)
+        public async Task<ResponseEditProfileImageUserApiModel> EditProfilePhoto(RequestEditProfileImageUserApiModel user)
         {
-            throw new NotImplementedException();
+            var response = new ResponseEditProfileImageUserApiModel()
+            {
+                ImageBytes = user.ImageBytes
+            };            
+            string[] buttons =
+                {
+                    Strings.ChoosePicture,
+                    Strings.TakePicture
+                };
+
+            Dictionary<string, Func<Task<byte[]>>> optionResultPairs =
+                new Dictionary<string, Func<Task<byte[]>>>();
+            optionResultPairs.Add(Strings.CancelText, null);
+            optionResultPairs.Add(Strings.ChoosePicture, _photoEditHelper.PickPhoto);
+            optionResultPairs.Add(Strings.TakePicture, _photoEditHelper.TakePhoto);
+            optionResultPairs.Add(Strings.DeletePicture, _photoEditHelper.DeletePhoto);
+            string option = await _dialogsHelper.ChooseOption(Strings.ProfilePhotoTitle,
+                Strings.CancelText, Strings.DeletePicture, buttons: buttons);
+
+            if (option == Strings.CancelText)
+            {
+                return response;
+            }
+            user.ImageBytes = await optionResultPairs[option]();
+            response = await Post<RequestEditProfileImageUserApiModel, ResponseEditProfileImageUserApiModel>
+                (user, $"{_url}/EditProfileImage");
+
+            return response;
         }
 
         public Task<TResponse> EditUsername<TRequest, TResponse>(TRequest user, string newUserName)
@@ -83,7 +111,6 @@ namespace TestProject.Services
 
         public async Task<ResponseRegisterUserApiModel> RegisterUser(RequestRegisterUserApiModel user)
         {
-            // TODO: Define logic for saving to database.
             var response = new ResponseRegisterUserApiModel();
             bool isUserNameValid = _validationHelper.IsObjectValid(user, nameof(user.Name));
             bool isPasswordValid = _validationHelper.IsObjectValid(user, nameof(user.Password));
