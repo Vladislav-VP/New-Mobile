@@ -90,7 +90,8 @@ namespace TestProject.Droid.Activities
             Window.AddFlags(WindowManagerFlags.Fullscreen);
 
             ViewModel.ShowMenuCommand?.Execute(null);
-            ViewModel.ShowTodoItemListCommand?.Execute(null);
+            // TODO : Uncomment line below.
+            //ViewModel.ShowTodoItemListCommand?.Execute(null);
 
             CrossCurrentActivity.Current.Init(this, bundle);
 

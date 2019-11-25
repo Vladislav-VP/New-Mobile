@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
-
+using TestProject.ApiModels.User;
 using TestProject.Entities;
 using TestProject.Resources;
 using TestProject.Services.Helpers.Interfaces;
@@ -16,7 +16,7 @@ namespace TestProject.Core.ViewModels
 {
     public class MenuViewModel : BaseViewModel
     {
-        private User _currentUser;
+        private GetProfileImageUserApiModel _currentUser;
 
         private readonly IUserRepository _userRepository;
 
@@ -75,7 +75,8 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            //_currentUser = await _userService.GetUserWithImage();
+            int userId = await _storage.Get();
+            _currentUser = await _userService.GetUserWithImage(userId);
             ImageBytes = _currentUser.ImageBytes;
             UserName = _currentUser.Name;
         }

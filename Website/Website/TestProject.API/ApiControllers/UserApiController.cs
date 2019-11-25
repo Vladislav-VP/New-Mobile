@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using TestProject.API.Helpers;
 using ViewModels.Api;
+using ViewModels.Api.User;
 
 namespace TestProject.API.ApiControllers
 {
@@ -117,20 +118,10 @@ namespace TestProject.API.ApiControllers
 
         [Route("GetProfileImage/{id}")]
         [HttpGet]
-        public IActionResult GetProfileImage(int id)
+        public GetProfileImageUserApiView GetProfileImage(int id)
         {
-            User user = _usersService.FindById(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            if (!string.IsNullOrEmpty(user.ImageUrl))
-            {
-                user = _userEditHelper.GetUserWithPhoto(id);
-            }            
-
-            var result = new ObjectResult(user);
-            return result;
+            var user = _usersService.GetUserWithPhoto(id);
+            return user;
         }
     }
 }

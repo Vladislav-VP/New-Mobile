@@ -59,9 +59,10 @@ namespace TestProject.Services
             throw new NotImplementedException();
         }
 
-        public Task<TodoItem> GetUserWithImage()
+        public async Task<GetProfileImageUserApiModel> GetUserWithImage(int id)
         {
-            throw new NotImplementedException();
+            GetProfileImageUserApiModel user = await Get<GetProfileImageUserApiModel>(id, $"{_url}/GetProfileImage/{id}");
+            return user;
         }
 
         public async Task<ResponseLoginUserApiModel> Login(RequestLoginUserApiModel user)
@@ -74,7 +75,7 @@ namespace TestProject.Services
                 return response;
             }
 
-            await _storage.Save(user.Id);
+            await _storage.Save(response.Id);
             response.IsSuccess = true;
 
             return response;
@@ -91,8 +92,11 @@ namespace TestProject.Services
                 response.Message = "Invalid format of credentials";
                 return response;
             }
-            response.IsSuccess = true;
-            response.Message = "User successfully registered";
+            response = await Post<RequestRegisterUserApiModel, ResponseRegisterUserApiModel>(user, $"{_url}/Register");
+            if (!response.IsSuccess)
+            {
+                _dialogsHelper.DisplayAlertMessage(response.Message);
+            }
             return response;
         }
 

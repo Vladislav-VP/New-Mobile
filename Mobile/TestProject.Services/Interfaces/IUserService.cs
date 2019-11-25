@@ -21,6 +21,6 @@ namespace TestProject.Services.Interfaces
 
         Task<TodoItem> Get(string name);
 
-        Task<TodoItem> GetUserWithImage();
+        Task<GetProfileImageUserApiModel> GetUserWithImage(int id);
     }
 }

@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TestProject.ApiModels.User
+namespace ViewModels.Api.User
 {
-    public class ResponseLoginUserApiModel
+    public class ResponseEditDataUserApiView
     {
-        public int Id { get; set; }
-        
         public bool IsSuccess { get; set; }
 
         public string Message { get; set; }

@@ -4,10 +4,12 @@ using Entities;
 using Repositories;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ViewModels.Api;
+using ViewModels.Api.User;
 
 namespace Services
 {
@@ -92,9 +94,34 @@ namespace Services
                 response.Message = "Incorrect username or password";
                 return response;
             }
+            response.Id = retrievedUser.Id;
             response.IsSuccess = true;
             response.Message = "User succesfully logged in";
             return response;
+        }
+
+        public GetProfileImageUserApiView GetUserWithPhoto(int id)
+        {
+            User user = FindById(id);
+            var userWithPhoto = new GetProfileImageUserApiView
+            {
+                Id = user.Id,
+                Name = user.Name
+            };
+            if(string.IsNullOrEmpty(user.ImageUrl))
+            {
+                return userWithPhoto;
+            }
+            using (var imageFileStream = new FileStream(user.ImageUrl, FileMode.Open, FileAccess.ReadWrite))
+            {
+                using (var imageMemoryStream = new MemoryStream())
+                {
+                    imageFileStream.CopyTo(imageMemoryStream);
+                    user.ImageBytes = imageMemoryStream.ToArray();
+                }
+            }
+            user.ImageBytes = user.ImageBytes;
+            return userWithPhoto;
         }
     }
 }
