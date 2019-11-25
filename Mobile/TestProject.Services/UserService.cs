@@ -39,10 +39,11 @@ namespace TestProject.Services
             _photoEditHelper = photoEditHelper;
         }
 
-        public Task<DataHandleResult<EditPasswordHelper>> ChangePassword
-            (int userId, string oldPassword, string newPassword, string newPasswordConfirmation)
+        public async Task<ResponseChangePasswordUserApiModel> ChangePassword(RequestChangePasswordUserApiModel user)
         {
-            throw new NotImplementedException();
+            ResponseChangePasswordUserApiModel response = await Post<RequestChangePasswordUserApiModel,
+                ResponseChangePasswordUserApiModel>(user, $"{_url}/ChangePassword");
+            return response;
         }
 
         public async Task<ResponseEditProfileImageUserApiModel> EditProfilePhoto(RequestEditProfileImageUserApiModel user)
@@ -146,83 +147,14 @@ namespace TestProject.Services
             return response;
         }
 
-        //public async Task<DataHandleResult<EditPasswordHelper>> ChangePassword(int userId,
-        //    string oldPassword, string newPassword, string newPasswordConfirmation)
-        //{
-        //    T user = await Get(userId);
-        //    var editPasswordHelper = new EditPasswordHelper
-        //    {
-        //        OldPassword = user.Password,
-        //        OldPasswordConfirmation = oldPassword,
-        //        NewPassword = newPassword,
-        //        NewPasswordConfirmation = newPasswordConfirmation
-        //    };
-
-        //    var result = new DataHandleResult<EditPasswordHelper>
-        //    {
-        //        Data = editPasswordHelper
-        //    };
-
-        //    result.IsSucceded = _validationHelper.IsObjectValid(result.Data, nameof(result.Data.OldPasswordConfirmation))
-        //        && _validationHelper.IsObjectValid(result.Data, nameof(result.Data.NewPassword))
-        //        && _validationHelper.IsObjectValid(result.Data, nameof(result.Data.NewPasswordConfirmation));
-
-        //    if (result.IsSucceded)
-        //    {                
-        //        user.Password = newPassword;
-        //        await Update(user);
-        //        //await _userRepository.Update(user);
-        //    }
-
-        //    return result;
-        //}
-
-        //public async Task<DataHandleResult<T>> EditUsername(T user, string newUserName)
-        //{
-        //    var result = new DataHandleResult<T> { Data = user };
-
-        //    var userToCheck = new T
-        //    {
-        //        Name = newUserName,
-        //        Password = result.Data.Password
-        //    };
-
-        //    bool isUserNameValid = _validationHelper.IsObjectValid(userToCheck);
-        //    if (!isUserNameValid)
-        //    {
-        //        return result;
-        //    }
-
-        //    //User retrievedUser = await _userRepository.GetUser(newUserName);
-        //    T retrievedUser = await Get(user.Name);
-        //    if (retrievedUser != null && retrievedUser.Id != user.Id)
-        //    {
-        //        _dialogsHelper.DisplayAlertMessage(Strings.UserAlreadyExistsMessage);
-        //        return result;
-        //    }
-
-        //    //result.Data.Name = newUserName;
-        //    //await _userRepository.Update(result.Data);
-        //    retrievedUser.Name = newUserName;
-        //    await Update(retrievedUser);
-        //    result.IsSucceded = true;
-
-        //    return result;
-        //}
-
-        //public async Task<T> Get(string username)
-        //{
-        //    HttpClient client = GetClient();
-        //    string requestUri = $"{_url}/username={username}";
-        //    string result = await client.GetStringAsync(requestUri);
-        //    T user = JsonConvert.DeserializeObject<T>(result);
-        //    return user;
-        //}        
-
-        //public new async Task<T> Delete(int id)
-        //{
-        //    _storage.Clear();
-        //    return await base.Delete(id);
-        //}       
+        public new async Task<DeleteUserApiModel> Delete(int id)
+        {
+            DeleteUserApiModel response = await base.Delete<DeleteUserApiModel>(id);
+            if (response.IsSuccess)
+            {
+                _storage.Clear();
+            }
+            return response;
+        }
     }
 }

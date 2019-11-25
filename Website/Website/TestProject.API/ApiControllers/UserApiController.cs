@@ -25,49 +25,6 @@ namespace TestProject.API.ApiControllers
             _hostEnvironment = hostEnvironment;
         }
 
-        [HttpGet]
-        public IEnumerable<User> GetAllUsers()
-        {
-            IEnumerable<User> users = _usersService.GetAllObjects();
-            return users;
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult GetUser(int id)
-        {
-            User user = _usersService.FindById(id);
-            if (user == null)
-            {
-                ModelState.AddModelError(nameof(user), "Incorrect login or password");
-                return NotFound(ModelState);
-            }
-            var result = new ObjectResult(user);
-            return result;
-        }
-
-        [HttpPut("{id}")]
-        public IActionResult EditData([FromBody] User user)
-        {
-            if (user == null)
-            {
-                return BadRequest();
-            }
-            User userToModify = _usersService.FindById(user.Id);
-            if (userToModify == null)
-            {
-                return NotFound();
-            }
-            _usersService.EditUser(user);
-            return Ok(user);
-            //ResponseEditDataUserApiView response = _usersService.EditUser(user);
-            //if (!response.IsSuccess)
-            //{
-            //    response = null;
-            //}
-            //return response;
-            //throw new NotImplementedException();
-        }
-
         [Route("Register")]
         [HttpPost]
         public ResponseRegisterUserApiView Register([FromBody] RequestRegisterUserApiView user)
@@ -84,17 +41,12 @@ namespace TestProject.API.ApiControllers
             return userForLogin;
         }
 
-        [Route("{id}")]
+        [Route("Delete/{id}")]
         [HttpDelete]
-        public IActionResult DeleteAccount(int id)
+        public DeleteUserApiView Delete(int id)
         {
-            User user = _usersService.FindById(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            _usersService.Delete(id);
-            return Ok();
+            DeleteUserApiView response = _usersService.Delete(id);
+            return response;
         }
 
         [Route("EditProfileImage")]
@@ -127,6 +79,14 @@ namespace TestProject.API.ApiControllers
         public ResponseEditNameUserApiView EditName(RequestEditNameUserApiView user)
         {
             ResponseEditNameUserApiView response = _usersService.EditUserName(user);
+            return response;
+        }
+
+        [Route("ChangePassword")]
+        [HttpPost]
+        public ResponseChangePasswordUserApiView ChangePassword(RequestChangePasswordUserApiView user)
+        {
+            ResponseChangePasswordUserApiView response = _usersService.ChangePassword(user);
             return response;
         }
     }

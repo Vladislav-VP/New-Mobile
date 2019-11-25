@@ -14,8 +14,7 @@ namespace TestProject.Services.Interfaces
 
         Task<ResponseEditNameUserApiModel> EditUsername(RequestEditNameUserApiModel user);
 
-        Task<DataHandleResult<EditPasswordHelper>> ChangePassword(int userId, string oldPassword,
-            string newPassword, string newPasswordConfirmation);
+        Task<ResponseChangePasswordUserApiModel> ChangePassword(RequestChangePasswordUserApiModel user);
 
         Task<ResponseEditProfileImageUserApiModel> EditProfilePhoto(RequestEditProfileImageUserApiModel user);
 

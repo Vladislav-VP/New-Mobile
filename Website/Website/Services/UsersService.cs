@@ -15,11 +15,13 @@ namespace Services
 {
     public class UsersService : BaseService<User>
     {
-        public UserRepository _userRepository;
+        public readonly UserRepository _userRepository;
+        public readonly ImageService _imageService;
 
         public UsersService(TodoListContext context) : base(context)
         {
             _userRepository = new UserRepository(_context);
+            _imageService = new ImageService();
         }
 
         public void EditUser(User user)
@@ -104,16 +106,7 @@ namespace Services
             {
                 return userWithPhoto;
             }
-            // TODO : Move using block to separate method in separate service
-            using (var imageFileStream = new FileStream(user.ImageUrl, FileMode.Open, FileAccess.ReadWrite))
-            {
-                using (var imageMemoryStream = new MemoryStream())
-                {
-                    imageFileStream.CopyTo(imageMemoryStream);
-                    user.ImageBytes = imageMemoryStream.ToArray();
-                }
-            }
-            userWithPhoto.ImageBytes = user.ImageBytes;
+            userWithPhoto.ImageBytes = _imageService.GetImage(user.ImageUrl);
             return userWithPhoto;
         }
 
@@ -121,7 +114,7 @@ namespace Services
         {
             if (user.ImageBytes != null)
             {
-                UploadProfilePhoto(imageUrl, user);
+                _imageService.UploadImage(imageUrl, user.ImageBytes);
                 user.ImageUrl = imageUrl;
             }
             User userToModify = FindById(user.Id);
@@ -166,16 +159,40 @@ namespace Services
             return user.Name;
         }
 
-        private void UploadProfilePhoto(string imageUrl, RequestEditProfileImageUserApiView user)
-        {
-            // TODO : Move this method to separate service
-            using (var imageStream = new MemoryStream(user.ImageBytes))
+        public ResponseChangePasswordUserApiView ChangePassword(RequestChangePasswordUserApiView user)
+        {            
+            User userToModify = FindById(user.Id);
+            user.OldPassword = userToModify.Password;
+            var response = new ResponseChangePasswordUserApiView();
+            if (user.OldPassword != user.OldPasswordConfirmation)
             {
-                using (var imageFileStream = new FileStream(imageUrl, FileMode.Create))
-                {
-                    imageStream.CopyTo(imageFileStream);
-                }
+                response.Message = "Incorrect old passsword";
+                return response;
             }
+            if (string.IsNullOrEmpty(user.NewPassword) || string.IsNullOrEmpty(user.NewPasswordConfirmation))
+            {
+                response.Message = "Password can not be empty";
+                return response;
+            }
+            if (user.NewPassword != user.NewPasswordConfirmation)
+            {
+                response.Message = "Passwords do not correspond";
+                return response;
+            }
+            userToModify.Password = user.NewPassword;
+            Update(userToModify);
+            response.IsSuccess = true;
+            response.Message = "Password successfully changed";
+            return response;
+        }
+
+        public new DeleteUserApiView Delete(int id)
+        {
+            var response = new DeleteUserApiView();
+            base.Delete(id);
+            response.IsSuccess = true;
+            response.Message = "Account deleted";
+            return response;
         }
     }
 }

@@ -2,7 +2,7 @@
 
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
-
+using TestProject.ApiModels.User;
 using TestProject.Entities;
 using TestProject.Resources;
 using TestProject.Services.DataHandleResults;
@@ -67,14 +67,24 @@ namespace TestProject.Core.ViewModels
         {
             int userId = await _storage.Get();
 
-            DataHandleResult<EditPasswordHelper> result = await _userService
-                .ChangePassword(userId, OldPassword, NewPassword, NewPasswordConfirmation);
-
-            if (result.IsSucceded)
+            var user = new RequestChangePasswordUserApiModel
+            {
+                Id = userId,
+                OldPasswordConfirmation = OldPassword,
+                NewPassword = NewPassword,
+                NewPasswordConfirmation = NewPasswordConfirmation
+            };
+            ResponseChangePasswordUserApiModel response = await _userService.ChangePassword(user);
+            if (!response.IsSuccess)
+            {
+                _dialogsHelper.DisplayAlertMessage(response.Message);
+                return;
+            }
+            if (response.IsSuccess)
             {
                 await _navigationService.Close(this);
-                _dialogsHelper.DisplayToastMessage(Strings.PasswordChangedMessage);
-            }            
+                _dialogsHelper.DisplayToastMessage(response.Message);
+            }
         }
     }
 }

@@ -87,9 +87,13 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            //await _userService.Delete(_user.Id);
-
-            await _navigationService.Navigate<LoginViewModel>();
+            int userId = await _storage.Get();
+            DeleteUserApiModel response = await _userService.Delete<DeleteUserApiModel>(userId);
+            if (response.IsSuccess)
+            {
+                _storage.Clear();
+                await _navigationService.Navigate<LoginViewModel>();
+            }            
         }
 
         private async Task EditPassword()

@@ -71,7 +71,7 @@ namespace TestProject.Services
         public async Task<T> Delete<T>(int id) where T : class
         {
             HttpClient client = GetClient();
-            string requestUri = $"{_url}/{id}";
+            string requestUri = $"{_url}/Delete/{id}";
             var response = await client.DeleteAsync(requestUri);
             if (response.StatusCode != HttpStatusCode.OK)
             {
@@ -87,10 +87,5 @@ namespace TestProject.Services
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             return client;
         }
-
-        //public Task<TResponse> Post<TResponse, TRequest>(TResponse entity, string requestUri) where TResponse : class
-        //{
-        //    throw new System.NotImplementedException();
-        //}
     }
 }
