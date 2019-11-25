@@ -45,14 +45,6 @@ namespace TestProject.API.ApiControllers
             return result;
         }
 
-        [HttpGet("username={username}")]
-        public GetByNameUserApiView GetByName(string username)
-        {
-            // TODO: Refactor this method
-            GetByNameUserApiView user = _usersService.Find(username);
-            return user;
-        }
-
         [HttpPut("{id}")]
         public IActionResult EditData([FromBody] User user)
         {
@@ -120,6 +112,22 @@ namespace TestProject.API.ApiControllers
         {
             var user = _usersService.GetUserWithPhoto(id);
             return user;
+        }
+
+        [Route("GetUserName/{id}")]
+        [HttpGet]
+        public string GetUserName(int id)
+        {
+            string name = _usersService.GetUserName(id);
+            return name;
+        }
+
+        [Route("EditName")]
+        [HttpPost]
+        public ResponseEditNameUserApiView EditName(RequestEditNameUserApiView user)
+        {
+            ResponseEditNameUserApiView response = _usersService.EditUserName(user);
+            return response;
         }
     }
 }

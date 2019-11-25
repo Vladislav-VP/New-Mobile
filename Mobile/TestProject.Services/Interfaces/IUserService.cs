@@ -12,7 +12,7 @@ namespace TestProject.Services.Interfaces
 
         Task<ResponseRegisterUserApiModel> RegisterUser(RequestRegisterUserApiModel user);
 
-        Task<TResponse> EditUsername<TRequest, TResponse>(TRequest user, string newUserName);
+        Task<ResponseEditNameUserApiModel> EditUsername(RequestEditNameUserApiModel user);
 
         Task<DataHandleResult<EditPasswordHelper>> ChangePassword(int userId, string oldPassword,
             string newPassword, string newPasswordConfirmation);
@@ -22,5 +22,7 @@ namespace TestProject.Services.Interfaces
         Task<TodoItem> Get(string name);
 
         Task<GetProfileImageUserApiModel> GetUserWithImage(int id);
+
+        Task<string> GetUserName(int id);
     }
 }

@@ -36,18 +36,10 @@ namespace Services
             return user;
         }
 
-        public GetByNameUserApiView Find(string username)
+        public User Find(string username)
         {
-            var response = new GetByNameUserApiView();
             User user = _userRepository.Find(username);
-            if (user == null)
-            {
-                response.Message = "User with this name already exists";
-                return null;
-            }
-            response.IsSuccess = true;
-            response.Message = "User found";
-            return response;
+            return user;
         }
 
         public ResponseRegisterUserApiView Register(RequestRegisterUserApiView userToRegister)
@@ -68,7 +60,7 @@ namespace Services
                 response.Message = "Password can not be empty";
                 return response;
             }
-            GetByNameUserApiView retrievedUser = Find(userToRegister.Name);
+            User retrievedUser = Find(userToRegister.Name);
             if (retrievedUser != null)
             {
                 response.Message = "User with this name already exists";
@@ -112,6 +104,7 @@ namespace Services
             {
                 return userWithPhoto;
             }
+            // TODO : Move using block to separate method in separate service
             using (var imageFileStream = new FileStream(user.ImageUrl, FileMode.Open, FileAccess.ReadWrite))
             {
                 using (var imageMemoryStream = new MemoryStream())
@@ -145,8 +138,37 @@ namespace Services
             return response;
         }
 
+        public ResponseEditNameUserApiView EditUserName(RequestEditNameUserApiView user)
+        {
+            var response = new ResponseEditNameUserApiView();
+            if (string.IsNullOrEmpty(user.Name))
+            {
+                response.Message = "Username can not be emnpty";
+                return response;
+            }
+            User retrievedUser = Find(user.Name);
+            if (retrievedUser != null && retrievedUser.Id != user.Id)
+            {
+                response.Message = "User with this name already exists";
+                return response;
+            }
+            retrievedUser = FindById(user.Id);
+            retrievedUser.Name = user.Name;
+            Update(retrievedUser);
+            response.IsSuccess = true;
+            response.Message = "Username successfully changed";
+            return response;
+        }
+
+        public string GetUserName(int id)
+        {
+            User user = FindById(id);
+            return user.Name;
+        }
+
         private void UploadProfilePhoto(string imageUrl, RequestEditProfileImageUserApiView user)
         {
+            // TODO : Move this method to separate service
             using (var imageStream = new MemoryStream(user.ImageBytes))
             {
                 using (var imageFileStream = new FileStream(imageUrl, FileMode.Create))

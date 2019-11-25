@@ -2,7 +2,7 @@
 
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
-
+using TestProject.ApiModels.User;
 using TestProject.Entities;
 using TestProject.Resources;
 using TestProject.Services.DataHandleResults;
@@ -58,21 +58,24 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            //int userId = await _storage.Get();
-            //_user = await _userService.Get(userId);
-            //UserName = _user.Name;
+            int userId = await _storage.Get();
+            UserName = await _userService.GetUserName(userId);
         }
 
         protected override async Task HandleEntity()
         {
-
-            //DataHandleResult<TodoItem> result = await _userService.EditUsername(_user, UserName);
-            
-            //if (result.IsSucceded)
-            //{
-            //    _dialogsHelper.DisplayToastMessage(Strings.UserNameChangedMessage);
-            //    await _navigationService.Close(this);
-            //}            
+            int userId = await _storage.Get();
+            var user = new RequestEditNameUserApiModel
+            {
+                Id = userId,
+                Name = UserName
+            };
+            ResponseEditNameUserApiModel response = await _userService.EditUsername(user);
+            if (response.IsSuccess)
+            {
+                _dialogsHelper.DisplayToastMessage(response.Message);
+                await _navigationService.Close(this);
+            }
         }
 
         private async Task DeleteUser()

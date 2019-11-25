@@ -77,14 +77,33 @@ namespace TestProject.Services
             return response;
         }
 
-        public Task<TResponse> EditUsername<TRequest, TResponse>(TRequest user, string newUserName)
+        public async Task<ResponseEditNameUserApiModel> EditUsername(RequestEditNameUserApiModel user)
         {
-            throw new NotImplementedException();
+            var response = new ResponseEditNameUserApiModel();
+            bool isUserNameValid = _validationHelper.IsObjectValid(user);
+            if (!isUserNameValid)
+            {
+                return response;
+            }
+            response = await Post<RequestEditNameUserApiModel, ResponseEditNameUserApiModel>(user, $"{_url}/EditName");
+            if (!response.IsSuccess)
+            {
+                _dialogsHelper.DisplayAlertMessage(response.Message);
+                return response;
+            }
+            response.IsSuccess = true;
+            return response;
         }
 
         public new Task<TodoItem> Get(string name)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<string> GetUserName(int id)
+        {
+            string name = await Get<string>(id, $"{_url}/GetUserName/{id}");
+            return name;
         }
 
         public async Task<GetProfileImageUserApiModel> GetUserWithImage(int id)
@@ -126,7 +145,6 @@ namespace TestProject.Services
             }
             return response;
         }
-
 
         //public async Task<DataHandleResult<EditPasswordHelper>> ChangePassword(int userId,
         //    string oldPassword, string newPassword, string newPasswordConfirmation)
@@ -199,93 +217,12 @@ namespace TestProject.Services
         //    string result = await client.GetStringAsync(requestUri);
         //    T user = JsonConvert.DeserializeObject<T>(result);
         //    return user;
-        //}
-
-        //public async Task<ResponseLoginUserApiModel> Login(RequestLoginUserApiModel user)
-        //{
-
-
-        //    //User currentUser = await _userRepository.GetUser(user.Name, user.Password);
-        //    ResponseLoginUserApiModel response = await Post(user, $"{_url}/username={user.Name}/password={user.Password}");
-        //    if (!response.IsSuccess)
-        //    {
-        //        _dialogsHelper.DisplayAlertMessage(response.Message);
-        //        return response;
-        //    }
-
-        //    await _storage.Save(user.Id);
-        //    response.IsSuccess = true;
-
-        //    return result;
-        //}
-
-        //public async Task<DataHandleResult<T>> RegisterUser(T user)
-        //{
-        //    var result = new DataHandleResult<T> { Data = user };
-
-        //    bool isUserDataValid = _validationHelper.IsObjectValid(result.Data, nameof(result.Data.Name))
-        //        && _validationHelper.IsObjectValid(result.Data, nameof(result.Data.Password));
-        //    if (!isUserDataValid)
-        //    {
-        //        return result;
-        //    }
-
-        //    result.Data.Name = result.Data.Name.Trim();
-        //    //User retrievedUser = await _userRepository.GetUser(result.Data.Name);
-        //    T retrievedUser = await Get(result.Data.Name);
-        //    if (retrievedUser != null)
-        //    {
-        //        _dialogsHelper.DisplayAlertMessage(Strings.UserAlreadyExistsMessage);
-        //        return result;
-        //    }
-        //    string requestUri = $"{_url}/Register";
-        //    await Post(result.Data, requestUri);
-
-        //    result.IsSucceded = true;
-        //    return result;
-        //}
+        //}        
 
         //public new async Task<T> Delete(int id)
         //{
         //    _storage.Clear();
         //    return await base.Delete(id);
-        //}
-
-        //public async Task EditProfilePhoto(T user)
-        //{
-        //    string[] buttons =
-        //        {
-        //            Strings.ChoosePicture,
-        //            Strings.TakePicture
-        //        };
-
-        //    Dictionary<string, Func<Task<byte[]>>> optionResultPairs =
-        //        new Dictionary<string, Func<Task<byte[]>>>();
-        //    optionResultPairs.Add(Strings.CancelText, null);
-        //    optionResultPairs.Add(Strings.ChoosePicture, _photoEditHelper.PickPhoto);
-        //    optionResultPairs.Add(Strings.TakePicture, _photoEditHelper.TakePhoto);
-        //    optionResultPairs.Add(Strings.DeletePicture, _photoEditHelper.DeletePhoto);
-
-        //    string option = await _dialogsHelper.ChooseOption(Strings.ProfilePhotoTitle,
-        //        Strings.CancelText, Strings.DeletePicture, buttons: buttons);
-
-        //    if (option == Strings.CancelText)
-        //    {
-        //        return;
-        //    }
-        //    user.ImageBytes = await optionResultPairs[option]();
-        //    if (user.ImageBytes == null)
-        //    {
-        //        user.ImageUrl = null;
-        //    }
-        //    await Post(user, $"{_url}/EditProfileImage");
-        //}
-
-        //public async Task<T> GetUserWithImage()
-        //{
-        //    int id = await _storage.Get();
-        //    T user = await Get(id, $"{_url}/GetProfileImage/{id}");
-        //    return user;
-        //}
+        //}       
     }
 }
