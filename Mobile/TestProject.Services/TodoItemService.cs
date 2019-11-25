@@ -13,7 +13,7 @@ namespace TestProject.Services
         private readonly IValidationHelper _validationHelper;
         public TodoItemService(IValidationHelper validationHelper)
         {
-            _url = "http://10.10.3.215:3000/api/todoitemsapi";
+            _url = "http://10.10.3.215:3000/api/todoitemapi";
 
             _validationHelper = validationHelper;
         }

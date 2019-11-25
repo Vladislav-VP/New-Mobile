@@ -2,6 +2,7 @@
 using Entities;
 using Repositories;
 using System.Collections.Generic;
+using ViewModels.Api.TodoItem;
 
 namespace Services
 {
@@ -33,9 +34,23 @@ namespace Services
             Update(todoItemToModify);
         }
 
-        public IEnumerable<TodoItem> GetUsersTodoItems(int userId)
+        public GetListTodoItemApiView GetUsersTodoItems(int userId)
         {
-            return _todoItemRepository.GetUsersTodoItems(userId);
+            var usersTodoItems = new GetListTodoItemApiView
+            {
+                TodoItems = new List<TodoItemGetListTodoItemApiViewItem>()
+            };
+            IEnumerable<TodoItem> retrievedTodoItems = _todoItemRepository.GetUsersTodoItems(userId);
+            foreach (TodoItem todoItem in retrievedTodoItems)
+            {
+                var usersTodoItem = new TodoItemGetListTodoItemApiViewItem
+                {
+                    Id = todoItem.Id,
+                    Name = todoItem.Name
+                };
+                usersTodoItems.TodoItems.Add(usersTodoItem);
+            }
+            return usersTodoItems;
         }
     }
 }

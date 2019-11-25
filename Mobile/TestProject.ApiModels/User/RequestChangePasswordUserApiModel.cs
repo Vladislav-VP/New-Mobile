@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TestProject.ApiModels.User
-{ 
+﻿namespace TestProject.ApiModels.User
+{
     public class RequestChangePasswordUserApiModel
     {
         public int Id { get; set; }

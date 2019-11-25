@@ -8,17 +8,18 @@ using Entities;
 using Repositories;
 using DataAccess.Context;
 using Services;
+using ViewModels.Api.TodoItem;
 
 namespace TestProject.API.ApiControllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TodoItemsApiController : Controller
+    public class TodoItemApiController : Controller
     {
         private readonly TodoListContext _context;
         private readonly TodoItemService _todoItemService;
 
-        public TodoItemsApiController(TodoListContext context)
+        public TodoItemApiController(TodoListContext context)
         {
             _context = context;
             _todoItemService = new TodoItemService(_context);            
@@ -26,17 +27,18 @@ namespace TestProject.API.ApiControllers
         
         [Route("GetUsersTodoItems/userId={userId}")]
         [HttpGet]
-        public IActionResult GetUsersTodoItems(int userId)
+        public GetListTodoItemApiView GetList(int userId)
         {
-            UsersService usersService = new UsersService(_context);
-            User user = usersService.FindById(userId);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            IEnumerable<TodoItem> todoItems = _todoItemService.GetUsersTodoItems(userId);
-            var result = new ObjectResult(todoItems);
-            return result;
+            //UsersService usersService = new UsersService(_context);
+            //User user = usersService.FindById(userId);
+            //if (user == null)
+            //{
+            //    return NotFound();
+            //}
+            //IEnumerable<TodoItem> todoItems = _todoItemService.GetUsersTodoItems(userId);
+            //var result = new ObjectResult(todoItems);
+            //return result;
+            throw new NotImplementedException();
         }
 
         [HttpGet]

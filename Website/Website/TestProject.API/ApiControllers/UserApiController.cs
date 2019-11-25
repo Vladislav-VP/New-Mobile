@@ -1,11 +1,9 @@
-﻿using DataAccess.Context;
-using Entities;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Services;
 using System;
-using System.Collections.Generic;
-using ViewModels.Api;
+
+using DataAccess.Context;
+using Services;
 using ViewModels.Api.User;
 
 namespace TestProject.API.ApiControllers

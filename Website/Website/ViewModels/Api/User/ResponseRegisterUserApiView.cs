@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ViewModels.Api.User
+﻿namespace ViewModels.Api.User
 {
     public class ResponseRegisterUserApiView
     {
