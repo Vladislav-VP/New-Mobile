@@ -3,7 +3,7 @@
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
-
+using TestProject.ApiModels.TodoItem;
 using TestProject.Core.ViewModelResults;
 using TestProject.Entities;
 using TestProject.Services.DataHandleResults;
@@ -13,7 +13,7 @@ using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
-    public class CreateTodoItemViewModel : TodoItemViewModel, IMvxViewModelResult<CreationResult<TodoItem>>
+    public class CreateTodoItemViewModel : TodoItemViewModel, IMvxViewModelResult<ResponseCreateTodoItemApiModel>
     {
         public CreateTodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, ICancelDialogService cancelDialogService, IUserService userService,
             IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper, ITodoItemService todoItemService)
@@ -27,23 +27,19 @@ namespace TestProject.Core.ViewModels
         protected override async Task HandleEntity()
         {
             int userId = await _storage.Get();
-            var todoItem = new TodoItem
+            var todoItem = new RequestCreateTodoItemApiModel
             {
                 Name = Name,
                 Description = Description,
                 IsDone = IsDone,
                 UserId = userId
             };
-            DataHandleResult<TodoItem> result = await _todoItemService.CreateTodoItem(todoItem);
 
-            // TODO : Refactor result.
-            var creationResult = new CreationResult<TodoItem>
+            ResponseCreateTodoItemApiModel response = await _todoItemService.CreateTodoItem(todoItem);
+            if (response.IsSuccess)
             {
-                Entity = todoItem,
-                IsSucceded = true
-            };
-
-            await _navigationService.Close(this, result: creationResult);
+                await _navigationService.Close(this, result: response);
+            }
         }
     }
 }

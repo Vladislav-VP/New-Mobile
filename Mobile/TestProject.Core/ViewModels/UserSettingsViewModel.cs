@@ -2,10 +2,9 @@
 
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
+
 using TestProject.ApiModels.User;
-using TestProject.Entities;
 using TestProject.Resources;
-using TestProject.Services.DataHandleResults;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Interfaces;
 using TestProject.Services.Repositories.Interfaces;
@@ -14,7 +13,9 @@ namespace TestProject.Core.ViewModels
 {
     public class UserSettingsViewModel : UserViewModel
     {
-        private TodoItem _user;
+        private int _userId;
+
+        private string _oldUserName;
 
         private readonly IUserService _userService;
 
@@ -33,7 +34,7 @@ namespace TestProject.Core.ViewModels
         {
             get
             {
-                return _user.Name != UserName;
+                return _oldUserName != UserName;
             }
         }
 
@@ -58,16 +59,16 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            int userId = await _storage.Get();
-            UserName = await _userService.GetUserName(userId);
+            _userId = await _storage.Get();
+            UserName = await _userService.GetUserName(_userId);
+            _oldUserName = await _userService.GetUserName(_userId);
         }
 
         protected override async Task HandleEntity()
         {
-            int userId = await _storage.Get();
             var user = new RequestEditNameUserApiModel
             {
-                Id = userId,
+                Id = _userId,
                 Name = UserName
             };
             ResponseEditNameUserApiModel response = await _userService.EditUsername(user);
@@ -87,8 +88,7 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            int userId = await _storage.Get();
-            DeleteUserApiModel response = await _userService.Delete<DeleteUserApiModel>(userId);
+            DeleteUserApiModel response = await _userService.Delete<DeleteUserApiModel>(_userId);
             if (response.IsSuccess)
             {
                 _storage.Clear();

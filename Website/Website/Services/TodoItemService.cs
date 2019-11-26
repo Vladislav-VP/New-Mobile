@@ -53,5 +53,31 @@ namespace Services
             }
             return usersTodoItems;
         }
+
+        public ResponseCreateTodoItemApiView Insert(RequestCreateTodoItemApiView todoItem)
+        {
+            var response = new ResponseCreateTodoItemApiView();
+            if (string.IsNullOrEmpty(todoItem.Name))
+            {
+                response.Message = "Todo item name cannot be empty";
+                return response;
+            }
+            if (string.IsNullOrEmpty(todoItem.Description))
+            {
+                response.Message = "Todo item description can not be empty";
+                return response;
+            }
+            var todoItemToInsert = new TodoItem
+            {
+                Name = todoItem.Name,
+                Description = todoItem.Description,
+                IsDone = todoItem.IsDone,
+                UserId = todoItem.UserId
+            };
+            base.Insert(todoItemToInsert);
+            response.IsSuccess = true;
+            response.Message = "Todo item successfully created";
+            return response;
+        }
     }
 }

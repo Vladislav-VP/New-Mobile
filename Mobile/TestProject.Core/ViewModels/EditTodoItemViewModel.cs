@@ -65,20 +65,20 @@ namespace TestProject.Core.ViewModels
         protected override async Task HandleEntity()
         {
 
-            TodoItem todoItem = await _todoItemService.Get<TodoItem>(_todoItemId);
+            //TodoItem todoItem = await _todoItemService.Get<TodoItem>(_todoItemId);
 
-            DataHandleResult<TodoItem> result = await _todoItemService.EditTodoItem(todoItem, Description, IsDone);
-            if (!result.IsSucceded)
-            {
-                return;
-            }
-            //await _todoItemRepository.Update(todoItem);
-            var updateResult = new UpdateResult<TodoItem>
-            {
-                Entity = todoItem,
-                IsSucceded = true
-            };
-            await _navigationService.Close(this, updateResult);
+            //DataHandleResult<TodoItem> result = await _todoItemService.EditTodoItem(todoItem, Description, IsDone);
+            //if (!result.IsSucceded)
+            //{
+            //    return;
+            //}
+            ////await _todoItemRepository.Update(todoItem);
+            //var updateResult = new UpdateResult<TodoItem>
+            //{
+            //    Entity = todoItem,
+            //    IsSucceded = true
+            //};
+            //await _navigationService.Close(this, updateResult);
         }
     }
 }

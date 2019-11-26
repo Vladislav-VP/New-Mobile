@@ -10,8 +10,8 @@ namespace TestProject.Services.Interfaces
     {
         Task<GetListTodoItemApiModel> GetUsersTodoItems(int userId);
 
-        Task<DataHandleResult<TodoItem>> CreateTodoItem(TodoItem todoItem);
+        Task<ResponseCreateTodoItemApiModel> CreateTodoItem(RequestCreateTodoItemApiModel todoItem);
 
-        Task<DataHandleResult<TodoItem>> EditTodoItem(TodoItem todoItem, string description, bool isDone);
+        Task<ResponseCreateTodoItemApiModel> EditTodoItem(RequestCreateTodoItemApiModel todoItem);
     }
 }

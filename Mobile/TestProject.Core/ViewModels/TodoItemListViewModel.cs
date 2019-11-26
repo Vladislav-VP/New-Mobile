@@ -82,13 +82,13 @@ namespace TestProject.Core.ViewModels
 
         private async Task AddTodoItem(TodoItem todoItem)
         {
-            //ViewModelResult<TodoItem> creationResult = await _navigationService
-            //    .Navigate<CreateTodoItemViewModel, CreationResult<TodoItem>>();
-            
-            //if (creationResult != null && creationResult.IsSucceded)
-            //{
-            //    TodoItems.Add(creationResult.Entity);
-            //}
+            ResponseCreateTodoItemApiModel response = await _navigationService
+                .Navigate<CreateTodoItemViewModel, ResponseCreateTodoItemApiModel>();
+
+            if (response.IsSuccess)
+            {
+                await LoadTodoItems();
+            }
         }
 
         private async Task LoadTodoItems()

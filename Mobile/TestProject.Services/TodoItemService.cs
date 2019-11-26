@@ -12,21 +12,32 @@ namespace TestProject.Services
     public class TodoItemService : BaseApiService, ITodoItemService
     {
         private readonly IValidationHelper _validationHelper;
-        public TodoItemService(IValidationHelper validationHelper)
+
+        private readonly IDialogsHelper _dialogsHelper;
+
+        public TodoItemService(IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
         {
             _url = "http://10.10.3.215:3000/api/todoitemapi";
 
             _validationHelper = validationHelper;
+            _dialogsHelper = dialogsHelper;
         }
 
-        public Task<DataHandleResult<TodoItem>> CreateTodoItem(TodoItem todoItem)
+        public async Task<ResponseCreateTodoItemApiModel> CreateTodoItem(RequestCreateTodoItemApiModel todoItem)
         {
-            throw new NotImplementedException();
+            ResponseCreateTodoItemApiModel response = await
+                Post<RequestCreateTodoItemApiModel, ResponseCreateTodoItemApiModel>(todoItem, $"{_url}/Create");
+            if (!response.IsSuccess)
+            {
+                _dialogsHelper.DisplayAlertMessage(response.Message);
+            }
+            return response;
         }
 
-        public Task<DataHandleResult<TodoItem>> EditTodoItem(TodoItem todoItem, string description, bool isDone)
+        public async Task<ResponseCreateTodoItemApiModel> EditTodoItem(RequestCreateTodoItemApiModel todoItem)
         {
-            throw new NotImplementedException();
+            //var response = new ResponseCreateTodoItemApiModel();
+             throw new NotImplementedException();        
         }
 
         public async Task<GetListTodoItemApiModel> GetUsersTodoItems(int userId)
@@ -35,29 +46,6 @@ namespace TestProject.Services
                 await Get<GetListTodoItemApiModel>(userId, $"{_url}/GetUsersTodoItems/userId={userId}");
             return usersTodoItems;
         }
-
-        //public async Task<IEnumerable<T>> GetUsersTodoItems(int userId)
-        //{
-        //    IEnumerable<T> todoItems = await GetObjectsList<T>($"{_url}/GetUsersTodoItems/userId={userId}");
-        //    return todoItems;
-        //}
-
-        //public async Task<DataHandleResult<T>> CreateTodoItem(T todoItem)
-        //{
-        //    var result = new DataHandleResult<T>
-        //    {
-        //        Data = todoItem
-        //    };
-
-        //    bool isTodoItemValid = _validationHelper.IsObjectValid(todoItem);
-        //    if (!isTodoItemValid)
-        //    {
-        //        return result;
-        //    }
-
-        //    await Post(todoItem, _url);
-        //    return result;
-        //}
 
         //public async Task<DataHandleResult<T>> EditTodoItem(T todoItem, string description, bool isDone)
         //{

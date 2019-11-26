@@ -56,16 +56,12 @@ namespace TestProject.API.ApiControllers
             return result;
         }
 
+        [Route("Create")]
         [HttpPost]
-        public IActionResult AddTodoItem([FromBody]TodoItem todoItem)
+        public ResponseCreateTodoItemApiView Create([FromBody]RequestCreateTodoItemApiView todoItem)
         {
-            if (todoItem == null)
-            {
-                return BadRequest();
-            }
-
-            _todoItemService.Insert(todoItem);
-            return Ok(todoItem);
+            ResponseCreateTodoItemApiView response = _todoItemService.Insert(todoItem);
+            return response;
         }
 
         [Route("{id}")]
