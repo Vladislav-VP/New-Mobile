@@ -2,11 +2,8 @@
 
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
-using Plugin.Connectivity;
-using Plugin.Connectivity.Abstractions;
+
 using TestProject.ApiModels.User;
-using TestProject.Entities;
-using TestProject.Services.DataHandleResults;
 using TestProject.Services.Interfaces;
 
 namespace TestProject.Core.ViewModels

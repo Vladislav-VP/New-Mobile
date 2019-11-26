@@ -2,11 +2,8 @@
 
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
+
 using TestProject.ApiModels.User;
-using TestProject.Entities;
-using TestProject.Resources;
-using TestProject.Services.DataHandleResults;
-using TestProject.Services.Helpers;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Interfaces;
 
@@ -19,7 +16,7 @@ namespace TestProject.Core.ViewModels
         private readonly IDialogsHelper _dialogsHelper;
 
         public EditPasswordViewModel(IMvxNavigationService navigationService, 
-            IUserStorageHelper storage, IDialogsHelper dialogsHelper, IUserService userService)
+            IStorageHelper storage, IDialogsHelper dialogsHelper, IUserService userService)
             : base(navigationService, storage)
         {
             _dialogsHelper = dialogsHelper;

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+
 using TestProject.ApiModels.TodoItem;
-using TestProject.Entities;
-using TestProject.Services.DataHandleResults;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Interfaces;
 
@@ -36,7 +33,6 @@ namespace TestProject.Services
 
         public async Task<ResponseEditTodoItemApiModel> EditTodoItem(RequestEditTodoItemApiModel todoItem)
         {
-            //var response = new ResponseEditTodoItemApiModel();
             ResponseEditTodoItemApiModel response = await 
                 Post<RequestEditTodoItemApiModel, ResponseEditTodoItemApiModel>(todoItem, $"{_url}/Edit");
             if (!response.IsSuccess)

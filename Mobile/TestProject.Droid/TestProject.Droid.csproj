@@ -198,10 +198,6 @@
       <Project>{14e2f76c-3e0a-45ba-a18c-ea6cca174451}</Project>
       <Name>TestProject.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TestProject.Entities\TestProject.Entities.csproj">
-      <Project>{FB972AE8-4355-4407-8D53-0CDAD7C72F5A}</Project>
-      <Name>TestProject.Entities</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TestProject.Resources\TestProject.Resources.csproj">
       <Project>{5fe8dd55-88d5-4091-b1af-06294b995b2d}</Project>
       <Name>TestProject.Resources</Name>

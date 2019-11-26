@@ -5,8 +5,6 @@ namespace TestProject.Services.Interfaces
 {
     public interface IBaseApiService
     {
-        Task<IEnumerable<T>> GetObjectsList<T>(string requestUri = null) where T : class;
-
         Task<T> Get<T>(int id, string requestUri = null) where T : class;
 
         Task<TResponse> Post<TRequest, TResponse>(TRequest entity, string requestUri) where TResponse : class;

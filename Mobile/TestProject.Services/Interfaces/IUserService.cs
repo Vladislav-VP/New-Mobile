@@ -1,8 +1,6 @@
 ﻿using System.Threading.Tasks;
+
 using TestProject.ApiModels.User;
-using TestProject.Entities;
-using TestProject.Services.DataHandleResults;
-using TestProject.Services.Helpers;
 
 namespace TestProject.Services.Interfaces
 {
@@ -17,8 +15,6 @@ namespace TestProject.Services.Interfaces
         Task<ResponseChangePasswordUserApiModel> ChangePassword(RequestChangePasswordUserApiModel user);
 
         Task<ResponseEditProfileImageUserApiModel> EditProfilePhoto(RequestEditProfileImageUserApiModel user);
-
-        Task<TodoItem> Get(string name);
 
         Task<GetProfileImageUserApiModel> GetUserWithImage(int id);
 

@@ -8,7 +8,6 @@ using TestProject.ApiModels.TodoItem;
 using TestProject.Resources;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Interfaces;
-using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
@@ -20,8 +19,8 @@ namespace TestProject.Core.ViewModels
         private GetTodoItemApiModel _oldTodoItem;
 
         public EditTodoItemViewModel(IMvxNavigationService navigationService,  IDialogsHelper dialogsHelper,
-            ICancelDialogService cancelDialogService, IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, ITodoItemService webService)
-            : base(navigationService, validationHelper, cancelDialogService, todoItemRepository, dialogsHelper, webService)
+            ICancelDialogService cancelDialogService, IValidationHelper validationHelper, ITodoItemService webService)
+            : base(navigationService, validationHelper, cancelDialogService, dialogsHelper, webService)
         {
             UpdateTodoItemCommand = new MvxAsyncCommand(HandleEntity);
             DeleteTodoItemCommand = new MvxAsyncCommand(DeleteTodoItem);

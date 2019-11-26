@@ -4,16 +4,15 @@ using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 
 using TestProject.Core.ViewModels;
-using TestProject.Entities;
 using TestProject.Services.Helpers.Interfaces;
 
 namespace TestProject.Core
 {
     public class AppStart : MvxAppStart
     {
-        private readonly IUserStorageHelper _storage;
+        private readonly IStorageHelper _storage;
 
-        public AppStart(IMvxApplication application, IMvxNavigationService navigationService, IUserStorageHelper storage)
+        public AppStart(IMvxApplication application, IMvxNavigationService navigationService, IStorageHelper storage)
             : base(application, navigationService)
         {
             _storage = storage;

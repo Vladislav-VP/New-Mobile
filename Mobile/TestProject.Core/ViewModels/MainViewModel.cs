@@ -7,7 +7,7 @@ namespace TestProject.Core.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        public MainViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage)
+        public MainViewModel(IMvxNavigationService navigationService, IStorageHelper storage)
             : base(navigationService, storage)
         {
             GoToLoginCommand = new MvxAsyncCommand(async () =>

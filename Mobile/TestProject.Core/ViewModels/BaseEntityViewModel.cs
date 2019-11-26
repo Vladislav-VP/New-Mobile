@@ -3,22 +3,21 @@
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 
-using TestProject.Core.ViewModelResults;
-using TestProject.Entities;
+using TestProject.ApiModels.TodoItem;
 using TestProject.Services.Enums;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
-    public abstract class BaseEntityViewModel : BaseViewModel, IMvxViewModelResult<ViewModelResult<BaseEntity>>
+    public abstract class BaseEntityViewModel : BaseViewModel, IMvxViewModelResult<BaseTodoItemResponse>
     {        
         protected readonly IDialogsHelper _dialogsHelper;
 
         protected readonly ICancelDialogService _cancelDialogService;
 
         public BaseEntityViewModel(IMvxNavigationService navigationService,
-            IUserStorageHelper storage, IDialogsHelper dialogsHelper, ICancelDialogService cancelDialogService)
+            IStorageHelper storage, IDialogsHelper dialogsHelper, ICancelDialogService cancelDialogService)
             : base(navigationService, storage)
         {
             _dialogsHelper = dialogsHelper;

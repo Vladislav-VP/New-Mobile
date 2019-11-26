@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using TestProject.Entities;
+
+using Newtonsoft.Json;
+
 using TestProject.Services.Interfaces;
 
 namespace TestProject.Services
@@ -12,19 +12,7 @@ namespace TestProject.Services
     public class BaseApiService : IBaseApiService
     {
         protected string _url;
-
-        public async Task<IEnumerable<T>> GetObjectsList<T>(string requestUri = null) where T : class
-        {
-            HttpClient client = GetClient();
-            if (requestUri == null)
-            {
-                requestUri = _url;
-            }
-            string result = await client.GetStringAsync(requestUri);
-            IEnumerable<T> entities = JsonConvert.DeserializeObject<IEnumerable<T>>(result);
-            return entities;
-        }
-
+        
         public async Task<T> Get<T>(int id, string requestUri = null) where T : class
         {
             HttpClient client = GetClient();

@@ -7,8 +7,6 @@ using TestProject.Services;
 using TestProject.Services.Helpers;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Interfaces;
-using TestProject.Services.Repositories;
-using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core
 {
@@ -23,8 +21,6 @@ namespace TestProject.Core
                 .RegisterAsLazySingleton();
 
             Mvx.IoCProvider.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
-            Mvx.IoCProvider.RegisterSingleton(typeof(IUserRepository), new UserRepository());
-            Mvx.IoCProvider.RegisterSingleton(typeof(ITodoItemRepository), new TodoItemRepository());
             Mvx.IoCProvider.RegisterSingleton(typeof(IDialogsHelper), new DialogsHelper());
             Mvx.IoCProvider.RegisterSingleton(typeof(IPermissionsHelper), new PermissionsHelper());
             Mvx.IoCProvider.RegisterSingleton(typeof(IEncryptionHelper), new EncryptionHelper());
@@ -33,8 +29,7 @@ namespace TestProject.Core
             IDialogsHelper dialogsHelper = Mvx.IoCProvider.Resolve<IDialogsHelper>();
             Mvx.IoCProvider.RegisterSingleton(typeof(IValidationHelper), new ValidationHelper(dialogsHelper));
 
-            IUserRepository userRepository = Mvx.IoCProvider.Resolve<IUserRepository>();
-            Mvx.IoCProvider.RegisterSingleton(typeof(IUserStorageHelper), new UserStorageHelper(userRepository));
+            Mvx.IoCProvider.RegisterSingleton(typeof(IStorageHelper), new StorageHelper());
 
             IPermissionsHelper permissionsHelper = Mvx.IoCProvider.Resolve<IPermissionsHelper>();
             IPhotoCaptureHelper photoCaptureHelper = Mvx.IoCProvider.Resolve<IPhotoCaptureHelper>();
@@ -43,9 +38,9 @@ namespace TestProject.Core
             Mvx.IoCProvider.RegisterSingleton(typeof(IPhotoEditHelper), photoEditHelper);
 
             IValidationHelper validationHelper = Mvx.IoCProvider.Resolve<IValidationHelper>();
-            IUserStorageHelper storage = Mvx.IoCProvider.Resolve<IUserStorageHelper>();
+            IStorageHelper storage = Mvx.IoCProvider.Resolve<IStorageHelper>();
 
-            var userService = new UserService(validationHelper, dialogsHelper, userRepository, storage, photoEditHelper);
+            var userService = new UserService(validationHelper, dialogsHelper, storage, photoEditHelper);
             Mvx.IoCProvider.RegisterSingleton(typeof(IUserService), userService);
 
             Mvx.IoCProvider.RegisterSingleton(typeof(ITodoItemService), new TodoItemService(validationHelper, dialogsHelper));

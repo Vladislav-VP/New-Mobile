@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-using MvvmCross;
+﻿using System.Threading.Tasks;
+
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
+
 using TestProject.ApiModels.User;
-using TestProject.Entities;
-using TestProject.Resources;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Interfaces;
-using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
@@ -18,22 +13,12 @@ namespace TestProject.Core.ViewModels
     {
         private GetProfileImageUserApiModel _currentUser;
 
-        private readonly IUserRepository _userRepository;
-
-        private readonly IDialogsHelper _dialogsHelper;
-
-        private readonly IPhotoEditHelper _photoEditHelper;
-
         private readonly IUserService _userService;
 
-        public MenuViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, IUserService userService,
-            IUserRepository userRepository, IDialogsHelper dialogsHelper, IPhotoEditHelper photoEditHelper)
+        public MenuViewModel(IMvxNavigationService navigationService, IStorageHelper storage, IUserService userService, IDialogsHelper dialogsHelper, IPhotoEditHelper photoEditHelper)
             : base(navigationService, storage)
         {
             _userService = userService;
-            _userRepository = userRepository;
-            _dialogsHelper = dialogsHelper;
-            _photoEditHelper = photoEditHelper;
 
             LogoutCommand = new MvxAsyncCommand(Logout);
             ShowSettingsCommand = new MvxAsyncCommand(ShowSettings);
@@ -90,7 +75,6 @@ namespace TestProject.Core.ViewModels
 
         private async Task EditProfilePhoto()
         {
-            //await _userService.EditProfilePhoto(_currentUser);
             int userId = await _storage.Get();
             var user = new RequestEditProfileImageUserApiModel
             {
@@ -99,7 +83,6 @@ namespace TestProject.Core.ViewModels
             };
             ResponseEditProfileImageUserApiModel response = await _userService.EditProfilePhoto(user);
             ImageBytes = response.ImageBytes;
-            //await _userRepository.Update(_currentUser);
         }
 
         private async Task ShowSettings()

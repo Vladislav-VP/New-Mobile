@@ -1,33 +1,28 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+
 using TestProject.ApiModels.TodoItem;
-using TestProject.Core.ViewModelResults;
-using TestProject.Entities;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Interfaces;
-using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
     public class TodoItemListViewModel : BaseViewModel
     {
-        private readonly ITodoItemRepository _todoItemRepository;
         private readonly ITodoItemService _todoItemService;
 
         public TodoItemListViewModel(IMvxNavigationService navigationService, ITodoItemService todoItemService,
-            IUserStorageHelper storage, ITodoItemRepository todoItemRepository)
+            IStorageHelper storage)
             : base(navigationService, storage)
         {
-            _todoItemRepository = todoItemRepository;
             _todoItemService = todoItemService;
 
             ShowMenuCommand = new MvxAsyncCommand(async ()
                   => await _navigationService.Navigate<MenuViewModel>());
-            AddTodoItemCommand = new MvxAsyncCommand<TodoItem>(AddTodoItem);
+            AddTodoItemCommand = new MvxAsyncCommand(AddTodoItem);
             SelectTodoItemCommand = new MvxAsyncCommand<TodoItemGetListTodoItemApiModelItem>(SelectTodoItem);
             RefreshTodoItemsCommand = new MvxCommand(RefreshTodoItems);
         }
@@ -51,7 +46,7 @@ namespace TestProject.Core.ViewModels
             LoadTodoItemsTask = MvxNotifyTask.Create(LoadTodoItems);
         }
 
-        public IMvxAsyncCommand<TodoItem> AddTodoItemCommand { get; private set; }
+        public IMvxAsyncCommand AddTodoItemCommand { get; private set; }
 
         public IMvxAsyncCommand ShowMenuCommand { get; private set; }
 
@@ -69,15 +64,12 @@ namespace TestProject.Core.ViewModels
             await LoadTodoItems();
         }
 
-        private async Task AddTodoItem(TodoItem todoItem)
+        private async Task AddTodoItem()
         {
             ResponseCreateTodoItemApiModel response = await _navigationService
                 .Navigate<CreateTodoItemViewModel, ResponseCreateTodoItemApiModel>();
 
-            if (response.IsSuccess)
-            {
-                await LoadTodoItems();
-            }
+            await LoadTodoItems();
         }
 
         private async Task LoadTodoItems()

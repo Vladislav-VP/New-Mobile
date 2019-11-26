@@ -2,7 +2,7 @@
 
 namespace TestProject.Services.Helpers.Interfaces
 {
-    public interface IStorageHelper<T>
+    public interface IStorageHelper
     {
         Task Save(int id);
 

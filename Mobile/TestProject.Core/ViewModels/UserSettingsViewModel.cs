@@ -7,7 +7,6 @@ using TestProject.ApiModels.User;
 using TestProject.Resources;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Interfaces;
-using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
@@ -19,9 +18,9 @@ namespace TestProject.Core.ViewModels
 
         private readonly IUserService _userService;
 
-        public UserSettingsViewModel(IMvxNavigationService navigationService, IUserRepository userRepository,
-            ICancelDialogService cancelDialogService, IUserService userService, IUserStorageHelper storage, IDialogsHelper dialogsHelper)
-            : base(navigationService, storage, cancelDialogService, userRepository, dialogsHelper)
+        public UserSettingsViewModel(IMvxNavigationService navigationService, ICancelDialogService cancelDialogService,
+            IUserService userService, IStorageHelper storage, IDialogsHelper dialogsHelper)
+            : base(navigationService, storage, cancelDialogService, dialogsHelper)
         {
             _userService = userService;
 

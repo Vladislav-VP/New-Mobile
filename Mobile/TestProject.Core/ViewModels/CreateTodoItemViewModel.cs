@@ -3,25 +3,32 @@
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+
 using TestProject.ApiModels.TodoItem;
-using TestProject.Core.ViewModelResults;
-using TestProject.Entities;
-using TestProject.Services.DataHandleResults;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Interfaces;
-using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
     public class CreateTodoItemViewModel : TodoItemViewModel, IMvxViewModelResult<ResponseCreateTodoItemApiModel>
     {
-        public CreateTodoItemViewModel(IMvxNavigationService navigationService, IUserStorageHelper storage, ICancelDialogService cancelDialogService, IUserService userService,
-            IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, IDialogsHelper dialogsHelper, ITodoItemService todoItemService)
-            : base(navigationService, storage, cancelDialogService, validationHelper, todoItemRepository, dialogsHelper, todoItemService)
+        public CreateTodoItemViewModel(IMvxNavigationService navigationService, IStorageHelper storage, ICancelDialogService cancelDialogService, IUserService userService,
+            IValidationHelper validationHelper,  IDialogsHelper dialogsHelper, ITodoItemService todoItemService)
+            : base(navigationService, storage, cancelDialogService, validationHelper, dialogsHelper, todoItemService)
         {
             CreateTodoItemCommand = new MvxAsyncCommand(HandleEntity);
         }
-        
+
+        protected override bool IsStateChanged
+        {
+            get
+            {
+                return !string.IsNullOrWhiteSpace(Name)
+                    || !string.IsNullOrWhiteSpace(Description)
+                    || IsDone;
+            }
+        }
+
         public IMvxAsyncCommand CreateTodoItemCommand { get; private set; }
 
         protected override async Task HandleEntity()

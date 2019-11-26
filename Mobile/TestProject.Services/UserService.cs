@@ -1,18 +1,11 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
+
 using TestProject.ApiModels.User;
-using TestProject.Entities;
 using TestProject.Resources;
-using TestProject.Services.DataHandleResults;
-using TestProject.Services.Helpers;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Interfaces;
-using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Services
 {
@@ -20,20 +13,17 @@ namespace TestProject.Services
     {
         private readonly IValidationHelper _validationHelper;
 
-        private readonly IUserRepository _userRepository;
-
-        private readonly IUserStorageHelper _storage;
+        private readonly IStorageHelper _storage;
 
         private readonly IDialogsHelper _dialogsHelper;
 
         private readonly IPhotoEditHelper _photoEditHelper;
 
         public UserService(IValidationHelper validationHelper, IDialogsHelper dialogsHelper,
-            IUserRepository userRepository, IUserStorageHelper storage, IPhotoEditHelper photoEditHelper)
+            IStorageHelper storage, IPhotoEditHelper photoEditHelper)
         {
             _url = "http://10.10.3.215:3000/api/userapi";
             _validationHelper = validationHelper;
-            _userRepository = userRepository;
             _storage = storage;
             _dialogsHelper = dialogsHelper;
             _photoEditHelper = photoEditHelper;
@@ -94,11 +84,6 @@ namespace TestProject.Services
             }
             response.IsSuccess = true;
             return response;
-        }
-
-        public new Task<TodoItem> Get(string name)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<string> GetUserName(int id)
