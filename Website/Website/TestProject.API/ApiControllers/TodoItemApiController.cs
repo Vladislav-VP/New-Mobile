@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Entities;
-using Repositories;
+﻿using Microsoft.AspNetCore.Mvc;
+using Services.Api;
+
 using DataAccess.Context;
-using Services;
 using ViewModels.Api.TodoItem;
 
 namespace TestProject.API.ApiControllers
@@ -16,12 +11,12 @@ namespace TestProject.API.ApiControllers
     public class TodoItemApiController : Controller
     {
         private readonly TodoListContext _context;
-        private readonly TodoItemService _todoItemService;
+        private readonly TodoItemApiService _todoItemService;
 
         public TodoItemApiController(TodoListContext context)
         {
             _context = context;
-            _todoItemService = new TodoItemService(_context);            
+            _todoItemService = new TodoItemApiService(_context);            
         }
         
         [Route("GetUsersTodoItems/userId={userId}")]

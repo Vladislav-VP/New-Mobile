@@ -1,20 +1,17 @@
-﻿using DataAccess.Context;
+﻿using System.Collections.Generic;
+
+using DataAccess.Context;
 using Entities;
 using Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Services
+namespace Services.Api
 {
-    public class BaseService<TEntity> where TEntity : BaseEntity
+    public class BaseApiService<TEntity> where TEntity : BaseEntity
     {
         protected readonly TodoListContext _context;
         protected readonly BaseRepository<TEntity> _baseRepository;
 
-        public BaseService(TodoListContext context)
+        public BaseApiService(TodoListContext context)
         {
             _context = context;
             _baseRepository = new BaseRepository<TEntity>(_context);

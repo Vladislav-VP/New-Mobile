@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 
 using DataAccess.Context;
-using Services;
 using ViewModels.Api.User;
+using Services.Api;
 
 namespace TestProject.API.ApiControllers
 {
@@ -13,13 +13,13 @@ namespace TestProject.API.ApiControllers
     public class UserApiController : Controller
     {
         private readonly TodoListContext _context;
-        private readonly UsersService _usersService;
+        private readonly UsersApiService _usersService;
         private readonly IWebHostEnvironment _hostEnvironment;
 
         public UserApiController(TodoListContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
-            _usersService = new UsersService(_context);
+            _usersService = new UsersApiService(_context);
             _hostEnvironment = hostEnvironment;
         }
 

@@ -1,16 +1,17 @@
-﻿using DataAccess.Context;
+﻿using System.Collections.Generic;
+
+using DataAccess.Context;
 using Entities;
 using Repositories;
-using System.Collections.Generic;
 using ViewModels.Api.TodoItem;
 
-namespace Services
+namespace Services.Api
 {
-    public class TodoItemService : BaseService<TodoItem>
+    public class TodoItemApiService : BaseApiService<TodoItem>
     {
         private TodoItemRepository _todoItemRepository;
 
-        public TodoItemService(TodoListContext context)
+        public TodoItemApiService(TodoListContext context)
             : base(context)
         {
             _todoItemRepository = new TodoItemRepository(_context);

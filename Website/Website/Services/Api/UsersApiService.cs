@@ -1,24 +1,18 @@
-﻿using AutoMapper;
+﻿using System.IO;
+
 using DataAccess.Context;
 using Entities;
 using Repositories;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ViewModels.Api;
 using ViewModels.Api.User;
 
-namespace Services
+namespace Services.Api
 {
-    public class UsersService : BaseService<User>
+    public class UsersApiService : BaseApiService<User>
     {
         public readonly UserRepository _userRepository;
         public readonly ImageService _imageService;
 
-        public UsersService(TodoListContext context) : base(context)
+        public UsersApiService(TodoListContext context) : base(context)
         {
             _userRepository = new UserRepository(_context);
             _imageService = new ImageService();
