@@ -29,16 +29,8 @@ namespace TestProject.API.ApiControllers
         [HttpGet]
         public GetListTodoItemApiView GetList(int userId)
         {
-            //UsersService usersService = new UsersService(_context);
-            //User user = usersService.FindById(userId);
-            //if (user == null)
-            //{
-            //    return NotFound();
-            //}
-            //IEnumerable<TodoItem> todoItems = _todoItemService.GetUsersTodoItems(userId);
-            //var result = new ObjectResult(todoItems);
-            //return result;
-            throw new NotImplementedException();
+            GetListTodoItemApiView usersTodoItems = _todoItemService.GetUsersTodoItems(userId);
+            return usersTodoItems;
         }
 
         [HttpGet]

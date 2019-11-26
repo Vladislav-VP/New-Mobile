@@ -46,7 +46,8 @@ namespace Services
                 var usersTodoItem = new TodoItemGetListTodoItemApiViewItem
                 {
                     Id = todoItem.Id,
-                    Name = todoItem.Name
+                    Name = todoItem.Name,
+                    IsDone = todoItem.IsDone
                 };
                 usersTodoItems.TodoItems.Add(usersTodoItem);
             }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TestProject.ApiModels.TodoItem;
 using TestProject.Entities;
 using TestProject.Services.DataHandleResults;
 using TestProject.Services.Helpers.Interfaces;
@@ -28,9 +29,11 @@ namespace TestProject.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<TodoItem>> GetUsersTodoItems(int userId)
+        public async Task<GetListTodoItemApiModel> GetUsersTodoItems(int userId)
         {
-            throw new NotImplementedException();
+            GetListTodoItemApiModel usersTodoItems = 
+                await Get<GetListTodoItemApiModel>(userId, $"{_url}/GetUsersTodoItems/userId={userId}");
+            return usersTodoItems;
         }
 
         //public async Task<IEnumerable<T>> GetUsersTodoItems(int userId)
