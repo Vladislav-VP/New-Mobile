@@ -4,21 +4,20 @@ using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 
-using TestProject.Core.ViewModelResults;
-using TestProject.Entities;
+using TestProject.ApiModels.TodoItem;
 using TestProject.Resources;
-using TestProject.Services.DataHandleResults;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Interfaces;
 using TestProject.Services.Repositories.Interfaces;
 
 namespace TestProject.Core.ViewModels
 {
-    public class EditTodoItemViewModel : TodoItemViewModel, IMvxViewModel<TodoItem, ViewModelResult<TodoItem>>,
-        IMvxViewModel<TodoItem, DeletionResult<TodoItem>>, IMvxViewModel<TodoItem, UpdateResult<TodoItem>>
+    public class EditTodoItemViewModel : TodoItemViewModel, IMvxViewModel<int, BaseTodoItemResponse>,
+        IMvxViewModel<int, DeleteTodoItemApiModel>, IMvxViewModel<int, ResponseEditTodoItemApiModel>
     {
         private int _todoItemId;
-        private int _userId;
+
+        private GetTodoItemApiModel _oldTodoItem;
 
         public EditTodoItemViewModel(IMvxNavigationService navigationService,  IDialogsHelper dialogsHelper,
             ICancelDialogService cancelDialogService, IValidationHelper validationHelper, ITodoItemRepository todoItemRepository, ITodoItemService webService)
@@ -26,59 +25,64 @@ namespace TestProject.Core.ViewModels
         {
             UpdateTodoItemCommand = new MvxAsyncCommand(HandleEntity);
             DeleteTodoItemCommand = new MvxAsyncCommand(DeleteTodoItem);
-        }        
-        
+        }
+
+        protected override bool IsStateChanged 
+        {
+            get
+            {
+                return _oldTodoItem.Description != Description 
+                    || _oldTodoItem.IsDone != IsDone;
+            }
+        }
+
         public IMvxAsyncCommand UpdateTodoItemCommand { get; private set; }
 
         public IMvxAsyncCommand DeleteTodoItemCommand { get; private set; }
 
-        public void Prepare(TodoItem parameter)
+        public void Prepare(int parameter)
         {
-            _todoItemId = parameter.Id;
-            Name = parameter.Name;
-            Description = parameter.Description;
-            IsDone = parameter.IsDone;
-            _userId = parameter.UserId;
+            _todoItemId = parameter;
         }
-        
+
+        public override async Task Initialize()
+        {
+            await base.Initialize();
+            _oldTodoItem = await _todoItemService.GetTodoItem(_todoItemId);
+            Name = _oldTodoItem.Name;
+            Description = _oldTodoItem.Description;
+            IsDone = _oldTodoItem.IsDone;
+        }
+
         private async Task DeleteTodoItem()
         {
-            //bool isConfirmedToDelete = await _dialogsHelper.IsConfirmed(Strings.DeleteMessageDialog);
+            bool isConfirmedToDelete = await _dialogsHelper.IsConfirmed(Strings.DeleteMessageDialog);
 
-            //if (!isConfirmedToDelete)
-            //{
-            //    return;
-            //}
-
-            ////await _todoItemRepository.Delete<TodoItem>(_todoItemId);
-            //await _todoItemService.Delete(_todoItemId);
-
-            //// TODO : Refactor result.
-            //var deletionResult = new DeletionResult<TodoItem>
-            //{
-            //    IsSucceded = true
-            //};
-
-            //await _navigationService.Close(this, deletionResult);
+            if (!isConfirmedToDelete)
+            {
+                return;
+            }
+            DeleteTodoItemApiModel response = await _todoItemService.Delete<DeleteTodoItemApiModel>(_todoItemId);
+            if (response.IsSuccess)
+            {
+                await _navigationService.Close(this, response);
+            }
         }
 
         protected override async Task HandleEntity()
         {
-
-            //TodoItem todoItem = await _todoItemService.Get<TodoItem>(_todoItemId);
-
-            //DataHandleResult<TodoItem> result = await _todoItemService.EditTodoItem(todoItem, Description, IsDone);
-            //if (!result.IsSucceded)
-            //{
-            //    return;
-            //}
-            ////await _todoItemRepository.Update(todoItem);
-            //var updateResult = new UpdateResult<TodoItem>
-            //{
-            //    Entity = todoItem,
-            //    IsSucceded = true
-            //};
-            //await _navigationService.Close(this, updateResult);
+            var todoItem = new RequestEditTodoItemApiModel
+            {
+                Id = _todoItemId,
+                Name = Name,
+                Description = Description,
+                IsDone = IsDone
+            };
+            ResponseEditTodoItemApiModel response = await _todoItemService.EditTodoItem(todoItem);
+            if (response.IsSuccess)
+            {
+                await _navigationService.Close(this, response);
+            }
         }
     }
 }

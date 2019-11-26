@@ -21,17 +21,21 @@ namespace Services
             _todoItemRepository.Update(todoItem);
         }
 
-        public void EditTodoItem(TodoItem todoItem)
+        public ResponseEditTodoItemApiView EditTodoItem(RequestEditTodoItemApiView todoItem)
         {
-            TodoItem todoItemToModify = _todoItemRepository.Find(todoItem.Id);
-            if (todoItemToModify == null)
+            var response = new ResponseEditTodoItemApiView();
+            if (string.IsNullOrEmpty(todoItem.Description))
             {
-                return;
+                response.Message = "Todo item description can not be empty";
+                return response;
             }
-
+            TodoItem todoItemToModify = _todoItemRepository.Find(todoItem.Id);
             todoItemToModify.Description = todoItem.Description;
             todoItemToModify.IsDone = todoItem.IsDone;
             Update(todoItemToModify);
+            response.IsSuccess = true;
+            response.Message = "Todo item successfully updated";
+            return response;
         }
 
         public GetListTodoItemApiView GetUsersTodoItems(int userId)
@@ -77,6 +81,32 @@ namespace Services
             base.Insert(todoItemToInsert);
             response.IsSuccess = true;
             response.Message = "Todo item successfully created";
+            return response;
+        }
+
+        public GetTodoItemApiView GetTodoItem(int id)
+        {
+            TodoItem retrievedTodoItem = FindById(id);
+            if (retrievedTodoItem == null)
+            {
+                return null;
+            }
+            var todoItem = new GetTodoItemApiView
+            {
+                Id = retrievedTodoItem.Id,
+                Name = retrievedTodoItem.Name,
+                Description = retrievedTodoItem.Description,
+                IsDone = retrievedTodoItem.IsDone
+            };
+            return todoItem;
+        }
+
+        public new DeleteTodoItemApiView Delete(int id)
+        {
+            var response = new DeleteTodoItemApiView();
+            base.Delete(id);
+            response.IsSuccess = true;
+            response.Messsage = "Todo item deleted";
             return response;
         }
     }

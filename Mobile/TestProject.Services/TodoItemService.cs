@@ -34,10 +34,16 @@ namespace TestProject.Services
             return response;
         }
 
-        public async Task<ResponseCreateTodoItemApiModel> EditTodoItem(RequestCreateTodoItemApiModel todoItem)
+        public async Task<ResponseEditTodoItemApiModel> EditTodoItem(RequestEditTodoItemApiModel todoItem)
         {
-            //var response = new ResponseCreateTodoItemApiModel();
-             throw new NotImplementedException();        
+            //var response = new ResponseEditTodoItemApiModel();
+            ResponseEditTodoItemApiModel response = await 
+                Post<RequestEditTodoItemApiModel, ResponseEditTodoItemApiModel>(todoItem, $"{_url}/Edit");
+            if (!response.IsSuccess)
+            {
+                _dialogsHelper.DisplayAlertMessage(response.Message);
+            }
+            return response;  
         }
 
         public async Task<GetListTodoItemApiModel> GetUsersTodoItems(int userId)
@@ -47,30 +53,10 @@ namespace TestProject.Services
             return usersTodoItems;
         }
 
-        //public async Task<DataHandleResult<T>> EditTodoItem(T todoItem, string description, bool isDone)
-        //{
-        //    var result = new DataHandleResult<T>
-        //    {
-        //        Data = todoItem
-        //    };
-
-        //    var modifiedTodoItem = new T
-        //    {
-        //        Name = todoItem.Name,
-        //        Description = todoItem.Description,
-        //        IsDone = todoItem.IsDone
-        //    };
-        //    bool isTodoItemValid = _validationHelper.IsObjectValid(todoItem);
-        //    if (!isTodoItemValid)
-        //    {
-        //        return result;
-        //    }
-
-        //    todoItem.Description = description;
-        //    todoItem.IsDone = isDone;
-        //    result.IsSucceded = true;
-        //    await Update(todoItem);
-        //    return result;
-        //}
+        public async Task<GetTodoItemApiModel> GetTodoItem(int id)
+        {
+            GetTodoItemApiModel todoItem = await Get<GetTodoItemApiModel>(id, $"{_url}/Get/{id}");
+            return todoItem;
+        }
     }
 }

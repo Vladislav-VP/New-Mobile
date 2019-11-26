@@ -12,6 +12,8 @@ namespace TestProject.Services.Interfaces
 
         Task<ResponseCreateTodoItemApiModel> CreateTodoItem(RequestCreateTodoItemApiModel todoItem);
 
-        Task<ResponseCreateTodoItemApiModel> EditTodoItem(RequestCreateTodoItemApiModel todoItem);
+        Task<ResponseEditTodoItemApiModel> EditTodoItem(RequestEditTodoItemApiModel todoItem);
+
+        Task<GetTodoItemApiModel> GetTodoItem(int id);
     }
 }

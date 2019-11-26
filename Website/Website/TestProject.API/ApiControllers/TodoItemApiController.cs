@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-//using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Entities;
 using Repositories;
@@ -33,27 +32,12 @@ namespace TestProject.API.ApiControllers
             return usersTodoItems;
         }
 
+        [Route("Get/{id}")]
         [HttpGet]
-        public IEnumerable<TodoItem> GetAllTodoItems()
-        {// TODO: Remove this method later?
-            IEnumerable<TodoItem> todoItems = null;
-
-            todoItems = _todoItemService.GetAllObjects();
-
-            return todoItems;
-        }
-
-        [Route("{id}")]
-        [HttpGet]
-        public IActionResult Get(int id)
+        public GetTodoItemApiView Get(int id)
         {
-            TodoItem todoItem = _todoItemService.FindById(id);
-            if (todoItem == null)
-            {
-                return NotFound();
-            }
-            var result = new ObjectResult(todoItem);
-            return result;
+            GetTodoItemApiView todoItem = _todoItemService.GetTodoItem(id);
+            return todoItem;
         }
 
         [Route("Create")]
@@ -64,35 +48,20 @@ namespace TestProject.API.ApiControllers
             return response;
         }
 
-        [Route("{id}")]
-        [HttpPut]
-        public IActionResult EditTodoItem([FromBody]TodoItem todoItem)
+        [Route("Edit")]
+        [HttpPost]
+        public ResponseEditTodoItemApiView Edit([FromBody]RequestEditTodoItemApiView todoItem)
         {
-            if (todoItem == null)
-            {
-                return BadRequest();
-            }
-            TodoItem todoItemToModify = _todoItemService.FindById(todoItem.Id);
-            if (todoItemToModify == null)
-            {
-                return NotFound();
-            }
-            _todoItemService.EditTodoItem(todoItem);
-            return Ok(todoItem);
+            ResponseEditTodoItemApiView response = _todoItemService.EditTodoItem(todoItem);
+            return response;
         }
         
-        [Route("{id}")]
+        [Route("Delete/{id}")]
         [HttpDelete]
-        public IActionResult DeleteTodoItem(int id)
+        public DeleteTodoItemApiView Delete(int id)
         {
-            TodoItem todoItem = _todoItemService.FindById(id);
-            if (todoItem == null)
-            {
-                return NotFound();
-            }
-
-            _todoItemService.Delete(id);
-            return Ok(todoItem);
+            DeleteTodoItemApiView response = _todoItemService.Delete(id);
+            return response;
         }
 
         protected override void Dispose(bool disposing)

@@ -28,7 +28,7 @@ namespace TestProject.Core.ViewModels
             ShowMenuCommand = new MvxAsyncCommand(async ()
                   => await _navigationService.Navigate<MenuViewModel>());
             AddTodoItemCommand = new MvxAsyncCommand<TodoItem>(AddTodoItem);
-            SelectTodoItemCommand = new MvxAsyncCommand<TodoItem>(SelectTodoItem);
+            SelectTodoItemCommand = new MvxAsyncCommand<TodoItemGetListTodoItemApiModelItem>(SelectTodoItem);
             RefreshTodoItemsCommand = new MvxCommand(RefreshTodoItems);
         }
         
@@ -57,27 +57,16 @@ namespace TestProject.Core.ViewModels
 
         public IMvxCommand RefreshTodoItemsCommand { get; private set; }
 
-        public IMvxCommand<TodoItem> SelectTodoItemCommand { get; private set; }
+        public IMvxCommand<TodoItemGetListTodoItemApiModelItem> SelectTodoItemCommand { get; private set; }
 
         public MvxNotifyTask LoadTodoItemsTask { get; private set; }
 
-        private async Task SelectTodoItem(TodoItem selectedTodoItem)
+        private async Task SelectTodoItem(TodoItemGetListTodoItemApiModelItem selectedTodoItem)
         {
-            //ViewModelResult<TodoItem> result = await _navigationService
-            //     .Navigate<EditTodoItemViewModel, TodoItem, ViewModelResult<TodoItem>>(selectedTodoItem);
+            BaseTodoItemResponse response = await _navigationService
+                .Navigate<EditTodoItemViewModel, int, BaseTodoItemResponse>(selectedTodoItem.Id);
 
-            //if (result is DeletionResult<TodoItem> && result.IsSucceded)
-            //{
-            //    TodoItems.Remove(selectedTodoItem);
-            //    return;
-            //}
-
-            //if(result is UpdateResult<TodoItem> && result.IsSucceded)
-            //{
-            //    int index = TodoItems.IndexOf(selectedTodoItem);
-            //    TodoItems.Insert(index, result.Entity);
-            //    TodoItems.Remove(selectedTodoItem);
-            //}
+            await LoadTodoItems();
         }
 
         private async Task AddTodoItem(TodoItem todoItem)
