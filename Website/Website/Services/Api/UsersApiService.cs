@@ -1,8 +1,7 @@
 ﻿using System.IO;
 
-using DataAccess.Context;
+using DataAccess.Repositories;
 using Entities;
-using Repositories;
 using ViewModels.Api.User;
 
 namespace Services.Api
@@ -12,9 +11,9 @@ namespace Services.Api
         public readonly UserRepository _userRepository;
         public readonly ImageService _imageService;
 
-        public UsersApiService(TodoListContext context) : base(context)
+        public UsersApiService() : base()
         {
-            _userRepository = new UserRepository(_context);
+            _userRepository = new UserRepository();
             _imageService = new ImageService();
         }
 

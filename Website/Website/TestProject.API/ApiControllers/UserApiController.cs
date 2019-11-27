@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 
-using DataAccess.Context;
 using ViewModels.Api.User;
 using Services.Api;
 
@@ -12,14 +11,12 @@ namespace TestProject.API.ApiControllers
     [ApiController]
     public class UserApiController : Controller
     {
-        private readonly TodoListContext _context;
         private readonly UsersApiService _usersService;
         private readonly IWebHostEnvironment _hostEnvironment;
 
-        public UserApiController(TodoListContext context, IWebHostEnvironment hostEnvironment)
+        public UserApiController(IWebHostEnvironment hostEnvironment)
         {
-            _context = context;
-            _usersService = new UsersApiService(_context);
+            _usersService = new UsersApiService();
             _hostEnvironment = hostEnvironment;
         }
 

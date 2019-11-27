@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 
-using DataAccess.Context;
+using DataAccess.Repositories;
 using Entities;
-using Repositories;
 using ViewModels.Api.TodoItem;
 
 namespace Services.Api
@@ -11,10 +10,10 @@ namespace Services.Api
     {
         private TodoItemRepository _todoItemRepository;
 
-        public TodoItemApiService(TodoListContext context)
-            : base(context)
+        public TodoItemApiService()
+            : base()
         {
-            _todoItemRepository = new TodoItemRepository(_context);
+            _todoItemRepository = new TodoItemRepository();
         }
 
         public override void Update(TodoItem todoItem)

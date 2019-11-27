@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Services.Api;
 
-using DataAccess.Context;
 using ViewModels.Api.TodoItem;
 
 namespace TestProject.API.ApiControllers
@@ -10,13 +9,11 @@ namespace TestProject.API.ApiControllers
     [ApiController]
     public class TodoItemApiController : Controller
     {
-        private readonly TodoListContext _context;
         private readonly TodoItemApiService _todoItemService;
 
-        public TodoItemApiController(TodoListContext context)
+        public TodoItemApiController()
         {
-            _context = context;
-            _todoItemService = new TodoItemApiService(_context);            
+            _todoItemService = new TodoItemApiService();            
         }
         
         [Route("GetUsersTodoItems/userId={userId}")]

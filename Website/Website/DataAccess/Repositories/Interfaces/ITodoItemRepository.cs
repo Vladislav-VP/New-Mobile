@@ -1,7 +1,8 @@
-﻿using Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Repositories.Interfaces
+using Entities;
+
+namespace DataAccess.Repositories.Interfaces
 {
     public interface ITodoItemRepository : IBaseRepository<TodoItem>
     {

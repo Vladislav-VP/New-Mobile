@@ -4,9 +4,9 @@ using System.Linq;
 
 using DataAccess.Context;
 using Entities;
-using Repositories.Interfaces;
+using DataAccess.Repositories.Interfaces;
 
-namespace Repositories
+namespace DataAccess.Repositories
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity>  where TEntity : BaseEntity
     {
@@ -14,10 +14,10 @@ namespace Repositories
         protected TodoListContext _context;
         protected bool _disposed = false;
 
-        public BaseRepository(TodoListContext context)
+        public BaseRepository()
         {
-            _context = context;
-            _dbSet = context.Set<TEntity>();
+            _context = new TodoListContext();
+            _dbSet = _context.Set<TEntity>();
         }
 
         public void Insert(TEntity entity)
@@ -49,11 +49,6 @@ namespace Repositories
         {
             TEntity entity = _dbSet.Find(id);
             return entity;
-        }
-
-        public IQueryable<TEntity> GetAllObjects()
-        {
-            return _dbSet;
         }
     }
 }

@@ -6,7 +6,7 @@ namespace DataAccess.Context
 {
     public class TodoListContext : DbContext
     {
-        public TodoListContext(DbContextOptions options) : base(options)
+        public TodoListContext() : base()
         {
         }
 
@@ -17,6 +17,15 @@ namespace DataAccess.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasIndex(u => u.Name).IsUnique();
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            // TODO : Implement logic for retrieving connection string from json
+            string connection = 
+                "Server=(localdb)\\mssqllocaldb;Database=todolistdb;Trusted_Connection=True;MultipleActiveResultSets=true";
+            optionsBuilder.UseSqlServer(connection);
         }
     }
 }

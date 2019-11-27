@@ -2,11 +2,10 @@
 
 using Entities;
 
-namespace Repositories.Interfaces
+namespace DataAccess.Repositories.Interfaces
 {
     public interface IBaseRepository<TEntity> where TEntity : BaseEntity
     {
-        IQueryable<TEntity> GetAllObjects();
 
         void Insert(TEntity entity);
 

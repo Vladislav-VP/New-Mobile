@@ -1,16 +1,12 @@
-﻿using DataAccess.Context;
-using Entities;
-using Repositories.Interfaces;
-using System.Linq;
+﻿using System.Linq;
 
-namespace Repositories
+using DataAccess.Repositories.Interfaces;
+using Entities;
+
+namespace DataAccess.Repositories
 {
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
-        public UserRepository(TodoListContext context) : base(context)
-        {
-        }
-        
         public User Find(string username)
         {
             User user = _dbSet.Where(u => u.Name == username).FirstOrDefault();
