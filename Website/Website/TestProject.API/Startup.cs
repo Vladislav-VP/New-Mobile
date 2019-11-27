@@ -15,11 +15,10 @@ namespace TestProject.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddMvc();
         }
         
-        public void Configure(IApplicationBuilder app
+        public void Configure(IApplicationBuilder app)
         {
             app.UseHttpsRedirection();
             app.UseStaticFiles();
