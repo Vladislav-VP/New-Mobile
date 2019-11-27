@@ -25,6 +25,15 @@ namespace TestProject.API.Controllers
             return View(user);
         }
 
-
+        [HttpPost]
+        public IActionResult CreateNewUser(RequestRegisterUserView user)
+        {
+            ResponseRegisterUserView response = _usersService.Register(user);
+            if (!response.IsSuccess)
+            {
+                return RedirectToAction("Register", "Home");
+            }            
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

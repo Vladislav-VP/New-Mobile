@@ -36,9 +36,14 @@
         }
 
     </div>
-<div>
-    @Html.ActionLink("Login", "Login", Model) |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+    <div>
+        <h4>Without an account?</h4>
+        <hr />
+        @using (Html.BeginForm("Register", "Home", FormMethod.Post))
+        {
+            <button type="submit" value="Register">Register</button>
+        }
+    </div>
 </body>
 </html>

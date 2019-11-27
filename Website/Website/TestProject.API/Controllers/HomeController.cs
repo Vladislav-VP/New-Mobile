@@ -17,8 +17,7 @@ namespace TestProject.API.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var user = new RequestLoginUserView();
-            return View(user);
+            return View();
         }
 
         [HttpPost]
@@ -30,6 +29,11 @@ namespace TestProject.API.Controllers
                 return RedirectToAction("Index");
             }
             return RedirectToAction("HomeInfo", "User", new { user.Id });
+        }
+
+        public IActionResult Register()
+        {
+            return View();
         }
     }
 }

@@ -43,5 +43,34 @@ namespace Services.UI
             };
             return user;
         }
+
+        public ResponseRegisterUserView Register(RequestRegisterUserView user)
+        {
+            var response = new ResponseRegisterUserView();
+            if (string.IsNullOrEmpty(user.Name))
+            {
+                response.Message = "Username can not be empty";
+                return response;
+            }
+            if (string.IsNullOrEmpty(user.Password))
+            {
+                response.Message = "Password can not be empty";
+                return response;
+            }
+            User retrievedUser = _userRepository.Find(user.Name);
+            if (retrievedUser != null)
+            {
+                response.Message = "User with this name already exists";
+                return response;
+            }
+            var newUser = new User
+            {
+                Name = user.Name,
+                Password = user.Password
+            };
+            _userRepository.Insert(newUser);
+            response.IsSuccess = true;
+            return response;
+        }
     }
 }
