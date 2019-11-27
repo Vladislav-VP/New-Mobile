@@ -30,7 +30,7 @@ namespace TestProject.API.Controllers
             }
             return RedirectToAction("HomeInfo", "User", new { user.Id });
         }
-
+        
         public IActionResult Register()
         {
             return View();
