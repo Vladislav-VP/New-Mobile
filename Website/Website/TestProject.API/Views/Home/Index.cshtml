@@ -1,0 +1,44 @@
+﻿@model ViewModels.UI.RequestLoginUserView
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+
+    <div>
+        <h4>IndexHomeView</h4>
+        <hr />
+        @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+        {
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.EditorFor(model => model.Name)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Password)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.PasswordFor(model => model.Password)
+                </dd>
+            </dl>
+            <button type="submit" value="Login">Login</button>
+        }
+
+    </div>
+<div>
+    @Html.ActionLink("Login", "Login", Model) |
+    <a asp-action="Index">Back to List</a>
+</div>
+</body>
+</html>
