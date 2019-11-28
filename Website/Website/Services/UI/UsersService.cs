@@ -46,9 +46,16 @@ namespace Services.UI
             {
                 Id = id,
                 Name = retrievedUser.Name,
-                ImageBytes = retrievedUser.ImageBytes,
                 ImageUrl = retrievedUser.ImageUrl
             };
+            if (string.IsNullOrEmpty(retrievedUser.ImageUrl))
+            {
+                user.ImageUrl = HomeInfoUserView.ProfilePlaceholderUrl;
+            }
+            if (!string.IsNullOrEmpty(retrievedUser.ImageUrl))
+            {
+                user.ImageUrl = RewriteImageUrl(retrievedUser.ImageUrl);
+            }
             return user;
         }
 
@@ -75,6 +82,13 @@ namespace Services.UI
             _userRepository.Insert(newUser);
             responseRegister.IsSuccess = true;
             return responseRegister;
+        }
+
+        private string RewriteImageUrl(string oldUrl)
+        {
+            int startIndex = oldUrl.LastIndexOf('\\');
+            string imageName = oldUrl.Substring(startIndex).Replace('\\', '/');
+            return $"~/ProfileImages{imageName}";
         }
     }
 }

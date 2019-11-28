@@ -14,30 +14,35 @@
 <body>
 
 <div>
-    <h4>HomeInfoUserView</h4>
+    <h4>Task list</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageBytes)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageBytes)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            @*@Html.DisplayFor(model => model.ImageUrl)*@
-            <img src="@Model.ImageUrl" alt="Profile photo"/>
-        </dd>
-        
-    </dl>
+    <table>
+        <tr>
+            <td>
+                <img src="@Url.Content(Model.ImageUrl)" alt="Profile photo" height="200" width="200"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.Name)
+            </td>
+        </tr>
+    </table>
+
+    <hr />
+
+    <table>
+        <tr>
+            <td>
+                @Html.ActionLink("Settings", "Settings", "User")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ActionLink("Logout", "Index", "Home")
+            </td>
+        </tr>
+    </table>
 </div>
 
 </body>
