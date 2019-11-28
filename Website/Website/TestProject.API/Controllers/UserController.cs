@@ -35,5 +35,10 @@ namespace TestProject.API.Controllers
             }            
             return RedirectToAction("Index", "Home");
         }
+
+        public IActionResult BackToLogin()
+        {
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
