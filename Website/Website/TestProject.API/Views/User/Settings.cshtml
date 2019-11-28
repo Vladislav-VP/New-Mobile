@@ -1,0 +1,65 @@
+﻿@model ViewModels.UI.SettingsUserView
+
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Settings</title>
+</head>
+<body>
+
+<h4>Settings</h4>
+<hr />
+@Html.HiddenFor(model => model.Id)
+    @using (Html.BeginForm("ChangeName", "User", new { Model.Id, Model.Name}, FormMethod.Post))
+    {
+        <div class="row">
+        <table>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Name)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.EditorFor(model => model.Name)
+                </td>
+            </tr>
+            <tr>
+               <td>
+                  <button class="authenticationButton" type="submit" value="Save changes">Save changes</button>
+               </td>
+            </tr>
+        </table>
+    </div>
+    }
+    
+
+    <hr />
+    <div class="row">
+        <table>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.ImageUrl)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="@Url.Content(Model.ImageUrl)" alt="Profile photo" height="500" width="500" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="authenticationButton" type="submit" value="Save changes">Save changes</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>

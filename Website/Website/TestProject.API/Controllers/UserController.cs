@@ -14,6 +14,7 @@ namespace TestProject.API.Controllers
             _usersService = new UsersService();
         }
 
+        [Route("HomeInfo")]
         [HttpGet]
         public IActionResult HomeInfo(int id)
         {
@@ -39,6 +40,21 @@ namespace TestProject.API.Controllers
         public IActionResult BackToLogin()
         {
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult Settings(int id)
+        {
+            SettingsUserView user = _usersService.GetUserSettings(id);
+            return View(user);
+        }
+
+        [HttpPost]
+        public IActionResult ChangeName(RequestChangeNameUserView user)
+        {
+            // TODO : Implement logic for showing error messages.
+            ResponseChangeNameUserView response = _usersService.ChangeUsername(user);
+            return RedirectToAction("Settings", "User", new { user.Id });
         }
     }
 }

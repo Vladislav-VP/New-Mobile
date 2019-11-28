@@ -45,8 +45,7 @@ namespace Services.UI
             var user = new HomeInfoUserView()
             {
                 Id = id,
-                Name = retrievedUser.Name,
-                ImageUrl = retrievedUser.ImageUrl
+                Name = retrievedUser.Name
             };
             if (string.IsNullOrEmpty(retrievedUser.ImageUrl))
             {
@@ -82,6 +81,51 @@ namespace Services.UI
             _userRepository.Insert(newUser);
             responseRegister.IsSuccess = true;
             return responseRegister;
+        }
+
+        public SettingsUserView GetUserSettings(int id)
+        {
+            User retrievedUser = _userRepository.Find(id);
+            if (retrievedUser == null)
+            {
+                return null;
+            }
+            var user = new SettingsUserView
+            {
+                Id = retrievedUser.Id,
+                Name = retrievedUser.Name,
+            };
+            if (string.IsNullOrEmpty(retrievedUser.ImageUrl))
+            {
+                user.ImageUrl = HomeInfoUserView.ProfilePlaceholderUrl;
+            }
+            if (!string.IsNullOrEmpty(retrievedUser.ImageUrl))
+            {
+                user.ImageUrl = RewriteImageUrl(retrievedUser.ImageUrl);
+            }
+            return user;
+        }
+
+        public ResponseChangeNameUserView ChangeUsername(RequestChangeNameUserView user)
+        {
+            var responseChange = new ResponseChangeNameUserView();
+            ValidationResponse validationResponse = _validationService.IsValid(user);
+            if (!validationResponse.IsSuccess)
+            {
+                responseChange.Message = validationResponse.Message;
+                return responseChange;
+            }
+            User retrievedUser = _userRepository.Find(user.Name);
+            if (retrievedUser != null)
+            {
+                responseChange.Message = "User with this name already exists";
+                return responseChange;
+            }
+            User userToModify = _userRepository.Find(user.Id);
+            userToModify.Name = user.Name;
+            _userRepository.Update(userToModify);
+            responseChange.IsSuccess = true;
+            return responseChange;
         }
 
         private string RewriteImageUrl(string oldUrl)
