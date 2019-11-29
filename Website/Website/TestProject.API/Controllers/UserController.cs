@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 using Services.UI;
-using ViewModels.UI;
+using ViewModels.UI.User;
 
 namespace TestProject.API.Controllers
 {
@@ -27,9 +27,9 @@ namespace TestProject.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateNewUser(RequestRegisterUserView user)
+        public IActionResult Create(RequestCreateUserView user)
         {
-            ResponseRegisterUserView response = _usersService.Register(user);
+            ResponseCreateUserView response = _usersService.Register(user);
             if (!response.IsSuccess)
             {
                 return RedirectToAction("Register", "Home");
@@ -68,6 +68,12 @@ namespace TestProject.API.Controllers
         {
             ResponseChangePasswordUserView response = _usersService.ChangePassword(user);
             return RedirectToAction("Settings", "User", new { user.Id });
+        }
+
+        [HttpPost]
+        public IActionResult ChangeProfilePhoto()
+        {
+            return View();
         }
     }
 }

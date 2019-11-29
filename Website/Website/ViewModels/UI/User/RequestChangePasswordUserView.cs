@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ViewModels.UI
+namespace ViewModels.UI.User
 {
     public class RequestChangePasswordUserView
     {

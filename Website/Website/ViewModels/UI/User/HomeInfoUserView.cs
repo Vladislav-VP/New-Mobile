@@ -1,4 +1,4 @@
-﻿namespace ViewModels.UI
+﻿namespace ViewModels.UI.User
 {
     public class HomeInfoUserView
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 using Services.UI;
-using ViewModels.UI;
+using ViewModels.UI.Home;
 
 namespace TestProject.API.Controllers
 {
@@ -21,9 +21,9 @@ namespace TestProject.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(RequestLoginUserView user)
+        public IActionResult Login(RequestLoginHomeView user)
         {
-            ResponseLoginUserView response = _usersService.Login(user);
+            ResponseLoginHomeView response = _usersService.Login(user);
             if (!response.IsSuccess)
             {
                 return RedirectToAction("Index");

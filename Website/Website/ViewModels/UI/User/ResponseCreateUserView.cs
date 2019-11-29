@@ -1,6 +1,6 @@
-﻿namespace ViewModels.UI
+﻿namespace ViewModels.UI.User
 {
-    public class ResponseRegisterUserView
+    public class ResponseCreateUserView
     {
         public bool IsSuccess { get; set; }
 

@@ -1,4 +1,4 @@
-﻿@model ViewModels.UI.RequestRegisterUserView
+﻿@model ViewModels.UI.User.RequestCreateUserView
 
 @{
     Layout = "_Layout";
@@ -16,7 +16,7 @@
 <h4>Registration</h4>
 <hr />
 <div class="row">
-    @using (Html.BeginForm("CreateNewUser", "User", FormMethod.Post))
+    @using (Html.BeginForm("Create", "User", FormMethod.Post))
     {
         <table>
             <tr>

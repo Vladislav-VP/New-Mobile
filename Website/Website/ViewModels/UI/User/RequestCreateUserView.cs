@@ -1,11 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ViewModels.UI
+namespace ViewModels.UI.User
 {
-    public class RequestLoginUserView
+    public class RequestCreateUserView
     {
-        public int Id { get; set; }
-        
         [Required]
         public string Name { get; set; }
 
