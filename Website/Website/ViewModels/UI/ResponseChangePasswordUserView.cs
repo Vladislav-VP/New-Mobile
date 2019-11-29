@@ -1,6 +1,6 @@
-﻿namespace ViewModels
+﻿namespace ViewModels.UI
 {
-    public class ValidationResponse
+    public class ResponseChangePasswordUserView
     {
         public bool IsSuccess { get; set; }
 

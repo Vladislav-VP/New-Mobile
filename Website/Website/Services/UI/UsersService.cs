@@ -18,10 +18,10 @@ namespace Services.UI
         public ResponseLoginUserView Login(RequestLoginUserView user)
         {
             var responseLogin = new ResponseLoginUserView();
-            ValidationResponse validationResponse = _validationService.IsValid(user);
-            if (!validationResponse.IsSuccess)
+            ResponseValidation responseValidation = _validationService.IsValid(user);
+            if (!responseValidation.IsSuccess)
             {
-                responseLogin.Message = validationResponse.Message;
+                responseLogin.Message = responseValidation.Message;
                 return responseLogin;
             }
             User retrievedUser = _userRepository.Find(user.Name, user.Password);
@@ -61,10 +61,10 @@ namespace Services.UI
         public ResponseRegisterUserView Register(RequestRegisterUserView user)
         {
             var responseRegister = new ResponseRegisterUserView();
-            ValidationResponse validationResponse = _validationService.IsValid(user);
-            if (!validationResponse.IsSuccess)
+            ResponseValidation responseValidation = _validationService.IsValid(user);
+            if (!responseValidation.IsSuccess)
             {
-                responseRegister.Message = validationResponse.Message;
+                responseRegister.Message = responseValidation.Message;
                 return responseRegister;
             }
             User retrievedUser = _userRepository.Find(user.Name);
@@ -109,10 +109,10 @@ namespace Services.UI
         public ResponseChangeNameUserView ChangeUsername(RequestChangeNameUserView user)
         {
             var responseChange = new ResponseChangeNameUserView();
-            ValidationResponse validationResponse = _validationService.IsValid(user);
-            if (!validationResponse.IsSuccess)
+            ResponseValidation responseValidation = _validationService.IsValid(user);
+            if (!responseValidation.IsSuccess)
             {
-                responseChange.Message = validationResponse.Message;
+                responseChange.Message = responseValidation.Message;
                 return responseChange;
             }
             User retrievedUser = _userRepository.Find(user.Name);
@@ -124,6 +124,23 @@ namespace Services.UI
             User userToModify = _userRepository.Find(user.Id);
             userToModify.Name = user.Name;
             _userRepository.Update(userToModify);
+            responseChange.IsSuccess = true;
+            return responseChange;
+        }
+
+        public ResponseChangePasswordUserView ChangePassword(RequestChangePasswordUserView user)
+        {
+            var responseChange = new ResponseChangePasswordUserView();
+            User retrievedUser = _userRepository.Find(user.Id);
+            user.OldPassword = retrievedUser.Password;
+            ResponseValidation responseValidation = _validationService.IsValid(user);
+            if (!responseValidation.IsSuccess)
+            {
+                responseChange.Message = responseValidation.Message;
+                return responseChange;
+            }
+            retrievedUser.Password = user.NewPassword;
+            _userRepository.Update(retrievedUser);
             responseChange.IsSuccess = true;
             return responseChange;
         }

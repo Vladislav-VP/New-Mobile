@@ -9,9 +9,9 @@ namespace Services
 {
     public class ValidationService
     {
-        public ValidationResponse IsValid(object instance, bool validateAllProperties = true)
+        public ResponseValidation IsValid(object instance, bool validateAllProperties = true)
         {
-            var response = new ValidationResponse();
+            var response = new ResponseValidation();
             var context = new ValidationContext(instance);
             ICollection<ValidationResult> validationResults = new Collection<ValidationResult>();
             response.IsSuccess = Validator.TryValidateObject(instance, context, validationResults, validateAllProperties);

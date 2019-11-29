@@ -54,6 +54,19 @@ namespace TestProject.API.Controllers
         {
             // TODO : Implement logic for showing error messages.
             ResponseChangeNameUserView response = _usersService.ChangeUsername(user);
+            bool valid = ModelState.IsValid;
+            if (!ModelState.IsValid)
+            {
+                return View("Settings", user);
+            }
+            return RedirectToAction("Settings", "User", new { user.Id });
+            
+        }
+
+        [HttpPost]
+        public IActionResult ChangePassword(RequestChangePasswordUserView user)
+        {
+            ResponseChangePasswordUserView response = _usersService.ChangePassword(user);
             return RedirectToAction("Settings", "User", new { user.Id });
         }
     }
