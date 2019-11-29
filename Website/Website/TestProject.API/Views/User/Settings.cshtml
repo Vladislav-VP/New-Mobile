@@ -1,0 +1,140 @@
+﻿@model ViewModels.UI.User.SettingsUserView
+
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Settings</title>
+</head>
+<body>
+
+    <h4>Settings</h4>
+    <hr />
+    @Html.HiddenFor(model => model.Id)
+    @using (Html.BeginForm("ChangeName", "User", new { Model.Id, Model.Name }, FormMethod.Post))
+    {
+        <div class="row">
+            <table>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.EditorFor(model => model.Name)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="authenticationButton" type="submit" value="Save changes">Save changes</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+
+
+    <hr />
+    
+        <div class="row">
+            
+            <table>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.ImageUrl)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="@Url.Content(Model.ImageUrl)" alt="Profile photo" height="500" width="500" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <form asp-controller="User" asp-action="ChangeProfilePhoto"
+                              method="post" enctype="multipart/form-data">
+                            @Html.HiddenFor(model => model.Id)
+                            <input type="file" accept="image/*" name="file" />
+                            <button class="authenticationButton" type="submit">Upload image</button>
+                            
+                        </form>
+                    </td>
+                    <td>
+                        @using (Html.BeginForm("RemoveProfilePhoto", "User", FormMethod.Post))
+                        {
+                            @Html.HiddenFor(model => model.Id)
+                            <button class="authenticationButton" type="submit">Remove image</button>
+                        }
+                    </td>
+                </tr>
+            </table>
+        </div>
+    
+
+    <hr />
+    <h4>Change password</h4>
+    @using (Html.BeginForm("ChangePassword", "User", new { Model.Id }))
+    {
+        <div class="validation">
+            <table>
+                <tr>
+                    <td>
+                        @Html.DisplayName("Old password")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Password("OldPasswordConfirmation")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayName("New password")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Password("NewPassword")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayName("Confirm your password")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Password("NewPasswordConfirmation")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="authenticationButton" type="submit" value="Save changes">Save changes</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+    <hr />
+    @using (Html.BeginForm("DeleteAccount", "User", new { Model.Id } ))
+    {
+        <div class="row">
+            <table>
+                <tr>
+                    <td>
+                        <button class="authenticationButton" type="submit" value="Delete account">Delete account</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+    
+
+</body>
+</html>

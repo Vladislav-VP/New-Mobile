@@ -1,0 +1,49 @@
+﻿@model ViewModels.UI.User.HomeInfoUserView
+
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>HomeInfo</title>
+</head>
+<body>
+
+<div>
+    <h4>Task list</h4>
+    <hr />
+    <table>
+        <tr>
+            <td>
+                <img src="@Url.Content(Model.ImageUrl)" alt="Profile photo" height="200" width="200"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.Name)
+            </td>
+        </tr>
+    </table>
+
+    <hr />
+
+    <table>
+        <tr>
+            <td>
+                @Html.ActionLink("Settings", "Settings", "User", new { Model.Id })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ActionLink("Logout", "Index", "Home")
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

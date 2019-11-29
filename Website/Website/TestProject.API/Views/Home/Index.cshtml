@@ -1,0 +1,56 @@
+﻿@model ViewModels.UI.Home.RequestLoginHomeView
+
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+
+    <div>
+        <h4>Task list</h4>
+        <hr />
+        @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+        {
+            <table>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.EditorFor(model => model.Name)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.Password)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.PasswordFor(model => model.Password)
+                    </td>
+                </tr>
+            </table>
+            <button class="authenticationButton" type="submit" value="Login">Login</button>
+        }
+    </div>
+
+    <div>
+        <hr />
+        <h4>Without an account?</h4>
+        @using (Html.BeginForm("Register", "Home", FormMethod.Post))
+        {
+            <button class="authenticationButton" type="submit" value="Register">Register</button>
+        }
+    </div>
+</body>
+</html>
