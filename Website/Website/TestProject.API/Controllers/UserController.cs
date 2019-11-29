@@ -1,17 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
 
 using Services.UI;
 using ViewModels.UI.User;
+using TestProject.API.Helpers;
 
 namespace TestProject.API.Controllers
 {
     public class UserController : Controller
     {
         private readonly UsersService _usersService;
+        private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly ImageHelper _imageHelper;
 
-        public UserController()
+        public UserController(IWebHostEnvironment hostEnvironment)
         {
             _usersService = new UsersService();
+            _imageHelper = new ImageHelper();
+            _hostEnvironment = hostEnvironment;
         }
 
         [Route("HomeInfo")]
@@ -71,9 +79,30 @@ namespace TestProject.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult ChangeProfilePhoto()
+        public IActionResult ChangeProfilePhoto(IFormFile file, RequestChangeProfilePhotoUserView user)
         {
-            return View();
+            if (file != null)
+            {
+                user.ImageUrl = $"{_hostEnvironment.WebRootPath}\\ProfileImages\\{Guid.NewGuid()}.png";
+                user.ImageBytes = _imageHelper.GetImageBytes(file);
+                ResponseChangeProfilePhotoUserView response = _usersService.ChangeProfilePhoto(user);
+            }            
+            return RedirectToAction("Settings", "User", new { user.Id });
+        }
+
+        [HttpPost]
+        public IActionResult RemoveProfilePhoto(int id)
+        {
+            _usersService.RemoveProfilePhoto(id);
+            return RedirectToAction("Settings", "User", new { id });
+        }
+
+        [HttpPost]
+        public IActionResult DeleteAccount(int id)
+        {
+            // TODO : Implement logic for confirmation delete
+            _usersService.DeleteAccount(id);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -1,7 +1,11 @@
-﻿using DataAccess.Repositories;
+﻿using System.IO;
+
+using Constants;
+using DataAccess.Repositories;
 using Entities;
 using ViewModels;
-using ViewModels.UI;
+using ViewModels.UI.Home;
+using ViewModels.UI.User;
 
 namespace Services.UI
 {
@@ -9,15 +13,18 @@ namespace Services.UI
     {
         private readonly UserRepository _userRepository;
         private readonly ValidationService _validationService;
+        private readonly ImageService _imageService;
+
         public UsersService()
         {
             _userRepository = new UserRepository();
             _validationService = new ValidationService();
+            _imageService = new ImageService();
         }
 
-        public ResponseLoginUserView Login(RequestLoginUserView user)
+        public ResponseLoginHomeView Login(RequestLoginHomeView user)
         {
-            var responseLogin = new ResponseLoginUserView();
+            var responseLogin = new ResponseLoginHomeView();
             ResponseValidation responseValidation = _validationService.IsValid(user);
             if (!responseValidation.IsSuccess)
             {
@@ -49,7 +56,7 @@ namespace Services.UI
             };
             if (string.IsNullOrEmpty(retrievedUser.ImageUrl))
             {
-                user.ImageUrl = HomeInfoUserView.ProfilePlaceholderUrl;
+                user.ImageUrl = UserConstants.ProfilePlaceholderUrl;
             }
             if (!string.IsNullOrEmpty(retrievedUser.ImageUrl))
             {
@@ -58,9 +65,9 @@ namespace Services.UI
             return user;
         }
 
-        public ResponseRegisterUserView Register(RequestRegisterUserView user)
+        public ResponseCreateUserView Register(RequestCreateUserView user)
         {
-            var responseRegister = new ResponseRegisterUserView();
+            var responseRegister = new ResponseCreateUserView();
             ResponseValidation responseValidation = _validationService.IsValid(user);
             if (!responseValidation.IsSuccess)
             {
@@ -97,7 +104,7 @@ namespace Services.UI
             };
             if (string.IsNullOrEmpty(retrievedUser.ImageUrl))
             {
-                user.ImageUrl = HomeInfoUserView.ProfilePlaceholderUrl;
+                user.ImageUrl = UserConstants.ProfilePlaceholderUrl;
             }
             if (!string.IsNullOrEmpty(retrievedUser.ImageUrl))
             {
@@ -143,6 +150,42 @@ namespace Services.UI
             _userRepository.Update(retrievedUser);
             responseChange.IsSuccess = true;
             return responseChange;
+        }
+
+        public ResponseChangeProfilePhotoUserView ChangeProfilePhoto(RequestChangeProfilePhotoUserView user)
+        {
+            var response = new ResponseChangeProfilePhotoUserView();
+            _imageService.UploadImage(user.ImageUrl, user.ImageBytes);
+            User retrievedUser = _userRepository.Find(user.Id);
+            retrievedUser.ImageUrl = user.ImageUrl;
+            _userRepository.Update(retrievedUser);
+            response.IsSuccess = true;
+            return response;
+        }
+
+        public void DeleteAccount(int id)
+        {
+            User user = _userRepository.Find(id);
+            if (File.Exists(user.ImageUrl))
+            {
+                File.Delete(user.ImageUrl);
+            }
+            _userRepository.Delete(id);
+        }
+
+        public void RemoveProfilePhoto(int id)
+        {
+            User user = _userRepository.Find(id);
+            if (user.ImageUrl == null)
+            {
+                return;
+            }
+            if (File.Exists(user.ImageUrl))
+            {
+                File.Delete(user.ImageUrl);
+            }
+            user.ImageUrl = null;
+            _userRepository.Update(user);
         }
 
         private string RewriteImageUrl(string oldUrl)
