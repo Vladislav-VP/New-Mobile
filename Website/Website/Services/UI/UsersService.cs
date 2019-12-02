@@ -157,6 +157,10 @@ namespace Services.UI
             var response = new ResponseChangeProfilePhotoUserView();
             _imageService.UploadImage(user.ImageUrl, user.ImageBytes);
             User retrievedUser = _userRepository.Find(user.Id);
+            if (File.Exists(retrievedUser.ImageUrl))
+            {
+                File.Delete(retrievedUser.ImageUrl);
+            }
             retrievedUser.ImageUrl = user.ImageUrl;
             _userRepository.Update(retrievedUser);
             response.IsSuccess = true;

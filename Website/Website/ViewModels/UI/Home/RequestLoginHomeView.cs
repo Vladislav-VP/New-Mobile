@@ -6,10 +6,10 @@ namespace ViewModels.UI.Home
     {
         public int Id { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Username can not be empty")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Password can not be empty")]
         public string Password { get; set; }
     }
 }

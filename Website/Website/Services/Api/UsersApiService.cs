@@ -90,6 +90,10 @@ namespace Services.Api
         public GetProfileImageUserApiView GetUserWithPhoto(int id)
         {
             User user = FindById(id);
+            if (user == null)
+            {
+                return null;
+            }
             var userWithPhoto = new GetProfileImageUserApiView
             {
                 Id = user.Id,

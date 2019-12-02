@@ -24,9 +24,10 @@ namespace TestProject.API.Controllers
         public IActionResult Login(RequestLoginHomeView user)
         {
             ResponseLoginHomeView response = _usersService.Login(user);
-            if (!response.IsSuccess)
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction("Index");
+                ModelState.AddModelError("Error", response.Message);
+                return View("Index");
             }
             return RedirectToAction("HomeInfo", "User", new { user.Id });
         }

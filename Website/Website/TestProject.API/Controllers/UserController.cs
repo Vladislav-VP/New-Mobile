@@ -57,18 +57,18 @@ namespace TestProject.API.Controllers
             return View(user);
         }
 
+        [Route("Settings/{user.Id}")]
         [HttpPost]
         public IActionResult ChangeName(RequestChangeNameUserView user)
         {
             // TODO : Implement logic for showing error messages.
             ResponseChangeNameUserView response = _usersService.ChangeUsername(user);
-            bool valid = ModelState.IsValid;
             if (!ModelState.IsValid)
             {
-                return View("Settings", user);
+                ModelState.AddModelError("Error", response.Message);
+                return View("Settings");
             }
-            return RedirectToAction("Settings", "User", new { user.Id });
-            
+            return RedirectToAction("Settings", "User", new { user.Id });            
         }
 
         [HttpPost]
