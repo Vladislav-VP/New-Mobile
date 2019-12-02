@@ -100,7 +100,6 @@ namespace TestProject.API.Controllers
         [HttpPost]
         public IActionResult DeleteAccount(int id)
         {
-            // TODO : Implement logic for confirmation delete
             _usersService.DeleteAccount(id);
             return RedirectToAction("Index", "Home");
         }
