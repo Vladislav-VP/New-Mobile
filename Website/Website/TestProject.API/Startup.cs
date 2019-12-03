@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+using Services;
+
 namespace TestProject.API
 {
     public class Startup
@@ -16,6 +18,7 @@ namespace TestProject.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            DependencyManager.ConfigureServices(services);
         }
         
         public void Configure(IApplicationBuilder app)

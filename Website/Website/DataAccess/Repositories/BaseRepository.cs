@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System.Linq;
 
 using DataAccess.Context;
-using Entities;
 using DataAccess.Repositories.Interfaces;
 
 namespace DataAccess.Repositories
@@ -14,9 +12,9 @@ namespace DataAccess.Repositories
         protected TodoListContext _context;
         protected bool _disposed = false;
 
-        public BaseRepository()
+        public BaseRepository(TodoListContext context)
         {
-            _context = new TodoListContext();
+            _context = context;
             _dbSet = _context.Set<TEntity>();
         }
 

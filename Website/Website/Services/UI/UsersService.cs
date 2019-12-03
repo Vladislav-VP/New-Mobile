@@ -1,25 +1,32 @@
-﻿using System.IO;
+﻿using Microsoft.AspNetCore.Identity;
+using System.IO;
 
 using Constants;
-using DataAccess.Repositories;
+using DataAccess.Repositories.Interfaces;
 using Entities;
+using Services.Interfaces;
 using ViewModels;
 using ViewModels.UI.Home;
 using ViewModels.UI.User;
 
 namespace Services.UI
 {
-    public class UsersService
+    public class UsersService : IUsersService
     {
-        private readonly UserRepository _userRepository;
-        private readonly ValidationService _validationService;
-        private readonly ImageService _imageService;
+        private readonly IUserRepository _userRepository;
+        private readonly IValidationService _validationService;
+        private readonly IImageService _imageService;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public UsersService()
+        public UsersService(IUserRepository userRepository, IImageService imageService, IValidationService validationService,
+            UserManager<User> userManager, SignInManager<User> signInManager)
         {
-            _userRepository = new UserRepository();
-            _validationService = new ValidationService();
-            _imageService = new ImageService();
+            _userRepository = userRepository;
+            _imageService = imageService;
+            _validationService = validationService;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public ResponseLoginHomeView Login(RequestLoginHomeView user)

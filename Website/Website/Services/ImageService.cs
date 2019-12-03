@@ -1,8 +1,10 @@
 ﻿using System.IO;
 
+using Services.Interfaces;
+
 namespace Services
 {
-    public class ImageService
+    public class ImageService : IImageService
     {
         public void UploadImage(string imageUrl, byte[] imageBytes)
         {

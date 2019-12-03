@@ -6,18 +6,19 @@ using System;
 using Services.UI;
 using ViewModels.UI.User;
 using TestProject.API.Helpers;
+using Services.Interfaces;
 
 namespace TestProject.API.Controllers
 {
     public class UserController : Controller
     {
-        private readonly UsersService _usersService;
+        private readonly IUsersService _usersService;
         private readonly IWebHostEnvironment _hostEnvironment;
         private readonly ImageHelper _imageHelper;
 
-        public UserController(IWebHostEnvironment hostEnvironment)
+        public UserController(IWebHostEnvironment hostEnvironment, IUsersService usersService)
         {
-            _usersService = new UsersService();
+            _usersService = usersService;
             _imageHelper = new ImageHelper();
             _hostEnvironment = hostEnvironment;
         }

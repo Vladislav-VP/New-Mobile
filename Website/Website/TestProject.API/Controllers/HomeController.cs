@@ -1,20 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-using Services.UI;
+using Services.Interfaces;
 using ViewModels.UI.Home;
 
 namespace TestProject.API.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly UsersService _usersService;
+        private readonly IUsersService _usersService;
 
-        public HomeController()
+        public HomeController(IUsersService usersService)
         {
-            _usersService = new UsersService();
+            _usersService = usersService;
         }
 
-        [HttpGet]
         public IActionResult Index()
         {
             return View();
