@@ -7,8 +7,9 @@ namespace DataAccess.Repositories
 {
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
-        public User Find(string username)
+        public User FindByName(string username)
         {
+            var users = _dbSet.ToList();
             User user = _dbSet.Where(u => u.Name == username).FirstOrDefault();
             return user;
         }

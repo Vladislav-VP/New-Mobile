@@ -4,17 +4,17 @@ using Entities;
 
 namespace DataAccess.Repositories.Interfaces
 {
-    public interface IBaseRepository<TEntity> where TEntity : BaseEntity
+    public interface IBaseRepository<TEntity> where TEntity : class
     {
 
         void Insert(TEntity entity);
 
         void Update(TEntity entity);
 
-        void Delete(int id);
+        void Delete(string id);
 
         void Delete(TEntity entity);
 
-        TEntity Find(int id);
+        TEntity FindById(string id);
     }
 }

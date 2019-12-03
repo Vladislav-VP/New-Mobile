@@ -4,7 +4,7 @@ namespace ViewModels.UI.Home
 {
     public class RequestLoginHomeView
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         
         [Required(ErrorMessage = "Username can not be empty")]
         public string Name { get; set; }

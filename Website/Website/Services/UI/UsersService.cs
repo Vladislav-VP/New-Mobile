@@ -42,9 +42,9 @@ namespace Services.UI
             return responseLogin;
         }
 
-        public HomeInfoUserView GetUserHomeInfo(int id)
+        public HomeInfoUserView GetUserHomeInfo(string id)
         {
-            User retrievedUser = _userRepository.Find(id);
+            User retrievedUser = _userRepository.FindById(id);
             if (retrievedUser == null)
             {
                 return null;
@@ -74,7 +74,7 @@ namespace Services.UI
                 responseRegister.Message = responseValidation.Message;
                 return responseRegister;
             }
-            User retrievedUser = _userRepository.Find(user.Name);
+            User retrievedUser = _userRepository.FindById(user.Name);
             if (retrievedUser != null)
             {
                 responseRegister.Message = "User with this name already exists";
@@ -90,9 +90,9 @@ namespace Services.UI
             return responseRegister;
         }
 
-        public SettingsUserView GetUserSettings(int id)
+        public SettingsUserView GetUserSettings(string id)
         {
-            User retrievedUser = _userRepository.Find(id);
+            User retrievedUser = _userRepository.FindById(id);
             if (retrievedUser == null)
             {
                 return null;
@@ -122,13 +122,13 @@ namespace Services.UI
                 responseChange.Message = responseValidation.Message;
                 return responseChange;
             }
-            User retrievedUser = _userRepository.Find(user.Name);
+            User retrievedUser = _userRepository.FindById(user.Name);
             if (retrievedUser != null)
             {
                 responseChange.Message = "User with this name already exists";
                 return responseChange;
             }
-            User userToModify = _userRepository.Find(user.Id);
+            User userToModify = _userRepository.FindById(user.Id);
             userToModify.Name = user.Name;
             _userRepository.Update(userToModify);
             responseChange.IsSuccess = true;
@@ -138,7 +138,7 @@ namespace Services.UI
         public ResponseChangePasswordUserView ChangePassword(RequestChangePasswordUserView user)
         {
             var responseChange = new ResponseChangePasswordUserView();
-            User retrievedUser = _userRepository.Find(user.Id);
+            User retrievedUser = _userRepository.FindById(user.Id);
             user.OldPassword = retrievedUser.Password;
             ResponseValidation responseValidation = _validationService.IsValid(user);
             if (!responseValidation.IsSuccess)
@@ -156,7 +156,7 @@ namespace Services.UI
         {
             var response = new ResponseChangeProfilePhotoUserView();
             _imageService.UploadImage(user.ImageUrl, user.ImageBytes);
-            User retrievedUser = _userRepository.Find(user.Id);
+            User retrievedUser = _userRepository.FindById(user.Id);
             if (File.Exists(retrievedUser.ImageUrl))
             {
                 File.Delete(retrievedUser.ImageUrl);
@@ -167,9 +167,9 @@ namespace Services.UI
             return response;
         }
 
-        public void DeleteAccount(int id)
+        public void DeleteAccount(string id)
         {
-            User user = _userRepository.Find(id);
+            User user = _userRepository.FindById(id);
             if (File.Exists(user.ImageUrl))
             {
                 File.Delete(user.ImageUrl);
@@ -177,9 +177,9 @@ namespace Services.UI
             _userRepository.Delete(id);
         }
 
-        public void RemoveProfilePhoto(int id)
+        public void RemoveProfilePhoto(string id)
         {
-            User user = _userRepository.Find(id);
+            User user = _userRepository.FindById(id);
             if (user.ImageUrl == null)
             {
                 return;

@@ -2,7 +2,7 @@
 {
     public class RequestChangeProfilePhotoUserView
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public string ImageUrl { get; set; }
 

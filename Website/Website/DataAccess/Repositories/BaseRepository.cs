@@ -8,7 +8,7 @@ using DataAccess.Repositories.Interfaces;
 
 namespace DataAccess.Repositories
 {
-    public class BaseRepository<TEntity> : IBaseRepository<TEntity>  where TEntity : BaseEntity
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity>  where TEntity : class
     {
         protected DbSet<TEntity> _dbSet;
         protected TodoListContext _context;
@@ -39,13 +39,13 @@ namespace DataAccess.Repositories
             _context.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
-            TEntity entity = Find(id);
+            TEntity entity = FindById(id);
             Delete(entity);
         }
 
-        public TEntity Find(int id)
+        public TEntity FindById(string id)
         {
             TEntity entity = _dbSet.Find(id);
             return entity;

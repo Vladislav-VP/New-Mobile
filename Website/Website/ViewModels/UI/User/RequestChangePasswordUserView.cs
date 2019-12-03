@@ -4,7 +4,7 @@ namespace ViewModels.UI.User
 {
     public class RequestChangePasswordUserView
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public string OldPassword { get; set; }
 

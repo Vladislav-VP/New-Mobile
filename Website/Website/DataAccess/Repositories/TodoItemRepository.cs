@@ -8,7 +8,7 @@ namespace DataAccess.Repositories
 {
     public class TodoItemRepository : BaseRepository<TodoItem>, ITodoItemRepository
     {
-        public IEnumerable<TodoItem> GetUsersTodoItems(int userId)
+        public IEnumerable<TodoItem> GetUsersTodoItems(string userId)
         {
             IEnumerable<TodoItem> todoItems = _dbSet.Where(t => t.User.Id == userId);
             return todoItems;

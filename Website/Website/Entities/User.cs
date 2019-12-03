@@ -1,10 +1,13 @@
 ﻿//using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace Entities
 {
-    public class User : BaseEntity
+    public class User : IdentityUser
     {
         [Required]
         [Display(Name = "Username")]
@@ -19,5 +22,13 @@ namespace Entities
 
         [NotMapped]
         public byte[] ImageBytes { get; set; }
+
+        [Required]
+        public DateTime CreationDate { get; set; }
+
+        public User()
+        {
+            CreationDate = DateTime.UtcNow;
+        }
     }
 }

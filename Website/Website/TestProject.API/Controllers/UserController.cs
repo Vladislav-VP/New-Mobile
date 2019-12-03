@@ -24,7 +24,7 @@ namespace TestProject.API.Controllers
 
         [Route("HomeInfo")]
         [HttpGet]
-        public IActionResult HomeInfo(int id)
+        public IActionResult HomeInfo(string id)
         {
             HomeInfoUserView user = _usersService.GetUserHomeInfo(id);
             if (user == null)
@@ -51,7 +51,7 @@ namespace TestProject.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult Settings(int id)
+        public IActionResult Settings(string id)
         {
             SettingsUserView user = _usersService.GetUserSettings(id);
             return View(user);
@@ -91,14 +91,14 @@ namespace TestProject.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult RemoveProfilePhoto(int id)
+        public IActionResult RemoveProfilePhoto(string id)
         {
             _usersService.RemoveProfilePhoto(id);
             return RedirectToAction("Settings", "User", new { id });
         }
 
         [HttpPost]
-        public IActionResult DeleteAccount(int id)
+        public IActionResult DeleteAccount(string id)
         {
             _usersService.DeleteAccount(id);
             return RedirectToAction("Index", "Home");
