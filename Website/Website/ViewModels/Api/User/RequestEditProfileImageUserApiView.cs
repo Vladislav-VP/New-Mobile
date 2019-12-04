@@ -2,7 +2,7 @@
 {
     public class RequestEditProfileImageUserApiView
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public byte[] ImageBytes { get; set; }
 

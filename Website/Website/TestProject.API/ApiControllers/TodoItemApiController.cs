@@ -13,12 +13,12 @@ namespace TestProject.API.ApiControllers
 
         public TodoItemApiController()
         {
-            _todoItemService = new TodoItemApiService();            
+            //_todoItemService = new TodoItemApiService();            
         }
         
         [Route("GetUsersTodoItems/userId={userId}")]
         [HttpGet]
-        public GetListTodoItemApiView GetList(int userId)
+        public GetListTodoItemApiView GetList(string userId)
         {
             GetListTodoItemApiView usersTodoItems = _todoItemService.GetUsersTodoItems(userId);
             return usersTodoItems;

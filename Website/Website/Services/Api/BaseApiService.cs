@@ -1,34 +1,29 @@
 ﻿using DataAccess.Repositories;
-using Entities;
+using Services.Interfaces;
 
 namespace Services.Api
 {
-    public class BaseApiService<TEntity> where TEntity : BaseEntity
+    public class BaseApiService<TEntity> : IBaseApiService<TEntity> where TEntity : class
     {
         protected readonly BaseRepository<TEntity> _baseRepository;
 
-        public BaseApiService()
+        public TEntity FindById(int id)
         {
-            _baseRepository = new BaseRepository<TEntity>();
-        }
-
-        public virtual TEntity FindById(int id)
-        {
-            TEntity entity = _baseRepository.Find(id);
+            TEntity entity = _baseRepository.FindById(id);
             return entity;
         }
 
-        public virtual void Insert(TEntity entity)
+        public void Insert(TEntity entity)
         {
             _baseRepository.Insert(entity);
         }
 
-        public virtual void Update(TEntity entity)
+        public void Update(TEntity entity)
         {
             _baseRepository.Update(entity);
         }
 
-        public virtual void Delete(int id)
+        public void Delete(int id)
         {
             _baseRepository.Delete(id);
         }

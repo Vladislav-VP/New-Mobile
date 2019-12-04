@@ -1,40 +1,21 @@
 ﻿using System.IO;
 
-using DataAccess.Repositories;
+using DataAccess.Repositories.Interfaces;
 using Entities;
+using Services.Interfaces;
 using ViewModels.Api.User;
 
 namespace Services.Api
 {
-    public class UsersApiService : BaseApiService<User>
+    public class UsersApiService : BaseApiService<User>, IUsersApiService
     {
-        public readonly UserRepository _userRepository;
+        public readonly IUserRepository _userRepository;
         public readonly ImageService _imageService;
 
-        public UsersApiService() : base()
+        public UsersApiService(IUserRepository userRepository) : base()
         {
-            _userRepository = new UserRepository();
+            _userRepository = userRepository;
             _imageService = new ImageService();
-        }
-
-        public void EditUser(User user)
-        {
-            User userToModify = _userRepository.Find(user.Id);
-            userToModify.Name = user.Name;
-            userToModify.Password = user.Password;
-            _userRepository.Update(userToModify);
-        }
-
-        public User Find(string username, string password)
-        {
-            User user = _userRepository.Find(username, password);
-            return user;
-        }
-
-        public User Find(string username)
-        {
-            User user = _userRepository.Find(username);
-            return user;
         }
 
         public ResponseRegisterUserApiView Register(RequestRegisterUserApiView userToRegister)
@@ -55,7 +36,7 @@ namespace Services.Api
                 response.Message = "Password can not be empty";
                 return response;
             }
-            User retrievedUser = Find(userToRegister.Name);
+            User retrievedUser = _userRepository.FindByName(userToRegister.Name);
             if (retrievedUser != null)
             {
                 response.Message = "User with this name already exists";
@@ -87,9 +68,9 @@ namespace Services.Api
             return response;
         }
 
-        public GetProfileImageUserApiView GetUserWithPhoto(int id)
+        public GetProfileImageUserApiView GetUserWithPhoto(string id)
         {
-            User user = FindById(id);
+            User user = _userRepository.FindById(id);
             if (user == null)
             {
                 return null;
@@ -114,7 +95,7 @@ namespace Services.Api
                 _imageService.UploadImage(imageUrl, user.ImageBytes);
                 user.ImageUrl = imageUrl;
             }
-            User userToModify = FindById(user.Id);
+            User userToModify = _userRepository.FindById(user.Id);
             if (File.Exists(userToModify.ImageUrl))
             {
                 File.Delete(userToModify.ImageUrl);
@@ -136,13 +117,13 @@ namespace Services.Api
                 response.Message = "Username can not be emnpty";
                 return response;
             }
-            User retrievedUser = Find(user.Name);
+            User retrievedUser = _userRepository.FindByName(user.Name);
             if (retrievedUser != null && retrievedUser.Id != user.Id)
             {
                 response.Message = "User with this name already exists";
                 return response;
             }
-            retrievedUser = FindById(user.Id);
+            retrievedUser = _userRepository.FindById(user.Id);
             retrievedUser.Name = user.Name;
             Update(retrievedUser);
             response.IsSuccess = true;
@@ -150,15 +131,15 @@ namespace Services.Api
             return response;
         }
 
-        public string GetUserName(int id)
+        public string GetUserName(string id)
         {
-            User user = FindById(id);
+            User user = _userRepository.FindById(id);
             return user.Name;
         }
 
         public ResponseChangePasswordUserApiView ChangePassword(RequestChangePasswordUserApiView user)
         {            
-            User userToModify = FindById(user.Id);
+            User userToModify = _userRepository.FindById(user.Id);
             user.OldPassword = userToModify.Password;
             var response = new ResponseChangePasswordUserApiView();
             if (user.OldPassword != user.OldPasswordConfirmation)
