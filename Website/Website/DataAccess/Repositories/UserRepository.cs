@@ -14,15 +14,26 @@ namespace DataAccess.Repositories
 
         public User FindByName(string username)
         {
-            var users = _dbSet.ToList();
-            User user = _dbSet.Where(u => u.Name == username).FirstOrDefault();
+            User user = _dbSet.Where(u => u.UserName == username).FirstOrDefault();
             return user;
         }
 
         public User Find(string username, string password)
         {
-            User user = _dbSet.Where(u => u.Name == username && u.Password == password).FirstOrDefault();
+            User user = _dbSet.Where(u => u.UserName == username && u.Password == password).FirstOrDefault();
             return user;
+        }
+
+        public User FindById(string id)
+        {
+            User user = _dbSet.Where(u => u.Id == id).FirstOrDefault();
+            return user;
+        }
+
+        public void Delete(string id)
+        {
+            User user = FindById(id);
+            Delete(user);
         }
     }
 }

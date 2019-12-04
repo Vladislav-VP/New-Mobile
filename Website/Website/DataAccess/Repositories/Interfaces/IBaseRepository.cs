@@ -11,10 +11,10 @@ namespace DataAccess.Repositories.Interfaces
 
         void Update(TEntity entity);
 
-        void Delete(string id);
+        void Delete(int id);
 
         void Delete(TEntity entity);
 
-        TEntity FindById(string id);
+        TEntity FindById(int id);
     }
 }

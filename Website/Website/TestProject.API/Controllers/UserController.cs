@@ -7,6 +7,7 @@ using Services.UI;
 using ViewModels.UI.User;
 using TestProject.API.Helpers;
 using Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace TestProject.API.Controllers
 {
@@ -36,13 +37,13 @@ namespace TestProject.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(RequestCreateUserView user)
+        public async Task<IActionResult> Create(RequestCreateUserView user)
         {
-            ResponseCreateUserView response = _usersService.Register(user);
+            var response = await _usersService.Register(user);
             if (!response.IsSuccess)
             {
                 return RedirectToAction("Register", "Home");
-            }            
+            }
             return RedirectToAction("Index", "Home");
         }
 

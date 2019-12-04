@@ -1,4 +1,6 @@
-﻿using ViewModels.UI.Home;
+﻿using System.Threading.Tasks;
+
+using ViewModels.UI.Home;
 using ViewModels.UI.User;
 
 namespace Services.Interfaces
@@ -9,7 +11,7 @@ namespace Services.Interfaces
 
         HomeInfoUserView GetUserHomeInfo(string id);
 
-        ResponseCreateUserView Register(RequestCreateUserView user);
+        Task<ResponseCreateUserView> Register(RequestCreateUserView user);
 
         SettingsUserView GetUserSettings(string id);
 

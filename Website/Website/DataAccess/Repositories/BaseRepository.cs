@@ -37,13 +37,13 @@ namespace DataAccess.Repositories
             _context.SaveChanges();
         }
 
-        public void Delete(string id)
+        public void Delete(int id)
         {
             TEntity entity = FindById(id);
             Delete(entity);
         }
 
-        public TEntity FindById(string id)
+        public TEntity FindById(int id)
         {
             TEntity entity = _dbSet.Find(id);
             return entity;

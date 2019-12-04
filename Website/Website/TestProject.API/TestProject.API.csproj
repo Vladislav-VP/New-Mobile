@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="ApiControllers\**" />
-    <Content Remove="ApiControllers\**" />
-    <EmbeddedResource Remove="ApiControllers\**" />
-    <None Remove="ApiControllers\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Remove="appsettings.Development.json" />
     <Content Remove="identitysettings.json" />
     <Content Remove="_ViewImports.cshtml" />

@@ -1,5 +1,4 @@
-﻿//using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
@@ -9,10 +8,6 @@ namespace Entities
 {
     public class User : IdentityUser
     {
-        [Required]
-        [Display(Name = "Username")]
-        public string Name { get; set; }
-
         [Required]
         [Display(Name = nameof(Password))]
         [DataType(DataType.Password)]

@@ -44,7 +44,7 @@ namespace Services.Api
             }
             var user = new User
             {
-                Name = userToRegister.Name,
+                UserName = userToRegister.Name,
                 Password = userToRegister.Password
             };
             Insert(user);
@@ -78,7 +78,7 @@ namespace Services.Api
             var userWithPhoto = new GetProfileImageUserApiView
             {
                 Id = user.Id,
-                Name = user.Name
+                Name = user.UserName
             };
             if(string.IsNullOrEmpty(user.ImageUrl))
             {
@@ -124,7 +124,7 @@ namespace Services.Api
                 return response;
             }
             retrievedUser = _userRepository.FindById(user.Id);
-            retrievedUser.Name = user.Name;
+            retrievedUser.UserName = user.Name;
             Update(retrievedUser);
             response.IsSuccess = true;
             response.Message = "Username successfully changed";
@@ -134,7 +134,7 @@ namespace Services.Api
         public string GetUserName(string id)
         {
             User user = _userRepository.FindById(id);
-            return user.Name;
+            return user.UserName;
         }
 
         public ResponseChangePasswordUserApiView ChangePassword(RequestChangePasswordUserApiView user)

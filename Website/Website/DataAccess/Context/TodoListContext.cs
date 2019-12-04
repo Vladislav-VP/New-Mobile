@@ -1,24 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.IO;
-using Microsoft.AspNetCore.Identity;
 
 using Entities;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace DataAccess.Context
 {
     public class TodoListContext : IdentityDbContext<User>
     {
         public DbSet<TodoItem> TodoItems { get; set; }
-
-        public DbSet<User> Users { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<User>().HasIndex(u => u.Name).IsUnique();
-        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

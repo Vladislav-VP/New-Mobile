@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 using Constants;
 using DataAccess.Repositories.Interfaces;
@@ -59,7 +61,7 @@ namespace Services.UI
             var user = new HomeInfoUserView()
             {
                 Id = id,
-                Name = retrievedUser.Name
+                Name = retrievedUser.UserName
             };
             if (string.IsNullOrEmpty(retrievedUser.ImageUrl))
             {
@@ -72,28 +74,21 @@ namespace Services.UI
             return user;
         }
 
-        public ResponseCreateUserView Register(RequestCreateUserView user)
+        public async Task<ResponseCreateUserView> Register(RequestCreateUserView user)
         {
             var responseRegister = new ResponseCreateUserView();
-            ResponseValidation responseValidation = _validationService.IsValid(user);
-            if (!responseValidation.IsSuccess)
-            {
-                responseRegister.Message = responseValidation.Message;
-                return responseRegister;
-            }
-            User retrievedUser = _userRepository.FindById(user.Name);
-            if (retrievedUser != null)
-            {
-                responseRegister.Message = "User with this name already exists";
-                return responseRegister;
-            }
+            // TODO : Recover validation logic if password is not validated in identity.
             var newUser = new User
             {
-                Name = user.Name,
+                UserName = user.Name,
                 Password = user.Password
             };
-            _userRepository.Insert(newUser);
-            responseRegister.IsSuccess = true;
+            IdentityResult result = await _userManager.CreateAsync(newUser, user.Password);
+            if (!result.Succeeded)
+            {
+                responseRegister.Message = result.Errors.FirstOrDefault()?.Description;
+            }
+            responseRegister.IsSuccess = result.Succeeded;
             return responseRegister;
         }
 
@@ -107,7 +102,7 @@ namespace Services.UI
             var user = new SettingsUserView
             {
                 Id = retrievedUser.Id,
-                Name = retrievedUser.Name,
+                Name = retrievedUser.UserName,
             };
             if (string.IsNullOrEmpty(retrievedUser.ImageUrl))
             {
@@ -136,7 +131,7 @@ namespace Services.UI
                 return responseChange;
             }
             User userToModify = _userRepository.FindById(user.Id);
-            userToModify.Name = user.Name;
+            userToModify.UserName = user.Name;
             _userRepository.Update(userToModify);
             responseChange.IsSuccess = true;
             return responseChange;
