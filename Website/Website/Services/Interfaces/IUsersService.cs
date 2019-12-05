@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 
 using ViewModels.UI.Home;
 using ViewModels.UI.User;
@@ -7,9 +8,9 @@ namespace Services.Interfaces
 {
     public interface IUsersService
     {
-        ResponseLoginHomeView Login(RequestLoginHomeView user);
+        Task<ResponseLoginUserView> Login(RequestLoginUserView user);
 
-        HomeInfoUserView GetUserHomeInfo(string id);
+        HomeInfoUserView GetUserHomeInfo(ClaimsPrincipal claims);
 
         Task<ResponseCreateUserView> Register(RequestCreateUserView user);
 

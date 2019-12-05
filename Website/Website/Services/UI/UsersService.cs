@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 using Constants;
@@ -30,29 +31,26 @@ namespace Services.UI
             _userManager = userManager;
             _signInManager = signInManager;
         }
-
-        public ResponseLoginHomeView Login(RequestLoginHomeView user)
+        
+        public async Task<ResponseLoginUserView> Login(RequestLoginUserView user)
         {
-            var responseLogin = new ResponseLoginHomeView();
+            var responseLogin = new ResponseLoginUserView();
             ResponseValidation responseValidation = _validationService.IsValid(user);
             if (!responseValidation.IsSuccess)
             {
                 responseLogin.Message = responseValidation.Message;
                 return responseLogin;
             }
-            User retrievedUser = _userRepository.Find(user.Name, user.Password);
-            if (retrievedUser == null)
-            {
-                responseLogin.Message = "Incorrect username or password";
-                return responseLogin;
-            }
+            var result = await _signInManager.PasswordSignInAsync(user.Name, user.Password, true, false);
+            User retrievedUser = _userRepository.FindByName(user.Name);
             user.Id = retrievedUser.Id;
-            responseLogin.IsSuccess = true;
+            responseLogin.IsSuccess = result.Succeeded;
             return responseLogin;
         }
 
-        public HomeInfoUserView GetUserHomeInfo(string id)
+        public HomeInfoUserView GetUserHomeInfo(ClaimsPrincipal principal)
         {
+            string id = _userManager.GetUserId(principal);
             User retrievedUser = _userRepository.FindById(id);
             if (retrievedUser == null)
             {
@@ -77,11 +75,9 @@ namespace Services.UI
         public async Task<ResponseCreateUserView> Register(RequestCreateUserView user)
         {
             var responseRegister = new ResponseCreateUserView();
-            // TODO : Recover validation logic if password is not validated in identity.
             var newUser = new User
             {
-                UserName = user.Name,
-                Password = user.Password
+                UserName = user.Name
             };
             IdentityResult result = await _userManager.CreateAsync(newUser, user.Password);
             if (!result.Succeeded)
@@ -140,17 +136,6 @@ namespace Services.UI
         public ResponseChangePasswordUserView ChangePassword(RequestChangePasswordUserView user)
         {
             var responseChange = new ResponseChangePasswordUserView();
-            User retrievedUser = _userRepository.FindById(user.Id);
-            user.OldPassword = retrievedUser.Password;
-            ResponseValidation responseValidation = _validationService.IsValid(user);
-            if (!responseValidation.IsSuccess)
-            {
-                responseChange.Message = responseValidation.Message;
-                return responseChange;
-            }
-            retrievedUser.Password = user.NewPassword;
-            _userRepository.Update(retrievedUser);
-            responseChange.IsSuccess = true;
             return responseChange;
         }
 

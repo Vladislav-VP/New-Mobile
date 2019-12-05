@@ -17,13 +17,7 @@ namespace DataAccess.Repositories
             User user = _dbSet.Where(u => u.UserName == username).FirstOrDefault();
             return user;
         }
-
-        public User Find(string username, string password)
-        {
-            User user = _dbSet.Where(u => u.UserName == username && u.Password == password).FirstOrDefault();
-            return user;
-        }
-
+        
         public User FindById(string id)
         {
             User user = _dbSet.Where(u => u.Id == id).FirstOrDefault();

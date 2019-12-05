@@ -1,4 +1,4 @@
-﻿@model ViewModels.UI.Home.RequestLoginHomeView
+﻿@model ViewModels.UI.Home.RequestLoginUserView
 
 @{
     Layout = "_Layout";
@@ -16,7 +16,7 @@
     <div>
         <h4>Task list</h4>
         <hr />
-        @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+        @using (Html.BeginForm("Login", "User", FormMethod.Post))
         {
             <table>
                 <tr>

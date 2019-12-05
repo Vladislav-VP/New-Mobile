@@ -1,16 +1,17 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-
-using Services.UI;
-using ViewModels.UI.User;
-using TestProject.API.Helpers;
-using Services.Interfaces;
 using System.Threading.Tasks;
+
+using Services.Interfaces;
+using TestProject.API.Helpers;
+using ViewModels.UI.User;
 
 namespace TestProject.API.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly IUsersService _usersService;
@@ -24,16 +25,32 @@ namespace TestProject.API.Controllers
             _hostEnvironment = hostEnvironment;
         }
 
-        [Route("HomeInfo")]
         [HttpGet]
-        public IActionResult HomeInfo(string id)
+        public IActionResult HomeInfo()
         {
-            HomeInfoUserView user = _usersService.GetUserHomeInfo(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+            HomeInfoUserView user = _usersService.GetUserHomeInfo(User);
             return View(user);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(RequestLoginUserView user)
+        {
+            ResponseLoginUserView response = await _usersService.Login(user);
+            if (!response.IsSuccess)
+            {
+                ModelState.AddModelError("Error", response.Message);
+                return View("Index");
+            }
+            return RedirectToAction("HomeInfo", new { user.Id });
         }
 
         [HttpPost]
@@ -46,7 +63,6 @@ namespace TestProject.API.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
-
         public IActionResult BackToLogin()
         {
             return RedirectToAction("Index", "Home");
@@ -77,7 +93,7 @@ namespace TestProject.API.Controllers
         public IActionResult ChangePassword(RequestChangePasswordUserView user)
         {
             ResponseChangePasswordUserView response = _usersService.ChangePassword(user);
-            return RedirectToAction("Settings", "User", new { user.Id });
+            return RedirectToAction("Settings", "User", user);
         }
 
         [HttpPost]

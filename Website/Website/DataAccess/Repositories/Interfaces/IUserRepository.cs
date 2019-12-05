@@ -8,8 +8,6 @@ namespace DataAccess.Repositories.Interfaces
 
         User FindById(string id);
 
-        User Find(string username, string password);
-
         void Delete(string id);
     }
 }
