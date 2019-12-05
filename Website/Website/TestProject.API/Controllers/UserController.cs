@@ -69,9 +69,9 @@ namespace TestProject.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult Settings(string id)
+        public IActionResult Settings()
         {
-            SettingsUserView user = _usersService.GetUserSettings(id);
+            SettingsUserView user = _usersService.GetUserSettings(User);
             return View(user);
         }
 
@@ -90,9 +90,9 @@ namespace TestProject.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult ChangePassword(RequestChangePasswordUserView user)
+        public async Task<IActionResult> ChangePassword(RequestChangePasswordUserView user)
         {
-            ResponseChangePasswordUserView response = _usersService.ChangePassword(user);
+            ResponseChangePasswordUserView response = await _usersService.ChangePassword(user, User);
             return RedirectToAction("Settings", "User", user);
         }
 
@@ -120,6 +120,13 @@ namespace TestProject.API.Controllers
         {
             _usersService.DeleteAccount(id);
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _usersService.Logout();
+            return RedirectToAction("Login", "User");
         }
     }
 }

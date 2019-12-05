@@ -6,12 +6,11 @@
 
   <ItemGroup>
     <Compile Remove="Api\**" />
+    <Compile Remove="UI\Home\**" />
     <EmbeddedResource Remove="Api\**" />
+    <EmbeddedResource Remove="UI\Home\**" />
     <None Remove="Api\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="UI\Home\" />
+    <None Remove="UI\Home\**" />
   </ItemGroup>
 
 </Project>

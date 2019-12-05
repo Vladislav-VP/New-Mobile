@@ -9,7 +9,6 @@ using DataAccess.Repositories.Interfaces;
 using Entities;
 using Services.Interfaces;
 using ViewModels;
-using ViewModels.UI.Home;
 using ViewModels.UI.User;
 
 namespace Services.UI
@@ -41,7 +40,7 @@ namespace Services.UI
                 responseLogin.Message = responseValidation.Message;
                 return responseLogin;
             }
-            var result = await _signInManager.PasswordSignInAsync(user.Name, user.Password, true, false);
+            SignInResult result = await _signInManager.PasswordSignInAsync(user.Name, user.Password, true, false);
             User retrievedUser = _userRepository.FindByName(user.Name);
             user.Id = retrievedUser.Id;
             responseLogin.IsSuccess = result.Succeeded;
@@ -88,8 +87,9 @@ namespace Services.UI
             return responseRegister;
         }
 
-        public SettingsUserView GetUserSettings(string id)
+        public SettingsUserView GetUserSettings(ClaimsPrincipal principal)
         {
+            string id = _userManager.GetUserId(principal);
             User retrievedUser = _userRepository.FindById(id);
             if (retrievedUser == null)
             {
@@ -133,9 +133,19 @@ namespace Services.UI
             return responseChange;
         }
 
-        public ResponseChangePasswordUserView ChangePassword(RequestChangePasswordUserView user)
+        public async Task<ResponseChangePasswordUserView> ChangePassword(RequestChangePasswordUserView user, ClaimsPrincipal principal)
         {
             var responseChange = new ResponseChangePasswordUserView();
+            string id = _userManager.GetUserId(principal);
+            User retrievedUser = _userRepository.FindById(id);
+            ResponseValidation responseValidation = _validationService.IsValid(user);
+            if (!responseValidation.IsSuccess)
+            {
+                responseChange.Message = responseValidation.Message;
+                return responseChange;
+            }
+            var result = await _userManager.ChangePasswordAsync(retrievedUser, user.OldPassword, user.NewPassword);
+            responseChange.IsSuccess = result.Succeeded;
             return responseChange;
         }
 
@@ -177,6 +187,11 @@ namespace Services.UI
             }
             user.ImageUrl = null;
             _userRepository.Update(user);
+        }
+
+        public async Task Logout()
+        {
+            await _signInManager.SignOutAsync();
         }
 
         private string RewriteImageUrl(string oldUrl)

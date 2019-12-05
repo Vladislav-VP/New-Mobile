@@ -1,7 +1,6 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
 
-using ViewModels.UI.Home;
 using ViewModels.UI.User;
 
 namespace Services.Interfaces
@@ -14,16 +13,18 @@ namespace Services.Interfaces
 
         Task<ResponseCreateUserView> Register(RequestCreateUserView user);
 
-        SettingsUserView GetUserSettings(string id);
+        SettingsUserView GetUserSettings(ClaimsPrincipal principal);
 
         ResponseChangeNameUserView ChangeUsername(RequestChangeNameUserView user);
 
-        ResponseChangePasswordUserView ChangePassword(RequestChangePasswordUserView user);
+        Task<ResponseChangePasswordUserView> ChangePassword(RequestChangePasswordUserView user, ClaimsPrincipal principal);
 
         ResponseChangeProfilePhotoUserView ChangeProfilePhoto(RequestChangeProfilePhotoUserView user);
 
         void DeleteAccount(string id);
 
         void RemoveProfilePhoto(string id);
+
+        Task Logout();
     }
 }
