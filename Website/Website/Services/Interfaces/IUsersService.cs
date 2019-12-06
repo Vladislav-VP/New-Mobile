@@ -15,15 +15,15 @@ namespace Services.Interfaces
 
         SettingsUserView GetUserSettings(ClaimsPrincipal principal);
 
-        ResponseChangeNameUserView ChangeUsername(RequestChangeNameUserView user);
+        Task<ResponseChangeNameUserView> ChangeUsername(RequestChangeNameUserView user, ClaimsPrincipal principal);
 
         Task<ResponseChangePasswordUserView> ChangePassword(RequestChangePasswordUserView user, ClaimsPrincipal principal);
 
-        ResponseChangeProfilePhotoUserView ChangeProfilePhoto(RequestChangeProfilePhotoUserView user);
+        ResponseChangeProfilePhotoUserView ChangeProfilePhoto(RequestChangeProfilePhotoUserView user, ClaimsPrincipal principal);
 
-        void DeleteAccount(string id);
+        Task DeleteAccount(ClaimsPrincipal principal);
 
-        void RemoveProfilePhoto(string id);
+        void RemoveProfilePhoto(ClaimsPrincipal principal);
 
         Task Logout();
     }

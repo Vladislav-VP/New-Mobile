@@ -42,11 +42,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Home\" />
     <Folder Include="wwwroot\ProfileImages\" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Home\Register.cshtml" />
+    <None Include="Views\User\Register.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
     <None Include="Views\User\HomeInfo.cshtml" />

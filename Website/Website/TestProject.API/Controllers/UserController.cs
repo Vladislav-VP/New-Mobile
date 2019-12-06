@@ -25,6 +25,8 @@ namespace TestProject.API.Controllers
             _hostEnvironment = hostEnvironment;
         }
 
+        // TODO : Implement logic for showing error messages.
+
         [HttpGet]
         public IActionResult HomeInfo()
         {
@@ -35,6 +37,13 @@ namespace TestProject.API.Controllers
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login()
+        {
+            return View();
+        }
+        
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Register()
         {
             return View();
         }
@@ -75,12 +84,10 @@ namespace TestProject.API.Controllers
             return View(user);
         }
 
-        [Route("Settings/{user.Id}")]
         [HttpPost]
-        public IActionResult ChangeName(RequestChangeNameUserView user)
+        public async Task<IActionResult> ChangeName(RequestChangeNameUserView user)
         {
-            // TODO : Implement logic for showing error messages.
-            ResponseChangeNameUserView response = _usersService.ChangeUsername(user);
+            ResponseChangeNameUserView response = await _usersService.ChangeUsername(user, User);
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("Error", response.Message);
@@ -103,22 +110,22 @@ namespace TestProject.API.Controllers
             {
                 user.ImageUrl = $"{_hostEnvironment.WebRootPath}\\ProfileImages\\{Guid.NewGuid()}.png";
                 user.ImageBytes = _imageHelper.GetImageBytes(file);
-                ResponseChangeProfilePhotoUserView response = _usersService.ChangeProfilePhoto(user);
+                ResponseChangeProfilePhotoUserView response = _usersService.ChangeProfilePhoto(user, User);
             }            
-            return RedirectToAction("Settings", "User", new { user.Id });
+            return RedirectToAction("Settings", "User");
         }
 
         [HttpPost]
-        public IActionResult RemoveProfilePhoto(string id)
+        public IActionResult RemoveProfilePhoto()
         {
-            _usersService.RemoveProfilePhoto(id);
-            return RedirectToAction("Settings", "User", new { id });
+            _usersService.RemoveProfilePhoto(User);
+            return RedirectToAction("Settings", "User");
         }
 
         [HttpPost]
-        public IActionResult DeleteAccount(string id)
+        public async Task<IActionResult> DeleteAccount()
         {
-            _usersService.DeleteAccount(id);
+            await _usersService.DeleteAccount(User);
             return RedirectToAction("Index", "Home");
         }
 
