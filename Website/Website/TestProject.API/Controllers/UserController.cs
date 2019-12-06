@@ -1,81 +1,106 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 
-using Services.UI;
-using ViewModels.UI.User;
+using Services.Interfaces;
 using TestProject.API.Helpers;
+using ViewModels.UI.User;
 
 namespace TestProject.API.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
-        private readonly UsersService _usersService;
+        private readonly IUsersService _usersService;
         private readonly IWebHostEnvironment _hostEnvironment;
         private readonly ImageHelper _imageHelper;
 
-        public UserController(IWebHostEnvironment hostEnvironment)
+        public UserController(IWebHostEnvironment hostEnvironment, IUsersService usersService)
         {
-            _usersService = new UsersService();
+            _usersService = usersService;
             _imageHelper = new ImageHelper();
             _hostEnvironment = hostEnvironment;
         }
 
-        [Route("HomeInfo")]
+        // TODO : Implement logic for showing error messages.
+
         [HttpGet]
-        public IActionResult HomeInfo(int id)
+        public IActionResult HomeInfo()
         {
-            HomeInfoUserView user = _usersService.GetUserHomeInfo(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+            HomeInfoUserView user = _usersService.GetUserHomeInfo(User);
             return View(user);
         }
 
-        [HttpPost]
-        public IActionResult Create(RequestCreateUserView user)
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Login()
         {
-            ResponseCreateUserView response = _usersService.Register(user);
+            return View();
+        }
+        
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(RequestLoginUserView user)
+        {
+            ResponseLoginUserView response = await _usersService.Login(user);
+            if (!response.IsSuccess)
+            {
+                ModelState.AddModelError("Error", response.Message);
+                return View("Index");
+            }
+            return RedirectToAction("HomeInfo", new { user.Id });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(RequestCreateUserView user)
+        {
+            var response = await _usersService.Register(user);
             if (!response.IsSuccess)
             {
                 return RedirectToAction("Register", "Home");
-            }            
+            }
             return RedirectToAction("Index", "Home");
         }
-
         public IActionResult BackToLogin()
         {
             return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
-        public IActionResult Settings(int id)
+        public IActionResult Settings()
         {
-            SettingsUserView user = _usersService.GetUserSettings(id);
+            SettingsUserView user = _usersService.GetUserSettings(User);
             return View(user);
         }
 
         [HttpPost]
-        public IActionResult ChangeName(RequestChangeNameUserView user)
+        public async Task<IActionResult> ChangeName(RequestChangeNameUserView user)
         {
-            // TODO : Implement logic for showing error messages.
-            ResponseChangeNameUserView response = _usersService.ChangeUsername(user);
-            bool valid = ModelState.IsValid;
+            ResponseChangeNameUserView response = await _usersService.ChangeUsername(user, User);
             if (!ModelState.IsValid)
             {
-                return View("Settings", user);
+                ModelState.AddModelError("Error", response.Message);
+                return View("Settings");
             }
-            return RedirectToAction("Settings", "User", new { user.Id });
-            
+            return RedirectToAction("Settings", "User", new { user.Id });            
         }
 
         [HttpPost]
-        public IActionResult ChangePassword(RequestChangePasswordUserView user)
+        public async Task<IActionResult> ChangePassword(RequestChangePasswordUserView user)
         {
-            ResponseChangePasswordUserView response = _usersService.ChangePassword(user);
-            return RedirectToAction("Settings", "User", new { user.Id });
+            ResponseChangePasswordUserView response = await _usersService.ChangePassword(user, User);
+            return RedirectToAction("Settings", "User", user);
         }
 
         [HttpPost]
@@ -85,24 +110,30 @@ namespace TestProject.API.Controllers
             {
                 user.ImageUrl = $"{_hostEnvironment.WebRootPath}\\ProfileImages\\{Guid.NewGuid()}.png";
                 user.ImageBytes = _imageHelper.GetImageBytes(file);
-                ResponseChangeProfilePhotoUserView response = _usersService.ChangeProfilePhoto(user);
+                ResponseChangeProfilePhotoUserView response = _usersService.ChangeProfilePhoto(user, User);
             }            
-            return RedirectToAction("Settings", "User", new { user.Id });
+            return RedirectToAction("Settings", "User");
         }
 
         [HttpPost]
-        public IActionResult RemoveProfilePhoto(int id)
+        public IActionResult RemoveProfilePhoto()
         {
-            _usersService.RemoveProfilePhoto(id);
-            return RedirectToAction("Settings", "User", new { id });
+            _usersService.RemoveProfilePhoto(User);
+            return RedirectToAction("Settings", "User");
         }
 
         [HttpPost]
-        public IActionResult DeleteAccount(int id)
+        public async Task<IActionResult> DeleteAccount()
         {
-            // TODO : Implement logic for confirmation delete
-            _usersService.DeleteAccount(id);
+            await _usersService.DeleteAccount(User);
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _usersService.Logout();
+            return RedirectToAction("Login", "User");
         }
     }
 }

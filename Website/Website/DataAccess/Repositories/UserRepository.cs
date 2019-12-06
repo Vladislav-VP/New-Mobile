@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 
+using DataAccess.Context;
 using DataAccess.Repositories.Interfaces;
 using Entities;
 
@@ -7,16 +8,26 @@ namespace DataAccess.Repositories
 {
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
-        public User Find(string username)
+        public UserRepository(TodoListContext context) : base(context)
         {
-            User user = _dbSet.Where(u => u.Name == username).FirstOrDefault();
+        }
+
+        public User FindByName(string username)
+        {
+            User user = _dbSet.Where(u => u.UserName == username).FirstOrDefault();
+            return user;
+        }
+        
+        public User FindById(string id)
+        {
+            User user = _dbSet.Where(u => u.Id == id).FirstOrDefault();
             return user;
         }
 
-        public User Find(string username, string password)
+        public void Delete(string id)
         {
-            User user = _dbSet.Where(u => u.Name == username && u.Password == password).FirstOrDefault();
-            return user;
+            User user = FindById(id);
+            Delete(user);
         }
     }
 }

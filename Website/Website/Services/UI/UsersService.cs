@@ -1,58 +1,68 @@
-﻿using System.IO;
+﻿using Microsoft.AspNetCore.Identity;
+using System.IO;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 using Constants;
-using DataAccess.Repositories;
+using DataAccess.Repositories.Interfaces;
 using Entities;
+using Services.Interfaces;
 using ViewModels;
-using ViewModels.UI.Home;
 using ViewModels.UI.User;
 
 namespace Services.UI
 {
-    public class UsersService
+    public class UsersService : IUsersService
     {
-        private readonly UserRepository _userRepository;
-        private readonly ValidationService _validationService;
-        private readonly ImageService _imageService;
+        private readonly IUserRepository _userRepository;
+        private readonly IValidationService _validationService;
+        private readonly IImageService _imageService;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public UsersService()
+        public UsersService(IUserRepository userRepository, IImageService imageService, IValidationService validationService,
+            UserManager<User> userManager, SignInManager<User> signInManager)
         {
-            _userRepository = new UserRepository();
-            _validationService = new ValidationService();
-            _imageService = new ImageService();
+            _userRepository = userRepository;
+            _imageService = imageService;
+            _validationService = validationService;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
-
-        public ResponseLoginHomeView Login(RequestLoginHomeView user)
+        
+        public async Task<ResponseLoginUserView> Login(RequestLoginUserView user)
         {
-            var responseLogin = new ResponseLoginHomeView();
+            var responseLogin = new ResponseLoginUserView();
             ResponseValidation responseValidation = _validationService.IsValid(user);
             if (!responseValidation.IsSuccess)
             {
                 responseLogin.Message = responseValidation.Message;
                 return responseLogin;
             }
-            User retrievedUser = _userRepository.Find(user.Name, user.Password);
-            if (retrievedUser == null)
-            {
-                responseLogin.Message = "Incorrect username or password";
-                return responseLogin;
-            }
+            SignInResult result = await _signInManager.PasswordSignInAsync(user.Name, user.Password, true, false);
+            User retrievedUser = _userRepository.FindByName(user.Name);
             user.Id = retrievedUser.Id;
-            responseLogin.IsSuccess = true;
+            responseLogin.IsSuccess = result.Succeeded;
             return responseLogin;
         }
 
-        public HomeInfoUserView GetUserHomeInfo(int id)
+        public HomeInfoUserView GetUserHomeInfo(ClaimsPrincipal principal)
         {
-            User retrievedUser = _userRepository.Find(id);
+            string id;
+            using (_userManager)
+            {
+                id = _userManager.GetUserId(principal);
+            }            
+            User retrievedUser = _userRepository.FindById(id);
             if (retrievedUser == null)
             {
                 return null;
             }
             var user = new HomeInfoUserView()
             {
-                Id = id,
-                Name = retrievedUser.Name
+                Id = retrievedUser.Id,
+                Name = retrievedUser.UserName
             };
             if (string.IsNullOrEmpty(retrievedUser.ImageUrl))
             {
@@ -65,34 +75,34 @@ namespace Services.UI
             return user;
         }
 
-        public ResponseCreateUserView Register(RequestCreateUserView user)
+        public async Task<ResponseCreateUserView> Register(RequestCreateUserView user)
         {
             var responseRegister = new ResponseCreateUserView();
-            ResponseValidation responseValidation = _validationService.IsValid(user);
-            if (!responseValidation.IsSuccess)
-            {
-                responseRegister.Message = responseValidation.Message;
-                return responseRegister;
-            }
-            User retrievedUser = _userRepository.Find(user.Name);
-            if (retrievedUser != null)
-            {
-                responseRegister.Message = "User with this name already exists";
-                return responseRegister;
-            }
             var newUser = new User
             {
-                Name = user.Name,
-                Password = user.Password
+                UserName = user.Name
             };
-            _userRepository.Insert(newUser);
-            responseRegister.IsSuccess = true;
+            var result = new IdentityResult();
+            using (_userManager)
+            {
+                result = await _userManager.CreateAsync(newUser, user.Password);
+            }
+            if (!result.Succeeded)
+            {
+                responseRegister.Message = result.Errors.FirstOrDefault()?.Description;
+            }
+            responseRegister.IsSuccess = result.Succeeded;
             return responseRegister;
         }
 
-        public SettingsUserView GetUserSettings(int id)
+        public SettingsUserView GetUserSettings(ClaimsPrincipal principal)
         {
-            User retrievedUser = _userRepository.Find(id);
+            string id;
+            using (_userManager)
+            {
+                id = _userManager.GetUserId(principal);
+            }            
+            User retrievedUser = _userRepository.FindById(id);
             if (retrievedUser == null)
             {
                 return null;
@@ -100,7 +110,7 @@ namespace Services.UI
             var user = new SettingsUserView
             {
                 Id = retrievedUser.Id,
-                Name = retrievedUser.Name,
+                Name = retrievedUser.UserName,
             };
             if (string.IsNullOrEmpty(retrievedUser.ImageUrl))
             {
@@ -113,69 +123,82 @@ namespace Services.UI
             return user;
         }
 
-        public ResponseChangeNameUserView ChangeUsername(RequestChangeNameUserView user)
+        public async Task<ResponseChangeNameUserView> ChangeUsername(RequestChangeNameUserView user, ClaimsPrincipal principal)
         {
             var responseChange = new ResponseChangeNameUserView();
-            ResponseValidation responseValidation = _validationService.IsValid(user);
-            if (!responseValidation.IsSuccess)
+            var result = new IdentityResult();
+            using (_userManager)
             {
-                responseChange.Message = responseValidation.Message;
-                return responseChange;
-            }
-            User retrievedUser = _userRepository.Find(user.Name);
-            if (retrievedUser != null)
-            {
-                responseChange.Message = "User with this name already exists";
-                return responseChange;
-            }
-            User userToModify = _userRepository.Find(user.Id);
-            userToModify.Name = user.Name;
-            _userRepository.Update(userToModify);
-            responseChange.IsSuccess = true;
+                string id = _userManager.GetUserId(principal);
+                User retrievedUser = _userRepository.FindById(id);
+                retrievedUser.UserName = user.Name;
+                result = await _userManager.UpdateAsync(retrievedUser);
+            }            
+            responseChange.IsSuccess = result.Succeeded;
             return responseChange;
         }
 
-        public ResponseChangePasswordUserView ChangePassword(RequestChangePasswordUserView user)
+        public async Task<ResponseChangePasswordUserView> ChangePassword(RequestChangePasswordUserView user, ClaimsPrincipal principal)
         {
             var responseChange = new ResponseChangePasswordUserView();
-            User retrievedUser = _userRepository.Find(user.Id);
-            user.OldPassword = retrievedUser.Password;
             ResponseValidation responseValidation = _validationService.IsValid(user);
             if (!responseValidation.IsSuccess)
             {
                 responseChange.Message = responseValidation.Message;
                 return responseChange;
             }
-            retrievedUser.Password = user.NewPassword;
-            _userRepository.Update(retrievedUser);
-            responseChange.IsSuccess = true;
+            var result = new IdentityResult();
+            using (_userManager)
+            {
+                string id = _userManager.GetUserId(principal);
+                User retrievedUser = _userRepository.FindById(id);
+                result = await _userManager.ChangePasswordAsync(retrievedUser, user.OldPassword, user.NewPassword);
+            }            
+            responseChange.IsSuccess = result.Succeeded;
             return responseChange;
         }
 
-        public ResponseChangeProfilePhotoUserView ChangeProfilePhoto(RequestChangeProfilePhotoUserView user)
+        public ResponseChangeProfilePhotoUserView ChangeProfilePhoto(RequestChangeProfilePhotoUserView user, ClaimsPrincipal principal)
         {
             var response = new ResponseChangeProfilePhotoUserView();
             _imageService.UploadImage(user.ImageUrl, user.ImageBytes);
-            User retrievedUser = _userRepository.Find(user.Id);
+            string id;
+            using (_userManager)
+            {
+                id = _userManager.GetUserId(principal);
+            }            
+            User retrievedUser = _userRepository.FindById(id);
+            if (File.Exists(retrievedUser.ImageUrl))
+            {
+                File.Delete(retrievedUser.ImageUrl);
+            }
             retrievedUser.ImageUrl = user.ImageUrl;
             _userRepository.Update(retrievedUser);
             response.IsSuccess = true;
             return response;
         }
 
-        public void DeleteAccount(int id)
+        public async Task DeleteAccount(ClaimsPrincipal principal)
         {
-            User user = _userRepository.Find(id);
-            if (File.Exists(user.ImageUrl))
+            using (_userManager)
             {
-                File.Delete(user.ImageUrl);
-            }
-            _userRepository.Delete(id);
+                User user = await _userManager.GetUserAsync(principal);
+                if (File.Exists(user.ImageUrl))
+                {
+                    File.Delete(user.ImageUrl);
+                }
+                await _userManager.DeleteAsync(user);
+            }            
         }
 
-        public void RemoveProfilePhoto(int id)
+        public void RemoveProfilePhoto(ClaimsPrincipal principal)
         {
-            User user = _userRepository.Find(id);
+            string id;
+            using (_userManager)
+            {
+                id = _userManager.GetUserId(principal);
+            }            
+            User user = _userRepository.FindById(id);
             if (user.ImageUrl == null)
             {
                 return;
@@ -186,6 +209,11 @@ namespace Services.UI
             }
             user.ImageUrl = null;
             _userRepository.Update(user);
+        }
+
+        public async Task Logout()
+        {
+            await _signInManager.SignOutAsync();
         }
 
         private string RewriteImageUrl(string oldUrl)

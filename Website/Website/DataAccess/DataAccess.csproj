@@ -5,18 +5,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20191204101001_RemoveName.cs" />
+    <Compile Remove="Migrations\20191204101001_RemoveName.Designer.cs" />
+    <Compile Remove="Migrations\20191204101244_RemoveUserIdConstraint.cs" />
+    <Compile Remove="Migrations\20191204101244_RemoveUserIdConstraint.Designer.cs" />
+    <Compile Remove="Migrations\20191204125541_RemoveForeignKey.cs" />
+    <Compile Remove="Migrations\20191204125541_RemoveForeignKey.Designer.cs" />
+    <Compile Remove="Migrations\20191204130847_Initial.cs" />
+    <Compile Remove="Migrations\20191204130847_Initial.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="appsettings.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.0.1" />
@@ -25,15 +29,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Entities\Entities.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Migrations\20191008093731_Initial.Designer.cs">
-      <DependentUpon>20191008093731_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Migrations\20191031151803_UserIdGeneration.Designer.cs">
-      <DependentUpon>20191031151803_UserIdGeneration.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
 
 </Project>

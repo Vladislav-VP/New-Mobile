@@ -6,6 +6,6 @@ namespace DataAccess.Repositories.Interfaces
 {
     public interface ITodoItemRepository : IBaseRepository<TodoItem>
     {
-        IEnumerable<TodoItem> GetUsersTodoItems(int userId);
+        IEnumerable<TodoItem> GetUsersTodoItems(string userId);
     }
 }

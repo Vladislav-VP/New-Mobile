@@ -1,6 +1,6 @@
-﻿namespace ViewModels.UI.Home
+﻿namespace ViewModels.UI.User
 {
-    public class ResponseLoginHomeView
+    public class ResponseLoginUserView
     {
         public bool IsSuccess { get; set; }
         

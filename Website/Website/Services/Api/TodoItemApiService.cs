@@ -1,24 +1,20 @@
 ﻿using System.Collections.Generic;
 
-using DataAccess.Repositories;
+using DataAccess.Repositories.Interfaces;
 using Entities;
+using Services.Interfaces;
 using ViewModels.Api.TodoItem;
 
 namespace Services.Api
 {
-    public class TodoItemApiService : BaseApiService<TodoItem>
+    public class TodoItemApiService : BaseApiService<TodoItem>, ITodoItemApiService
     {
-        private TodoItemRepository _todoItemRepository;
+        private ITodoItemRepository _todoItemRepository;
 
-        public TodoItemApiService()
+        public TodoItemApiService(ITodoItemRepository todoItemRepository)
             : base()
         {
-            _todoItemRepository = new TodoItemRepository();
-        }
-
-        public override void Update(TodoItem todoItem)
-        {            
-            _todoItemRepository.Update(todoItem);
+            _todoItemRepository = todoItemRepository;
         }
 
         public ResponseEditTodoItemApiView EditTodoItem(RequestEditTodoItemApiView todoItem)
@@ -29,16 +25,16 @@ namespace Services.Api
                 response.Message = "Todo item description can not be empty";
                 return response;
             }
-            TodoItem todoItemToModify = _todoItemRepository.Find(todoItem.Id);
+            TodoItem todoItemToModify = _todoItemRepository.FindById(todoItem.Id);
             todoItemToModify.Description = todoItem.Description;
             todoItemToModify.IsDone = todoItem.IsDone;
-            Update(todoItemToModify);
+            _todoItemRepository.Update(todoItemToModify);
             response.IsSuccess = true;
             response.Message = "Todo item successfully updated";
             return response;
         }
 
-        public GetListTodoItemApiView GetUsersTodoItems(int userId)
+        public GetListTodoItemApiView GetUsersTodoItems(string userId)
         {
             var usersTodoItems = new GetListTodoItemApiView
             {

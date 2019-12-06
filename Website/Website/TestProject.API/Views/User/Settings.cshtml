@@ -41,41 +41,41 @@
 
 
     <hr />
-    
-        <div class="row">
-            
-            <table>
-                <tr>
-                    <td>
-                        @Html.DisplayNameFor(model => model.ImageUrl)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <img src="@Url.Content(Model.ImageUrl)" alt="Profile photo" height="500" width="500" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <form asp-controller="User" asp-action="ChangeProfilePhoto"
-                              method="post" enctype="multipart/form-data">
-                            @Html.HiddenFor(model => model.Id)
-                            <input type="file" accept="image/*" name="file" />
-                            <button class="authenticationButton" type="submit">Upload image</button>
-                            
-                        </form>
-                    </td>
-                    <td>
-                        @using (Html.BeginForm("RemoveProfilePhoto", "User", FormMethod.Post))
-                        {
-                            @Html.HiddenFor(model => model.Id)
-                            <button class="authenticationButton" type="submit">Remove image</button>
-                        }
-                    </td>
-                </tr>
-            </table>
-        </div>
-    
+
+    <div class="row">
+
+        <table>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.ImageUrl)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="@Url.Content(Model.ImageUrl)" alt="Profile photo" height="500" width="500" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <form asp-controller="User" asp-action="ChangeProfilePhoto"
+                          method="post" enctype="multipart/form-data">
+                        @Html.HiddenFor(model => model.Id)
+                        <input type="file" accept="image/*" name="file" />
+                        <button class="authenticationButton" type="submit">Upload image</button>
+
+                    </form>
+                </td>
+                <td>
+                    @using (Html.BeginForm("RemoveProfilePhoto", "User", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(model => model.Id)
+                        <button class="authenticationButton" type="submit">Remove image</button>
+                    }
+                </td>
+            </tr>
+        </table>
+    </div>
+
 
     <hr />
     <h4>Change password</h4>
@@ -90,7 +90,7 @@
                 </tr>
                 <tr>
                     <td>
-                        @Html.Password("OldPasswordConfirmation")
+                        @Html.Password("OldPassword")
                     </td>
                 </tr>
                 <tr>
@@ -121,20 +121,42 @@
             </table>
         </div>
     }
+
     <hr />
-    @using (Html.BeginForm("DeleteAccount", "User", new { Model.Id } ))
-    {
-        <div class="row">
-            <table>
-                <tr>
-                    <td>
-                        <button class="authenticationButton" type="submit" value="Delete account">Delete account</button>
-                    </td>
-                </tr>
-            </table>
+    <div class="row">
+        <table>
+            <tr>
+                <td>
+                    <a class="authenticationButton" href="#popup1">Delete account</a>
+                </td>
+            </tr>
+        </table>
+    </div>    
+
+    <div id="popup1" class="overlay">
+        <div class="popup">
+            <div>
+                <h2>Are you sure you want to delete your account?</h2>
+                <a class="close" href="#">&times;</a>
+            </div>
+            <div class="content">
+                <table>
+                    <tr>
+                        <td>
+                            <a class="authenticationButton" href="#">No</a>
+                        </td>
+                        <td>
+                            @using (Html.BeginForm("DeleteAccount", "User", new { Model.Id }))
+                            {
+                                <button class="authenticationButton" type="submit">Yes</button>
+                            }
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
-    }
-    
+    </div>
+
 
 </body>
 </html>

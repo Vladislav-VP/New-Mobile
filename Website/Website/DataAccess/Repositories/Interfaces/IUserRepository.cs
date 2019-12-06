@@ -4,8 +4,10 @@ namespace DataAccess.Repositories.Interfaces
 {
     public interface IUserRepository : IBaseRepository<User>
     {
-        User Find(string username);
+        User FindByName(string username);
 
-        User Find(string username, string password);
+        User FindById(string id);
+
+        void Delete(string id);
     }
 }

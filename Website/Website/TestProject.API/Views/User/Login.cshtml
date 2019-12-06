@@ -1,4 +1,4 @@
-﻿@model ViewModels.UI.Home.RequestLoginHomeView
+﻿@model ViewModels.UI.User.RequestLoginUserView
 
 @{
     Layout = "_Layout";
@@ -16,7 +16,7 @@
     <div>
         <h4>Task list</h4>
         <hr />
-        @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+        @using (Html.BeginForm("Login", "User", FormMethod.Post))
         {
             <table>
                 <tr>
@@ -26,7 +26,12 @@
                 </tr>
                 <tr>
                     <td>
-                        @Html.EditorFor(model => model.Name)
+                        <span asp-validation-for="Name"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.EditorFor(model => model.Name)                        
                     </td>
                 </tr>
                 <tr>
@@ -36,7 +41,12 @@
                 </tr>
                 <tr>
                     <td>
-                        @Html.PasswordFor(model => model.Password)
+                        <span asp-validation-for="Password"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.PasswordFor(model => model.Password)                        
                     </td>
                 </tr>
             </table>
@@ -47,7 +57,7 @@
     <div>
         <hr />
         <h4>Without an account?</h4>
-        @using (Html.BeginForm("Register", "Home", FormMethod.Post))
+        @using (Html.BeginForm("Register", "User", FormMethod.Get))
         {
             <button class="authenticationButton" type="submit" value="Register">Register</button>
         }

@@ -3,11 +3,12 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
+using Services.Interfaces;
 using ViewModels;
 
 namespace Services
 {
-    public class ValidationService
+    public class ValidationService : IValidationService
     {
         public ResponseValidation IsValid(object instance, bool validateAllProperties = true)
         {

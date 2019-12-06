@@ -16,7 +16,7 @@ namespace TestProject.API.ApiControllers
 
         public UserApiController(IWebHostEnvironment hostEnvironment)
         {
-            _usersService = new UsersApiService();
+            //_usersService = new UsersApiService();
             _hostEnvironment = hostEnvironment;
         }
 
@@ -55,7 +55,7 @@ namespace TestProject.API.ApiControllers
 
         [Route("GetProfileImage/{id}")]
         [HttpGet]
-        public GetProfileImageUserApiView GetProfileImage(int id)
+        public GetProfileImageUserApiView GetProfileImage(string id)
         {
             var user = _usersService.GetUserWithPhoto(id);
             return user;
@@ -63,7 +63,7 @@ namespace TestProject.API.ApiControllers
 
         [Route("GetUserName/{id}")]
         [HttpGet]
-        public string GetUserName(int id)
+        public string GetUserName(string id)
         {
             string name = _usersService.GetUserName(id);
             return name;

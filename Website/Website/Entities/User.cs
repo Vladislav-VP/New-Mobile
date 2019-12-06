@@ -1,23 +1,19 @@
-﻿//using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities
 {
-    public class User : BaseEntity
+    public class User : IdentityUser
     {
-        [Required]
-        [Display(Name = "Username")]
-        public string Name { get; set; }
-
-        [Required]
-        [Display(Name = nameof(Password))]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-
         public string ImageUrl { get; set; }
 
-        [NotMapped]
-        public byte[] ImageBytes { get; set; }
+        [Required]
+        public DateTime CreationDate { get; set; }
+
+        public User()
+        {
+            CreationDate = DateTime.UtcNow;
+        }
     }
 }

@@ -4,7 +4,7 @@ using Entities;
 
 namespace DataAccess.Repositories.Interfaces
 {
-    public interface IBaseRepository<TEntity> where TEntity : BaseEntity
+    public interface IBaseRepository<TEntity> where TEntity : class
     {
 
         void Insert(TEntity entity);
@@ -15,6 +15,6 @@ namespace DataAccess.Repositories.Interfaces
 
         void Delete(TEntity entity);
 
-        TEntity Find(int id);
+        TEntity FindById(int id);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 
@@ -6,16 +7,9 @@ using Entities;
 
 namespace DataAccess.Context
 {
-    public class TodoListContext : DbContext
+    public class TodoListContext : IdentityDbContext<User>
     {
         public DbSet<TodoItem> TodoItems { get; set; }
-
-        public DbSet<User> Users { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<User>().HasIndex(u => u.Name).IsUnique();
-        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
