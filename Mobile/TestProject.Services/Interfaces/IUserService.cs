@@ -16,8 +16,8 @@ namespace TestProject.Services.Interfaces
 
         Task<ResponseEditProfileImageUserApiModel> EditProfilePhoto(RequestEditProfileImageUserApiModel user);
 
-        Task<GetProfileImageUserApiModel> GetUserWithImage(int id);
+        Task<GetProfileImageUserApiModel> GetUserWithImage(string id);
 
-        Task<string> GetUserName(int id);
+        Task<string> GetUserName(string id);
     }
 }

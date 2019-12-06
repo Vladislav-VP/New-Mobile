@@ -4,9 +4,9 @@ namespace TestProject.Services.Helpers.Interfaces
 {
     public interface IStorageHelper
     {
-        Task Save(int id);
+        Task Save(string id);
 
-        Task<int> Get();
+        Task<string> Get();
 
         void Clear();
     }

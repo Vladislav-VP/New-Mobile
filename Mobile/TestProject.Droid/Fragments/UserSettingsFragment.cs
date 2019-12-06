@@ -42,8 +42,8 @@ namespace TestProject.Droid.Fragments
             base.OnPause();
 
             IStorageHelper storage = Mvx.IoCProvider.Resolve<IStorageHelper>();
-            int userId = await storage.Get();
-            if (userId == 0)
+            string userId = await storage.Get();
+            if (string.IsNullOrEmpty(userId))
             {
                 return;                
             }
@@ -51,7 +51,5 @@ namespace TestProject.Droid.Fragments
             ((MainActivity)Activity)?.ViewModel.ShowMenuCommand?.Execute(null);
             ((MainActivity)Activity)?.ViewModel.ShowTodoItemListCommand?.Execute(null);
         }
-
-
     }
 }

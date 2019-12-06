@@ -86,13 +86,13 @@ namespace TestProject.Services
             return response;
         }
 
-        public async Task<string> GetUserName(int id)
+        public async Task<string> GetUserName(string id)
         {
             string name = await Get<string>(id, $"{_url}/GetUserName/{id}");
             return name;
         }
 
-        public async Task<GetProfileImageUserApiModel> GetUserWithImage(int id)
+        public async Task<GetProfileImageUserApiModel> GetUserWithImage(string id)
         {
             GetProfileImageUserApiModel user = await Get<GetProfileImageUserApiModel>(id, $"{_url}/GetProfileImage/{id}");
             return user;
@@ -101,7 +101,7 @@ namespace TestProject.Services
         public async Task<ResponseLoginUserApiModel> Login(RequestLoginUserApiModel user)
         {
             ResponseLoginUserApiModel response = await Post<RequestLoginUserApiModel, ResponseLoginUserApiModel>
-                (user, $"{_url}/username={user.Name}/password={user.Password}");
+                (user, $"{_url}/Login");
             if (!response.IsSuccess)
             {
                 _dialogsHelper.DisplayAlertMessage(response.Message);
@@ -124,7 +124,8 @@ namespace TestProject.Services
                 response.Message = "Invalid format of credentials";
                 return response;
             }
-            response = await Post<RequestRegisterUserApiModel, ResponseRegisterUserApiModel>(user, $"{_url}/Register");
+            response = await Post<RequestRegisterUserApiModel, ResponseRegisterUserApiModel>
+                (user, $"{_url}/Register/username={user.Name}/password={user.Password}");
             if (!response.IsSuccess)
             {
                 _dialogsHelper.DisplayAlertMessage(response.Message);
@@ -132,7 +133,7 @@ namespace TestProject.Services
             return response;
         }
 
-        public new async Task<DeleteUserApiModel> Delete(int id)
+        public new async Task<DeleteUserApiModel> Delete(string id)
         {
             DeleteUserApiModel response = await base.Delete<DeleteUserApiModel>(id);
             if (response.IsSuccess)

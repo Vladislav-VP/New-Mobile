@@ -60,7 +60,7 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            int userId = await _storage.Get();
+            string userId = await _storage.Get();
             _currentUser = await _userService.GetUserWithImage(userId);
             ImageBytes = _currentUser.ImageBytes;
             UserName = _currentUser.Name;
@@ -75,7 +75,7 @@ namespace TestProject.Core.ViewModels
 
         private async Task EditProfilePhoto()
         {
-            int userId = await _storage.Get();
+            string userId = await _storage.Get();
             var user = new RequestEditProfileImageUserApiModel
             {
                 Id = userId,

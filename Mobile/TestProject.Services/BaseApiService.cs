@@ -13,7 +13,7 @@ namespace TestProject.Services
     {
         protected string _url;
         
-        public async Task<T> Get<T>(int id, string requestUri = null) where T : class
+        public async Task<T> Get<T>(string id, string requestUri = null) where T : class
         {
             HttpClient client = GetClient();
             if (string.IsNullOrEmpty(requestUri))
@@ -56,7 +56,7 @@ namespace TestProject.Services
             return updatedEntity;
         }
 
-        public async Task<T> Delete<T>(int id) where T : class
+        public async Task<T> Delete<T>(string id) where T : class
         {
             HttpClient client = GetClient();
             string requestUri = $"{_url}/Delete/{id}";

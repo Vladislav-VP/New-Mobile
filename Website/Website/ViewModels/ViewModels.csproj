@@ -5,11 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Api\**" />
     <Compile Remove="UI\Home\**" />
-    <EmbeddedResource Remove="Api\**" />
     <EmbeddedResource Remove="UI\Home\**" />
-    <None Remove="Api\**" />
     <None Remove="UI\Home\**" />
   </ItemGroup>
 

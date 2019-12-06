@@ -10,20 +10,20 @@ namespace TestProject.Services.Helpers
     {
         private static readonly string _credentialsKey = "current_user";
 
-        public async Task Save(int id)
+        public async Task Save(string id)
         {
-            await SecureStorage.SetAsync(_credentialsKey, id.ToString());
+            await SecureStorage.SetAsync(_credentialsKey, id);
         }
 
-        public async Task<int> Get()
+        public async Task<string> Get()
         {
-            string userIdValue = await SecureStorage.GetAsync(_credentialsKey);
-            if (userIdValue == null)
-            {
-                return 0;
-            }
+            string id = await SecureStorage.GetAsync(_credentialsKey);
+            //if (userIdValue == null)
+            //{
+            //    return 0;
+            //}
 
-            int id = int.Parse(userIdValue);
+            //int id = int.Parse(userIdValue);
             return id;
         }
 

@@ -7,7 +7,7 @@ namespace Services.Interfaces
 {
     public interface IUsersService
     {
-        Task<ResponseLoginUserView> Login(RequestLoginUserView user);
+        Task<ResponseLoginUserView> Login(RequestLoginUserView user, ClaimsPrincipal principal);
 
         HomeInfoUserView GetUserHomeInfo(ClaimsPrincipal claims);
 
@@ -25,6 +25,6 @@ namespace Services.Interfaces
 
         void RemoveProfilePhoto(ClaimsPrincipal principal);
 
-        Task Logout();
+        Task Logout(ClaimsPrincipal principal);
     }
 }

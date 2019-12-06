@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-//using Services.Api;
+using Services.Api;
 using Services.Interfaces;
 using Services.UI;
 
@@ -14,9 +14,8 @@ namespace Services
             services.AddTransient<IUsersService, UsersService>();  
             services.AddTransient<IValidationService, ValidationService>();
             services.AddTransient<IImageService, ImageService>();
-            // TODO : Uncomment after include api back.
-            //services.AddTransient<IUsersApiService, UsersApiService>();
-            //services.AddTransient<ITodoItemApiService, TodoItemApiService>();
+            services.AddTransient<IUsersApiService, UsersApiService>();
+            services.AddTransient<ITodoItemApiService, TodoItemApiService>();
         }
     }
 }

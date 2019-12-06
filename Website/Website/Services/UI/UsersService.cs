@@ -31,7 +31,7 @@ namespace Services.UI
             _signInManager = signInManager;
         }
         
-        public async Task<ResponseLoginUserView> Login(RequestLoginUserView user)
+        public async Task<ResponseLoginUserView> Login(RequestLoginUserView user, ClaimsPrincipal principal)
         {
             var responseLogin = new ResponseLoginUserView();
             ResponseValidation responseValidation = _validationService.IsValid(user);
@@ -41,6 +41,7 @@ namespace Services.UI
                 return responseLogin;
             }
             SignInResult result = await _signInManager.PasswordSignInAsync(user.Name, user.Password, true, false);
+            string id = _userManager.GetUserId(principal);
             User retrievedUser = _userRepository.FindByName(user.Name);
             user.Id = retrievedUser.Id;
             responseLogin.IsSuccess = result.Succeeded;
@@ -211,7 +212,7 @@ namespace Services.UI
             _userRepository.Update(user);
         }
 
-        public async Task Logout()
+        public async Task Logout(ClaimsPrincipal principal)
         {
             await _signInManager.SignOutAsync();
         }

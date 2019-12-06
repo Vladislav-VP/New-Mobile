@@ -42,7 +42,7 @@ namespace TestProject.Services
             return response;  
         }
 
-        public async Task<GetListTodoItemApiModel> GetUsersTodoItems(int userId)
+        public async Task<GetListTodoItemApiModel> GetUsersTodoItems(string userId)
         {
             GetListTodoItemApiModel usersTodoItems = 
                 await Get<GetListTodoItemApiModel>(userId, $"{_url}/GetUsersTodoItems/userId={userId}");
@@ -51,7 +51,7 @@ namespace TestProject.Services
 
         public async Task<GetTodoItemApiModel> GetTodoItem(int id)
         {
-            GetTodoItemApiModel todoItem = await Get<GetTodoItemApiModel>(id, $"{_url}/Get/{id}");
+            GetTodoItemApiModel todoItem = await Get<GetTodoItemApiModel>(id.ToString(), $"{_url}/Get/{id}");
             return todoItem;
         }
     }

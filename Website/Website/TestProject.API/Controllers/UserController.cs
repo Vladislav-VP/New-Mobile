@@ -50,10 +50,10 @@ namespace TestProject.API.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(RequestLoginUserView user)
         {
-            ResponseLoginUserView response = await _usersService.Login(user);
+            ResponseLoginUserView response = await _usersService.Login(user, User);
             if (!response.IsSuccess)
             {
                 ModelState.AddModelError("Error", response.Message);
@@ -129,10 +129,10 @@ namespace TestProject.API.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Logout()
         {
-            await _usersService.Logout();
+            await _usersService.Logout(User);
             return RedirectToAction("Login", "User");
         }
     }

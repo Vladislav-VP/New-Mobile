@@ -42,7 +42,12 @@ namespace TestProject.Core
 
             Task.Run(async () =>
             {
-                int userId = await _storage.Get();
+                string userId = await _storage.Get();
+                if (string.IsNullOrEmpty(userId))
+                {
+                    source.SetResult(false);
+                    return;
+                }
                 GetProfileImageUserApiModel user = await _userService.GetUserWithImage(userId);
 
                 source.SetResult(user != null);

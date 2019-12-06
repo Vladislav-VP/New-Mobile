@@ -1,70 +1,86 @@
-﻿using System.IO;
+﻿using Microsoft.AspNetCore.Identity;
+using System.IO;
 
 using DataAccess.Repositories.Interfaces;
 using Entities;
 using Services.Interfaces;
 using ViewModels.Api.User;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace Services.Api
 {
     public class UsersApiService : BaseApiService<User>, IUsersApiService
     {
         public readonly IUserRepository _userRepository;
-        public readonly ImageService _imageService;
+        public readonly IImageService _imageService;
+        public readonly UserManager<User> _userManager;
+        public readonly SignInManager<User> _signInManager;
 
-        public UsersApiService(IUserRepository userRepository) : base()
+        public UsersApiService(IUserRepository userRepository, IImageService imageService,
+            UserManager<User> userManager, SignInManager<User> signInManager) : base()
         {
             _userRepository = userRepository;
-            _imageService = new ImageService();
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _imageService = imageService;
         }
 
-        public ResponseRegisterUserApiView Register(RequestRegisterUserApiView userToRegister)
+        public async Task<ResponseRegisterUserApiView> Register(RequestRegisterUserApiView userToRegister)
         {
             var response = new ResponseRegisterUserApiView();
-            if (userToRegister == null)
-            {
-                response.Message = "Something went wrong";
-                return response;
-            }
-            if (string.IsNullOrEmpty(userToRegister.Name))
-            {
-                response.Message = "Username can not be emnpty";
-                return response;
-            }
-            if (string.IsNullOrEmpty(userToRegister.Password))
-            {
-                response.Message = "Password can not be empty";
-                return response;
-            }
-            User retrievedUser = _userRepository.FindByName(userToRegister.Name);
-            if (retrievedUser != null)
-            {
-                response.Message = "User with this name already exists";
-                return response;
-            }
+            //if (userToRegister == null)
+            //{
+            //    response.Message = "Something went wrong";
+            //    return response;
+            //}
+            //if (string.IsNullOrEmpty(userToRegister.Name))
+            //{
+            //    response.Message = "Username can not be emnpty";
+            //    return response;
+            //}
+            //if (string.IsNullOrEmpty(userToRegister.Password))
+            //{
+            //    response.Message = "Password can not be empty";
+            //    return response;
+            //}
+            //User retrievedUser = _userRepository.FindByName(userToRegister.Name);
+            //if (retrievedUser != null)
+            //{
+            //    response.Message = "User with this name already exists";
+            //    return response;
+            //}
             var user = new User
             {
-                UserName = userToRegister.Name,
-                Password = userToRegister.Password
+                UserName = userToRegister.Name
             };
-            Insert(user);
+            //Insert(user);
+
+            var result = await _userManager.CreateAsync(user, userToRegister.Password);
+
+
             response.IsSuccess = true;
             response.Message = "User was succesfully registered";
             return response;
         }
 
-        public ResponseLoginUserApiView Login(RequestLoginUserApiView userRequest)
+        public async Task<ResponseLoginUserApiView> Login(RequestLoginUserApiView userRequest, ClaimsPrincipal principal)
         {
-            User retrievedUser = _userRepository.Find(userRequest.Name, userRequest.Password);
+            //User retrievedUser = _userRepository.Find(userRequest.Name, userRequest.Password);
             var response = new ResponseLoginUserApiView();
-            if (retrievedUser == null)
-            {
-                response.Message = "Incorrect username or password";
-                return response;
-            }
-            response.Id = retrievedUser.Id;
-            response.IsSuccess = true;
-            response.Message = "User succesfully logged in";
+            SignInResult result = await _signInManager.PasswordSignInAsync(userRequest.Name, userRequest.Password, true, false);
+            bool signedIn = _signInManager.IsSignedIn(principal);
+            string id = _userManager.GetUserId(principal);
+            response.IsSuccess = result.Succeeded;
+            //if (retrievedUser == null)
+            //{
+            //    response.Message = "Incorrect username or password";
+            //    return response;
+            //}
+            User user = await _userManager.GetUserAsync(principal);
+            response.Id = _userManager.GetUserId(principal);
+            //response.IsSuccess = true;
+            //response.Message = "User succesfully logged in";
             return response;
         }
 
@@ -140,7 +156,7 @@ namespace Services.Api
         public ResponseChangePasswordUserApiView ChangePassword(RequestChangePasswordUserApiView user)
         {            
             User userToModify = _userRepository.FindById(user.Id);
-            user.OldPassword = userToModify.Password;
+            //user.OldPassword = userToModify.Password;
             var response = new ResponseChangePasswordUserApiView();
             if (user.OldPassword != user.OldPasswordConfirmation)
             {
@@ -157,7 +173,7 @@ namespace Services.Api
                 response.Message = "Passwords do not correspond";
                 return response;
             }
-            userToModify.Password = user.NewPassword;
+            //userToModify.Password = user.NewPassword;
             Update(userToModify);
             response.IsSuccess = true;
             response.Message = "Password successfully changed";

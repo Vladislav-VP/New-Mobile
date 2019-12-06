@@ -1,13 +1,16 @@
-﻿using Entities;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
+
+using Entities;
 using ViewModels.Api.User;
 
 namespace Services.Interfaces
 {
     public interface IUsersApiService : IBaseApiService<User>
     {
-        ResponseRegisterUserApiView Register(RequestRegisterUserApiView userToRegister);
+        Task<ResponseRegisterUserApiView> Register(RequestRegisterUserApiView userToRegister);
 
-        ResponseLoginUserApiView Login(RequestLoginUserApiView userRequest);
+        Task<ResponseLoginUserApiView> Login(RequestLoginUserApiView userRequest, ClaimsPrincipal principal);
 
         GetProfileImageUserApiView GetUserWithPhoto(string id);
 

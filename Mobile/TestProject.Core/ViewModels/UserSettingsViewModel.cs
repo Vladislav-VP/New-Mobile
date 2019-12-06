@@ -12,7 +12,7 @@ namespace TestProject.Core.ViewModels
 {
     public class UserSettingsViewModel : UserViewModel
     {
-        private int _userId;
+        private string _userId;
 
         private string _oldUserName;
 

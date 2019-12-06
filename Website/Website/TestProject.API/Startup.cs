@@ -18,9 +18,9 @@ namespace TestProject.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            DependencyManager.ConfigureServices(services);            
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMvc();
-            DependencyManager.ConfigureServices(services);
         }
         
         public void Configure(IApplicationBuilder app)
@@ -37,7 +37,7 @@ namespace TestProject.API
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=usersapi}/{action=getallusers}/{id?}");
+                    pattern: "{controller=home}/{action=index}");
             });
         }
     }

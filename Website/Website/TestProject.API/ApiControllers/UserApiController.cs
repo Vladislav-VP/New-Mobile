@@ -4,35 +4,46 @@ using System;
 
 using ViewModels.Api.User;
 using Services.Api;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using Entities;
 
 namespace TestProject.API.ApiControllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    //[ApiController]
+    [Authorize]
     public class UserApiController : Controller
     {
-        private readonly UsersApiService _usersService;
+        private readonly IUsersApiService _usersService;
         private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly UserManager<User> _userManager;
 
-        public UserApiController(IWebHostEnvironment hostEnvironment)
+        public UserApiController(IWebHostEnvironment hostEnvironment, IUsersApiService usersService, UserManager<User> userManager)
         {
             //_usersService = new UsersApiService();
             _hostEnvironment = hostEnvironment;
+            _usersService = usersService;
+            _userManager = userManager;
         }
 
-        [Route("Register")]
+        [Route("Register/username={username}/password={password}")]
         [HttpPost]
-        public ResponseRegisterUserApiView Register([FromBody] RequestRegisterUserApiView user)
+        [AllowAnonymous]
+        public async Task<ResponseRegisterUserApiView> Register([FromBody] RequestRegisterUserApiView user)
         {
-            ResponseRegisterUserApiView response = _usersService.Register(user);
+            ResponseRegisterUserApiView response = await _usersService.Register(user);
             return response;
         }
 
-        [Route("username={username}/password={password}")]
+        [Route("Login")]
         [HttpPost]
-        public ResponseLoginUserApiView Login(RequestLoginUserApiView user)
+        [AllowAnonymous]
+        public async Task<ResponseLoginUserApiView> Login([FromBody] RequestLoginUserApiView user)
         {
-            ResponseLoginUserApiView userForLogin = _usersService.Login(user);
+            ResponseLoginUserApiView userForLogin = await _usersService.Login(user, User);
             return userForLogin;
         }
 

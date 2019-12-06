@@ -6,7 +6,7 @@ namespace TestProject.Services.Interfaces
 {
     public interface ITodoItemService : IBaseApiService
     {
-        Task<GetListTodoItemApiModel> GetUsersTodoItems(int userId);
+        Task<GetListTodoItemApiModel> GetUsersTodoItems(string userId);
 
         Task<ResponseCreateTodoItemApiModel> CreateTodoItem(RequestCreateTodoItemApiModel todoItem);
 

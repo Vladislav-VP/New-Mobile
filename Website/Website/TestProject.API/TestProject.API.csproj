@@ -7,16 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="ApiControllers\**" />
-    <Content Remove="ApiControllers\**" />
-    <EmbeddedResource Remove="ApiControllers\**" />
-    <None Remove="ApiControllers\**" />
+    <Compile Remove="Views\Home\**" />
+    <Content Remove="Views\Home\**" />
+    <EmbeddedResource Remove="Views\Home\**" />
+    <None Remove="Views\Home\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="appsettings.Development.json" />
     <Content Remove="identitysettings.json" />
-    <Content Remove="Views\Home\Index.cshtml" />
     <Content Remove="_ViewImports.cshtml" />
     <Content Remove="_ViewStart.cshtml" />
   </ItemGroup>
@@ -42,7 +40,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Home\" />
     <Folder Include="wwwroot\ProfileImages\" />
   </ItemGroup>
 

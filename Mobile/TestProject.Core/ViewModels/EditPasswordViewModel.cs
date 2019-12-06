@@ -62,7 +62,7 @@ namespace TestProject.Core.ViewModels
 
         private async Task ChangePassword()
         {
-            int userId = await _storage.Get();
+            string userId = await _storage.Get();
 
             var user = new RequestChangePasswordUserApiModel
             {

@@ -6,7 +6,7 @@ namespace TestProject.ApiModels.User
 {
     public class RequestRegisterUserApiModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Strings),
             ErrorMessageResourceName = nameof(Strings.EmptyUserNameMessage))]
