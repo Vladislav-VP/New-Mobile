@@ -29,37 +29,12 @@ namespace Services.Api
         public async Task<ResponseRegisterUserApiView> Register(RequestRegisterUserApiView userToRegister)
         {
             var response = new ResponseRegisterUserApiView();
-            //if (userToRegister == null)
-            //{
-            //    response.Message = "Something went wrong";
-            //    return response;
-            //}
-            //if (string.IsNullOrEmpty(userToRegister.Name))
-            //{
-            //    response.Message = "Username can not be emnpty";
-            //    return response;
-            //}
-            //if (string.IsNullOrEmpty(userToRegister.Password))
-            //{
-            //    response.Message = "Password can not be empty";
-            //    return response;
-            //}
-            //User retrievedUser = _userRepository.FindByName(userToRegister.Name);
-            //if (retrievedUser != null)
-            //{
-            //    response.Message = "User with this name already exists";
-            //    return response;
-            //}
             var user = new User
             {
                 UserName = userToRegister.Name
             };
-            //Insert(user);
-
             var result = await _userManager.CreateAsync(user, userToRegister.Password);
-
-
-            response.IsSuccess = true;
+            response.IsSuccess = result.Succeeded;
             response.Message = "User was succesfully registered";
             return response;
         }

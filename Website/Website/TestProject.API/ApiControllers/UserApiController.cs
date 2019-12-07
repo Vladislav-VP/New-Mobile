@@ -29,7 +29,7 @@ namespace TestProject.API.ApiControllers
             _userManager = userManager;
         }
 
-        [Route("Register/username={username}/password={password}")]
+        [Route("Register")]
         [HttpPost]
         [AllowAnonymous]
         public async Task<ResponseRegisterUserApiView> Register([FromBody] RequestRegisterUserApiView user)

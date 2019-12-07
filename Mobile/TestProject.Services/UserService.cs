@@ -125,7 +125,7 @@ namespace TestProject.Services
                 return response;
             }
             response = await Post<RequestRegisterUserApiModel, ResponseRegisterUserApiModel>
-                (user, $"{_url}/Register/username={user.Name}/password={user.Password}");
+                (user, $"{_url}/Register");
             if (!response.IsSuccess)
             {
                 _dialogsHelper.DisplayAlertMessage(response.Message);
