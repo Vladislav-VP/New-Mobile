@@ -19,14 +19,11 @@ namespace TestProject.API.ApiControllers
     {
         private readonly IUsersApiService _usersService;
         private readonly IWebHostEnvironment _hostEnvironment;
-        private readonly UserManager<User> _userManager;
 
-        public UserApiController(IWebHostEnvironment hostEnvironment, IUsersApiService usersService, UserManager<User> userManager)
+        public UserApiController(IWebHostEnvironment hostEnvironment, IUsersApiService usersService)
         {
-            //_usersService = new UsersApiService();
             _hostEnvironment = hostEnvironment;
             _usersService = usersService;
-            _userManager = userManager;
         }
 
         [Route("Register")]
@@ -64,11 +61,11 @@ namespace TestProject.API.ApiControllers
             return response;            
         }
 
-        [Route("GetProfileImage/{id}")]
+        [Route("GetProfileImage")]
         [HttpGet]
-        public GetProfileImageUserApiView GetProfileImage(string id)
+        public GetProfileImageUserApiView GetProfileImage(/*string id*/)
         {
-            var user = _usersService.GetUserWithPhoto(id);
+            var user = _usersService.GetUserWithPhoto(User);
             return user;
         }
 

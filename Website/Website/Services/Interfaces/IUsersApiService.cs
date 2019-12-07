@@ -12,7 +12,7 @@ namespace Services.Interfaces
 
         Task<ResponseLoginUserApiView> Login(RequestLoginUserApiView userRequest, ClaimsPrincipal principal);
 
-        GetProfileImageUserApiView GetUserWithPhoto(string id);
+        GetProfileImageUserApiView GetUserWithPhoto(ClaimsPrincipal principal);
 
         ResponseEditProfileImageUserApiView ReplaceProfilePhoto(RequestEditProfileImageUserApiView user, string imageUrl);
 

@@ -18,7 +18,7 @@ namespace TestProject.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            DependencyManager.ConfigureServices(services);            
+            DependencyManager.ConfigureServices(services, Configuration);            
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMvc();
         }

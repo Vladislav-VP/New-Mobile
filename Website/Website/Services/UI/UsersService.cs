@@ -10,6 +10,12 @@ using Entities;
 using Services.Interfaces;
 using ViewModels;
 using ViewModels.UI.User;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.Extensions.Configuration;
 
 namespace Services.UI
 {
@@ -20,15 +26,17 @@ namespace Services.UI
         private readonly IImageService _imageService;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IConfiguration _configuration;
 
         public UsersService(IUserRepository userRepository, IImageService imageService, IValidationService validationService,
-            UserManager<User> userManager, SignInManager<User> signInManager)
+            UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
         {
             _userRepository = userRepository;
             _imageService = imageService;
             _validationService = validationService;
             _userManager = userManager;
             _signInManager = signInManager;
+            _configuration = configuration;
         }
         
         public async Task<ResponseLoginUserView> Login(RequestLoginUserView user, ClaimsPrincipal principal)
@@ -43,6 +51,7 @@ namespace Services.UI
             SignInResult result = await _signInManager.PasswordSignInAsync(user.Name, user.Password, true, false);
             string id = _userManager.GetUserId(principal);
             User retrievedUser = _userRepository.FindByName(user.Name);
+            object token = await GenerateJwtToken(retrievedUser.UserName, retrievedUser);
             user.Id = retrievedUser.Id;
             responseLogin.IsSuccess = result.Succeeded;
             return responseLogin;
@@ -51,6 +60,7 @@ namespace Services.UI
         public HomeInfoUserView GetUserHomeInfo(ClaimsPrincipal principal)
         {
             string id;
+            bool signedIn = _signInManager.IsSignedIn(principal);
             using (_userManager)
             {
                 id = _userManager.GetUserId(principal);
@@ -92,6 +102,7 @@ namespace Services.UI
             {
                 responseRegister.Message = result.Errors.FirstOrDefault()?.Description;
             }
+            object token = await GenerateJwtToken(newUser.UserName, newUser);
             responseRegister.IsSuccess = result.Succeeded;
             return responseRegister;
         }
@@ -223,5 +234,31 @@ namespace Services.UI
             string imageName = oldUrl.Substring(startIndex).Replace('\\', '/');
             return $"~/ProfileImages{imageName}";
         }
+
+        private async Task<object> GenerateJwtToken(string email, IdentityUser user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id)
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtKey"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var expires = DateTime.Now.AddDays(Convert.ToDouble(_configuration["JwtExpireDays"]));
+
+            var token = new JwtSecurityToken(
+                _configuration["JwtIssuer"],
+                _configuration["JwtIssuer"],
+                claims,
+                expires: expires,
+                signingCredentials: creds
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+
     }
 }

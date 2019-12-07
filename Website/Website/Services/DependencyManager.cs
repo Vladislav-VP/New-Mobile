@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 using Services.Api;
 using Services.Interfaces;
@@ -8,9 +9,9 @@ namespace Services
 {
     public static class DependencyManager
     {
-        public static void ConfigureServices(IServiceCollection services)
+        public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
-            DataAccess.DependencyManager.ConfigureServices(services);
+            DataAccess.DependencyManager.ConfigureServices(services, configuration);
             services.AddTransient<IUsersService, UsersService>();  
             services.AddTransient<IValidationService, ValidationService>();
             services.AddTransient<IImageService, ImageService>();

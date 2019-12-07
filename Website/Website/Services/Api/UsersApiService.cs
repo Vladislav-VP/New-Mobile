@@ -41,26 +41,18 @@ namespace Services.Api
 
         public async Task<ResponseLoginUserApiView> Login(RequestLoginUserApiView userRequest, ClaimsPrincipal principal)
         {
-            //User retrievedUser = _userRepository.Find(userRequest.Name, userRequest.Password);
             var response = new ResponseLoginUserApiView();
             SignInResult result = await _signInManager.PasswordSignInAsync(userRequest.Name, userRequest.Password, true, false);
-            bool signedIn = _signInManager.IsSignedIn(principal);
-            string id = _userManager.GetUserId(principal);
             response.IsSuccess = result.Succeeded;
-            //if (retrievedUser == null)
-            //{
-            //    response.Message = "Incorrect username or password";
-            //    return response;
-            //}
             User user = await _userManager.GetUserAsync(principal);
             response.Id = _userManager.GetUserId(principal);
-            //response.IsSuccess = true;
-            //response.Message = "User succesfully logged in";
             return response;
         }
 
-        public GetProfileImageUserApiView GetUserWithPhoto(string id)
+        public GetProfileImageUserApiView GetUserWithPhoto(ClaimsPrincipal principal)
         {
+            string id = _userManager.GetUserId(principal);
+            bool signedIn = _signInManager.IsSignedIn(principal);
             User user = _userRepository.FindById(id);
             if (user == null)
             {
