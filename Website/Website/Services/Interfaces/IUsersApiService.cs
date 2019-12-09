@@ -17,7 +17,7 @@ namespace Services.Interfaces
         Task<ResponseEditProfileImageUserApiView> ReplaceProfilePhoto(RequestEditProfileImageUserApiView user,
             string imageUrl, ClaimsPrincipal principal);
 
-        ResponseEditNameUserApiView EditUserName(RequestEditNameUserApiView user, ClaimsPrincipal principal);
+        Task<ResponseEditNameUserApiView> EditUserName(RequestEditNameUserApiView user, ClaimsPrincipal principal);
 
         string GetUserName(ClaimsPrincipal principal);
 
@@ -25,6 +25,6 @@ namespace Services.Interfaces
 
         Task Logout();
 
-        DeleteUserApiView Delete(int id);
+        Task<DeleteUserApiView> Delete(ClaimsPrincipal principal);
     }
 }

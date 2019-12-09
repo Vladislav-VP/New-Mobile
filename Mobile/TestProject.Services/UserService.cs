@@ -86,9 +86,9 @@ namespace TestProject.Services
             return response;
         }
 
-        public async Task<string> GetUserName(string id)
+        public async Task<string> GetUserName()
         {
-            string name = await Get<string>($"{_url}/GetUserName/{id}");
+            string name = await Get<string>($"{_url}/GetUserName");
             return name;
         }
 
@@ -133,9 +133,9 @@ namespace TestProject.Services
             return response;
         }
 
-        public new async Task<DeleteUserApiModel> Delete(string id)
+        public new async Task<DeleteUserApiModel> Delete()
         {
-            DeleteUserApiModel response = await base.Delete<DeleteUserApiModel>(id);
+            DeleteUserApiModel response = await base.Delete<DeleteUserApiModel>();
             if (response.IsSuccess)
             {
                 _storage.Clear();

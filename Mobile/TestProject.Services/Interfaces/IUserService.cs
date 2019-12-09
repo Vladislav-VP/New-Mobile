@@ -18,6 +18,6 @@ namespace TestProject.Services.Interfaces
 
         Task<GetProfileImageUserApiModel> GetUserWithImage();
 
-        Task<string> GetUserName(string id);
+        Task<string> GetUserName();
     }
 }

@@ -1,14 +1,11 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 
 using ViewModels.Api.User;
-using Services.Api;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Services.Interfaces;
-using Microsoft.AspNetCore.Identity;
-using Entities;
 
 namespace TestProject.API.ApiControllers
 {
@@ -44,11 +41,11 @@ namespace TestProject.API.ApiControllers
             return userForLogin;
         }
 
-        [Route("Delete/{id}")]
+        [Route("Delete")]
         [HttpDelete]
-        public DeleteUserApiView Delete(int id)
+        public async Task<DeleteUserApiView> Delete()
         {
-            DeleteUserApiView response = _usersService.Delete(id);
+            DeleteUserApiView response = await _usersService.Delete(User);
             return response;
         }
 
@@ -79,9 +76,9 @@ namespace TestProject.API.ApiControllers
 
         [Route("EditName")]
         [HttpPost]
-        public ResponseEditNameUserApiView EditName(RequestEditNameUserApiView user)
+        public async Task<ResponseEditNameUserApiView> EditName(RequestEditNameUserApiView user)
         {
-            ResponseEditNameUserApiView response = _usersService.EditUserName(user, User);
+            ResponseEditNameUserApiView response = await _usersService.EditUserName(user, User);
             return response;
         }
 

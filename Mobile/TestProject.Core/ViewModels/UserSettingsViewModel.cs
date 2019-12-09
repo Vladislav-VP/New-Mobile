@@ -58,16 +58,14 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            _userId = await _storage.Get();
-            UserName = await _userService.GetUserName(_userId);
-            _oldUserName = await _userService.GetUserName(_userId);
+            UserName = await _userService.GetUserName();
+            _oldUserName = await _userService.GetUserName();
         }
 
         protected override async Task HandleEntity()
         {
             var user = new RequestEditNameUserApiModel
             {
-                Id = _userId,
                 Name = UserName
             };
             ResponseEditNameUserApiModel response = await _userService.EditUsername(user);
@@ -87,7 +85,7 @@ namespace TestProject.Core.ViewModels
                 return;
             }
 
-            DeleteUserApiModel response = await _userService.Delete<DeleteUserApiModel>(_userId);
+            DeleteUserApiModel response = await _userService.Delete<DeleteUserApiModel>();
             if (response.IsSuccess)
             {
                 _storage.Clear();

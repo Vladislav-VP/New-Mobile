@@ -124,7 +124,7 @@ namespace Services.Api
             return response;
         }
 
-        public ResponseEditNameUserApiView EditUserName(RequestEditNameUserApiView user, ClaimsPrincipal principal)
+        public async Task<ResponseEditNameUserApiView> EditUserName(RequestEditNameUserApiView user, ClaimsPrincipal principal)
         {
             var response = new ResponseEditNameUserApiView();
             if (string.IsNullOrEmpty(user.Name))
@@ -132,15 +132,19 @@ namespace Services.Api
                 response.Message = "Username can not be emnpty";
                 return response;
             }
-            User retrievedUser = _userRepository.FindByName(user.Name);
-            if (retrievedUser != null && retrievedUser.Id != user.Id)
+            using (_userManager)
             {
-                response.Message = "User with this name already exists";
-                return response;
+                string id = _userManager.GetUserId(principal);
+                User retrievedUser = _userRepository.FindByName(user.Name);
+                if (retrievedUser != null && retrievedUser.Id != id)
+                {
+                    response.Message = "User with this name already exists";
+                    return response;
+                }
+                retrievedUser = _userRepository.FindById(id);
+                retrievedUser.UserName = user.Name;
+                await _userManager.UpdateAsync(retrievedUser);
             }
-            retrievedUser = _userRepository.FindById(user.Id);
-            retrievedUser.UserName = user.Name;
-            Update(retrievedUser);
             response.IsSuccess = true;
             response.Message = "Username successfully changed";
             return response;
@@ -189,11 +193,21 @@ namespace Services.Api
             await _signInManager.SignOutAsync();
         }
 
-        public new DeleteUserApiView Delete(int id)
+        public async Task<DeleteUserApiView> Delete(ClaimsPrincipal principal)
         {
             var response = new DeleteUserApiView();
-            base.Delete(id);
-            response.IsSuccess = true;
+            var result = new IdentityResult();
+            using (_userManager)
+            {
+
+                User user = await _userManager.GetUserAsync(principal);
+                if (File.Exists(user.ImageUrl))
+                {
+                    File.Delete(user.ImageUrl);
+                }
+                result = await _userManager.DeleteAsync(user);
+            }
+            response.IsSuccess = result.Succeeded;
             response.Message = "Account deleted";
             return response;
         }

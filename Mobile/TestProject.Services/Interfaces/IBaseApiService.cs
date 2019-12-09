@@ -11,6 +11,6 @@ namespace TestProject.Services.Interfaces
 
         Task<T> Update<T>(T entity) where T : class;
 
-        Task<T> Delete<T>(string id) where T : class;
+        Task<T> Delete<T>() where T : class;
     }
 }

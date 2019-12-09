@@ -64,10 +64,10 @@ namespace TestProject.Services
             return updatedEntity;
         }
 
-        public async Task<T> Delete<T>(string id) where T : class
+        public async Task<T> Delete<T>() where T : class
         {
             HttpClient client = await GetClient();
-            string requestUri = $"{_url}/Delete/{id}";
+            string requestUri = $"{_url}/Delete";
             var response = await client.DeleteAsync(requestUri);
             if (response.StatusCode != HttpStatusCode.OK)
             {
