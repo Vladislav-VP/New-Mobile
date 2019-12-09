@@ -13,7 +13,7 @@ using Entities;
 namespace TestProject.API.ApiControllers
 {
     [Route("api/[controller]")]
-    //[ApiController]
+    [ApiController]
     [Authorize]
     public class UserApiController : Controller
     {
@@ -63,17 +63,17 @@ namespace TestProject.API.ApiControllers
 
         [Route("GetProfileImage")]
         [HttpGet]
-        public GetProfileImageUserApiView GetProfileImage(/*string id*/)
+        public GetProfileImageUserApiView GetProfileImage()
         {
             var user = _usersService.GetUserWithPhoto(User);
             return user;
         }
 
-        [Route("GetUserName/{id}")]
+        [Route("GetUserName")]
         [HttpGet]
-        public string GetUserName(string id)
+        public string GetUserName()
         {
-            string name = _usersService.GetUserName(id);
+            string name = _usersService.GetUserName(User);
             return name;
         }
 
@@ -81,7 +81,7 @@ namespace TestProject.API.ApiControllers
         [HttpPost]
         public ResponseEditNameUserApiView EditName(RequestEditNameUserApiView user)
         {
-            ResponseEditNameUserApiView response = _usersService.EditUserName(user);
+            ResponseEditNameUserApiView response = _usersService.EditUserName(user, User);
             return response;
         }
 

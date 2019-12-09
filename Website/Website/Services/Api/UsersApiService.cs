@@ -1,29 +1,32 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.IO;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 using DataAccess.Repositories.Interfaces;
 using Entities;
 using Services.Interfaces;
 using ViewModels.Api.User;
-using System.Threading.Tasks;
-using System.Security.Claims;
 
 namespace Services.Api
 {
     public class UsersApiService : BaseApiService<User>, IUsersApiService
     {
-        public readonly IUserRepository _userRepository;
-        public readonly IImageService _imageService;
-        public readonly UserManager<User> _userManager;
-        public readonly SignInManager<User> _signInManager;
+        private readonly IUserRepository _userRepository;
+        private readonly IImageService _imageService;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly ISecurityService _securityService;
 
         public UsersApiService(IUserRepository userRepository, IImageService imageService,
-            UserManager<User> userManager, SignInManager<User> signInManager) : base()
+            UserManager<User> userManager, SignInManager<User> signInManager, ISecurityService securityService) : base()
         {
             _userRepository = userRepository;
             _userManager = userManager;
             _signInManager = signInManager;
             _imageService = imageService;
+            _securityService = securityService;
         }
 
         public async Task<ResponseRegisterUserApiView> Register(RequestRegisterUserApiView userToRegister)
@@ -33,7 +36,11 @@ namespace Services.Api
             {
                 UserName = userToRegister.Name
             };
-            var result = await _userManager.CreateAsync(user, userToRegister.Password);
+            var result = new IdentityResult();
+            using (_userManager)
+            {
+                result = await _userManager.CreateAsync(user, userToRegister.Password);
+            }            
             response.IsSuccess = result.Succeeded;
             response.Message = "User was succesfully registered";
             return response;
@@ -44,15 +51,35 @@ namespace Services.Api
             var response = new ResponseLoginUserApiView();
             SignInResult result = await _signInManager.PasswordSignInAsync(userRequest.Name, userRequest.Password, true, false);
             response.IsSuccess = result.Succeeded;
-            User user = await _userManager.GetUserAsync(principal);
-            response.Id = _userManager.GetUserId(principal);
+            if (!result.Succeeded)
+            {
+                response.Message = result.ToString();
+                return response;
+            }
+            User user = null;
+            using (_userManager)
+            {
+                user = _userManager.Users.SingleOrDefault(u => u.UserName == userRequest.Name);
+            }
+            if (user == null)
+            {
+                response.Message = "User was not found";
+                response.IsSuccess = false;
+                return response;
+            }
+            var token = await _securityService.GenerateJwtToken(userRequest.Name, user);
+            response.Token = token.ToString();
             return response;
         }
 
         public GetProfileImageUserApiView GetUserWithPhoto(ClaimsPrincipal principal)
         {
-            string id = _userManager.GetUserId(principal);
-            bool signedIn = _signInManager.IsSignedIn(principal);
+            
+            string id;
+            using (_userManager)
+            {
+                id = _userManager.GetUserId(principal);
+            }
             User user = _userRepository.FindById(id);
             if (user == null)
             {
@@ -92,7 +119,7 @@ namespace Services.Api
             return response;
         }
 
-        public ResponseEditNameUserApiView EditUserName(RequestEditNameUserApiView user)
+        public ResponseEditNameUserApiView EditUserName(RequestEditNameUserApiView user, ClaimsPrincipal principal)
         {
             var response = new ResponseEditNameUserApiView();
             if (string.IsNullOrEmpty(user.Name))
@@ -114,8 +141,13 @@ namespace Services.Api
             return response;
         }
 
-        public string GetUserName(string id)
+        public string GetUserName(ClaimsPrincipal principal)
         {
+            string id;
+            using (_userManager)
+            {
+                id = _userManager.GetUserId(principal);
+            }
             User user = _userRepository.FindById(id);
             return user.UserName;
         }

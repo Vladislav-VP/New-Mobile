@@ -16,9 +16,9 @@ namespace Services.Interfaces
 
         ResponseEditProfileImageUserApiView ReplaceProfilePhoto(RequestEditProfileImageUserApiView user, string imageUrl);
 
-        ResponseEditNameUserApiView EditUserName(RequestEditNameUserApiView user);
+        ResponseEditNameUserApiView EditUserName(RequestEditNameUserApiView user, ClaimsPrincipal principal);
 
-        string GetUserName(string id);
+        string GetUserName(ClaimsPrincipal principal);
 
         ResponseChangePasswordUserApiView ChangePassword(RequestChangePasswordUserApiView user);
 
