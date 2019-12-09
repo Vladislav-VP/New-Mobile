@@ -63,7 +63,7 @@ namespace Services.Api
             return usersTodoItems;
         }
 
-        public ResponseCreateTodoItemApiView Insert(RequestCreateTodoItemApiView todoItem)
+        public ResponseCreateTodoItemApiView Create(RequestCreateTodoItemApiView todoItem, ClaimsPrincipal principal)
         {
             var response = new ResponseCreateTodoItemApiView();
             if (string.IsNullOrEmpty(todoItem.Name))
@@ -76,14 +76,19 @@ namespace Services.Api
                 response.Message = "Todo item description can not be empty";
                 return response;
             }
-            var todoItemToInsert = new TodoItem
+            string userId;
+            using (_userManager)
+            {
+                userId = _userManager.GetUserId(principal);
+            }
+            var newTodoItem = new TodoItem
             {
                 Name = todoItem.Name,
                 Description = todoItem.Description,
                 IsDone = todoItem.IsDone,
-                UserId = todoItem.UserId
+                UserId = userId
             };
-            base.Insert(todoItemToInsert);
+            _todoItemRepository.Insert(newTodoItem);
             response.IsSuccess = true;
             response.Message = "Todo item successfully created";
             return response;
@@ -91,7 +96,7 @@ namespace Services.Api
 
         public GetTodoItemApiView GetTodoItem(int id)
         {
-            TodoItem retrievedTodoItem = FindById(id);
+            TodoItem retrievedTodoItem = _todoItemRepository.FindById(id);
             if (retrievedTodoItem == null)
             {
                 return null;
@@ -109,7 +114,7 @@ namespace Services.Api
         public new DeleteTodoItemApiView Delete(int id)
         {
             var response = new DeleteTodoItemApiView();
-            base.Delete(id);
+            _todoItemRepository.Delete(id);
             response.IsSuccess = true;
             response.Messsage = "Todo item deleted";
             return response;

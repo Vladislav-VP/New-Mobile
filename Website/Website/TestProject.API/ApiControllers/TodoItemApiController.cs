@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 using Services.Interfaces;
 using ViewModels.Api.TodoItem;
@@ -7,6 +8,7 @@ namespace TestProject.API.ApiControllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class TodoItemApiController : Controller
     {
         private readonly ITodoItemApiService _todoItemService;
@@ -36,7 +38,7 @@ namespace TestProject.API.ApiControllers
         [HttpPost]
         public ResponseCreateTodoItemApiView Create([FromBody]RequestCreateTodoItemApiView todoItem)
         {
-            ResponseCreateTodoItemApiView response = _todoItemService.Insert(todoItem);
+            ResponseCreateTodoItemApiView response = _todoItemService.Create(todoItem, User);
             return response;
         }
 
@@ -48,7 +50,7 @@ namespace TestProject.API.ApiControllers
             return response;
         }
         
-        [Route("Delete/{id}")]
+        [Route("Delete")]
         [HttpDelete]
         public DeleteTodoItemApiView Delete(int id)
         {

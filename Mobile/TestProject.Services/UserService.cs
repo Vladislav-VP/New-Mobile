@@ -133,9 +133,9 @@ namespace TestProject.Services
             return response;
         }
 
-        public new async Task<DeleteUserApiModel> Delete()
+        public async Task<DeleteUserApiModel> Delete()
         {
-            DeleteUserApiModel response = await base.Delete<DeleteUserApiModel>();
+            DeleteUserApiModel response = await Delete<DeleteUserApiModel>();
             if (response.IsSuccess)
             {
                 _storage.Clear();

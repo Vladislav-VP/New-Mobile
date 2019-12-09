@@ -33,13 +33,11 @@ namespace TestProject.Core.ViewModels
 
         protected override async Task HandleEntity()
         {
-            string userId = await _storage.Get();
             var todoItem = new RequestCreateTodoItemApiModel
             {
                 Name = Name,
                 Description = Description,
-                IsDone = IsDone,
-                UserId = userId
+                IsDone = IsDone
             };
 
             ResponseCreateTodoItemApiModel response = await _todoItemService.CreateTodoItem(todoItem);

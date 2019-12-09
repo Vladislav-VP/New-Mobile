@@ -61,7 +61,7 @@ namespace TestProject.Core.ViewModels
             {
                 return;
             }
-            DeleteTodoItemApiModel response = await _todoItemService.Delete<DeleteTodoItemApiModel>(/*_todoItemId.ToString()*/);
+            DeleteTodoItemApiModel response = await _todoItemService.Delete<DeleteTodoItemApiModel>();
             if (response.IsSuccess)
             {
                 await _navigationService.Close(this, response);

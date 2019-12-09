@@ -11,7 +11,7 @@ namespace Services.Interfaces
 
         GetListTodoItemApiView GetUsersTodoItems(ClaimsPrincipal principal);
 
-        ResponseCreateTodoItemApiView Insert(RequestCreateTodoItemApiView todoItem);
+        ResponseCreateTodoItemApiView Create(RequestCreateTodoItemApiView todoItem, ClaimsPrincipal principal);
 
         GetTodoItemApiView GetTodoItem(int id);
 

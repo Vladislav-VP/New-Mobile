@@ -5,8 +5,6 @@ namespace TestProject.ApiModels.User
 {
     public class RequestEditNameUserApiModel
     {
-        public string Id { get; set; }
-
         [Required(ErrorMessageResourceType = typeof(Strings),
             ErrorMessageResourceName = nameof(Strings.EmptyUserNameMessage))]
         public string Name { get; set; }
