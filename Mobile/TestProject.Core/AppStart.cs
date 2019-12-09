@@ -48,7 +48,7 @@ namespace TestProject.Core
                     source.SetResult(false);
                     return;
                 }
-                GetProfileImageUserApiModel user = await _userService.GetUserWithImage(userId);
+                GetProfileImageUserApiModel user = await _userService.GetUserWithImage();
 
                 source.SetResult(user != null);
             });

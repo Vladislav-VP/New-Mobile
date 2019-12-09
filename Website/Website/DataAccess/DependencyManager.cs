@@ -25,7 +25,7 @@ namespace DataAccess
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ITodoItemRepository, TodoItemRepository>();
 
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             services
                 .AddAuthentication(options =>
                 {
@@ -43,7 +43,8 @@ namespace DataAccess
                         ValidIssuer = configuration["JwtIssuer"],
                         ValidAudience = configuration["JwtIssuer"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtKey"])),
-                        ClockSkew = TimeSpan.Zero // remove delay of token when expire
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero
                     };
                 });
         }

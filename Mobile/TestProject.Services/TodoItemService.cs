@@ -12,7 +12,8 @@ namespace TestProject.Services
 
         private readonly IDialogsHelper _dialogsHelper;
 
-        public TodoItemService(IValidationHelper validationHelper, IDialogsHelper dialogsHelper)
+        public TodoItemService(IValidationHelper validationHelper, IDialogsHelper dialogsHelper, IStorageHelper storage)
+            : base(storage)
         {
             _url = "http://10.10.3.215:3000/api/todoitemapi";
 
@@ -42,16 +43,16 @@ namespace TestProject.Services
             return response;  
         }
 
-        public async Task<GetListTodoItemApiModel> GetUsersTodoItems(string userId)
+        public async Task<GetListTodoItemApiModel> GetUsersTodoItems()
         {
             GetListTodoItemApiModel usersTodoItems = 
-                await Get<GetListTodoItemApiModel>(userId, $"{_url}/GetUsersTodoItems/userId={userId}");
+                await Get<GetListTodoItemApiModel>($"{_url}/GetUsersTodoItems");
             return usersTodoItems;
         }
 
         public async Task<GetTodoItemApiModel> GetTodoItem(int id)
         {
-            GetTodoItemApiModel todoItem = await Get<GetTodoItemApiModel>(id.ToString(), $"{_url}/Get/{id}");
+            GetTodoItemApiModel todoItem = await Get<GetTodoItemApiModel>($"{_url}/Get/{id}");
             return todoItem;
         }
     }

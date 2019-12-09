@@ -54,10 +54,10 @@ namespace TestProject.API.ApiControllers
 
         [Route("EditProfileImage")]
         [HttpPost]
-        public ResponseEditProfileImageUserApiView EditProfileImage([FromBody] RequestEditProfileImageUserApiView user)
+        public async Task<ResponseEditProfileImageUserApiView> EditProfileImage([FromBody] RequestEditProfileImageUserApiView user)
         {
             string imageUrl = $"{_hostEnvironment.WebRootPath}\\ProfileImages\\{Guid.NewGuid()}.png";
-            ResponseEditProfileImageUserApiView response = _usersService.ReplaceProfilePhoto(user, imageUrl);
+            ResponseEditProfileImageUserApiView response = await _usersService.ReplaceProfilePhoto(user, imageUrl, User);
             return response;            
         }
 
@@ -91,6 +91,13 @@ namespace TestProject.API.ApiControllers
         {
             ResponseChangePasswordUserApiView response = _usersService.ChangePassword(user);
             return response;
+        }
+
+        [Route("Logout")]
+        [HttpPost]
+        public async Task Logout()
+        {
+            await _usersService.Logout();
         }
     }
 }

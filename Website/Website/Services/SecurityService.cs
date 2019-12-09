@@ -32,7 +32,7 @@ namespace Services
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtKey"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            DateTime expires = DateTime.Now.AddDays(Convert.ToDouble(_configuration["JwtExpireDays"]));
+            DateTime expires = DateTime.Now.AddDays(Convert.ToDouble(_configuration["JwtExpirationTime"]));
 
             var token = new JwtSecurityToken(
                 _configuration["JwtIssuer"],

@@ -14,13 +14,16 @@ namespace Services.Interfaces
 
         GetProfileImageUserApiView GetUserWithPhoto(ClaimsPrincipal principal);
 
-        ResponseEditProfileImageUserApiView ReplaceProfilePhoto(RequestEditProfileImageUserApiView user, string imageUrl);
+        Task<ResponseEditProfileImageUserApiView> ReplaceProfilePhoto(RequestEditProfileImageUserApiView user,
+            string imageUrl, ClaimsPrincipal principal);
 
         ResponseEditNameUserApiView EditUserName(RequestEditNameUserApiView user, ClaimsPrincipal principal);
 
         string GetUserName(ClaimsPrincipal principal);
 
         ResponseChangePasswordUserApiView ChangePassword(RequestChangePasswordUserApiView user);
+
+        Task Logout();
 
         DeleteUserApiView Delete(int id);
     }

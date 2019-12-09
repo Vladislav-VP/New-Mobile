@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Services.Api;
 
+using Services.Interfaces;
 using ViewModels.Api.TodoItem;
 
 namespace TestProject.API.ApiControllers
@@ -9,18 +9,18 @@ namespace TestProject.API.ApiControllers
     [ApiController]
     public class TodoItemApiController : Controller
     {
-        private readonly TodoItemApiService _todoItemService;
+        private readonly ITodoItemApiService _todoItemService;
 
-        public TodoItemApiController()
+        public TodoItemApiController(ITodoItemApiService todoItemService)
         {
-            //_todoItemService = new TodoItemApiService();            
+            _todoItemService = todoItemService;
         }
         
-        [Route("GetUsersTodoItems/userId={userId}")]
+        [Route("GetUsersTodoItems")]
         [HttpGet]
-        public GetListTodoItemApiView GetList(string userId)
+        public GetListTodoItemApiView GetList()
         {
-            GetListTodoItemApiView usersTodoItems = _todoItemService.GetUsersTodoItems(userId);
+            GetListTodoItemApiView usersTodoItems = _todoItemService.GetUsersTodoItems(User);
             return usersTodoItems;
         }
 

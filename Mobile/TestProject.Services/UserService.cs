@@ -20,7 +20,7 @@ namespace TestProject.Services
         private readonly IPhotoEditHelper _photoEditHelper;
 
         public UserService(IValidationHelper validationHelper, IDialogsHelper dialogsHelper,
-            IStorageHelper storage, IPhotoEditHelper photoEditHelper)
+            IStorageHelper storage, IPhotoEditHelper photoEditHelper) : base(storage)
         {
             _url = "http://10.10.3.215:3000/api/userapi";
             _validationHelper = validationHelper;
@@ -88,13 +88,13 @@ namespace TestProject.Services
 
         public async Task<string> GetUserName(string id)
         {
-            string name = await Get<string>(id, $"{_url}/GetUserName/{id}");
+            string name = await Get<string>($"{_url}/GetUserName/{id}");
             return name;
         }
 
-        public async Task<GetProfileImageUserApiModel> GetUserWithImage(string id)
+        public async Task<GetProfileImageUserApiModel> GetUserWithImage()
         {
-            GetProfileImageUserApiModel user = await Get<GetProfileImageUserApiModel>(id, $"{_url}/GetProfileImage/{id}");
+            GetProfileImageUserApiModel user = await Get<GetProfileImageUserApiModel>($"{_url}/GetProfileImage");
             return user;
         }
 
@@ -108,7 +108,7 @@ namespace TestProject.Services
                 return response;
             }
 
-            await _storage.Save(response.Id);
+            await _storage.Save(response.Token);
             response.IsSuccess = true;
 
             return response;

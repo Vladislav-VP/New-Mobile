@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
+using System.Security.Claims;
 
 using DataAccess.Repositories.Interfaces;
 using Entities;
@@ -9,12 +11,14 @@ namespace Services.Api
 {
     public class TodoItemApiService : BaseApiService<TodoItem>, ITodoItemApiService
     {
-        private ITodoItemRepository _todoItemRepository;
+        private readonly ITodoItemRepository _todoItemRepository;
+        private readonly UserManager<User> _userManager;
 
-        public TodoItemApiService(ITodoItemRepository todoItemRepository)
+        public TodoItemApiService(ITodoItemRepository todoItemRepository, UserManager<User> userManager)
             : base()
         {
             _todoItemRepository = todoItemRepository;
+            _userManager = userManager;
         }
 
         public ResponseEditTodoItemApiView EditTodoItem(RequestEditTodoItemApiView todoItem)
@@ -34,12 +38,17 @@ namespace Services.Api
             return response;
         }
 
-        public GetListTodoItemApiView GetUsersTodoItems(string userId)
+        public GetListTodoItemApiView GetUsersTodoItems(ClaimsPrincipal principal)
         {
             var usersTodoItems = new GetListTodoItemApiView
             {
                 TodoItems = new List<TodoItemGetListTodoItemApiViewItem>()
             };
+            string userId;
+            using (_userManager)
+            {
+                userId = _userManager.GetUserId(principal);
+            }
             IEnumerable<TodoItem> retrievedTodoItems = _todoItemRepository.GetUsersTodoItems(userId);
             foreach (TodoItem todoItem in retrievedTodoItems)
             {

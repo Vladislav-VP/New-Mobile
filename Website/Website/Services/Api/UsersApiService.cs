@@ -98,20 +98,25 @@ namespace Services.Api
             return userWithPhoto;
         }
 
-        public ResponseEditProfileImageUserApiView ReplaceProfilePhoto(RequestEditProfileImageUserApiView user, string imageUrl)
+        public async Task<ResponseEditProfileImageUserApiView> ReplaceProfilePhoto(RequestEditProfileImageUserApiView user,
+            string imageUrl, ClaimsPrincipal principal)
         {
             if (user.ImageBytes != null)
             {
                 _imageService.UploadImage(imageUrl, user.ImageBytes);
                 user.ImageUrl = imageUrl;
             }
-            User userToModify = _userRepository.FindById(user.Id);
-            if (File.Exists(userToModify.ImageUrl))
+            using (_userManager)
             {
-                File.Delete(userToModify.ImageUrl);
-            }
-            userToModify.ImageUrl = user.ImageUrl;
-            Update(userToModify);
+                string id = _userManager.GetUserId(principal);
+                User userToModify = _userRepository.FindById(id);
+                if (File.Exists(userToModify.ImageUrl))
+                {
+                    File.Delete(userToModify.ImageUrl);
+                }
+                userToModify.ImageUrl = user.ImageUrl;
+                await _userManager.UpdateAsync(userToModify);
+            }            
             var response = new ResponseEditProfileImageUserApiView
             {
                 ImageBytes = user.ImageBytes
@@ -177,6 +182,11 @@ namespace Services.Api
             response.IsSuccess = true;
             response.Message = "Password successfully changed";
             return response;
+        }
+
+        public async Task Logout()
+        {
+            await _signInManager.SignOutAsync();
         }
 
         public new DeleteUserApiView Delete(int id)

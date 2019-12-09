@@ -43,7 +43,8 @@ namespace TestProject.Core
             var userService = new UserService(validationHelper, dialogsHelper, storage, photoEditHelper);
             Mvx.IoCProvider.RegisterSingleton(typeof(IUserService), userService);
 
-            Mvx.IoCProvider.RegisterSingleton(typeof(ITodoItemService), new TodoItemService(validationHelper, dialogsHelper));
+            var todoItemService = new TodoItemService(validationHelper, dialogsHelper, storage);
+            Mvx.IoCProvider.RegisterSingleton(typeof(ITodoItemService), todoItemService);
 
             RegisterCustomAppStart<AppStart>();
         }

@@ -1,4 +1,6 @@
-﻿using Entities;
+﻿using System.Security.Claims;
+
+using Entities;
 using ViewModels.Api.TodoItem;
 
 namespace Services.Interfaces
@@ -7,7 +9,7 @@ namespace Services.Interfaces
     {
         ResponseEditTodoItemApiView EditTodoItem(RequestEditTodoItemApiView todoItem);
 
-        GetListTodoItemApiView GetUsersTodoItems(string userId);
+        GetListTodoItemApiView GetUsersTodoItems(ClaimsPrincipal principal);
 
         ResponseCreateTodoItemApiView Insert(RequestCreateTodoItemApiView todoItem);
 

@@ -76,8 +76,7 @@ namespace TestProject.Core.ViewModels
         {
             TodoItems.Clear();
 
-            string userId = await _storage.Get();
-            GetListTodoItemApiModel usersTodoItems = await _todoItemService.GetUsersTodoItems(userId);
+            GetListTodoItemApiModel usersTodoItems = await _todoItemService.GetUsersTodoItems();
             TodoItems.AddRange(usersTodoItems.TodoItems);
         }
 
