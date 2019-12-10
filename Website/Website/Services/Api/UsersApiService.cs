@@ -72,18 +72,12 @@ namespace Services.Api
             return response;
         }
 
-        public GetProfileImageUserApiView GetUserWithPhoto(ClaimsPrincipal principal)
-        {
-            
-            string id;
+        public async Task<GetProfileImageUserApiView> GetUserWithPhoto(ClaimsPrincipal principal)
+        {            
+            var user = new User();
             using (_userManager)
             {
-                id = _userManager.GetUserId(principal);
-            }
-            User user = _userRepository.FindById(id);
-            if (user == null)
-            {
-                return null;
+                user = await _userManager.GetUserAsync(principal);
             }
             var userWithPhoto = new GetProfileImageUserApiView
             {
@@ -108,8 +102,7 @@ namespace Services.Api
             }
             using (_userManager)
             {
-                string id = _userManager.GetUserId(principal);
-                User userToModify = _userRepository.FindById(id);
+                User userToModify = await _userManager.GetUserAsync(principal);
                 if (File.Exists(userToModify.ImageUrl))
                 {
                     File.Delete(userToModify.ImageUrl);
@@ -130,8 +123,7 @@ namespace Services.Api
             var result = new IdentityResult();
             using (_userManager)
             {
-                string id = _userManager.GetUserId(principal);
-                User retrievedUser = _userRepository.FindById(id);
+                User retrievedUser = await _userManager.GetUserAsync(principal);                
                 retrievedUser.UserName = user.Name;
                 result = await _userManager.UpdateAsync(retrievedUser);
             }
@@ -143,14 +135,13 @@ namespace Services.Api
             return response;
         }
 
-        public string GetUserName(ClaimsPrincipal principal)
+        public async Task<string> GetUserName(ClaimsPrincipal principal)
         {
-            string id;
+            var user = new User();
             using (_userManager)
             {
-                id = _userManager.GetUserId(principal);
+                user = await _userManager.GetUserAsync(principal);
             }
-            User user = _userRepository.FindById(id);
             return user.UserName;
         }
 

@@ -40,7 +40,7 @@ namespace TestProject.Services
             {
                 _dialogsHelper.DisplayAlertMessage(response.Message);
             }
-            return response;  
+            return response;
         }
 
         public async Task<GetListTodoItemApiModel> GetUsersTodoItems()

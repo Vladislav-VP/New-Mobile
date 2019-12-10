@@ -60,17 +60,17 @@ namespace TestProject.API.ApiControllers
 
         [Route("GetProfileImage")]
         [HttpGet]
-        public GetProfileImageUserApiView GetProfileImage()
+        public async Task<GetProfileImageUserApiView> GetProfileImage()
         {
-            var user = _usersService.GetUserWithPhoto(User);
+            var user = await _usersService.GetUserWithPhoto(User);
             return user;
         }
 
         [Route("GetUserName")]
         [HttpGet]
-        public string GetUserName()
+        public async Task<string> GetUserName()
         {
-            string name = _usersService.GetUserName(User);
+            string name = await _usersService.GetUserName(User);
             return name;
         }
 

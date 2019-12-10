@@ -62,6 +62,10 @@ namespace TestProject.Services
                 return response;
             }
             user.ImageBytes = await optionResultPairs[option]();
+            if (user.ImageBytes == null && option != Strings.DeletePicture)
+            {
+                return response;
+            }
             response = await Post<RequestEditProfileImageUserApiModel, ResponseEditProfileImageUserApiModel>
                 (user, $"{_url}/EditProfileImage");
 

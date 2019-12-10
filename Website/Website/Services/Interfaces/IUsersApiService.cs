@@ -12,14 +12,14 @@ namespace Services.Interfaces
 
         Task<ResponseLoginUserApiView> Login(RequestLoginUserApiView userRequest, ClaimsPrincipal principal);
 
-        GetProfileImageUserApiView GetUserWithPhoto(ClaimsPrincipal principal);
+        Task<GetProfileImageUserApiView> GetUserWithPhoto(ClaimsPrincipal principal);
 
         Task<ResponseEditProfileImageUserApiView> ReplaceProfilePhoto(RequestEditProfileImageUserApiView user,
             string imageUrl, ClaimsPrincipal principal);
 
         Task<ResponseEditNameUserApiView> EditUserName(RequestEditNameUserApiView user, ClaimsPrincipal principal);
 
-        string GetUserName(ClaimsPrincipal principal);
+        Task<string> GetUserName(ClaimsPrincipal principal);
 
         ResponseChangePasswordUserApiView ChangePassword(RequestChangePasswordUserApiView user);
 
