@@ -40,7 +40,8 @@ namespace DataAccess.Repositories
         public void Delete(int id)
         {
             TEntity entity = FindById(id);
-            Delete(entity);
+            _dbSet.Remove(entity);
+            _context.SaveChanges();
         }
 
         public TEntity FindById(int id)

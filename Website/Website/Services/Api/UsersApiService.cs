@@ -127,26 +127,19 @@ namespace Services.Api
         public async Task<ResponseEditNameUserApiView> EditUserName(RequestEditNameUserApiView user, ClaimsPrincipal principal)
         {
             var response = new ResponseEditNameUserApiView();
-            if (string.IsNullOrEmpty(user.Name))
-            {
-                response.Message = "Username can not be emnpty";
-                return response;
-            }
+            var result = new IdentityResult();
             using (_userManager)
             {
                 string id = _userManager.GetUserId(principal);
-                User retrievedUser = _userRepository.FindByName(user.Name);
-                if (retrievedUser != null && retrievedUser.Id != id)
-                {
-                    response.Message = "User with this name already exists";
-                    return response;
-                }
-                retrievedUser = _userRepository.FindById(id);
+                User retrievedUser = _userRepository.FindById(id);
                 retrievedUser.UserName = user.Name;
-                await _userManager.UpdateAsync(retrievedUser);
+                result = await _userManager.UpdateAsync(retrievedUser);
             }
-            response.IsSuccess = true;
-            response.Message = "Username successfully changed";
+            response.IsSuccess = result.Succeeded;
+            if (!result.Succeeded)
+            {
+                response.Message = result.Errors.FirstOrDefault()?.Description;
+            }
             return response;
         }
 

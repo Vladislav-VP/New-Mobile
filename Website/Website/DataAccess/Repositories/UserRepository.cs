@@ -23,11 +23,5 @@ namespace DataAccess.Repositories
             User user = _dbSet.Where(u => u.Id == id).FirstOrDefault();
             return user;
         }
-
-        public void Delete(string id)
-        {
-            User user = FindById(id);
-            Delete(user);
-        }
     }
 }

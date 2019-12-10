@@ -55,5 +55,11 @@ namespace TestProject.Services
             GetTodoItemApiModel todoItem = await Get<GetTodoItemApiModel>($"{_url}/Get/{id}");
             return todoItem;
         }
+
+        public async Task<DeleteTodoItemApiModel> Delete(int id)
+        {
+            DeleteTodoItemApiModel response = await Delete<DeleteTodoItemApiModel>($"{_url}/Delete/{id}");
+            return response;
+        }
     }
 }

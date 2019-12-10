@@ -13,5 +13,7 @@ namespace TestProject.Services.Interfaces
         Task<ResponseEditTodoItemApiModel> EditTodoItem(RequestEditTodoItemApiModel todoItem);
 
         Task<GetTodoItemApiModel> GetTodoItem(int id);
+
+        Task<DeleteTodoItemApiModel> Delete(int id);
     }
 }

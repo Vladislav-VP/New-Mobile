@@ -50,7 +50,7 @@ namespace TestProject.API.ApiControllers
             return response;
         }
         
-        [Route("Delete")]
+        [Route("Delete/{id}")]
         [HttpDelete]
         public DeleteTodoItemApiView Delete(int id)
         {

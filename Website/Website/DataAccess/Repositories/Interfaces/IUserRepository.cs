@@ -7,7 +7,5 @@ namespace DataAccess.Repositories.Interfaces
         User FindByName(string username);
 
         User FindById(string id);
-
-        void Delete(string id);
     }
 }
