@@ -102,7 +102,13 @@ namespace TestProject.Services
 
         public async Task<ResponseLoginUserApiModel> Login(RequestLoginUserApiModel user)
         {
-            ResponseLoginUserApiModel response = await Post<RequestLoginUserApiModel, ResponseLoginUserApiModel>
+            var response = new ResponseLoginUserApiModel();
+            bool isValid=_validationHelper.IsObjectValid(user, true);
+            if (!isValid)
+            {
+                return response;
+            }
+            response = await Post<RequestLoginUserApiModel, ResponseLoginUserApiModel>
                 (user, $"{_url}/Login");
             if (!response.IsSuccess)
             {
@@ -119,11 +125,9 @@ namespace TestProject.Services
         public async Task<ResponseRegisterUserApiModel> RegisterUser(RequestRegisterUserApiModel user)
         {
             var response = new ResponseRegisterUserApiModel();
-            bool isUserNameValid = _validationHelper.IsObjectValid(user, nameof(user.Name));
-            bool isPasswordValid = _validationHelper.IsObjectValid(user, nameof(user.Password));
-            if (!isUserNameValid || !isPasswordValid)
+            bool isValid = _validationHelper.IsObjectValid(user);
+            if (!isValid)
             {
-                response.Message = "Invalid format of credentials";
                 return response;
             }
             response = await Post<RequestRegisterUserApiModel, ResponseRegisterUserApiModel>
@@ -133,6 +137,12 @@ namespace TestProject.Services
                 _dialogsHelper.DisplayAlertMessage(response.Message);
             }
             return response;
+        }
+
+        public async Task Logout()
+        {
+            await Post($"{_url}/Logout");
+            _storage.Clear();
         }
 
         public async Task<DeleteUserApiModel> Delete()

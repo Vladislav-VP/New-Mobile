@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
+
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Interfaces;
 
@@ -78,6 +79,12 @@ namespace TestProject.Services
             }
             string serializedObject = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<T>(serializedObject);
+        }
+
+        public async Task Post(string requestUri)
+        {
+            HttpClient client = await GetClient();
+            await client.PostAsync(requestUri, null);
         }
 
         protected async Task<HttpClient> GetClient()

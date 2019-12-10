@@ -5,6 +5,6 @@ namespace TestProject.Services.Helpers.Interfaces
 {
     public interface IValidationHelper
     {
-        bool IsObjectValid<T>(T obj, string propertyName = null);
+        bool IsObjectValid<T>(T obj, bool validaateAllProperties = true);
     }
 }

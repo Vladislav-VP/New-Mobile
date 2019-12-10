@@ -81,7 +81,6 @@ namespace Services.Api
             }
             var userWithPhoto = new GetProfileImageUserApiView
             {
-                Id = user.Id,
                 Name = user.UserName
             };
             if(string.IsNullOrEmpty(user.ImageUrl))

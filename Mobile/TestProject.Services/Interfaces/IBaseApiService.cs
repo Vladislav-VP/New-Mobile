@@ -9,6 +9,8 @@ namespace TestProject.Services.Interfaces
 
         Task<TResponse> Post<TRequest, TResponse>(TRequest entity, string requestUri) where TResponse : class;
 
+        Task Post(string requestUri);
+
         Task<T> Update<T>(T entity) where T : class;
 
         Task<T> Delete<T>(string requestUri = null) where T : class;

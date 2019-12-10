@@ -2,24 +2,20 @@
 
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
-using TestProject.ApiModels.User;
+
 using TestProject.Core.ViewModels;
 using TestProject.Services.Helpers.Interfaces;
-using TestProject.Services.Interfaces;
 
 namespace TestProject.Core
 {
     public class AppStart : MvxAppStart
     {
         private readonly IStorageHelper _storage;
-        private readonly IUserService _userService;
 
-        public AppStart(IMvxApplication application, IMvxNavigationService navigationService,
-            IStorageHelper storage, IUserService userService)
+        public AppStart(IMvxApplication application, IMvxNavigationService navigationService, IStorageHelper storage)
             : base(application, navigationService)
         {
             _storage = storage;
-            _userService = userService;
         }
 
         protected override async Task NavigateToFirstViewModel(object hint = null)
@@ -42,15 +38,13 @@ namespace TestProject.Core
 
             Task.Run(async () =>
             {
-                string userId = await _storage.Get();
-                if (string.IsNullOrEmpty(userId))
+                string token = await _storage.Get();
+                if (string.IsNullOrEmpty(token))
                 {
                     source.SetResult(false);
                     return;
                 }
-                GetProfileImageUserApiModel user = await _userService.GetUserWithImage();
-
-                source.SetResult(user != null);
+                source.SetResult(token != null);
             });
 
             var isAuthenticated = source.Task.Result;

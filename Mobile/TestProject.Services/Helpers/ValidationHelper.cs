@@ -16,28 +16,17 @@ namespace TestProject.Services.Helpers
             _dialogsHelper = dialogsHelper;
         }
 
-        public bool IsObjectValid<T>(T obj, string propertyName = null)
+        public bool IsObjectValid<T>(T obj, bool validateAllProperties = true)
         {
-            bool isValid = false;
             var context = new ValidationContext(obj);
             ICollection<ValidationResult> errors = new List<ValidationResult>();
+            bool isValid = Validator.TryValidateObject(obj, context, errors, validateAllProperties);
 
-            if (!string.IsNullOrEmpty(propertyName))
+            if (!isValid)
             {
-                context.MemberName = propertyName;
-                Type type = obj.GetType();
-                object propertyValue = type
-                    .GetProperty(propertyName)
-                    .GetValue(obj);
-                isValid = Validator.TryValidateProperty(propertyValue, context, errors);
-            }
-
-            if (string.IsNullOrEmpty(propertyName))
-            {
-                isValid = Validator.TryValidateObject(obj, context, errors);
+                HandleValidationResult(errors);
             }            
 
-            HandleValidationResult(errors);
             return isValid;
         }
 

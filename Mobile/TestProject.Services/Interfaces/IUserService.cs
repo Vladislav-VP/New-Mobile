@@ -20,6 +20,8 @@ namespace TestProject.Services.Interfaces
 
         Task<string> GetUserName();
 
+        Task Logout();
+
         Task<DeleteUserApiModel> Delete();
     }
 }
