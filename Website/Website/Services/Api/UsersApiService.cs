@@ -145,34 +145,24 @@ namespace Services.Api
             return user.UserName;
         }
 
-        public ResponseChangePasswordUserApiView ChangePassword(RequestChangePasswordUserApiView user)
-        {            
-            User userToModify = _userRepository.FindById(user.Id);
-            //user.OldPassword = userToModify.Password;
+        public async Task<ResponseChangePasswordUserApiView> ChangePassword(RequestChangePasswordUserApiView user, ClaimsPrincipal principal)
+        {
             var response = new ResponseChangePasswordUserApiView();
-            if (user.OldPassword != user.OldPasswordConfirmation)
+            var result = new IdentityResult();
+            using (_userManager)
             {
-                response.Message = "Incorrect old passsword";
-                return response;
+                User retrievedUser = await _userManager.GetUserAsync(principal);
+                result = await _userManager.ChangePasswordAsync(retrievedUser, user.OldPassword, user.NewPassword);
             }
-            if (string.IsNullOrEmpty(user.NewPassword) || string.IsNullOrEmpty(user.NewPasswordConfirmation))
+            response.IsSuccess = result.Succeeded;
+            if (!result.Succeeded)
             {
-                response.Message = "Password can not be empty";
-                return response;
+                response.Message = result.Errors.FirstOrDefault()?.Description;
             }
-            if (user.NewPassword != user.NewPasswordConfirmation)
-            {
-                response.Message = "Passwords do not correspond";
-                return response;
-            }
-            //userToModify.Password = user.NewPassword;
-            Update(userToModify);
-            response.IsSuccess = true;
-            response.Message = "Password successfully changed";
             return response;
         }
 
-        public async Task Logout()
+        public async Task Logout(ClaimsPrincipal principal)
         {
             await _signInManager.SignOutAsync();
         }
@@ -183,7 +173,6 @@ namespace Services.Api
             var result = new IdentityResult();
             using (_userManager)
             {
-
                 User user = await _userManager.GetUserAsync(principal);
                 if (File.Exists(user.ImageUrl))
                 {

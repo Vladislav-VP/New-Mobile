@@ -51,7 +51,7 @@ namespace TestProject.Services
         public async Task<T> Update<T>(T entity) where T : class
         {
             HttpClient client = await GetClient();
-            string contentUri = $"{_url}/";
+            string contentUri = $"{_url}";
             string content = JsonConvert.SerializeObject(entity);
             var stringContent = new StringContent(content, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PutAsync(contentUri, stringContent);

@@ -84,9 +84,9 @@ namespace TestProject.API.ApiControllers
 
         [Route("ChangePassword")]
         [HttpPost]
-        public ResponseChangePasswordUserApiView ChangePassword(RequestChangePasswordUserApiView user)
+        public async Task<ResponseChangePasswordUserApiView> ChangePassword(RequestChangePasswordUserApiView user)
         {
-            ResponseChangePasswordUserApiView response = _usersService.ChangePassword(user);
+            ResponseChangePasswordUserApiView response = await _usersService.ChangePassword(user, User);
             return response;
         }
 
@@ -94,7 +94,7 @@ namespace TestProject.API.ApiControllers
         [HttpPost]
         public async Task Logout()
         {
-            await _usersService.Logout();
+            await _usersService.Logout(User);
         }
     }
 }

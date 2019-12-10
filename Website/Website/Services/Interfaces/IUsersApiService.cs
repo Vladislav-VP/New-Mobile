@@ -21,9 +21,9 @@ namespace Services.Interfaces
 
         Task<string> GetUserName(ClaimsPrincipal principal);
 
-        ResponseChangePasswordUserApiView ChangePassword(RequestChangePasswordUserApiView user);
+        Task<ResponseChangePasswordUserApiView> ChangePassword(RequestChangePasswordUserApiView user, ClaimsPrincipal principal);
 
-        Task Logout();
+        Task Logout(ClaimsPrincipal principal);
 
         Task<DeleteUserApiView> Delete(ClaimsPrincipal principal);
     }

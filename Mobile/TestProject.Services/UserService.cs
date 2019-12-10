@@ -13,8 +13,6 @@ namespace TestProject.Services
     {
         private readonly IValidationHelper _validationHelper;
 
-        private readonly IStorageHelper _storage;
-
         private readonly IDialogsHelper _dialogsHelper;
 
         private readonly IPhotoEditHelper _photoEditHelper;
