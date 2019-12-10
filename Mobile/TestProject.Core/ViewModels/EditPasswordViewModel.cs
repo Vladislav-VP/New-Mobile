@@ -69,11 +69,6 @@ namespace TestProject.Core.ViewModels
                 NewPasswordConfirmation = NewPasswordConfirmation
             };
             ResponseChangePasswordUserApiModel response = await _userService.ChangePassword(user);
-            if (!response.IsSuccess)
-            {
-                _dialogsHelper.DisplayAlertMessage(response.Message);
-                return;
-            }
             if (response.IsSuccess)
             {
                 await _navigationService.Close(this);

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-namespace TestProject.Services.Helpers.Interfaces
+﻿namespace TestProject.Services.Helpers.Interfaces
 {
     public interface IValidationHelper
     {

@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-using TestProject.Configurations;
 using TestProject.Resources;
 
 namespace TestProject.ApiModels.User
@@ -13,12 +12,6 @@ namespace TestProject.ApiModels.User
 
         [Required(ErrorMessageResourceType = typeof(Strings),
             ErrorMessageResourceName = nameof(Strings.EmptyPasswordMessage))]
-        [MinLength(Constants.MinPasswordLength,
-            ErrorMessageResourceType = typeof(Strings),
-            ErrorMessageResourceName = nameof(Strings.TooShortPasswordMessage))]
-        [RegularExpression(Constants.PasswordPattern,
-            ErrorMessageResourceType = typeof(Strings),
-            ErrorMessageResourceName = nameof(Strings.InvalidPasswordFormatMessage))]
         public string NewPassword { get; set; }
 
         [Compare(nameof(NewPassword), 

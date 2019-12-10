@@ -29,8 +29,19 @@ namespace TestProject.Services
 
         public async Task<ResponseChangePasswordUserApiModel> ChangePassword(RequestChangePasswordUserApiModel user)
         {
-            ResponseChangePasswordUserApiModel response = await Post<RequestChangePasswordUserApiModel,
+            var response = new ResponseChangePasswordUserApiModel();
+            bool isValid = _validationHelper.IsObjectValid(user);
+            if (!isValid)
+            {
+                return response;
+            }
+            response = await Post<RequestChangePasswordUserApiModel,
                 ResponseChangePasswordUserApiModel>(user, $"{_url}/ChangePassword");
+            if (!response.IsSuccess)
+            {
+                _dialogsHelper.DisplayAlertMessage(response.Message);
+                return response;
+            }
             return response;
         }
 

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-using DataAccess.Repositories.Interfaces;
 using Entities;
 using Services.Interfaces;
 using ViewModels.Api.User;
@@ -13,16 +12,14 @@ namespace Services.Api
 {
     public class UsersApiService : BaseApiService<User>, IUsersApiService
     {
-        private readonly IUserRepository _userRepository;
         private readonly IImageService _imageService;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly ISecurityService _securityService;
 
-        public UsersApiService(IUserRepository userRepository, IImageService imageService,
-            UserManager<User> userManager, SignInManager<User> signInManager, ISecurityService securityService) : base()
+        public UsersApiService(IImageService imageService, UserManager<User> userManager,
+            SignInManager<User> signInManager, ISecurityService securityService) : base()
         {
-            _userRepository = userRepository;
             _userManager = userManager;
             _signInManager = signInManager;
             _imageService = imageService;
@@ -42,7 +39,10 @@ namespace Services.Api
                 result = await _userManager.CreateAsync(user, userToRegister.Password);
             }            
             response.IsSuccess = result.Succeeded;
-            response.Message = "User was succesfully registered";
+            if (!result.Succeeded)
+            {
+                response.Message = result.Errors.FirstOrDefault()?.Description;
+            }
             return response;
         }
 
