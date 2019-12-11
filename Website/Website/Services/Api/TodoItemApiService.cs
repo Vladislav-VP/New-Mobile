@@ -103,7 +103,6 @@ namespace Services.Api
             }
             var todoItem = new GetTodoItemApiView
             {
-                Id = retrievedTodoItem.Id,
                 Name = retrievedTodoItem.Name,
                 Description = retrievedTodoItem.Description,
                 IsDone = retrievedTodoItem.IsDone

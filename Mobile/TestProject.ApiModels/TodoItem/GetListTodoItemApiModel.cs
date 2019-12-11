@@ -14,7 +14,5 @@ namespace TestProject.ApiModels.TodoItem
         public string Name { get; set; }
 
         public bool IsDone { get; set; }
-
-        // TODO : Add user id if necessary.
     }
 }
