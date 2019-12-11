@@ -11,6 +11,8 @@ namespace DataAccess.Context
     {
         public DbSet<TodoItem> TodoItems { get; set; }
 
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);

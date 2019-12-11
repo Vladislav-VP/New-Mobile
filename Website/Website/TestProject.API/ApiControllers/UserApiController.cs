@@ -96,5 +96,11 @@ namespace TestProject.API.ApiControllers
         {
             await _usersService.Logout(User);
         }
+
+        [Route("RefreshAccessToken")]
+        public async Task RefreshAccessToken([FromBody] RequestRefreshAccessTokenUserApiView requestRefresh)
+        {
+
+        }
     }
 }

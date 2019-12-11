@@ -24,6 +24,7 @@ namespace DataAccess
                 .AddDefaultTokenProviders();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ITodoItemRepository, TodoItemRepository>();
+            services.AddTransient<IRefreshTokenRepository, RefreshTokenRepository>();
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             services
