@@ -10,4 +10,8 @@
     <None Remove="UI\Home\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Constants\Constants.csproj" />
+  </ItemGroup>
+
 </Project>

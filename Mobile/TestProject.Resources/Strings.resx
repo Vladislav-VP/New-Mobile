@@ -139,13 +139,13 @@
     <value>Incorrect old password!</value>
   </data>
   <data name="InvalidPasswordFormatMessage" xml:space="preserve">
-    <value>Invalid format of password!</value>
+    <value>Invalid character in password: white space</value>
   </data>
   <data name="InvalidTodoItemMessage" xml:space="preserve">
     <value>Name can not be empty!</value>
   </data>
   <data name="LoginErrorMessage" xml:space="preserve">
-    <value>Incorrect username or password! Check entered data</value>
+    <value>Incorrect user name or password</value>
   </data>
   <data name="NewTask" xml:space="preserve">
     <value>New task</value>

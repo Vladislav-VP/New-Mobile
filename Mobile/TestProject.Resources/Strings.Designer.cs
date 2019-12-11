@@ -223,7 +223,7 @@ namespace TestProject.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid format of password!.
+        ///   Looks up a localized string similar to Invalid character in password: white space.
         /// </summary>
         public static string InvalidPasswordFormatMessage {
             get {
@@ -250,7 +250,7 @@ namespace TestProject.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Incorrect username or password! Check entered data.
+        ///   Looks up a localized string similar to Incorrect user name or password.
         /// </summary>
         public static string LoginErrorMessage {
             get {

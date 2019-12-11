@@ -28,7 +28,7 @@ namespace Services.Api
 
         public async Task<ResponseRegisterUserApiView> Register(RequestRegisterUserApiView userToRegister)
         {
-            var response = new ResponseRegisterUserApiView();
+            var responseRegister = new ResponseRegisterUserApiView();
             var user = new User
             {
                 UserName = userToRegister.Name
@@ -38,12 +38,12 @@ namespace Services.Api
             {
                 result = await _userManager.CreateAsync(user, userToRegister.Password);
             }            
-            response.IsSuccess = result.Succeeded;
+            responseRegister.IsSuccess = result.Succeeded;
             if (!result.Succeeded)
             {
-                response.Message = result.Errors.FirstOrDefault()?.Description;
+                responseRegister.Message = result.Errors.FirstOrDefault()?.Description;
             }
-            return response;
+            return responseRegister;
         }
 
         public async Task<ResponseLoginUserApiView> Login(RequestLoginUserApiView userRequest, ClaimsPrincipal principal)
@@ -53,19 +53,13 @@ namespace Services.Api
             response.IsSuccess = result.Succeeded;
             if (!result.Succeeded)
             {
-                response.Message = "Incorrect username or password";
+                response.Message = "Incorrect user name or password";
                 return response;
             }
             User user = null;
             using (_userManager)
             {
                 user = _userManager.Users.SingleOrDefault(u => u.UserName == userRequest.Name);
-            }
-            if (user == null)
-            {
-                response.Message = "User was not found";
-                response.IsSuccess = false;
-                return response;
             }
             var token = await _securityService.GenerateJwtToken(userRequest.Name, user);
             response.Token = token.ToString();

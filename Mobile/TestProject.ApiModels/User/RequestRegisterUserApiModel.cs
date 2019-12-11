@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+using TestProject.Configurations;
 using TestProject.Resources;
 
 namespace TestProject.ApiModels.User
@@ -12,6 +13,8 @@ namespace TestProject.ApiModels.User
 
         [Required(ErrorMessageResourceType = typeof(Strings),
             ErrorMessageResourceName = nameof(Strings.EmptyPasswordMessage))]
+        [RegularExpression(Constants.PasswordPattern, ErrorMessageResourceType = typeof(Strings),
+            ErrorMessageResourceName = nameof(Strings.InvalidPasswordFormatMessage))]
         public string Password { get; set; }
     }
 }
