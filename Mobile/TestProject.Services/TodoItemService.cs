@@ -23,8 +23,13 @@ namespace TestProject.Services
 
         public async Task<ResponseCreateTodoItemApiModel> CreateTodoItem(RequestCreateTodoItemApiModel todoItem)
         {
-            ResponseCreateTodoItemApiModel response = await
-                Post<RequestCreateTodoItemApiModel, ResponseCreateTodoItemApiModel>(todoItem, $"{_url}/Create");
+            var response = new ResponseCreateTodoItemApiModel();
+            bool isValid = _validationHelper.IsObjectValid(todoItem);
+            if (!isValid)
+            {
+                return response;
+            }
+            response = await Post<RequestCreateTodoItemApiModel, ResponseCreateTodoItemApiModel>(todoItem, $"{_url}/Create");
             if (!response.IsSuccess)
             {
                 _dialogsHelper.DisplayAlertMessage(response.Message);
@@ -34,7 +39,13 @@ namespace TestProject.Services
 
         public async Task<ResponseEditTodoItemApiModel> EditTodoItem(RequestEditTodoItemApiModel todoItem)
         {
-            ResponseEditTodoItemApiModel response = await 
+            var response = new ResponseEditTodoItemApiModel();
+            bool isValid = _validationHelper.IsObjectValid(todoItem);
+            if (!isValid)
+            {
+                return response;
+            }
+            response = await 
                 Post<RequestEditTodoItemApiModel, ResponseEditTodoItemApiModel>(todoItem, $"{_url}/Edit");
             if (!response.IsSuccess)
             {

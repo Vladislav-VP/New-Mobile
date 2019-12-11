@@ -81,12 +81,6 @@ namespace TestProject.Services
             return JsonConvert.DeserializeObject<T>(serializedObject);
         }
 
-        public async Task Post(string requestUri)
-        {
-            HttpClient client = await GetClient();
-            await client.PostAsync(requestUri, null);
-        }
-
         protected async Task<HttpClient> GetClient()
         {
             HttpClient client = new HttpClient();

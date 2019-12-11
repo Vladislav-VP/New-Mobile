@@ -53,7 +53,7 @@ namespace Services.Api
             response.IsSuccess = result.Succeeded;
             if (!result.Succeeded)
             {
-                response.Message = result.ToString();
+                response.Message = "Incorrect username or password";
                 return response;
             }
             User user = null;

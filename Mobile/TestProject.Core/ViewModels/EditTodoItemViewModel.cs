@@ -73,7 +73,6 @@ namespace TestProject.Core.ViewModels
             var todoItem = new RequestEditTodoItemApiModel
             {
                 Id = _todoItemId,
-                Name = Name,
                 Description = Description,
                 IsDone = IsDone
             };

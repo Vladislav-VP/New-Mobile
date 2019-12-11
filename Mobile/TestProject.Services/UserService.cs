@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 using TestProject.ApiModels.User;
@@ -152,7 +153,8 @@ namespace TestProject.Services
 
         public async Task Logout()
         {
-            await Post($"{_url}/Logout");
+            HttpClient client = await GetClient();
+            await client.PostAsync($"{_url}/Logout", null);
             _storage.Clear();
         }
 
