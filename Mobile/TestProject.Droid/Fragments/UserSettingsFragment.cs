@@ -5,6 +5,7 @@ using Android.Widget;
 using MvvmCross;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 
+using TestProject.Configurations;
 using TestProject.Core.ViewModels;
 using TestProject.Droid.Activities;
 using TestProject.Resources;
@@ -42,7 +43,7 @@ namespace TestProject.Droid.Fragments
             base.OnPause();
 
             IStorageHelper storage = Mvx.IoCProvider.Resolve<IStorageHelper>();
-            string userId = await storage.Get();
+            string userId = await storage.Get(Constants.AccessTokenKey);
             if (string.IsNullOrEmpty(userId))
             {
                 return;                

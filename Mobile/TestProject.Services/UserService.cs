@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 
 using TestProject.ApiModels.User;
+using TestProject.Configurations;
 using TestProject.Resources;
 using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Interfaces;
@@ -121,14 +122,16 @@ namespace TestProject.Services
                 return response;
             }
             response = await Post<RequestLoginUserApiModel, ResponseLoginUserApiModel>
-                (user, $"{_url}/Login");
+                (user, $"{_url}/Login", false);
             if (!response.IsSuccess)
             {
                 _dialogsHelper.DisplayAlertMessage(response.Message);
                 return response;
             }
 
-            await _storage.Save(response.Token);
+            await _storage.Save(Constants.AccessTokenKey, response.AccessToken);
+            await _storage.Save(Constants.RefreshTokenKey, response.RefreshToken);
+            await _storage.Save(Constants.ExpirationDateKey, response.TokenExpirationDate.ToString());
             response.IsSuccess = true;
 
             return response;
@@ -143,7 +146,7 @@ namespace TestProject.Services
                 return response;
             }
             response = await Post<RequestRegisterUserApiModel, ResponseRegisterUserApiModel>
-                (user, $"{_url}/Register");
+                (user, $"{_url}/Register", false);
             if (!response.IsSuccess)
             {
                 _dialogsHelper.DisplayAlertMessage(response.Message);
@@ -153,7 +156,7 @@ namespace TestProject.Services
 
         public async Task Logout()
         {
-            HttpClient client = await GetClient();
+            HttpClient client = await GetClient(false);
             await client.PostAsync($"{_url}/Logout", null);
             _storage.Clear();
         }

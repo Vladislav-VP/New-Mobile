@@ -8,17 +8,15 @@ namespace TestProject.Services.Helpers
 {
     public class StorageHelper : IStorageHelper
     {
-        private static readonly string _credentialsKey = "current_user";
-
-        public async Task Save(string token)
+        public async Task Save(string key, string value)
         {
-            await SecureStorage.SetAsync(_credentialsKey, token);
+            await SecureStorage.SetAsync(key, value);
         }
 
-        public async Task<string> Get()
+        public async Task<string> Get(string key)
         {
-            string token = await SecureStorage.GetAsync(_credentialsKey);
-            return token;
+            string value = await SecureStorage.GetAsync(key);
+            return value;
         }
 
         public void Clear()

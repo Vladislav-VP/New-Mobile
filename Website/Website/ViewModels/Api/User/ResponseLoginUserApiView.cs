@@ -1,4 +1,6 @@
-﻿namespace ViewModels.Api.User
+﻿using System;
+
+namespace ViewModels.Api.User
 {
     public class ResponseLoginUserApiView
     {
@@ -9,5 +11,7 @@
         public string AccessToken { get; set; }
 
         public string RefreshToken { get; set; }
+
+        public DateTime TokenExpirationDate { get; set; }
     }
 }

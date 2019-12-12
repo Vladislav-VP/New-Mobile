@@ -2,12 +2,8 @@
 
 namespace TestProject.ApiModels.User
 {
-    public class ResponseLoginUserApiModel
-    {        
-        public bool IsSuccess { get; set; }
-
-        public string Message { get; set; }
-
+    public class RequestRefreshAccessTokenUserApiModel
+    {
         public string AccessToken { get; set; }
 
         public string RefreshToken { get; set; }

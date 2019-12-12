@@ -33,7 +33,7 @@ namespace Services
             _userManager = userManager;
         }
         
-        public TokenPair GenerateTokens(string email, IdentityUser user)
+        public TokenData GenerateTokens(string email, IdentityUser user)
         {
             var claims = new List<Claim>
             {
@@ -43,9 +43,9 @@ namespace Services
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtKey"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            //DateTime expires = DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["JwtExpirationTime"]));
+            DateTime expires = DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["JwtExpirationTime"]));
             // TODO : Remove hardcode, add normal expiration date
-            DateTime expires = DateTime.Now.AddMinutes(15);
+            //DateTime expires = DateTime.Now.AddMinutes(1);
             var token = new JwtSecurityToken(
                 _configuration["JwtIssuer"],
                 _configuration["JwtIssuer"],
@@ -63,10 +63,11 @@ namespace Services
             _refreshTokenRepository.Insert(refreshToken);
             var handler = new JwtSecurityTokenHandler();
             string accessToken = handler.WriteToken(token);
-            var tokenPair = new TokenPair
+            var tokenPair = new TokenData
             {
                 AccessToken = accessToken,
-                RefreshToken = refreshToken.Token
+                RefreshToken = refreshToken.Token,
+                AccessTokenExpirationDate = expires
             };
             return tokenPair;
         }
@@ -82,9 +83,10 @@ namespace Services
             }
             string id = principal.Claims.Single(x => x.Type == ClaimTypes.NameIdentifier).Value;
             var user = await _userManager.FindByIdAsync(id);
-            TokenPair tokenPair = GenerateTokens(user.UserName, user);
-            response.AccessToken = tokenPair.AccessToken;
-            response.RefreshToken = tokenPair.RefreshToken;
+            TokenData tokenData = GenerateTokens(user.UserName, user);
+            response.AccessToken = tokenData.AccessToken;
+            response.RefreshToken = tokenData.RefreshToken;
+            response.TokenExpirationDate = tokenData.AccessTokenExpirationDate;
             return response;
         }
 
@@ -99,7 +101,7 @@ namespace Services
                 response.Message = "This refresh token does not exist";
                 return response;
             }
-            if (DateTime.UtcNow > storedRefreshToken.ExpiryDate)
+            if (DateTime.Now > storedRefreshToken.ExpiryDate)
             {
                 response.Message = "This refresh token has expired";
                 return response;

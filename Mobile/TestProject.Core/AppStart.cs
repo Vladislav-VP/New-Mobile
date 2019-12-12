@@ -3,6 +3,7 @@
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 
+using TestProject.Configurations;
 using TestProject.Core.ViewModels;
 using TestProject.Services.Helpers.Interfaces;
 
@@ -38,7 +39,7 @@ namespace TestProject.Core
 
             Task.Run(async () =>
             {
-                string token = await _storage.Get();
+                string token = await _storage.Get(Constants.AccessTokenKey);
                 if (string.IsNullOrEmpty(token))
                 {
                     source.SetResult(false);

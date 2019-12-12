@@ -8,7 +8,7 @@ namespace Services.Interfaces
 {
     public interface ISecurityService
     {
-        TokenPair GenerateTokens(string email, IdentityUser user);
+        TokenData GenerateTokens(string email, IdentityUser user);
 
         Task<ResponseRefreshAccessTokenUserApiView> RefreshToken(RequestRefreshAccessTokenUserApiView tokens);
     }

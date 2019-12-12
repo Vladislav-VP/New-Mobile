@@ -6,7 +6,8 @@ namespace TestProject.Services.Interfaces
     {
         Task<T> Get<T>(string requestUri = null) where T : class;
 
-        Task<TResponse> Post<TRequest, TResponse>(TRequest entity, string requestUri) where TResponse : class;
+        Task<TResponse> Post<TRequest, TResponse>(TRequest entity, string requestUri,
+            bool isAuthorizationRequired = true) where TResponse : class;
 
         Task<T> Update<T>(T entity) where T : class;
 

@@ -62,9 +62,10 @@ namespace Services.Api
             {
                 user = _userManager.Users.SingleOrDefault(u => u.UserName == userRequest.Name);
             }
-            TokenPair tokenPair = _securityService.GenerateTokens(userRequest.Name, user);
-            response.AccessToken = tokenPair.AccessToken;
-            response.RefreshToken = tokenPair.RefreshToken;
+            TokenData tokenData = _securityService.GenerateTokens(userRequest.Name, user);
+            response.AccessToken = tokenData.AccessToken;
+            response.RefreshToken = tokenData.RefreshToken;
+            response.TokenExpirationDate = tokenData.AccessTokenExpirationDate;
             return response;
         }
 

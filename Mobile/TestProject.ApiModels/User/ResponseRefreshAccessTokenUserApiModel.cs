@@ -1,6 +1,8 @@
-﻿namespace ViewModels.Api.User
+﻿using System;
+
+namespace TestProject.ApiModels.User
 {
-    public class ResponseRefreshAccessTokenUserApiView
+    public class ResponseRefreshAccessTokenUserApiModel
     {
         public string AccessToken { get; set; }
 
@@ -9,5 +11,7 @@
         public bool IsSuccess { get; set; }
 
         public string Message { get; set; }
+
+        public DateTime TokenExpirationDate { get; set; }
     }
 }
