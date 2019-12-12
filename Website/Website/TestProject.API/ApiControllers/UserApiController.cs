@@ -97,10 +97,13 @@ namespace TestProject.API.ApiControllers
             await _usersService.Logout(User);
         }
 
-        [Route("RefreshAccessToken")]
-        public async Task RefreshAccessToken([FromBody] RequestRefreshAccessTokenUserApiView requestRefresh)
+        [Route("RefreshToken")]
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ResponseRefreshAccessTokenUserApiView> RefreshToken([FromBody] RequestRefreshAccessTokenUserApiView requestRefresh)
         {
-
+            ResponseRefreshAccessTokenUserApiView response = await _usersService.RefreshToken(requestRefresh);
+            return response;
         }
     }
 }

@@ -27,6 +27,16 @@ namespace DataAccess
             services.AddTransient<IRefreshTokenRepository, RefreshTokenRepository>();
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidIssuer = configuration["JwtIssuer"],
+                ValidAudience = configuration["JwtIssuer"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtKey"])),
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero
+            };
+
             services
                 .AddAuthentication(options =>
                 {
@@ -39,15 +49,9 @@ namespace DataAccess
                 {
                     cfg.RequireHttpsMetadata = false;
                     cfg.SaveToken = true;
-                    cfg.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidIssuer = configuration["JwtIssuer"],
-                        ValidAudience = configuration["JwtIssuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtKey"])),
-                        ValidateLifetime = true,
-                        ClockSkew = TimeSpan.Zero
-                    };
+                    cfg.TokenValidationParameters = tokenValidationParameters;
                 });
+            services.AddSingleton(tokenValidationParameters);
         }
     }
 }

@@ -26,5 +26,7 @@ namespace Services.Interfaces
         Task Logout(ClaimsPrincipal principal);
 
         Task<DeleteUserApiView> Delete(ClaimsPrincipal principal);
+
+        Task<ResponseRefreshAccessTokenUserApiView> RefreshToken(RequestRefreshAccessTokenUserApiView tokens);
     }
 }

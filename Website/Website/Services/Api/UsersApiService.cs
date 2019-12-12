@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Entities;
 using Services.Interfaces;
 using ViewModels.Api.User;
+using ViewModels.Api;
 
 namespace Services.Api
 {
@@ -61,8 +62,9 @@ namespace Services.Api
             {
                 user = _userManager.Users.SingleOrDefault(u => u.UserName == userRequest.Name);
             }
-            var token = await _securityService.GenerateJwtToken(userRequest.Name, user);
-            response.Token = token.ToString();
+            TokenPair tokenPair = _securityService.GenerateTokens(userRequest.Name, user);
+            response.AccessToken = tokenPair.AccessToken;
+            response.RefreshToken = tokenPair.RefreshToken;
             return response;
         }
 
@@ -175,6 +177,15 @@ namespace Services.Api
             }
             response.IsSuccess = result.Succeeded;
             response.Message = "Account deleted";
+            return response;
+        }
+
+        public async Task<ResponseRefreshAccessTokenUserApiView> RefreshToken(RequestRefreshAccessTokenUserApiView tokens)
+        {
+            var response = new ResponseRefreshAccessTokenUserApiView();
+
+            response = await _securityService.RefreshToken(tokens);
+
             return response;
         }
     }
