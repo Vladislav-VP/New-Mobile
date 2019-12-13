@@ -105,5 +105,14 @@ namespace TestProject.API.ApiControllers
             ResponseRefreshAccessTokenUserApiView response = await _usersService.RefreshToken(requestRefresh);
             return response;
         }
+
+        [Route("ConfirmEmail")]
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ConfirmEmail(string token)
+        {
+            // TODO : Implement normal verification
+            return Ok("Verified");
+        }
     }
 }

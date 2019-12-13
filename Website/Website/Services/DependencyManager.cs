@@ -18,6 +18,7 @@ namespace Services
             services.AddTransient<IUsersApiService, UsersApiService>();
             services.AddTransient<ITodoItemApiService, TodoItemApiService>();
             services.AddTransient<ISecurityService, SecurityService>();
+            services.AddTransient<IMailService, MailService>();
         }
     }
 }

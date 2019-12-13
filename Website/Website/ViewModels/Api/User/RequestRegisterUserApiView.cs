@@ -8,6 +8,10 @@ namespace ViewModels.Api.User
     {
         public string UserName { get; set; }
 
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
         [RegularExpression(UserConstants.PasswordPattern, ErrorMessage = "Invalid character in password: white space")]
         public string Password { get; set; }
     }

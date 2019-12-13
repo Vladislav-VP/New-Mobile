@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 using Entities;
 using Services.Interfaces;
-using ViewModels.Api.User;
 using ViewModels.Api;
+using ViewModels.Api.User;
 
 namespace Services.Api
 {
@@ -17,27 +17,33 @@ namespace Services.Api
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly ISecurityService _securityService;
+        private readonly IMailService _mailService;
 
         public UsersApiService(IImageService imageService, UserManager<User> userManager,
-            SignInManager<User> signInManager, ISecurityService securityService) : base()
+            SignInManager<User> signInManager, ISecurityService securityService, IMailService mailService) : base()
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _imageService = imageService;
             _securityService = securityService;
+            _mailService = mailService;
         }
 
-        public async Task<ResponseRegisterUserApiView> Register(RequestRegisterUserApiView userToRegister)
+        public async Task<ResponseRegisterUserApiView> Register(RequestRegisterUserApiView newUser)
         {
             var responseRegister = new ResponseRegisterUserApiView();
             var user = new User
             {
-                UserName = userToRegister.UserName
+                UserName = newUser.UserName,
+                Email = newUser.Email
             };
             var result = new IdentityResult();
             using (_userManager)
             {
-                result = await _userManager.CreateAsync(user, userToRegister.Password);
+                result = await _userManager.CreateAsync(user, newUser.Password);
+                responseRegister.ConfirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                // TODO : Remove hardcode, implement normal email sending.
+                await _mailService.SendEmailAsync(newUser.Email, "Verification", $"Verify: <a href='http://10.10.3.215:3000/api/userapi/ConfirmEmail?token={responseRegister.ConfirmationToken}'>link</a>");
             }            
             responseRegister.IsSuccess = result.Succeeded;
             if (!result.Succeeded)
