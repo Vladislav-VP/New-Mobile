@@ -32,7 +32,7 @@ namespace Services.Api
             var responseRegister = new ResponseRegisterUserApiView();
             var user = new User
             {
-                UserName = userToRegister.Name
+                UserName = userToRegister.UserName
             };
             var result = new IdentityResult();
             using (_userManager)
@@ -50,7 +50,7 @@ namespace Services.Api
         public async Task<ResponseLoginUserApiView> Login(RequestLoginUserApiView userRequest, ClaimsPrincipal principal)
         {
             var response = new ResponseLoginUserApiView();
-            SignInResult result = await _signInManager.PasswordSignInAsync(userRequest.Name, userRequest.Password, true, false);
+            SignInResult result = await _signInManager.PasswordSignInAsync(userRequest.UserName, userRequest.Password, true, false);
             response.IsSuccess = result.Succeeded;
             if (!result.Succeeded)
             {
@@ -60,9 +60,9 @@ namespace Services.Api
             User user = null;
             using (_userManager)
             {
-                user = _userManager.Users.SingleOrDefault(u => u.UserName == userRequest.Name);
+                user = _userManager.Users.SingleOrDefault(u => u.UserName == userRequest.UserName);
             }
-            TokenData tokenData = _securityService.GenerateTokens(userRequest.Name, user);
+            TokenData tokenData = _securityService.GenerateTokens(user);
             response.AccessToken = tokenData.AccessToken;
             response.RefreshToken = tokenData.RefreshToken;
             response.TokenExpirationDate = tokenData.AccessTokenExpirationDate;
@@ -78,7 +78,7 @@ namespace Services.Api
             }
             var userWithPhoto = new GetProfileImageUserApiView
             {
-                Name = user.UserName
+                UserName = user.UserName
             };
             if(string.IsNullOrEmpty(user.ImageUrl))
             {
@@ -120,7 +120,7 @@ namespace Services.Api
             using (_userManager)
             {
                 User retrievedUser = await _userManager.GetUserAsync(principal);                
-                retrievedUser.UserName = user.Name;
+                retrievedUser.UserName = user.UserName;
                 result = await _userManager.UpdateAsync(retrievedUser);
             }
             response.IsSuccess = result.Succeeded;

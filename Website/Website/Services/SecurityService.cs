@@ -33,25 +33,22 @@ namespace Services
             _userManager = userManager;
         }
         
-        public TokenData GenerateTokens(string email, IdentityUser user)
+        public TokenData GenerateTokens(User user)
         {
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.NameIdentifier, user.Id)
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtKey"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             DateTime expires = DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["JwtExpirationTime"]));
-            // TODO : Remove hardcode, add normal expiration date
-            //DateTime expires = DateTime.Now.AddMinutes(1);
             var token = new JwtSecurityToken(
                 _configuration["JwtIssuer"],
                 _configuration["JwtIssuer"],
                 claims,
                 expires: expires,
-                signingCredentials: creds
+                signingCredentials: credentials
             );
             var refreshToken = new RefreshToken
             {
@@ -83,7 +80,7 @@ namespace Services
             }
             string id = principal.Claims.Single(x => x.Type == ClaimTypes.NameIdentifier).Value;
             var user = await _userManager.FindByIdAsync(id);
-            TokenData tokenData = GenerateTokens(user.UserName, user);
+            TokenData tokenData = GenerateTokens(user);
             response.AccessToken = tokenData.AccessToken;
             response.RefreshToken = tokenData.RefreshToken;
             response.TokenExpirationDate = tokenData.AccessTokenExpirationDate;

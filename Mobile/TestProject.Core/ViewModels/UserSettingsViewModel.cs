@@ -66,7 +66,7 @@ namespace TestProject.Core.ViewModels
         {
             var user = new RequestEditNameUserApiModel
             {
-                Name = UserName
+                UserName = UserName
             };
             ResponseEditNameUserApiModel response = await _userService.EditUsername(user);
             if (response.IsSuccess)

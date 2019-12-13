@@ -108,13 +108,15 @@ namespace TestProject.Services
             return client;
         }
 
-        private async Task RefreshToken()
+        public async Task<ResponseRefreshAccessTokenUserApiModel> RefreshToken()
         {
+            var responseRefreshToken = new ResponseRefreshAccessTokenUserApiModel();
             string expirationDate = await _storage.Get(Constants.ExpirationDateKey);
             bool isSuccess = DateTime.TryParse(expirationDate, out TokenExpirationDate);
             if (isSuccess && TokenExpirationDate > DateTime.Now)
             {
-                return;
+                responseRefreshToken.IsSuccess = true;
+                return responseRefreshToken;
             }
             HttpClient client = await GetClient(false);
             string requestUri = "http://10.10.3.215:3000/api/userapi/RefreshToken";
@@ -128,12 +130,13 @@ namespace TestProject.Services
             HttpResponseMessage httpResponse = await client.PostAsync(requestUri, stringContent);
             if (httpResponse.StatusCode != HttpStatusCode.OK)
             {
-                return;
+                return responseRefreshToken;
             }
             string serializedResponse = await httpResponse.Content.ReadAsStringAsync();
-            ResponseRefreshAccessTokenUserApiModel responseRefreshToken = 
+            responseRefreshToken = 
                 JsonConvert.DeserializeObject<ResponseRefreshAccessTokenUserApiModel>(serializedResponse);
             RewriteTokenData(responseRefreshToken);
+            return responseRefreshToken;
         }
 
         private async void RewriteTokenData(ResponseRefreshAccessTokenUserApiModel response)

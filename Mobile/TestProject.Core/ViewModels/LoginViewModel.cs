@@ -49,7 +49,7 @@ namespace TestProject.Core.ViewModels
 
         private async Task Login()
         {
-            var user = new RequestLoginUserApiModel { Name = UserName, Password = Password };
+            var user = new RequestLoginUserApiModel { UserName = UserName, Password = Password };
 
             ResponseLoginUserApiModel response = await _userService.Login(user);
 

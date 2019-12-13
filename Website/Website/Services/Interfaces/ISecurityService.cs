@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
+using Entities;
 using ViewModels.Api;
 using ViewModels.Api.User;
 
@@ -8,7 +8,7 @@ namespace Services.Interfaces
 {
     public interface ISecurityService
     {
-        TokenData GenerateTokens(string email, IdentityUser user);
+        TokenData GenerateTokens(User user);
 
         Task<ResponseRefreshAccessTokenUserApiView> RefreshToken(RequestRefreshAccessTokenUserApiView tokens);
     }

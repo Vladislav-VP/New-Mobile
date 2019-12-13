@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
 
+using TestProject.ApiModels.User;
+
 namespace TestProject.Services.Interfaces
 {
     public interface IBaseApiService
@@ -12,5 +14,7 @@ namespace TestProject.Services.Interfaces
         Task<T> Update<T>(T entity) where T : class;
 
         Task<T> Delete<T>(string requestUri = null) where T : class;
+
+        Task<ResponseRefreshAccessTokenUserApiModel> RefreshToken();
     }
 }

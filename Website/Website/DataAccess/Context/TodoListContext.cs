@@ -13,6 +13,19 @@ namespace DataAccess.Context
 
         public DbSet<RefreshToken> RefreshTokens { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);            
+            builder.Entity<TodoItem>()
+                .HasOne(p => p.User)
+                .WithMany(t => t.TodoItems)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<RefreshToken>()
+                .HasOne(p => p.User)
+                .WithMany(t => t.RefreshTokens)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);

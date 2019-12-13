@@ -18,7 +18,7 @@ namespace Entities
 
         public string UserId { get; set; }
 
-        [ForeignKey("UserId")]
+        [ForeignKey(nameof(UserId))]
         public User User { get; set; }
 
         public override string ToString()

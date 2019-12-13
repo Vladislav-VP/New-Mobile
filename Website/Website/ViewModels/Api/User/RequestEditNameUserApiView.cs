@@ -2,6 +2,6 @@
 {
     public class RequestEditNameUserApiView
     {
-        public string Name { get; set; }
+        public string UserName { get; set; }
     }
 }

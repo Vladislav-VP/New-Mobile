@@ -2,7 +2,7 @@
 {
     public class GetProfileImageUserApiModel
     {
-        public string Name { get; set; }
+        public string UserName { get; set; }
 
         public byte[] ImageBytes { get; set; }
     }

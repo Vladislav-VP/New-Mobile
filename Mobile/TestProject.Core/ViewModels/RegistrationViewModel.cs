@@ -45,7 +45,7 @@ namespace TestProject.Core.ViewModels
 
         private async Task RegisterUser()
         {
-            var user = new RequestRegisterUserApiModel { Name = UserName, Password = Password };
+            var user = new RequestRegisterUserApiModel { UserName = UserName, Password = Password };
 
             ResponseRegisterUserApiModel response = await _userService.RegisterUser(user);
 

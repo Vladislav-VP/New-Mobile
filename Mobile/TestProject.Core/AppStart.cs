@@ -3,9 +3,11 @@
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 
+using TestProject.ApiModels.User;
 using TestProject.Configurations;
 using TestProject.Core.ViewModels;
 using TestProject.Services.Helpers.Interfaces;
+using TestProject.Services.Interfaces;
 
 namespace TestProject.Core
 {
@@ -13,10 +15,13 @@ namespace TestProject.Core
     {
         private readonly IStorageHelper _storage;
 
-        public AppStart(IMvxApplication application, IMvxNavigationService navigationService, IStorageHelper storage)
+        private readonly IUserService _userService;
+
+        public AppStart(IMvxApplication application, IMvxNavigationService navigationService, IStorageHelper storage, IUserService userService)
             : base(application, navigationService)
         {
             _storage = storage;
+            _userService = userService;
         }
 
         protected override async Task NavigateToFirstViewModel(object hint = null)
@@ -45,7 +50,8 @@ namespace TestProject.Core
                     source.SetResult(false);
                     return;
                 }
-                source.SetResult(token != null);
+                ResponseRefreshAccessTokenUserApiModel response = await _userService.RefreshToken();
+                source.SetResult(response.IsSuccess);
             });
 
             var isAuthenticated = source.Task.Result;

@@ -7,6 +7,6 @@ namespace TestProject.ApiModels.User
     {
         [Required(ErrorMessageResourceType = typeof(Strings),
             ErrorMessageResourceName = nameof(Strings.EmptyUserNameMessage))]
-        public string Name { get; set; }
+        public string UserName { get; set; }
     }
 }

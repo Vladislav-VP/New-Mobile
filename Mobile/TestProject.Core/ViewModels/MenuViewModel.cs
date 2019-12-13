@@ -62,7 +62,7 @@ namespace TestProject.Core.ViewModels
 
             _currentUser = await _userService.GetUserWithImage();
             ImageBytes = _currentUser.ImageBytes;
-            UserName = _currentUser.Name;
+            UserName = _currentUser.UserName;
         }
 
         private async Task Logout()
