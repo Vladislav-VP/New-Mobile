@@ -1,6 +1,6 @@
 ﻿namespace TestProject.ApiModels.User
 {
-    public class ResponseEditNameUserApiModel
+    public class ResponseEditUserInfoUserApiModel
     {
         public bool IsSuccess { get; set; }
 

@@ -241,6 +241,15 @@ namespace TestProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid email address.
+        /// </summary>
+        public static string InvalidEmailAddressMessage {
+            get {
+                return ResourceManager.GetString("InvalidEmailAddressMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid character in password: white space.
         /// </summary>
         public static string InvalidPasswordFormatMessage {

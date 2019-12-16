@@ -66,19 +66,19 @@ namespace TestProject.API.ApiControllers
             return user;
         }
 
-        [Route("GetUserName")]
+        [Route("GetUserInfo")]
         [HttpGet]
-        public async Task<string> GetUserName()
+        public async Task<GetUserInfoUserApiView> GetUserInfo()
         {
-            string name = await _usersService.GetUserName(User);
-            return name;
+            GetUserInfoUserApiView userInfo = await _usersService.GetUserInfo(User);
+            return userInfo;
         }
 
-        [Route("EditName")]
+        [Route("EditUserInfo")]
         [HttpPost]
-        public async Task<ResponseEditNameUserApiView> EditName(RequestEditNameUserApiView user)
+        public async Task<ResponseEditUserInfoUserApiView> EditUserInfo(RequestEditUserInfoUserApiView user)
         {
-            ResponseEditNameUserApiView response = await _usersService.EditUserName(user, User);
+            ResponseEditUserInfoUserApiView response = await _usersService.EditUserInfo(user, User);
             return response;
         }
 

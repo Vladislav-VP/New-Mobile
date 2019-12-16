@@ -17,9 +17,9 @@ namespace Services.Interfaces
         Task<ResponseEditProfileImageUserApiView> ReplaceProfilePhoto(RequestEditProfileImageUserApiView user,
             string imageUrl, ClaimsPrincipal principal);
 
-        Task<ResponseEditNameUserApiView> EditUserName(RequestEditNameUserApiView user, ClaimsPrincipal principal);
+        Task<ResponseEditUserInfoUserApiView> EditUserInfo(RequestEditUserInfoUserApiView user, ClaimsPrincipal principal);
 
-        Task<string> GetUserName(ClaimsPrincipal principal);
+        Task<GetUserInfoUserApiView> GetUserInfo(ClaimsPrincipal principal);
 
         Task<ResponseChangePasswordUserApiView> ChangePassword(RequestChangePasswordUserApiView user, ClaimsPrincipal principal);
 

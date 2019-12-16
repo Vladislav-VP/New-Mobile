@@ -1,6 +1,6 @@
 ﻿namespace ViewModels.Api.User
 {
-    public class ResponseEditNameUserApiView
+    public class ResponseEditUserInfoUserApiView
     {
         public bool IsSuccess { get; set; }
 

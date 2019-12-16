@@ -12,9 +12,8 @@ namespace TestProject.Core.ViewModels
 {
     public class UserSettingsViewModel : UserViewModel
     {
-        private string _userId;
-
         private string _oldUserName;
+        private string _oldEmail;
 
         private readonly IUserService _userService;
 
@@ -33,7 +32,8 @@ namespace TestProject.Core.ViewModels
         {
             get
             {
-                return _oldUserName != UserName;
+                return _oldUserName != UserName
+                    || _oldEmail != Email;
             }
         }
 
@@ -48,6 +48,17 @@ namespace TestProject.Core.ViewModels
             }
         }
 
+        private string _email;
+        public string Email
+        {
+            get => _email;
+            set
+            {
+                _email = value;
+                RaisePropertyChanged(() => Email);
+            }
+        } 
+
         public IMvxAsyncCommand UpdateUserCommand { get; private set; }
 
         public IMvxAsyncCommand DeleteUserCommand { get; private set; }
@@ -58,17 +69,21 @@ namespace TestProject.Core.ViewModels
         {
             await base.Initialize();
 
-            UserName = await _userService.GetUserName();
-            _oldUserName = await _userService.GetUserName();
+            GetUserInfoUserApiModel userInfo = await _userService.GetUserInfo();
+            UserName = userInfo.UserName;
+            Email = userInfo.Email;
+            _oldUserName = userInfo.UserName;
+            _oldEmail = userInfo.Email;
         }
 
         protected override async Task HandleEntity()
         {
-            var user = new RequestEditNameUserApiModel
+            var user = new RequestEditUserInfoUserApiModel
             {
-                UserName = UserName
+                UserName = UserName,
+                Email = Email
             };
-            ResponseEditNameUserApiModel response = await _userService.EditUsername(user);
+            ResponseEditUserInfoUserApiModel response = await _userService.EditUserInfo(user);
             if (response.IsSuccess)
             {
                 _dialogsHelper.DisplayToastMessage(response.Message);

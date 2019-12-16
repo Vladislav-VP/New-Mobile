@@ -23,14 +23,16 @@ namespace TestProject.Droid.Fragments
         {
             View view = base.OnCreateView(inflater, container, savedInstanceState);
 
-            TextView tvUserNameSettings = view.FindViewById<TextView>(Resource.Id.tvUserNameSettings);
+            TextView tvUsername = view.FindViewById<TextView>(Resource.Id.tvUsername);
             TextView tvSettings = view.FindViewById<TextView>(Resource.Id.tvSettings);
+            TextView tvEmail = view.FindViewById<TextView>(Resource.Id.tvEmail);
             Button btSaveUserName = view.FindViewById<Button>(Resource.Id.btSaveUserName);
             Button btChangePassword = view.FindViewById<Button>(Resource.Id.btChangePassword);
             Button btDeleteAccount = view.FindViewById<Button>(Resource.Id.btDeleteAccount);
 
-            tvUserNameSettings.Text = Strings.UsernameTextViewLabel;
+            tvUsername.Text = Strings.UsernameTextViewLabel;
             tvSettings.Text = Strings.SettingsLabel;
+            tvEmail.Text = Strings.EmailLabel;
             btSaveUserName.Text = Strings.SaveChangesButtonLabel;
             btChangePassword.Text = Strings.ChangePasswordButtonLabel;
             btDeleteAccount.Text = Strings.DeleteAccountButtonLabel;

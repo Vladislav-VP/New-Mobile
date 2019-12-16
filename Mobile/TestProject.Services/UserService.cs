@@ -83,15 +83,15 @@ namespace TestProject.Services
             return response;
         }
 
-        public async Task<ResponseEditNameUserApiModel> EditUsername(RequestEditNameUserApiModel user)
+        public async Task<ResponseEditUserInfoUserApiModel> EditUserInfo(RequestEditUserInfoUserApiModel user)
         {
-            var response = new ResponseEditNameUserApiModel();
+            var response = new ResponseEditUserInfoUserApiModel();
             bool isUserNameValid = _validationHelper.IsObjectValid(user);
             if (!isUserNameValid)
             {
                 return response;
             }
-            response = await Post<RequestEditNameUserApiModel, ResponseEditNameUserApiModel>(user, $"{_url}/EditName");
+            response = await Post<RequestEditUserInfoUserApiModel, ResponseEditUserInfoUserApiModel>(user, $"{_url}/EditUserInfo");
             if (!response.IsSuccess)
             {
                 _dialogsHelper.DisplayAlertMessage(response.Message);
@@ -101,10 +101,10 @@ namespace TestProject.Services
             return response;
         }
 
-        public async Task<string> GetUserName()
+        public async Task<GetUserInfoUserApiModel> GetUserInfo()
         {
-            string name = await Get<string>($"{_url}/GetUserName");
-            return name;
+            GetUserInfoUserApiModel user = await Get<GetUserInfoUserApiModel>($"{_url}/GetUserInfo");
+            return user;
         }
 
         public async Task<GetProfileImageUserApiModel> GetUserWithImage()

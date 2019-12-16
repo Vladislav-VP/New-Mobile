@@ -129,14 +129,15 @@ namespace Services.Api
             return response;
         }
 
-        public async Task<ResponseEditNameUserApiView> EditUserName(RequestEditNameUserApiView user, ClaimsPrincipal principal)
+        public async Task<ResponseEditUserInfoUserApiView> EditUserInfo(RequestEditUserInfoUserApiView user, ClaimsPrincipal principal)
         {
-            var response = new ResponseEditNameUserApiView();
+            var response = new ResponseEditUserInfoUserApiView();
             var result = new IdentityResult();
             using (_userManager)
             {
                 User retrievedUser = await _userManager.GetUserAsync(principal);                
                 retrievedUser.UserName = user.UserName;
+                retrievedUser.Email = user.Email;
                 result = await _userManager.UpdateAsync(retrievedUser);
             }
             response.IsSuccess = result.Succeeded;
@@ -147,14 +148,19 @@ namespace Services.Api
             return response;
         }
 
-        public async Task<string> GetUserName(ClaimsPrincipal principal)
+        public async Task<GetUserInfoUserApiView> GetUserInfo(ClaimsPrincipal principal)
         {
             var user = new User();
             using (_userManager)
             {
                 user = await _userManager.GetUserAsync(principal);
             }
-            return user.UserName;
+            var userInfo = new GetUserInfoUserApiView
+            {
+                UserName = user.UserName,
+                Email = user.Email
+            };
+            return userInfo;
         }
 
         public async Task<ResponseChangePasswordUserApiView> ChangePassword(RequestChangePasswordUserApiView user, ClaimsPrincipal principal)

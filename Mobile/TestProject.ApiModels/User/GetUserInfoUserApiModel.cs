@@ -1,6 +1,6 @@
-﻿namespace ViewModels.Api.User
+﻿namespace TestProject.ApiModels.User
 {
-    public class RequestEditUserInfoUserApiView
+    public class GetUserInfoUserApiModel
     {
         public string UserName { get; set; }
 
