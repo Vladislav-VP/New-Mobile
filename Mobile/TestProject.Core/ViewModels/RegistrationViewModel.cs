@@ -30,6 +30,17 @@ namespace TestProject.Core.ViewModels
             }
         }
 
+        private string _email;
+        public string Email
+        {
+            get => _email;
+            set
+            {
+                _email = value;
+                RaisePropertyChanged(() => Email);
+            }
+        }
+
         private string _password;
         public string Password
         {
@@ -45,7 +56,12 @@ namespace TestProject.Core.ViewModels
 
         private async Task RegisterUser()
         {
-            var user = new RequestRegisterUserApiModel { UserName = UserName, Password = Password };
+            var user = new RequestRegisterUserApiModel
+            {
+                UserName = UserName,
+                Password = Password,
+                Email = Email
+            };
 
             ResponseRegisterUserApiModel response = await _userService.RegisterUser(user);
 

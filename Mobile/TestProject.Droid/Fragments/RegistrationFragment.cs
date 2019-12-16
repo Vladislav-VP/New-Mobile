@@ -4,7 +4,6 @@ using Android.Views;
 using Android.Widget;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 
-using TestProject.Configurations;
 using TestProject.Core.ViewModels;
 using TestProject.Resources;
 
@@ -22,16 +21,15 @@ namespace TestProject.Droid.Fragments
 
             TextView tvUsername = view.FindViewById<TextView>(Resource.Id.tvUsername);
             TextView tvPassword = view.FindViewById<TextView>(Resource.Id.tvPassword);
-            TextView tvPasswordTip = view.FindViewById<TextView>(Resource.Id.tvPasswordTip);
             TextView tvRegistration = view.FindViewById<TextView>(Resource.Id.tvRegistration);
+            TextView tvEmail = view.FindViewById<TextView>(Resource.Id.tvEmail);
             Button btRegister = view.FindViewById<Button>(Resource.Id.btRegister);
 
             tvUsername.Text = Strings.UsernameTextViewLabel;
             tvPassword.Text = Strings.PasswordTextViewLabel;
             tvRegistration.Text = Strings.RegistrationTitle;
             btRegister.Text = Strings.RegistrationButtonLabel;
-            tvPasswordTip.Text = string.Format(Strings.PasswordTipLabel, Constants.MinPasswordLength);
-
+            tvEmail.Text = Strings.EmailLabel;
             return view;
         }
     }

@@ -280,4 +280,10 @@ not shorter than {0} characters)</value>
   <data name="EmptyUserNameMessage" xml:space="preserve">
     <value>Username can not be empty!</value>
   </data>
+  <data name="EmailLabel" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmptyEmailMessage" xml:space="preserve">
+    <value>Email can not be empty</value>
+  </data>
 </root>

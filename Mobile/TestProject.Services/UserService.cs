@@ -147,10 +147,7 @@ namespace TestProject.Services
             }
             response = await Post<RequestRegisterUserApiModel, ResponseRegisterUserApiModel>
                 (user, $"{_url}/Register", false);
-            if (!response.IsSuccess)
-            {
-                _dialogsHelper.DisplayAlertMessage(response.Message);
-            }
+            _dialogsHelper.DisplayAlertMessage(response.Message);
             return response;
         }
 

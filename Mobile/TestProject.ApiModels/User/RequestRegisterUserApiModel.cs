@@ -12,6 +12,11 @@ namespace TestProject.ApiModels.User
         public string UserName { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Strings),
+            ErrorMessageResourceName = nameof(Strings.EmptyEmailMessage))]
+        [EmailAddress(ErrorMessage = "Invalid email address")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Strings),
             ErrorMessageResourceName = nameof(Strings.EmptyPasswordMessage))]
         [RegularExpression(Constants.PasswordPattern, ErrorMessageResourceType = typeof(Strings),
             ErrorMessageResourceName = nameof(Strings.InvalidPasswordFormatMessage))]

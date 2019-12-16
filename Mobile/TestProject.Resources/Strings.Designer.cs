@@ -160,6 +160,24 @@ namespace TestProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string EmailLabel {
+            get {
+                return ResourceManager.GetString("EmailLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email can not be empty.
+        /// </summary>
+        public static string EmptyEmailMessage {
+            get {
+                return ResourceManager.GetString("EmptyEmailMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password can not be empty!.
         /// </summary>
         public static string EmptyPasswordMessage {

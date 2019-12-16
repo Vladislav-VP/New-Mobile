@@ -52,7 +52,9 @@ namespace Services.Api
             if (!result.Succeeded)
             {
                 responseRegister.Message = result.Errors.FirstOrDefault()?.Description;
+                return responseRegister;
             }
+            responseRegister.Message = "Confirmation link was sent on your email";
             return responseRegister;
         }
 
