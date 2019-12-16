@@ -109,10 +109,14 @@ namespace TestProject.API.ApiControllers
         [Route("ConfirmEmail")]
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult ConfirmEmail(string token)
+        public async Task<IActionResult> ConfirmEmail(string userId) 
         {
-            // TODO : Implement normal verification
-            return Ok("Verified");
+            ConfirmEmailUserApiView confirmation = await _usersService.ConfirmEmail(userId);
+            if (!confirmation.IsSuccess)
+            {
+                return BadRequest(confirmation);
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }

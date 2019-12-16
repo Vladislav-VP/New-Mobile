@@ -17,6 +17,8 @@ namespace Entities
         [Required]
         public DateTime CreationDate { get; set; }
 
+        public string ConfirmationToken { get; set; }
+
         public List<TodoItem> TodoItems { get; set; }
 
         public List<RefreshToken> RefreshTokens { get; set; }

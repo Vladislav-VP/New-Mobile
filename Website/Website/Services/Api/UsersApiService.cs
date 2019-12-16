@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
+using Configurations;
 using Entities;
 using Services.Interfaces;
 using ViewModels.Api;
@@ -41,9 +42,11 @@ namespace Services.Api
             using (_userManager)
             {
                 result = await _userManager.CreateAsync(user, newUser.Password);
-                responseRegister.ConfirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                // TODO : Remove hardcode, implement normal email sending.
-                await _mailService.SendEmailAsync(newUser.Email, "Verification", $"Verify: <a href='http://10.10.3.215:3000/api/userapi/ConfirmEmail?token={responseRegister.ConfirmationToken}'>link</a>");
+                user.ConfirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                string url = $"{ConfigSettings.Scheme}/{ConfigSettings.Domain}/api/userapi/ConfirmEmail?userId={user.Id}";
+                string body = $"To confirm your email, follow this <a href='{url}'>link</a>";
+                await _mailService.SendEmailAsync(newUser.Email, "Verification", body);
+                await _userManager.UpdateAsync(user);
             }            
             responseRegister.IsSuccess = result.Succeeded;
             if (!result.Succeeded)
@@ -56,8 +59,7 @@ namespace Services.Api
         public async Task<ResponseLoginUserApiView> Login(RequestLoginUserApiView userRequest, ClaimsPrincipal principal)
         {
             var response = new ResponseLoginUserApiView();
-            SignInResult result = await _signInManager.PasswordSignInAsync(userRequest.UserName, userRequest.Password, true, false);
-            response.IsSuccess = result.Succeeded;
+            SignInResult result = await _signInManager.PasswordSignInAsync(userRequest.UserName, userRequest.Password, true, false);            
             if (!result.Succeeded)
             {
                 response.Message = "Incorrect user name or password";
@@ -68,6 +70,12 @@ namespace Services.Api
             {
                 user = _userManager.Users.SingleOrDefault(u => u.UserName == userRequest.UserName);
             }
+            if (user != null && !user.EmailConfirmed)
+            {
+                response.Message = "Email is not confirmed";
+                return response;
+            }
+            response.IsSuccess = result.Succeeded;
             TokenData tokenData = _securityService.GenerateTokens(user);
             response.AccessToken = tokenData.AccessToken;
             response.RefreshToken = tokenData.RefreshToken;
@@ -194,6 +202,19 @@ namespace Services.Api
             response = await _securityService.RefreshToken(tokens);
 
             return response;
+        }
+
+        public async Task<ConfirmEmailUserApiView> ConfirmEmail(string userId)
+        {
+            var confirmation = new ConfirmEmailUserApiView();
+            var result = new IdentityResult();
+            using (_userManager)
+            {
+                User user = await _userManager.FindByIdAsync(userId);
+                result = await _userManager.ConfirmEmailAsync(user, user.ConfirmationToken);
+            }
+            confirmation.IsSuccess = result.Succeeded;
+            return confirmation;
         }
     }
 }

@@ -28,5 +28,7 @@ namespace Services.Interfaces
         Task<DeleteUserApiView> Delete(ClaimsPrincipal principal);
 
         Task<ResponseRefreshAccessTokenUserApiView> RefreshToken(RequestRefreshAccessTokenUserApiView tokens);
+
+        Task<ConfirmEmailUserApiView> ConfirmEmail(string userId);
     }
 }

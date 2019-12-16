@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -25,6 +26,7 @@ namespace TestProject.API
         
         public void Configure(IApplicationBuilder app)
         {
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
