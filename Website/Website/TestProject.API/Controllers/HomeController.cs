@@ -8,5 +8,10 @@ namespace TestProject.API.Controllers
         {
             return RedirectToAction("Login", "User");
         }
+
+        public IActionResult EmailConfirmed()
+        {
+            return Ok("Email confirmed!");
+        }
     }
 }

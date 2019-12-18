@@ -30,5 +30,9 @@ namespace Services.Interfaces
         Task<ResponseRefreshAccessTokenUserApiView> RefreshToken(RequestRefreshAccessTokenUserApiView tokens);
 
         Task<ConfirmEmailUserApiView> ConfirmEmail(string userId);
+
+        Task<ResponseChangeEmailUserApiView> ChangeEmail(RequestChangeEmailUserApiView requestChangeEmail, ClaimsPrincipal principal);
+
+        Task<ConfirmChangeEmailUserApiView> ConfirmChangeEmail(string userId, string email);
     }
 }

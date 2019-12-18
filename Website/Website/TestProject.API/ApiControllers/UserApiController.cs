@@ -116,7 +116,28 @@ namespace TestProject.API.ApiControllers
             {
                 return BadRequest(confirmation);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("EmailConfirmed", "Home");
+        }
+        
+        [Route("ChangeEmail")]
+        [HttpPost]
+        public async Task<ResponseChangeEmailUserApiView> ChangeEmail(RequestChangeEmailUserApiView requestChangeEmail)
+        {
+            ResponseChangeEmailUserApiView response = await _usersService.ChangeEmail(requestChangeEmail, User);
+            return response;
+        }
+
+        [Route("ConfirmChangeEmail")]
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmChangeEmail(string userId, string email)
+        {
+            ConfirmChangeEmailUserApiView confirmation = await _usersService.ConfirmChangeEmail(userId, email);
+            if (!confirmation.IsSuccess)
+            {
+                return BadRequest();
+            }
+            return RedirectToAction("EmailConfirmed", "Home");
         }
     }
 }

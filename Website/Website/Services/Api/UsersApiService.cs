@@ -45,7 +45,7 @@ namespace Services.Api
                 user.ConfirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 string url = $"{ConfigSettings.Scheme}/{ConfigSettings.Domain}/api/userapi/ConfirmEmail?userId={user.Id}";
                 string body = $"To confirm your email, follow this <a href='{url}'>link</a>";
-                await _mailService.SendEmailAsync(newUser.Email, "Verification", body);
+                await _mailService.SendEmailAsync(newUser.Email, "Confirmation", body);
                 await _userManager.UpdateAsync(user);
             }            
             responseRegister.IsSuccess = result.Succeeded;
@@ -219,7 +219,47 @@ namespace Services.Api
             using (_userManager)
             {
                 User user = await _userManager.FindByIdAsync(userId);
+                if (user == null)
+                {
+                    return confirmation;
+                }
                 result = await _userManager.ConfirmEmailAsync(user, user.ConfirmationToken);
+            }
+            confirmation.IsSuccess = result.Succeeded;
+            return confirmation;
+        }
+
+        public async Task<ResponseChangeEmailUserApiView> ChangeEmail(RequestChangeEmailUserApiView requestChangeEmail, ClaimsPrincipal principal)
+        {
+            var response = new ResponseChangeEmailUserApiView();
+            using (_userManager)
+            {
+                User user = await _userManager.GetUserAsync(principal);
+                string token = await _userManager.GenerateChangeEmailTokenAsync(user, requestChangeEmail.Email);
+                response.Token = token;
+                string url = $"{ConfigSettings.Scheme}/{ConfigSettings.Domain}/api/userapi/ConfirmChangeEmail?userId={user.Id}&email={requestChangeEmail.Email}";
+                string body = $"To confirm your email, follow this <a href='{url}'>link</a>";
+                await _mailService.SendEmailAsync(requestChangeEmail.Email, "Confirmation", body);
+                user.ConfirmationToken = token;
+                await _userManager.UpdateAsync(user);
+            }
+            response.IsSuccess = true;
+            response.Message = "Confirmation link was sent on new email";
+            return response;
+        }
+
+        public async Task<ConfirmChangeEmailUserApiView> ConfirmChangeEmail(string userId, string email)
+        {
+            var confirmation = new ConfirmChangeEmailUserApiView();
+            var result = new IdentityResult();
+            using (_userManager)
+            {
+                User user = await _userManager.FindByIdAsync(userId);
+                if (user == null)
+                {
+                    return confirmation;
+                }
+                result = await _userManager.ChangeEmailAsync(user, email, user.ConfirmationToken);
             }
             confirmation.IsSuccess = result.Succeeded;
             return confirmation;
