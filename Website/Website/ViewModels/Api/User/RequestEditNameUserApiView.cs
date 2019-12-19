@@ -1,9 +1,7 @@
 ﻿namespace ViewModels.Api.User
 {
-    public class RequestEditUserInfoUserApiView
+    public class RequestEditUserNameUserApiView
     {
         public string UserName { get; set; }
-
-        public string Email { get; set; }
     }
 }

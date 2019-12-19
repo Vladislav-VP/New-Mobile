@@ -74,11 +74,11 @@ namespace TestProject.API.ApiControllers
             return userInfo;
         }
 
-        [Route("EditUserInfo")]
+        [Route("EditUserName")]
         [HttpPost]
-        public async Task<ResponseEditUserInfoUserApiView> EditUserInfo(RequestEditUserInfoUserApiView user)
+        public async Task<ResponseEditUserNameUserApiView> EditUserName([FromBody] RequestEditUserNameUserApiView user)
         {
-            ResponseEditUserInfoUserApiView response = await _usersService.EditUserInfo(user, User);
+            ResponseEditUserNameUserApiView response = await _usersService.EditUserName(user, User);
             return response;
         }
 
@@ -139,5 +139,16 @@ namespace TestProject.API.ApiControllers
             }
             return RedirectToAction("EmailConfirmed", "Home");
         }
+
+        [Route("ForgotPassword")]
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ResponseForgotPasswordUserApiView> ForgotPassword([FromBody] RequestForgotPasswordUserApiView user)
+        {
+            ResponseForgotPasswordUserApiView response = await _usersService.ForgotPassword(user);
+            return response;
+        }
+
+        
     }
 }

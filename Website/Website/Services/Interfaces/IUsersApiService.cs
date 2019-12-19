@@ -17,7 +17,7 @@ namespace Services.Interfaces
         Task<ResponseEditProfileImageUserApiView> ReplaceProfilePhoto(RequestEditProfileImageUserApiView user,
             string imageUrl, ClaimsPrincipal principal);
 
-        Task<ResponseEditUserInfoUserApiView> EditUserInfo(RequestEditUserInfoUserApiView user, ClaimsPrincipal principal);
+        Task<ResponseEditUserNameUserApiView> EditUserName(RequestEditUserNameUserApiView user, ClaimsPrincipal principal);
 
         Task<GetUserInfoUserApiView> GetUserInfo(ClaimsPrincipal principal);
 
@@ -34,5 +34,7 @@ namespace Services.Interfaces
         Task<ResponseChangeEmailUserApiView> ChangeEmail(RequestChangeEmailUserApiView requestChangeEmail, ClaimsPrincipal principal);
 
         Task<ConfirmChangeEmailUserApiView> ConfirmChangeEmail(string userId, string email);
+
+        Task<ResponseForgotPasswordUserApiView> ForgotPassword(RequestForgotPasswordUserApiView user);
     }
 }

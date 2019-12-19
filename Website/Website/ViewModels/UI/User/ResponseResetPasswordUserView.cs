@@ -1,6 +1,6 @@
-﻿namespace ViewModels.Api.User
+﻿namespace ViewModels.UI.User
 {
-    public class ResponseEditUserInfoUserApiView
+    public class ResponseResetPasswordUserView
     {
         public bool IsSuccess { get; set; }
 

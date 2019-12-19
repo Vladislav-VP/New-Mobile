@@ -135,5 +135,28 @@ namespace TestProject.API.Controllers
             await _usersService.Logout(User);
             return RedirectToAction("Login", "User");
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ResetPassword(string email)
+        {
+            var requestPassword = new RequestResetPasswordUserView
+            {
+                Email = email
+            };
+            return View(requestPassword);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword(RequestResetPasswordUserView requestReset)
+        {
+            ResponseResetPasswordUserView response = await _usersService.ResetPassword(requestReset);
+            if (!response.IsSuccess)
+            {
+                return View(requestReset);
+            }
+            return RedirectToAction("Login");
+        }
     }
 }

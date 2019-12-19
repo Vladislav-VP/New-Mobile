@@ -26,5 +26,7 @@ namespace Services.Interfaces
         void RemoveProfilePhoto(ClaimsPrincipal principal);
 
         Task Logout(ClaimsPrincipal principal);
+
+        Task<ResponseResetPasswordUserView> ResetPassword(RequestResetPasswordUserView requestReset);
     }
 }

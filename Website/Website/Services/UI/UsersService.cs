@@ -228,6 +228,29 @@ namespace Services.UI
             await _signInManager.SignOutAsync();
         }
 
+        public async Task<ResponseResetPasswordUserView> ResetPassword(RequestResetPasswordUserView requestReset)
+        {
+            var responseReset = new ResponseResetPasswordUserView();
+            ResponseValidation responseValidation = _validationService.IsValid(requestReset);
+            if (!responseValidation.IsSuccess)
+            {
+                responseReset.Message = responseValidation.Message;
+                return responseReset;
+            }
+            var result = new IdentityResult();
+            using (_userManager)
+            {
+                User user = await _userManager.FindByEmailAsync(requestReset.Email);
+                result = await _userManager.ResetPasswordAsync(user, user.ConfirmationToken, requestReset.NewPassword);
+            }
+            responseReset.IsSuccess = result.Succeeded;
+            if (!result.Succeeded)
+            {
+                responseReset.Message = result.Errors.FirstOrDefault()?.Description;
+            }
+            return responseReset;
+        }
+
         private string RewriteImageUrl(string oldUrl)
         {
             int startIndex = oldUrl.LastIndexOf('\\');

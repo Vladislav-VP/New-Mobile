@@ -19,7 +19,7 @@ namespace Services.Api
         private readonly SignInManager<User> _signInManager;
         private readonly ISecurityService _securityService;
         private readonly IMailService _mailService;
-
+        
         public UsersApiService(IImageService imageService, UserManager<User> userManager,
             SignInManager<User> signInManager, ISecurityService securityService, IMailService mailService) : base()
         {
@@ -129,15 +129,14 @@ namespace Services.Api
             return response;
         }
 
-        public async Task<ResponseEditUserInfoUserApiView> EditUserInfo(RequestEditUserInfoUserApiView user, ClaimsPrincipal principal)
+        public async Task<ResponseEditUserNameUserApiView> EditUserName(RequestEditUserNameUserApiView user, ClaimsPrincipal principal)
         {
-            var response = new ResponseEditUserInfoUserApiView();
+            var response = new ResponseEditUserNameUserApiView();
             var result = new IdentityResult();
             using (_userManager)
             {
                 User retrievedUser = await _userManager.GetUserAsync(principal);                
                 retrievedUser.UserName = user.UserName;
-                retrievedUser.Email = user.Email;
                 result = await _userManager.UpdateAsync(retrievedUser);
             }
             response.IsSuccess = result.Succeeded;
@@ -263,6 +262,35 @@ namespace Services.Api
             }
             confirmation.IsSuccess = result.Succeeded;
             return confirmation;
+        }
+
+        public async Task<ResponseForgotPasswordUserApiView> ForgotPassword(RequestForgotPasswordUserApiView user)
+        {
+            var response = new ResponseForgotPasswordUserApiView
+            {
+                Message = $"Recovery link was to sent to '{user.Email}'"
+            };
+            using (_userManager)
+            {
+                User retrievedUser = await _userManager.FindByEmailAsync(user.Email);
+                if (retrievedUser == null)
+                {
+                    return response;
+                }
+                bool confirmed = await _userManager.IsEmailConfirmedAsync(retrievedUser);
+                if (!confirmed)
+                {
+                    return response;
+                }
+                string token = await _userManager.GeneratePasswordResetTokenAsync(retrievedUser);
+                string url = $"{ConfigSettings.Scheme}/{ConfigSettings.Domain}/User/ResetPassword?email={user.Email}";
+                string body = $"To reset you password, follow this <a href='{url}'>link</a>";
+                await _mailService.SendEmailAsync(user.Email, "Confirmation", body);
+                retrievedUser.ConfirmationToken = token;
+                await _userManager.UpdateAsync(retrievedUser);
+            }
+            response.IsSuccess = true;
+            return response;
         }
     }
 }
