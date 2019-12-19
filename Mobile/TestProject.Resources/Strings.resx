@@ -165,9 +165,6 @@
   <data name="ProfilePhotoTitle" xml:space="preserve">
     <value>Profile photo</value>
   </data>
-  <data name="RegistrateUser" xml:space="preserve">
-    <value>Registrate</value>
-  </data>
   <data name="SaveChangesDialog" xml:space="preserve">
     <value>Save changes? (Press 'back' to cancel)</value>
   </data>

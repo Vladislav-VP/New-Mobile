@@ -26,6 +26,8 @@ namespace TestProject.Core.ViewModels
             UpdateUserCommand = new MvxAsyncCommand(HandleEntity);
             DeleteUserCommand = new MvxAsyncCommand(DeleteUser);
             EditPasswordCommand = new MvxAsyncCommand(EditPassword);
+            SaveUserNameCommand = new MvxAsyncCommand(SaveUserName);
+            SaveEmailCommand = new MvxAsyncCommand(SaveEmail);
         }
 
         protected override bool IsStateChanged
@@ -65,6 +67,10 @@ namespace TestProject.Core.ViewModels
 
         public IMvxAsyncCommand EditPasswordCommand { get; private set; }        
 
+        public IMvxAsyncCommand SaveUserNameCommand { get; private set; }
+
+        public IMvxAsyncCommand SaveEmailCommand { get; private set; }
+
         public async override Task Initialize()
         {
             await base.Initialize();
@@ -78,17 +84,55 @@ namespace TestProject.Core.ViewModels
 
         protected override async Task HandleEntity()
         {
-            var user = new RequestEditUserInfoUserApiModel
+            // TODO : Implement or remove.
+        }
+
+        protected override async Task GoBack()
+        {
+            // TODO : Implement logic forr closing page.
+            if (!IsStateChanged)
             {
-                UserName = UserName,
-                Email = Email
-            };
-            ResponseEditUserInfoUserApiModel response = await _userService.EditUserInfo(user);
-            if (response.IsSuccess)
-            {
-                _dialogsHelper.DisplayToastMessage(response.Message);
                 await _navigationService.Close(this);
             }
+            
+            var responseUserName = new ResponseEditUserInfoUserApiModel();
+            var responseEmail = new ResponseChangeEmailUserApiModel();
+            if (_oldUserName != UserName)
+            {
+                responseUserName = await SaveUserName();
+            }
+            if (!responseUserName.IsSuccess)
+            {
+                return;
+            }
+        }
+
+        private async Task<ResponseEditUserInfoUserApiModel> SaveUserName()
+        {
+            var requestUserName = new RequestEditUserInfoUserApiModel
+            {
+                UserName = UserName
+            };
+            ResponseEditUserInfoUserApiModel responseUserName = await _userService.EditUserName(requestUserName);
+            if (responseUserName.IsSuccess)
+            {
+                _dialogsHelper.DisplayToastMessage(responseUserName.Message);
+            }
+            return responseUserName;
+        }
+
+        private async Task<ResponseChangeEmailUserApiModel> SaveEmail()
+        {
+            var requestEmail = new RequestChangeEmailUserApiModel
+            {
+                Email = Email
+            };
+            ResponseChangeEmailUserApiModel responseEmail = await _userService.ChangeEmail(requestEmail);
+            if (responseEmail.IsSuccess)
+            {
+                await _navigationService.Close(this);
+            }
+            return responseEmail;
         }
 
         private async Task DeleteUser()

@@ -19,46 +19,64 @@
             style="@style/TopPanelCircleImageViewStyle"           
             local:MvxBind="Click GoBackCommand" />
     </RelativeLayout>
+    
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right">    
+        <TextView
+            android:id="@+id/tvUsername"
+            style="@style/LabelStyle"
+            android:textColor="@android:color/background_dark" />
+        <EditText
+            android:id="@+id/etNewUsername"
+            style="@style/UserNameStyle"
+            android:imeOptions="actionGo"
+            local:MvxBind="Text UserName"/>
+        <Button
+            android:id="@+id/btSaveUsername"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="5dp"
+            local:MvxBind="Click SaveUserNameCommand" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvUsername"
-        style="@style/LabelStyle"
-        android:textColor="@android:color/background_dark" />
-    <EditText
-        android:id="@+id/etNewUsername"
-        style="@style/UserNameStyle"
-        android:imeOptions="actionGo"
-        local:MvxBind="Text UserName"/>
-    <TextView
-        android:id="@+id/tvEmail"
-        style="@style/LabelStyle"
-        android:textColor="@android:color/background_dark" />
-    <EditText
-        android:id="@+id/etEmail"
-        android:inputType="textEmailAddress"
-        style="@style/UserNameStyle"
-        android:imeOptions="actionGo"
-        local:MvxBind="Text Email"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right">    
+        <TextView
+            android:id="@+id/tvEmail"
+            style="@style/LabelStyle"
+            android:textColor="@android:color/background_dark" />
+        <EditText
+            android:id="@+id/etEmail"
+            android:inputType="textEmailAddress"
+            style="@style/UserNameStyle"
+            android:imeOptions="actionGo"
+            local:MvxBind="Text Email"/>
+        <Button
+            android:id="@+id/btSaveEmail"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="5dp"
+            local:MvxBind="Click SaveEmailCommand" />
+    </LinearLayout>    
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        
-        <Button
-            android:id="@+id/btSaveUserName"
-            style="@style/MainButtonStyle"
-            local:MvxBind="Click UpdateUserCommand"/>
+        android:orientation="vertical">        
         <Button            
             android:id="@+id/btChangePassword"
             style="@style/MainButtonStyle"
             local:MvxBind="Click EditPasswordCommand"/>
-
+        <Button
+            android:id="@+id/btDeleteAccount"
+            style="@style/MainButtonStyle"
+            local:MvxBind="Click DeleteUserCommand"/>
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btDeleteAccount"
-        style="@style/MainButtonStyle"
-        local:MvxBind="Click DeleteUserCommand"/>
 
 </LinearLayout>

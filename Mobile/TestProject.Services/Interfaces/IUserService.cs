@@ -10,7 +10,9 @@ namespace TestProject.Services.Interfaces
 
         Task<ResponseRegisterUserApiModel> RegisterUser(RequestRegisterUserApiModel user);
 
-        Task<ResponseEditUserInfoUserApiModel> EditUserInfo(RequestEditUserInfoUserApiModel user);
+        Task<ResponseEditUserInfoUserApiModel> EditUserName(RequestEditUserInfoUserApiModel user);
+
+        Task<ResponseChangeEmailUserApiModel> ChangeEmail(RequestChangeEmailUserApiModel user);
 
         Task<ResponseChangePasswordUserApiModel> ChangePassword(RequestChangePasswordUserApiModel user);
 

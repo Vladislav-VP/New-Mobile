@@ -386,15 +386,6 @@ namespace TestProject.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Registrate.
-        /// </summary>
-        public static string RegistrateUser {
-            get {
-                return ResourceManager.GetString("RegistrateUser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Register.
         /// </summary>
         public static string RegistrationButtonLabel {

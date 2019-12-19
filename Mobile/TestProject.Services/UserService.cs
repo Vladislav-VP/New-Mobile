@@ -83,21 +83,34 @@ namespace TestProject.Services
             return response;
         }
 
-        public async Task<ResponseEditUserInfoUserApiModel> EditUserInfo(RequestEditUserInfoUserApiModel user)
+        public async Task<ResponseEditUserInfoUserApiModel> EditUserName(RequestEditUserInfoUserApiModel user)
         {
             var response = new ResponseEditUserInfoUserApiModel();
-            bool isUserNameValid = _validationHelper.IsObjectValid(user);
-            if (!isUserNameValid)
+            bool isValid = _validationHelper.IsObjectValid(user);
+            if (!isValid)
             {
                 return response;
             }
-            response = await Post<RequestEditUserInfoUserApiModel, ResponseEditUserInfoUserApiModel>(user, $"{_url}/EditUserInfo");
+            response = await Post<RequestEditUserInfoUserApiModel, ResponseEditUserInfoUserApiModel>(user, $"{_url}/EditUserName");
             if (!response.IsSuccess)
             {
                 _dialogsHelper.DisplayAlertMessage(response.Message);
                 return response;
             }
             response.IsSuccess = true;
+            return response;
+        }
+
+        public async Task<ResponseChangeEmailUserApiModel> ChangeEmail(RequestChangeEmailUserApiModel user)
+        {
+            var response = new ResponseChangeEmailUserApiModel();
+            bool isValid = _validationHelper.IsObjectValid(user);
+            if (!isValid)
+            {
+                return response;
+            }
+            response = await Post<RequestChangeEmailUserApiModel, ResponseChangeEmailUserApiModel>(user, $"{_url}/ChangeEmail");
+            _dialogsHelper.DisplayAlertMessage(response.Message);
             return response;
         }
 

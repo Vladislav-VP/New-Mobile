@@ -8,11 +8,5 @@ namespace TestProject.ApiModels.User
         [Required(ErrorMessageResourceType = typeof(Strings),
             ErrorMessageResourceName = nameof(Strings.EmptyUserNameMessage))]
         public string UserName { get; set; }
-
-        [Required(ErrorMessageResourceType = typeof(Strings),
-            ErrorMessageResourceName = nameof(Strings.EmptyEmailMessage))]
-        [EmailAddress(ErrorMessageResourceType = typeof(Strings),
-            ErrorMessageResourceName = nameof(Strings.InvalidEmailAddressMessage))]
-        public string Email { get; set; }
     }
 }
