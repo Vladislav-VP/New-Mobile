@@ -4,9 +4,11 @@ using UIKit;
 
 using TestProject.Core.ViewModels;
 using TestProject.Resources;
+using MvvmCross.Platforms.Ios.Presenters.Attributes;
 
 namespace TestProject.iOS.Views
 {
+    [MvxChildPresentation]
     public partial class RegistrationViewController : BaseViewController<RegistrationViewModel>
     {
         public override void InitializeAllControls()
@@ -17,6 +19,7 @@ namespace TestProject.iOS.Views
             NavigationController.SetNavigationBarHidden(false, true);
 
             lbUsername.Text = Strings.UsernameTextViewLabel;
+            lbEmail.Text = Strings.EmailLabel;
             lbPassword.Text = Strings.PasswordTextViewLabel;
             btRegistration.SetTitle(Strings.RegistrationButtonLabel, UIControlState.Normal);
             tfPassword.SecureTextEntry = true;
@@ -27,6 +30,7 @@ namespace TestProject.iOS.Views
             var set = this.CreateBindingSet<RegistrationViewController, RegistrationViewModel>();
 
             set.Bind(tfUsername).To(vm => vm.UserName);
+            set.Bind(tfEmail).To(vm => vm.Email);
             set.Bind(tfPassword).To(vm => vm.Password);
             set.Bind(btRegistration).To(vm => vm.RegisterUserCommand);
 

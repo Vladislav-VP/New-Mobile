@@ -34,7 +34,7 @@ namespace TestProject.iOS.Views
 
             set.Bind(imviewProfile)
                 .For(v => v.Image)
-                .To(vm => vm.EncryptedProfilePhoto)
+                .To(vm => vm.ImageBytes)
                 .WithConversion("ImageValue");
 
             set.Apply();

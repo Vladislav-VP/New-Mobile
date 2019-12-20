@@ -7,12 +7,6 @@ namespace TestProject.Services.Helpers
 {
     public class EncryptionHelper : IEncryptionHelper
     {
-        public byte[] DecryptBase64String(string encrtyptedString)
-        {
-            // TODO : Remove this method after refactoring conversion on iOS
-            return Convert.FromBase64String(encrtyptedString);
-        }
-
         public byte[] GetBytes(Stream stream)
         {
             byte[] bytes = null;

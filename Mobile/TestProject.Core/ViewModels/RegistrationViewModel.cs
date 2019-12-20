@@ -4,6 +4,7 @@ using MvvmCross.Commands;
 using MvvmCross.Navigation;
 
 using TestProject.ApiModels.User;
+using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Interfaces;
 
 namespace TestProject.Core.ViewModels
@@ -12,10 +13,14 @@ namespace TestProject.Core.ViewModels
     {
         private readonly IUserService _userService;
 
-        public RegistrationViewModel(IMvxNavigationService navigationService, IUserService userService)
+        private readonly IDialogsHelper _dialogsHelper;
+
+        public RegistrationViewModel(IMvxNavigationService navigationService, IUserService userService,
+            IDialogsHelper dialogsHelper)
             : base(navigationService)
         {
             _userService = userService;
+            _dialogsHelper = dialogsHelper;
             RegisterUserCommand = new MvxAsyncCommand(RegisterUser);
         }
 
@@ -68,6 +73,7 @@ namespace TestProject.Core.ViewModels
             if (response.IsSuccess)
             {
                 await _navigationService.Close(this);
+                _dialogsHelper.DisplayAlertMessage(response.Message);
             }
         }
 

@@ -52,7 +52,7 @@
     <MtouchArch>ARM64</MtouchArch>
     <CodesignEntitlements>
     </CodesignEntitlements>
-    <CodesignKey>iPhone Developer: Igor Shumakova (C5BZ29VCZP)</CodesignKey>
+    <CodesignKey>Apple Development: Igor Shumakova (C5BZ29VCZP)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignProvision>Anuitex Uniq Development Provision</CodesignProvision>
     <CodesignExtraArgs />
@@ -81,6 +81,10 @@
     <Compile Include="CustomControls\BaseView.cs" />
     <Compile Include="CustomControls\MenuOptionView.cs" />
     <Compile Include="LinkerPleaseInclude.cs" />
+    <Compile Include="ResetPasswordViewController.cs" />
+    <Compile Include="ResetPasswordViewController.designer.cs">
+      <DependentUpon>ResetPasswordViewController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Services\CancelDialogService.cs" />
     <Compile Include="Views\BaseEntityViewController.cs" />
     <Compile Include="Views\BaseViewController.cs" />
@@ -290,6 +294,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\TestProject.ApiModels\TestProject.ApiModels.csproj">
+      <Project>{2bb064f0-b9ea-4f58-9713-c604fcb3dae9}</Project>
+      <Name>TestProject.ApiModels</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestProject.Core\TestProject.Core.csproj">
       <Project>{14e2f76c-3e0a-45ba-a18c-ea6cca174451}</Project>
       <Name>TestProject.Core</Name>

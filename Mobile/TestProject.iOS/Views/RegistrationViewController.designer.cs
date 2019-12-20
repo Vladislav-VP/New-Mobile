@@ -19,11 +19,19 @@ namespace TestProject.iOS.Views
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel lbEmail { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel lbPassword { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel lbUsername { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UITextField tfEmail { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -44,6 +52,11 @@ namespace TestProject.iOS.Views
                 btRegistration = null;
             }
 
+            if (lbEmail != null) {
+                lbEmail.Dispose ();
+                lbEmail = null;
+            }
+
             if (lbPassword != null) {
                 lbPassword.Dispose ();
                 lbPassword = null;
@@ -52,6 +65,11 @@ namespace TestProject.iOS.Views
             if (lbUsername != null) {
                 lbUsername.Dispose ();
                 lbUsername = null;
+            }
+
+            if (tfEmail != null) {
+                tfEmail.Dispose ();
+                tfEmail = null;
             }
 
             if (tfPassword != null) {

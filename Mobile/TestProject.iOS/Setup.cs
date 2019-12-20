@@ -4,7 +4,7 @@ using MvvmCross.Converters;
 using MvvmCross.IoC;
 using MvvmCross.Platforms.Ios.Core;
 using MvvmCross.Plugin.Json;
-
+using MvvmCross.Plugin.PictureChooser.Platforms.Ios;
 using TestProject.Core;
 using TestProject.iOS.Converters;
 using TestProject.iOS.Services;
@@ -38,7 +38,7 @@ namespace TestProject.iOS
             base.FillValueConverters(registry);
 
             IEncryptionHelper encryptionHelper = Mvx.IoCProvider.Resolve<IEncryptionHelper>();
-            registry.AddOrOverwrite("ImageValue", new ImageValueConverter(encryptionHelper));
+            registry.AddOrOverwrite("ImageValue", new ImageValueConverter());
         }
     }
 }

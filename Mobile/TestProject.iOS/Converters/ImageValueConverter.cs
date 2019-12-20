@@ -10,29 +10,20 @@ using TestProject.Services.Helpers.Interfaces;
 
 namespace TestProject.iOS.Converters
 {
-    public class ImageValueConverter : MvxValueConverter<string , UIImage>
+    public class ImageValueConverter : MvxValueConverter<byte[] , UIImage>
     {
         private static readonly MvxInMemoryImageValueConverter _converter;
-
-        private readonly IEncryptionHelper _encryptionHelper;
 
         static ImageValueConverter()
         {
             _converter = new MvxInMemoryImageValueConverter();
         }
 
-        public ImageValueConverter(IEncryptionHelper encryptionHelper)
+        protected override UIImage Convert(byte[] imageBytes, Type targetType, object parameter, CultureInfo culture)
         {
-            _encryptionHelper = encryptionHelper;
-        }
-
-        protected override UIImage Convert(string encryptedImage, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (encryptedImage != null)
+            if (imageBytes != null)
             {
-                byte[] decryptedBytes = _encryptionHelper.DecryptBase64String(encryptedImage);
-
-                UIImage image = (UIImage)_converter.Convert(decryptedBytes, targetType, parameter, culture);
+                UIImage image = (UIImage)_converter.Convert(imageBytes, targetType, parameter, culture);
 
                 return image;
             }
