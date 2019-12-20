@@ -19,6 +19,7 @@ namespace TestProject.Core.ViewModels
 
             LoginCommand = new MvxAsyncCommand(Login);
             GoToRegistrationCommand = new MvxAsyncCommand(GoToRegistration);
+            ForgotPasswordCommand = new MvxAsyncCommand(ForgotPassword);
         }
 
         private string _userName;
@@ -47,6 +48,8 @@ namespace TestProject.Core.ViewModels
         
         public IMvxAsyncCommand GoToRegistrationCommand { get; private set; }        
 
+        public IMvxAsyncCommand ForgotPasswordCommand { get; private set; }
+
         private async Task Login()
         {
             var user = new RequestLoginUserApiModel { UserName = UserName, Password = Password };
@@ -62,6 +65,11 @@ namespace TestProject.Core.ViewModels
         private async Task GoToRegistration()
         {
             await _navigationService.Navigate<RegistrationViewModel>();
+        }
+
+        private async Task ForgotPassword()
+        {
+            await _navigationService.Navigate<ResetPasswordViewModel>();
         }
     }
 }

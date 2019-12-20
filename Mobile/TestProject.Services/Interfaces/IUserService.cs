@@ -25,5 +25,7 @@ namespace TestProject.Services.Interfaces
         Task Logout();
 
         Task<DeleteUserApiModel> Delete();
+
+        Task<ResponseForgotPasswordUserApiModel> ForgotPassword(RequestForgotPasswordUserApiModel user);
     }
 }

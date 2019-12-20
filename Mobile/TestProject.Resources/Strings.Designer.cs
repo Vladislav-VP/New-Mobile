@@ -160,6 +160,15 @@ namespace TestProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email for recovery.
+        /// </summary>
+        public static string EmailForRecoveryLabel {
+            get {
+                return ResourceManager.GetString("EmailForRecoveryLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string EmailLabel {
@@ -228,6 +237,15 @@ namespace TestProject.Resources {
         public static string EnterOldPasswordTipLabel {
             get {
                 return ResourceManager.GetString("EnterOldPasswordTipLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forgot password?.
+        /// </summary>
+        public static string ForgotPasswordLabel {
+            get {
+                return ResourceManager.GetString("ForgotPasswordLabel", resourceCulture);
             }
         }
         
@@ -349,6 +367,15 @@ namespace TestProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password reset.
+        /// </summary>
+        public static string PasswordResetLabel {
+            get {
+                return ResourceManager.GetString("PasswordResetLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Passwords do not correspond!.
         /// </summary>
         public static string PasswordsNotCorrespondMessage {
@@ -436,6 +463,15 @@ namespace TestProject.Resources {
         public static string SaveChangesPrompt {
             get {
                 return ResourceManager.GetString("SaveChangesPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send.
+        /// </summary>
+        public static string SendLabel {
+            get {
+                return ResourceManager.GetString("SendLabel", resourceCulture);
             }
         }
         

@@ -76,6 +76,7 @@
     <Compile Include="Activities\LoginActivity.cs" />
     <Compile Include="Converters\ImageValueConverter.cs" />
     <Compile Include="Fragments\BaseDialogFragment.cs" />
+    <Compile Include="Fragments\ResetPasswordFragment.cs" />
     <Compile Include="Helpers\ActivityStorageHelper.cs" />
     <Compile Include="Helpers\Interfaces\IActivityStorageHelper.cs" />
     <Compile Include="MainApplication.cs" />
@@ -330,9 +331,6 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_back_blue_light.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\LoginActivity.axml" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\mipmap-hdpi\ic_add_todoitem.png" />
   </ItemGroup>
   <ItemGroup>
@@ -378,7 +376,13 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\screen.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\layout\go_back_panel.axml">
+      <SubType>Designer</SubType>
+    </Content>
     <AndroidResource Include="Resources\layout\LoginActivity.xml" />
+    <AndroidResource Include="Resources\layout\ResetPasswordFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

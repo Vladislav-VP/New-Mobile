@@ -180,5 +180,20 @@ namespace TestProject.Services
             }
             return response;
         }
+
+        public async Task<ResponseForgotPasswordUserApiModel> ForgotPassword(RequestForgotPasswordUserApiModel user)
+        {
+            var response = new ResponseForgotPasswordUserApiModel();
+            bool isValid = _validationHelper.IsObjectValid(user);
+            if (!isValid)
+            {
+                return response;
+            }
+            response = await Post<RequestForgotPasswordUserApiModel, ResponseForgotPasswordUserApiModel>
+                (user, $"{_url}/ForgotPassword", false);
+            response.IsSuccess = true;
+            _dialogsHelper.DisplayAlertMessage(response.Message);
+            return response;
+        }
     }
 }

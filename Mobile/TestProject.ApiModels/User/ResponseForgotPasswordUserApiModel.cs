@@ -1,6 +1,6 @@
-﻿namespace ViewModels.Api.User
+﻿namespace TestProject.ApiModels.User
 {
-    public class ResponseForgotPasswordUserApiView
+    public class ResponseForgotPasswordUserApiModel
     {
         public bool IsSuccess { get; set; }
 

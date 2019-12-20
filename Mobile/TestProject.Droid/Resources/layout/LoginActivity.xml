@@ -21,20 +21,20 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:layout_marginVertical="@dimen/registration_layout_margin_vertical">
         <TextView
             android:id="@+id/tvWithoutAccount"
-            android:layout_marginLeft="@dimen/text_view_padding_horizontal"
-            android:layout_marginRight="@dimen/text_view_padding_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textColor="@android:color/background_light"
-            android:textSize="@dimen/label_text_size"/>
+            style="@style/PromptLabelStyle"/>
         <Button
             android:id="@+id/btGoToRegistration"
             style="@style/MainButtonStyle"      
             local:MvxBind="Click GoToRegistrationCommand"/>
+        <TextView
+            android:id="@+id/tvForgotPassword"
+            style="@style/PromptLabelStyle"
+            local:MvxBind="Click ForgotPasswordCommand"/>
     </LinearLayout>
 
+        
 </LinearLayout>

@@ -286,4 +286,16 @@ not shorter than {0} characters)</value>
   <data name="InvalidEmailAddressMessage" xml:space="preserve">
     <value>Invalid email address</value>
   </data>
+  <data name="ForgotPasswordLabel" xml:space="preserve">
+    <value>Forgot password?</value>
+  </data>
+  <data name="PasswordResetLabel" xml:space="preserve">
+    <value>Password reset</value>
+  </data>
+  <data name="EmailForRecoveryLabel" xml:space="preserve">
+    <value>Email for recovery</value>
+  </data>
+  <data name="SendLabel" xml:space="preserve">
+    <value>Send</value>
+  </data>
 </root>

@@ -7,8 +7,7 @@ using Android.Widget;
 using MvvmCross;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-using Plugin.Connectivity;
-using System.Linq;
+
 using TestProject.Core.ViewModels;
 using TestProject.Droid.Helpers.Interfaces;
 using TestProject.Resources;
@@ -43,12 +42,15 @@ namespace TestProject.Droid.Activities
             TextView tvUsername = FindViewById<TextView>(Resource.Id.tvUsername);
             TextView tvPassword = FindViewById<TextView>(Resource.Id.tvPassword);
             TextView tvWithoutAccount = FindViewById<TextView>(Resource.Id.tvWithoutAccount);
+            TextView tvForgotPassword = FindViewById<TextView>(Resource.Id.tvForgotPassword);
             Button btLogin = FindViewById<Button>(Resource.Id.btLogin);
             Button btGoToRegistration = FindViewById<Button>(Resource.Id.btGoToRegistration);
 
             tvUsername.Text = Strings.UsernameTextViewLabel;
             tvPassword.Text = Strings.PasswordTextViewLabel;
             tvWithoutAccount.Text = Strings.WithoutAccountPrompt;
+            tvForgotPassword.Text = Strings.ForgotPasswordLabel;
+            tvForgotPassword.PaintFlags = Android.Graphics.PaintFlags.UnderlineText;
             btLogin.Text = Strings.LoginButtonLabel;
             btGoToRegistration.Text = Strings.RegistrationButtonLabel;
         }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="false"
+        android:background="@android:color/holo_blue_dark">
+        <TextView       
+            android:id="@+id/tvRegistration"
+            style="@style/TitleStyle"
+            local:MvxBind="Text Name"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:src="@mipmap/ic_back_blue_dark"
+            style="@style/TopPanelCircleImageViewStyle"
+            local:MvxBind="Click GoBackCommand" />
+    </RelativeLayout>
+</LinearLayout>
