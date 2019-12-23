@@ -81,10 +81,6 @@
     <Compile Include="CustomControls\BaseView.cs" />
     <Compile Include="CustomControls\MenuOptionView.cs" />
     <Compile Include="LinkerPleaseInclude.cs" />
-    <Compile Include="ResetPasswordViewController.cs" />
-    <Compile Include="ResetPasswordViewController.designer.cs">
-      <DependentUpon>ResetPasswordViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Services\CancelDialogService.cs" />
     <Compile Include="Views\BaseEntityViewController.cs" />
     <Compile Include="Views\BaseViewController.cs" />
@@ -97,6 +93,10 @@
     <Compile Include="Views\EditPasswordViewController.cs" />
     <Compile Include="Views\EditPasswordViewController.designer.cs">
       <DependentUpon>EditPasswordViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ResetPasswordViewController.cs" />
+    <Compile Include="Views\ResetPasswordViewController.designer.cs">
+      <DependentUpon>ResetPasswordViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\UserSettingsViewController.cs" />
     <Compile Include="Views\UserSettingsViewController.designer.cs">
@@ -135,7 +135,6 @@
     <Content Include="Entitlements.plist" />
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Views\LoginViewController.xib" />
-    <InterfaceDefinition Include="Views\RegistrationViewController.xib" />
     <InterfaceDefinition Include="Views\TodoItemListViewController.xib" />
     <InterfaceDefinition Include="Views\MenuViewController.xib" />
     <InterfaceDefinition Include="Views\CreateTodoItemViewController.xib" />
