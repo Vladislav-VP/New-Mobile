@@ -142,6 +142,7 @@
     <InterfaceDefinition Include="Views\UserSettingsViewController.xib" />
     <InterfaceDefinition Include="Views\EditPasswordViewController.xib" />
     <InterfaceDefinition Include="Views\CancelDialogViewController.xib" />
+    <InterfaceDefinition Include="Views\RegistrationViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
