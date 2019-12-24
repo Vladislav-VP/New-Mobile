@@ -60,6 +60,7 @@
     <MtouchLink>None</MtouchLink>
     <MtouchEnableSGenConc>false</MtouchEnableSGenConc>
     <MtouchExtraArgs>-v -v -v -v</MtouchExtraArgs>
+    <MtouchFastDev>true</MtouchFastDev>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -143,6 +144,7 @@
     <InterfaceDefinition Include="Views\EditPasswordViewController.xib" />
     <InterfaceDefinition Include="Views\CancelDialogViewController.xib" />
     <InterfaceDefinition Include="Views\RegistrationViewController.xib" />
+    <InterfaceDefinition Include="Views\ResetPasswordViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

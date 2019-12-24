@@ -16,13 +16,28 @@ namespace TestProject.iOS.Views
             Title = Strings.RegistrationTitle;
             NavigationController.NavigationBar.BarStyle = UIBarStyle.Black;
             UINavigationBar.Appearance.BarTintColor = AppColors.DarkBlue.ToNativeColor();
-            NavigationController.SetNavigationBarHidden(false, true);
+            NavigationController.SetNavigationBarHidden(false, true);            
 
             lbUsername.Text = Strings.UsernameTextViewLabel;
             lbEmail.Text = Strings.EmailLabel;
             lbPassword.Text = Strings.PasswordTextViewLabel;
             btRegistration.SetTitle(Strings.RegistrationButtonLabel, UIControlState.Normal);
             tfPassword.SecureTextEntry = true;
+            tfUsername.ReturnKeyType = UIReturnKeyType.Next;
+            tfEmail.ReturnKeyType = UIReturnKeyType.Next;
+            tfPassword.ReturnKeyType = UIReturnKeyType.Done;
+
+            tfUsername.ShouldReturn += (tf) =>
+            {
+                tfEmail.BecomeFirstResponder();
+                return true;
+            };
+            tfEmail.ShouldReturn += (tf) =>
+            {
+                tfPassword.BecomeFirstResponder();
+                return true;
+            };
+            tfPassword.ShouldReturn += ResignFirstResponder;
         }
 
         public override void CreateBindings()

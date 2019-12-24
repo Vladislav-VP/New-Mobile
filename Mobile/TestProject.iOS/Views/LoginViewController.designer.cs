@@ -24,6 +24,10 @@ namespace TestProject.iOS.Views
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel lbForgotPassword { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel lbPassword { get; set; }
 
         [Outlet]
@@ -56,6 +60,11 @@ namespace TestProject.iOS.Views
             if (btRegistration != null) {
                 btRegistration.Dispose ();
                 btRegistration = null;
+            }
+
+            if (lbForgotPassword != null) {
+                lbForgotPassword.Dispose ();
+                lbForgotPassword = null;
             }
 
             if (lbPassword != null) {

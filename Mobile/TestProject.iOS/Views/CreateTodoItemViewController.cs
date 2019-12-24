@@ -41,6 +41,23 @@ namespace TestProject.iOS.Views
             lbDone.Text = Strings.TodoItemIsDoneTextViewLabel;
 
             btSave.SetTitle(Strings.SaveButtonLabel, UIControlState.Normal);
+
+            tfTaskName.ReturnKeyType = UIReturnKeyType.Next;
+            tvDescription.ReturnKeyType = UIReturnKeyType.Done;
+
+            tfTaskName.ShouldReturn += (tf) =>
+            {
+                tvDescription.BecomeFirstResponder();
+                return true;
+            };
+            tvDescription.Changed += delegate
+            {
+                if (tvDescription.Text.EndsWith('\n'))
+                {
+                    tvDescription.Text = tvDescription.Text.Remove(tvDescription.Text.Length - 1);
+                    tvDescription.ResignFirstResponder();
+                }
+            };
         }
 
         public override void CreateBindings()

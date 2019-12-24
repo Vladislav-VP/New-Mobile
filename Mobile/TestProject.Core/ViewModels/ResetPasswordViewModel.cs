@@ -1,8 +1,10 @@
-﻿using MvvmCross.Commands;
+﻿using System.Threading.Tasks;
+
+using MvvmCross.Commands;
 using MvvmCross.Navigation;
 
-using System.Threading.Tasks;
 using TestProject.ApiModels.User;
+using TestProject.Services.Helpers.Interfaces;
 using TestProject.Services.Interfaces;
 
 namespace TestProject.Core.ViewModels
@@ -11,10 +13,14 @@ namespace TestProject.Core.ViewModels
     {
         private readonly IUserService _userService;
 
-        public ResetPasswordViewModel(IMvxNavigationService navigationService, IUserService userService)
+        private readonly IDialogsHelper _dialogsHelper;
+
+        public ResetPasswordViewModel(IMvxNavigationService navigationService,
+            IUserService userService, IDialogsHelper dialogsHelper)
             : base(navigationService)
         {
             _userService = userService;
+            _dialogsHelper = dialogsHelper;
 
             SendRecoveryMailCommand = new MvxAsyncCommand(SendRecoveryMail);
         }
@@ -43,6 +49,7 @@ namespace TestProject.Core.ViewModels
             {
                 await _navigationService.Close(this);
             }
+            _dialogsHelper.DisplayAlertMessage(response.Message);
         }
     }
 }

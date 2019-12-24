@@ -1,5 +1,6 @@
 ﻿using MvvmCross.Platforms.Ios.Views;
 using MvvmCross.ViewModels;
+using UIKit;
 
 namespace TestProject.iOS.Views
 {
@@ -17,6 +18,12 @@ namespace TestProject.iOS.Views
         public abstract void InitializeAllControls();
 
         public abstract void CreateBindings();
+
+        protected bool ResignFirstResponder(UIResponder responder)
+        {
+            responder.ResignFirstResponder();
+            return true;
+        }
     }
 
     public abstract class BaseViewController<TViewModel> : BaseViewController

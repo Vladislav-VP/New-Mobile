@@ -191,7 +191,6 @@ namespace TestProject.Services
             response = await Post<RequestForgotPasswordUserApiModel, ResponseForgotPasswordUserApiModel>
                 (user, $"{_url}/ForgotPassword", false);
             response.IsSuccess = true;
-            _dialogsHelper.DisplayAlertMessage(response.Message);
             return response;
         }
     }

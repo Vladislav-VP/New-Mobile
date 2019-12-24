@@ -22,6 +22,22 @@ namespace TestProject.iOS.Views
 
             btSaveChanges.SetTitle(Strings.SaveChangesButtonLabel, UIControlState.Normal);
             btCancel.SetTitle(Strings.CancelText, UIControlState.Normal);
+
+            tfOldPassword.ReturnKeyType = UIReturnKeyType.Next;
+            tfNewPassword.ReturnKeyType = UIReturnKeyType.Next;
+            tfPasswordConfirmation.ReturnKeyType = UIReturnKeyType.Done;
+
+            tfOldPassword.ShouldReturn += (tf) =>
+            {
+                tfNewPassword.BecomeFirstResponder();
+                return true;
+            };
+            tfNewPassword.ShouldReturn += (tf) =>
+            {
+                tfPasswordConfirmation.BecomeFirstResponder();
+                return true;
+            };
+            tfPasswordConfirmation.ShouldReturn += ResignFirstResponder;
         }
 
         public override void CreateBindings()

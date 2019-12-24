@@ -42,6 +42,16 @@ namespace TestProject.iOS.Views
 
             btSave.SetTitle(Strings.SaveButtonLabel, UIControlState.Normal);
             btDelete.SetTitle(Strings.DeleteTodoItemButtonLabel, UIControlState.Normal);
+            
+            tvDescription.ReturnKeyType = UIReturnKeyType.Done;
+            tvDescription.Changed += delegate
+            {
+                if (tvDescription.Text.EndsWith('\n'))
+                {
+                    tvDescription.Text = tvDescription.Text.Remove(tvDescription.Text.Length - 1);
+                    tvDescription.ResignFirstResponder();
+                }
+            };
         }
 
         public override void CreateBindings()

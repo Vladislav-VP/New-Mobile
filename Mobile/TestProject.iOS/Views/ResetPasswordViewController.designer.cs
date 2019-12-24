@@ -15,31 +15,15 @@ namespace TestProject.iOS.Views
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton btRegistration { get; set; }
+        UIKit.UIButton btSend { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UILabel lbEmail { get; set; }
+        UIKit.UILabel lbRecoveryEmail { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UILabel lbPassword { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UILabel lbUsername { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextField tfEmail { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextField tfPassword { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextField tfUsername { get; set; }
+        UIKit.UITextField tfRecoveryEmail { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -47,39 +31,19 @@ namespace TestProject.iOS.Views
 
         void ReleaseDesignerOutlets ()
         {
-            if (btRegistration != null) {
-                btRegistration.Dispose ();
-                btRegistration = null;
+            if (btSend != null) {
+                btSend.Dispose ();
+                btSend = null;
             }
 
-            if (lbEmail != null) {
-                lbEmail.Dispose ();
-                lbEmail = null;
+            if (lbRecoveryEmail != null) {
+                lbRecoveryEmail.Dispose ();
+                lbRecoveryEmail = null;
             }
 
-            if (lbPassword != null) {
-                lbPassword.Dispose ();
-                lbPassword = null;
-            }
-
-            if (lbUsername != null) {
-                lbUsername.Dispose ();
-                lbUsername = null;
-            }
-
-            if (tfEmail != null) {
-                tfEmail.Dispose ();
-                tfEmail = null;
-            }
-
-            if (tfPassword != null) {
-                tfPassword.Dispose ();
-                tfPassword = null;
-            }
-
-            if (tfUsername != null) {
-                tfUsername.Dispose ();
-                tfUsername = null;
+            if (tfRecoveryEmail != null) {
+                tfRecoveryEmail.Dispose ();
+                tfRecoveryEmail = null;
             }
 
             if (vUserInfo != null) {
