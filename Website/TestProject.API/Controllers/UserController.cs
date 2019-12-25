@@ -25,12 +25,12 @@ namespace TestProject.API.Controllers
             _hostEnvironment = hostEnvironment;
         }
 
-        // TODO : Implement logic for showing error messages.
+        // TODO : Implement showing error messages.
 
         [HttpGet]
-        public IActionResult HomeInfo()
+        public async Task<IActionResult> HomeInfo()
         {
-            HomeInfoUserView user = _usersService.GetUserHomeInfo(User);
+            HomeInfoUserView user = await _usersService.GetUserHomeInfo(User);
             return View(user);
         }
 
@@ -72,15 +72,16 @@ namespace TestProject.API.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+
         public IActionResult BackToLogin()
         {
             return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
-        public IActionResult Settings()
+        public async Task<IActionResult> Settings()
         {
-            SettingsUserView user = _usersService.GetUserSettings(User);
+            SettingsUserView user = await _usersService.GetUserSettings(User);
             return View(user);
         }
 
@@ -93,32 +94,32 @@ namespace TestProject.API.Controllers
                 ModelState.AddModelError("Error", response.Message);
                 return View("Settings");
             }
-            return RedirectToAction("Settings", "User", new { user.Id });            
+            return RedirectToAction("Settings", "User");            
         }
 
         [HttpPost]
         public async Task<IActionResult> ChangePassword(RequestChangePasswordUserView user)
         {
             ResponseChangePasswordUserView response = await _usersService.ChangePassword(user, User);
-            return RedirectToAction("Settings", "User", user);
+            return RedirectToAction("Settings", "User");
         }
 
         [HttpPost]
-        public IActionResult ChangeProfilePhoto(IFormFile file, RequestChangeProfilePhotoUserView user)
+        public async Task<IActionResult> ChangeProfilePhoto(IFormFile file, RequestChangeProfilePhotoUserView user)
         {
             if (file != null)
             {
                 user.ImageUrl = $"{_hostEnvironment.WebRootPath}\\ProfileImages\\{Guid.NewGuid()}.png";
                 user.ImageBytes = _imageHelper.GetImageBytes(file);
-                ResponseChangeProfilePhotoUserView response = _usersService.ChangeProfilePhoto(user, User);
+                ResponseChangeProfilePhotoUserView response = await _usersService.ChangeProfilePhoto(user, User);
             }            
             return RedirectToAction("Settings", "User");
         }
 
         [HttpPost]
-        public IActionResult RemoveProfilePhoto()
+        public async Task<IActionResult> RemoveProfilePhoto()
         {
-            _usersService.RemoveProfilePhoto(User);
+            await _usersService.RemoveProfilePhoto(User);
             return RedirectToAction("Settings", "User");
         }
 
@@ -164,6 +165,24 @@ namespace TestProject.API.Controllers
         public async Task<IActionResult> ConfirmEmail(string userId)
         {
             await _usersService.ConfirmEmail(userId);
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeEmail(RequestChangeEmailUserView requestChangeEmail)
+        {
+            // TODO : Implement showing messages.
+            ResponseChangeEmailUserView response = await _usersService.ChangeEmail(requestChangeEmail, User);
+            return RedirectToAction("Settings", "User");
+        }
+
+        public async Task<IActionResult> ConfirmChangeEmail(string userId, string email)
+        {
+            ConfirmChangeEmailUserView confirmation = await _usersService.ConfirmChangeEmail(userId, email);
+            if (!confirmation.IsSuccess)
+            {
+                return BadRequest();
+            }
             return View();
         }
     }

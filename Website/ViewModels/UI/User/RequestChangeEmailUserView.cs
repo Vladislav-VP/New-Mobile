@@ -2,9 +2,10 @@
 
 namespace ViewModels.UI.User
 {
-    public class RequestChangeNameUserView
+    public class RequestChangeEmailUserView
     {
         [Required]
-        public string Name { get; set; }
+        [EmailAddress]
+        public string Email { get; set; }
     }
 }

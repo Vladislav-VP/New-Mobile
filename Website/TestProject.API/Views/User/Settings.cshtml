@@ -15,8 +15,7 @@
 
     <h4>Settings</h4>
     <hr />
-    @Html.HiddenFor(model => model.Id)
-    @using (Html.BeginForm("ChangeName", "User", new { Model.Id, Model.Name }, FormMethod.Post))
+    @using (Html.BeginForm("ChangeName", "User", FormMethod.Post))
     {
         <div class="row">
             <table>
@@ -39,9 +38,31 @@
         </div>
     }
 
+    <hr />
+    @using (Html.BeginForm("ChangeEmail", "User", FormMethod.Post))
+    {
+        <div class="row">
+            <table>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.EditorFor(model => model.Email)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="authenticationButton" type="submit" value="Save changes">Save changes</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
 
     <hr />
-
     <div class="row">
 
         <table>
@@ -59,7 +80,6 @@
                 <td>
                     <form asp-controller="User" asp-action="ChangeProfilePhoto"
                           method="post" enctype="multipart/form-data">
-                        @Html.HiddenFor(model => model.Id)
                         <input type="file" accept="image/*" name="file" />
                         <button class="authenticationButton" type="submit">Upload image</button>
 
@@ -68,7 +88,6 @@
                 <td>
                     @using (Html.BeginForm("RemoveProfilePhoto", "User", FormMethod.Post))
                     {
-                        @Html.HiddenFor(model => model.Id)
                         <button class="authenticationButton" type="submit">Remove image</button>
                     }
                 </td>
@@ -76,10 +95,9 @@
         </table>
     </div>
 
-
     <hr />
     <h4>Change password</h4>
-    @using (Html.BeginForm("ChangePassword", "User", new { Model.Id }))
+    @using (Html.BeginForm("ChangePassword", "User", FormMethod.Post))
     {
         <div class="validation">
             <table>
@@ -131,7 +149,7 @@
                 </td>
             </tr>
         </table>
-    </div>    
+    </div>
 
     <div id="popup1" class="overlay">
         <div class="popup">
@@ -146,7 +164,7 @@
                             <a class="authenticationButton" href="#">No</a>
                         </td>
                         <td>
-                            @using (Html.BeginForm("DeleteAccount", "User", new { Model.Id }))
+                            @using (Html.BeginForm("DeleteAccount", "User"))
                             {
                                 <button class="authenticationButton" type="submit">Yes</button>
                             }

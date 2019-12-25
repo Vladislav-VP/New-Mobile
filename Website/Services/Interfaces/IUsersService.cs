@@ -9,26 +9,30 @@ namespace Services.Interfaces
     {
         Task<ResponseLoginUserView> Login(RequestLoginUserView user, ClaimsPrincipal principal);
 
-        HomeInfoUserView GetUserHomeInfo(ClaimsPrincipal claims);
+        Task<HomeInfoUserView> GetUserHomeInfo(ClaimsPrincipal claims);
 
         Task<ResponseCreateUserView> Register(RequestCreateUserView user);
 
-        SettingsUserView GetUserSettings(ClaimsPrincipal principal);
+        Task<SettingsUserView> GetUserSettings(ClaimsPrincipal principal);
 
         Task<ResponseChangeNameUserView> ChangeUsername(RequestChangeNameUserView user, ClaimsPrincipal principal);
 
         Task<ResponseChangePasswordUserView> ChangePassword(RequestChangePasswordUserView user, ClaimsPrincipal principal);
 
-        ResponseChangeProfilePhotoUserView ChangeProfilePhoto(RequestChangeProfilePhotoUserView user, ClaimsPrincipal principal);
+        Task<ResponseChangeProfilePhotoUserView> ChangeProfilePhoto(RequestChangeProfilePhotoUserView user, ClaimsPrincipal principal);
 
         Task DeleteAccount(ClaimsPrincipal principal);
 
-        void RemoveProfilePhoto(ClaimsPrincipal principal);
+        Task RemoveProfilePhoto(ClaimsPrincipal principal);
 
         Task Logout(ClaimsPrincipal principal);
 
         Task<ConfirmEmailUserView> ConfirmEmail(string userId);
 
         Task<ResponseResetPasswordUserView> ResetPassword(RequestResetPasswordUserView requestReset);
+
+        Task<ResponseChangeEmailUserView> ChangeEmail(RequestChangeEmailUserView requestChangeEmail, ClaimsPrincipal principal);
+
+        Task<ConfirmChangeEmailUserView> ConfirmChangeEmail(string userId, string email);
     }
 }
