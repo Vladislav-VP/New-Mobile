@@ -43,7 +43,7 @@ namespace Services.Api
             {
                 result = await _userManager.CreateAsync(user, newUser.Password);
                 user.ConfirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                string url = $"{ConfigSettings.Scheme}/{ConfigSettings.Domain}/api/userapi/ConfirmEmail?userId={user.Id}";
+                string url = $"{ConfigSettings.Scheme}/{ConfigSettings.DomainApi}/api/userapi/ConfirmEmail?userId={user.Id}";
                 string body = $"To confirm your email, follow this <a href='{url}'>link</a>";
                 await _mailService.SendEmailAsync(newUser.Email, "Confirmation", body);
                 await _userManager.UpdateAsync(user);
@@ -236,7 +236,7 @@ namespace Services.Api
                 User user = await _userManager.GetUserAsync(principal);
                 string token = await _userManager.GenerateChangeEmailTokenAsync(user, requestChangeEmail.Email);
                 response.Token = token;
-                string url = $"{ConfigSettings.Scheme}/{ConfigSettings.Domain}/api/userapi/ConfirmChangeEmail?userId={user.Id}&email={requestChangeEmail.Email}";
+                string url = $"{ConfigSettings.Scheme}/{ConfigSettings.DomainApi}/api/userapi/ConfirmChangeEmail?userId={user.Id}&email={requestChangeEmail.Email}";
                 string body = $"To confirm your email, follow this <a href='{url}'>link</a>";
                 await _mailService.SendEmailAsync(requestChangeEmail.Email, "Confirmation", body);
                 user.ConfirmationToken = token;
@@ -283,7 +283,7 @@ namespace Services.Api
                     return response;
                 }
                 string token = await _userManager.GeneratePasswordResetTokenAsync(retrievedUser);
-                string url = $"{ConfigSettings.Scheme}/{ConfigSettings.Domain}/User/ResetPassword?email={user.Email}";
+                string url = $"{ConfigSettings.Scheme}/{ConfigSettings.DomainApi}/User/ResetPassword?email={user.Email}";
                 string body = $"To reset you password, follow this <a href='{url}'>link</a>";
                 await _mailService.SendEmailAsync(user.Email, "Confirmation", body);
                 retrievedUser.ConfirmationToken = token;

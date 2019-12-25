@@ -27,6 +27,8 @@ namespace Services.Interfaces
 
         Task Logout(ClaimsPrincipal principal);
 
+        Task<ConfirmEmailUserView> ConfirmEmail(string userId);
+
         Task<ResponseResetPasswordUserView> ResetPassword(RequestResetPasswordUserView requestReset);
     }
 }

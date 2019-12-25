@@ -16,6 +16,7 @@ using System;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Configuration;
+using Configurations;
 
 namespace Services.UI
 {
@@ -27,9 +28,10 @@ namespace Services.UI
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IConfiguration _configuration;
+        private readonly IMailService _mailService;
 
         public UsersService(IUserRepository userRepository, IImageService imageService, IValidationService validationService,
-            UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
+            UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration, IMailService mailService)
         {
             _userRepository = userRepository;
             _imageService = imageService;
@@ -37,6 +39,7 @@ namespace Services.UI
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
+            _mailService = mailService;
         }
         
         public async Task<ResponseLoginUserView> Login(RequestLoginUserView user, ClaimsPrincipal principal)
@@ -48,12 +51,23 @@ namespace Services.UI
                 responseLogin.Message = responseValidation.Message;
                 return responseLogin;
             }
+
             SignInResult result = await _signInManager.PasswordSignInAsync(user.Name, user.Password, true, false);
-            string id = _userManager.GetUserId(principal);
-            User retrievedUser = _userRepository.FindByName(user.Name);
-            object token = await GenerateJwtToken(retrievedUser.UserName, retrievedUser);
-            user.Id = retrievedUser.Id;
             responseLogin.IsSuccess = result.Succeeded;
+            if (!result.Succeeded)
+            {
+                return responseLogin;
+            }
+            User retrievedUser = _userRepository.FindByName(user.Name);
+            //user.Id = retrievedUser.Id;
+            using (_userManager)
+            {
+                bool isConfirmed = await _userManager.IsEmailConfirmedAsync(retrievedUser);
+                if (!isConfirmed)
+                {
+                    responseLogin.IsSuccess = false;
+                }
+            }
             return responseLogin;
         }
 
@@ -91,12 +105,18 @@ namespace Services.UI
             var responseRegister = new ResponseCreateUserView();
             var newUser = new User
             {
-                UserName = user.Name
+                UserName = user.Name,
+                Email = user.Email
             };
             var result = new IdentityResult();
             using (_userManager)
             {
                 result = await _userManager.CreateAsync(newUser, user.Password);
+                newUser.ConfirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
+                string url = $"{ConfigSettings.Scheme}/{ConfigSettings.Domain}/user/ConfirmEmail?userId={newUser.Id}";
+                string body = $"To confirm your email, follow this <a href='{url}'>link</a>";
+                await _mailService.SendEmailAsync(newUser.Email, "Confirmation", body);
+                await _userManager.UpdateAsync(newUser);
             }
             if (!result.Succeeded)
             {
@@ -249,6 +269,28 @@ namespace Services.UI
                 responseReset.Message = result.Errors.FirstOrDefault()?.Description;
             }
             return responseReset;
+        }
+
+        public async Task<ConfirmEmailUserView> ConfirmEmail(string userId)
+        {
+            var confirmation = new ConfirmEmailUserView();
+            var result = new IdentityResult();
+            using (_userManager)
+            {
+                User user = await _userManager.FindByIdAsync(userId);
+                if (user == null)
+                {
+                    confirmation.Message = "User not found";
+                    return confirmation;
+                }
+                result = await _userManager.ConfirmEmailAsync(user, user.ConfirmationToken);
+            }
+            confirmation.IsSuccess = result.Succeeded;
+            if (!result.Succeeded)
+            {
+                confirmation.Message = result.Errors.FirstOrDefault()?.Description;
+            }
+            return confirmation;
         }
 
         private string RewriteImageUrl(string oldUrl)

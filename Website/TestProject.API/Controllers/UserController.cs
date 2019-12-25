@@ -50,7 +50,6 @@ namespace TestProject.API.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(RequestLoginUserView user)
         {
             ResponseLoginUserView response = await _usersService.Login(user, User);
@@ -59,10 +58,11 @@ namespace TestProject.API.Controllers
                 ModelState.AddModelError("Error", response.Message);
                 return View("Index");
             }
-            return RedirectToAction("HomeInfo", new { user.Id });
+            return RedirectToAction("HomeInfo");
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Create(RequestCreateUserView user)
         {
             var response = await _usersService.Register(user);
@@ -157,6 +157,14 @@ namespace TestProject.API.Controllers
                 return View(requestReset);
             }
             return RedirectToAction("Login");
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail(string userId)
+        {
+            await _usersService.ConfirmEmail(userId);
+            return View();
         }
     }
 }
