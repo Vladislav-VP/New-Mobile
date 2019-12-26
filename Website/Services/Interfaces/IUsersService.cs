@@ -34,5 +34,7 @@ namespace Services.Interfaces
         Task<ResponseChangeEmailUserView> ChangeEmail(RequestChangeEmailUserView requestChangeEmail, ClaimsPrincipal principal);
 
         Task<ConfirmChangeEmailUserView> ConfirmChangeEmail(string userId, string email);
+
+        Task<ResponseForgotPasswordUserView> ForgotPassword(RequestForgotPasswordUserView user);
     }
 }

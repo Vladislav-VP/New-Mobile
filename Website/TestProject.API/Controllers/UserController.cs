@@ -176,6 +176,7 @@ namespace TestProject.API.Controllers
             return RedirectToAction("Settings", "User");
         }
 
+        [HttpGet]
         public async Task<IActionResult> ConfirmChangeEmail(string userId, string email)
         {
             ConfirmChangeEmailUserView confirmation = await _usersService.ConfirmChangeEmail(userId, email);
@@ -184,6 +185,19 @@ namespace TestProject.API.Controllers
                 return BadRequest();
             }
             return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> ForgotPassword(RequestForgotPasswordUserView user)
+        {
+            ResponseForgotPasswordUserView response = await _usersService.ForgotPassword(user);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -311,6 +311,35 @@ namespace Services.UI
             return confirmation;
         }
 
+        public async Task<ResponseForgotPasswordUserView> ForgotPassword(RequestForgotPasswordUserView user)
+        {
+            var response = new ResponseForgotPasswordUserView
+            {
+                Message = $"Recovery link was to sent to '{user.Email}'"
+            };
+            using (_userManager)
+            {
+                User retrievedUser = await _userManager.FindByEmailAsync(user.Email);
+                if (retrievedUser == null)
+                {
+                    return response;
+                }
+                bool confirmed = await _userManager.IsEmailConfirmedAsync(retrievedUser);
+                if (!confirmed)
+                {
+                    return response;
+                }
+                string token = await _userManager.GeneratePasswordResetTokenAsync(retrievedUser);
+                string url = $"{ConfigSettings.Scheme}/{ConfigSettings.Domain}/User/ResetPassword?email={user.Email}";
+                string body = $"To reset you password, follow this <a href='{url}'>link</a>";
+                await _mailService.SendEmailAsync(user.Email, "Confirmation", body);
+                retrievedUser.ConfirmationToken = token;
+                await _userManager.UpdateAsync(retrievedUser);
+            }
+            response.IsSuccess = true;
+            return response;
+        }
+
         private string RewriteImageUrl(string oldUrl)
         {
             int startIndex = oldUrl.LastIndexOf('\\');
